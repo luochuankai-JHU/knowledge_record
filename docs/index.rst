@@ -16,31 +16,31 @@
    :caption: 机器学习
    :maxdepth: 2
 
-   pipeline/diffusion
-   pipeline/functional
+   machine_learning
 
 
 .. toctree::
    :caption: CV
    :maxdepth: 1
    
-   datasets/CoRR/CoRR
-   datasets/openfMRI/sssss
-   datasets/KKI/KKI2009
-   datasets/NKIENH/NKIENH
+   cv
    
    
 .. toctree::
    :caption: NLP
    :maxdepth: 2
 
-   pipeline/diffusion
-   pipeline/functional
+   nlp
    
 .. toctree::
    :caption: 题目
    :maxdepth: 2
 
-   pipeline/diffusion
-   pipeline/functional
+   leetcode
+   
+.. toctree::
+   :caption: python零散
+   :maxdepth: 2
+
+   python
    
