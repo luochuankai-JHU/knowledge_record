@@ -17,13 +17,13 @@ import sys
 
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('..'))
-sys.path.insert(0, os.path.abspath("../ndmg/"))
+sys.path.insert(0, os.path.abspath("../knowledge_record/"))
 
 # -- Project information -----------------------------------------------------
 
-project = u'm2g'
-copyright = '2020, Gregory Kiar, Eric Bridgeford, Chuankai Luo, Fang Cai'
-author = u'Gregory Kiar, Eric Bridgeford, Chuankai Luo, Fang Cai'
+project = u'knowledge_record'
+copyright = '2020, Chuankai Luo'
+author = u'Chuankai Luo'
 
 # The short X.Y version
 version = u''
