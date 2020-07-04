@@ -23,24 +23,24 @@
    :caption: CV
    :maxdepth: 1
    
-   cv
+   cv/cv
    
    
 .. toctree::
    :caption: NLP
    :maxdepth: 2
 
-   nlp
+   nlp/nlp
    
 .. toctree::
    :caption: 题目
    :maxdepth: 2
 
-   leetcode
+   leetcode/leetcode
    
 .. toctree::
    :caption: python零散
    :maxdepth: 2
 
-   python
+   python/python
    
