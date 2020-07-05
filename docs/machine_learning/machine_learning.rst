@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 ******************
-machine_learning
+Machine_Learning
 ******************
 
 ensemble

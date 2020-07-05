@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 ******************
-leetcode
+Leetcode
 ******************
 
 二分查找类
@@ -14,7 +14,7 @@ leetcode
 
 二分查找
 --------------
-二分查找::
+二分查找:
 
 	def binary_search(target, array):
 		l = 0
