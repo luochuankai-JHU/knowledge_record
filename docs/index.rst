@@ -16,12 +16,12 @@
    :caption: 机器学习
    :maxdepth: 2
 
-   machine_learning
+   machine_learning/machine_learning
 
 
 .. toctree::
    :caption: CV
-   :maxdepth: 1
+   :maxdepth: 2
    
    cv/cv
    
