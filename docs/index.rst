@@ -39,7 +39,7 @@
    leetcode/leetcode
    
 .. toctree::
-   :caption: python零散
+   :caption: 一些零散记录
    :maxdepth: 2
 
    python/python

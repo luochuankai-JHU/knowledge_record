@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 ******************
-python零散
+一些零散记录
 ******************
 
 
