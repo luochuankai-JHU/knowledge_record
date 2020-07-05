@@ -62,9 +62,11 @@ Padding
 	
 .. image:: ../../_static/cv/sigmoid.png
 	:align: center
+	:width: 400
 
 .. image:: ../../_static/cv/softmax.png
 	:align: center
+	:width: 400
 	
 
 
