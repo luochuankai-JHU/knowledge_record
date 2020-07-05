@@ -11,6 +11,12 @@ GRU LSTM BRNN
 =====================
 吴恩达https://www.bilibili.com/video/BV1F4411y7BA?p=9
 
+.. image:: ../../_static/nlp/GRULSTM.png
+	:align: center
+
+.. image:: ../../_static/nlp/lstm.png
+	:align: center
+
  
 
  

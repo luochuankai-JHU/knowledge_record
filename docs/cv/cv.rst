@@ -60,6 +60,15 @@ Padding
 .. image:: ../../_static/cv/relu.png
 	:align: center
 	
+.. image:: ../../_static/cv/sigmoid.png
+	:align: center
+
+.. image:: ../../_static/cv/softmax.png
+	:align: center
+	
+
+
+	
 | tanh激活函数得到的回归线是一条曲线，而ReLU激活函数得到的是由一段一段直线构成的回归线。
 | Relu 速度快  但是容易导致神经元坏死  因为一旦变成0以后梯度就永远为0了
 
@@ -94,9 +103,16 @@ Padding
 | •	SGD通常训练时间更长，但是在好的初始化和学习率调度方案的情况下，结果更可靠
 
 | Momentum
-
+.. image:: ../../_static/cv/Momentum.png
+	:align: center
+	
 | Adagrad
-
+.. image:: ../../_static/cv/Adagrad.png
+	:align: center
+	
+| RMSprop
+.. image:: ../../_static/cv/RMSPROP.png
+	:align: center
 
 
 
@@ -116,48 +132,67 @@ Padding
 | 三、现了跨通道的信息组合，并增加了非线性特征
 | 使用1*1卷积核，实现降维和升维的操作其实就是channel间信息的线性组合变化，3*3，64channels的卷积核前面添加一个1*1，28channels的卷积核，就变成了3*3，28channels的卷积核，原来的64个channels就可以理解为跨通道线性组合变成了28channels，这就是通道间的信息交互。因为1*1卷积核，可以在保持feature map尺度不变的（即不损失分辨率）的前提下大幅增加非线性特性（利用后接的非线性激活函数），把网络做的很deep，增加非线性特性。
 
+.. image:: ../../_static/cv/1x1.png
+	:align: center
+
 
 AUC F1 等评价指标
 ------------------------  
-F1 score
-https://www.zhihu.com/question/39840928
+| F1 score
+| https://www.zhihu.com/question/39840928
  
-TPrate就是 预测是对的也真是对的 除以 真的是对的 TP/所有原本的T
-FPrate就是 预测是对的但是是错的 除以 真的是错的 FP/所有原本的F
-AUC的值即ROC曲线下的面积
-AUC的优势，AUC的计算方法同时考虑了分类器对于正例和负例的分类能力，在样本不平衡的情况下，依然能够对分类器作出合理的评价
-AUC的物理意义是任取一个正例和任取一个负例，正例排序在负例之前的概率。
-AUC不受数据分布的影响
-AUC物理意义 
-精度
-•	Accuracy
-定义：(TP+TN)/(TP+FN+FP+TN)
-即所有分类正确的样本占全部样本的比例
-精确率
-•	Precision、查准率
-定义：(TP)/(TP+FP)
-即预测是正例的结果中，确实是正例的比例
-召回率
-•	Recall、查全率
-定义：(TP)/(TP+FN)
-即所有正例的样本中，被找出的比例
+| TPrate就是 预测是对的也真是对的 除以 真的是对的 TP/所有原本的T
+| FPrate就是 预测是对的但是是错的 除以 真的是错的 FP/所有原本的F
 
-F1 score
-F1 = 2TP / (2TP + FP + FN)
-召回率Recall和精确率Precision的几何平均数
-
-作者：涛O_O
-链接：https://www.jianshu.com/p/b425f5d9fae0
-来源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+.. image:: ../../_static/cv/TPrate.png
+	:align: center
 
 
-Sigmoid softmax logistics    loss
+| AUC的值即ROC曲线下的面积
+| AUC的优势，AUC的计算方法同时考虑了分类器对于正例和负例的分类能力，在样本不平衡的情况下，依然能够对分类器作出合理的评价
+| AUC的物理意义是任取一个正例和任取一个负例，正例排序在负例之前的概率。
+| AUC不受数据分布的影响
+| AUC物理意义 
+
+.. image:: ../../_static/cv/AUC.png
+	:align: center
+
+| 精度
+| •	Accuracy
+| 定义：(TP+TN)/(TP+FN+FP+TN)
+| 即所有分类正确的样本占全部样本的比例
+| 精确率
+| •	Precision、查准率
+| 定义：(TP)/(TP+FP)
+| 即预测是正例的结果中，确实是正例的比例
+| 召回率
+| •	Recall、查全率
+| 定义：(TP)/(TP+FN)
+| 即所有正例的样本中，被找出的比例
+
+| F1 score
+| F1 = 2TP / (2TP + FP + FN)
+| 召回率Recall和精确率Precision的几何平均数
+
+| 链接：https://www.jianshu.com/p/b425f5d9fae0
+
+
+
+
  
  
+损失函数
+--------------
+.. image:: ../../_static/cv/softmaxloss.png
+	:align: center
+
+.. image:: ../../_static/cv/crossentropyloss.png
+	:align: center
 
 
 初始化
 ----------------
 https://blog.csdn.net/xxy0118/article/details/84333635
  
+.. image:: ../../_static/cv/初始化.png
+	:align: center
