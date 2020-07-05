@@ -12,8 +12,9 @@ leetcode
 
 
 
-二分查找::
+二分查找
 --------------
+ ::
 	def binary_search(target, array):
 		l = 0
 		r = len(array)-1
