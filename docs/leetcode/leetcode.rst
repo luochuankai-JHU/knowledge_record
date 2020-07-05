@@ -14,7 +14,8 @@ leetcode
 
 二分查找
 --------------
- ::
+二分查找::
+
 	def binary_search(target, array):
 		l = 0
 		r = len(array)-1
@@ -30,14 +31,13 @@ leetcode
 
 
 快排
+----------------
 https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 
 树的遍历：
+----------------------
 https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/di-gui-he-die-dai-by-powcai-5/
 
-或另一篇word文档
-
-https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/di-gui-he-die-dai-by-powcai-5/
 
 思路:
 两种方法实现, 递归 和 迭代
