@@ -36,6 +36,215 @@ Leetcode
 		return False
 
 
+搜索旋转排序数组
+------------------------------------
+leetcode 33. 
+
+假设按照升序排序的数组在预先未知的某个点上进行了旋转。
+
+( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。
+
+搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。
+
+你可以假设数组中不存在重复的元素。
+
+你的算法时间复杂度必须是 O(log n) 级别。::
+
+	class Solution:
+		def search(self, nums: List[int], target: int) -> int:
+			def binary_search(List, target):
+				l, r = 0, len(List) - 1
+				while l <= r:
+					mid = (l + r) // 2
+					if List[mid] == target:
+						return mid
+					elif List[mid] > target:
+						r = mid - 1
+					elif List[mid] < target:
+						l = mid + 1
+				return -1
+			
+			l,r = 0,len(nums)-1
+			while l<=r:
+				mid = (l+r)//2
+				if nums[mid]>=nums[l]:
+					# 左边有序
+					if nums[l]<=target<=nums[mid]:
+						return binary_search(nums[l:mid+1], target)+l if binary_search(nums[l:mid+1], target)!=-1 else -1
+					else:
+						l = mid+1
+				elif nums[mid]<=nums[r]:
+					# 右边有序
+					if nums[mid]<=target<=nums[r]:
+						return binary_search(nums[mid:r+1], target)+mid if binary_search(nums[mid:r+1], target)!=-1 else -1
+					else:
+						r = mid-1
+			return -1
+
+
+在排序数组中查找元素的第一个和最后一个位置
+---------------------------------------------------------
+leetcode 34. 
+
+给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
+
+你的算法时间复杂度必须是 O(log n) 级别。
+
+如果数组中不存在目标值，返回 [-1, -1]。::
+
+	class Solution:
+		def searchRange(self, nums: List[int], target: int) -> List[int]:
+			def get_left(nums,target):
+				l,r = 0,len(nums)-1
+				res = -1
+				while l<=r:
+					mid = (l+r)//2
+					if nums[mid]==target:
+						res = mid
+						r = mid - 1
+						if mid==0:
+							return res
+					elif  nums[mid]<target:
+						l = mid + 1
+					elif nums[mid]>target:
+						r = mid - 1
+				return res
+
+			def get_right(nums,target):
+				l,r = 0,len(nums)-1
+				find = 0
+				res = -1
+				while l<=r:
+					mid = (l+r)//2
+					if nums[mid]==target:
+						res = mid
+						l = mid + 1
+						if mid==len(nums)-1:
+							return res
+					elif  nums[mid]<target:
+						l = mid + 1
+					elif nums[mid]>target:
+						r = mid - 1
+				return res
+
+			left = get_left(nums,target)
+			if left==-1:
+				return [-1,-1]
+			right = get_right(nums,target)
+			return [left,right]
+
+
+
+
+搜索插入位置
+-------------------------------
+
+leetcode 35. 
+
+给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+
+你可以假设数组中无重复元素。::
+
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        l,r = 0, len(nums)-1
+        while l<=r:
+            mid = (l+r)//2
+            if nums[mid]==target:
+                return mid
+            elif nums[mid]>target:
+                r = mid - 1
+            else:
+                l = mid + 1
+        return l
+
+
+
+
+
+
+
+
+
+寻找旋转排序数组中的最小值
+--------------------------------------------
+leetcode 153. 
+
+假设按照升序排序的数组在预先未知的某个点上进行了旋转。
+
+( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。
+
+请找出其中最小的元素。
+
+你可以假设数组中不存在重复元素。::
+
+	class Solution:
+		def findMin(self, nums: List[int]) -> int:
+			l, r = 0, len(nums) - 1
+			while l<=r:
+				mid = (l+r)//2
+				if nums[mid]>nums[r]:
+					l = mid + 1
+				elif nums[mid]<nums[r]:
+					r = mid
+				if l == r-1 or l==r:
+					return min(nums[l], nums[r])
+
+
+搜索旋转排序数组 II
+----------------------------------
+leetcode 81. 
+
+.. image:: ../../_static/leetcode/81.png
+	:align: center
+
+假设按照升序排序的数组在预先未知的某个点上进行了旋转。
+
+( 例如，数组 [0,0,1,2,2,5,6] 可能变为 [2,5,6,0,0,1,2] )。
+
+编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 true，否则返回 false。::
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> bool:
+        def binary_search(nums,target):
+            l, r = 0, len(nums) - 1
+            while l <= r:
+                mid = (l+r) // 2
+                if nums[mid] == target:
+                    return True
+                elif nums[mid] < target:
+                    l = mid + 1
+                elif nums[mid] > target:
+                    r = mid -1 
+            return False
+        
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = (l+r) // 2
+            if target in [nums[mid],nums[r],nums[l]]:
+                return True
+            if nums[r] == nums[l]:
+                l = l + 1
+                r = r - 1
+                continue 
+            if nums[mid] <= nums[r]:
+                # 右边有序
+                if nums[mid] < target < nums[r]:
+                    return binary_search(nums[mid:r],target)
+                else:
+                    r = mid -1
+            else:
+                # 左边有序
+                if nums[l] < target < nums[mid]:
+                    return binary_search(nums[l:mid],target)
+                else:
+                    l = mid + 1
+        return False
+
+
+	
+	
+
 快排
 ====================
 https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
@@ -113,6 +322,16 @@ class Solution(object):
                 p = p.left
             p = stack.pop().right
         return res
+
+中序遍历
+---------------------
+
+后续遍历
+----------------------
+
+层次遍历
+-----------------------
+
 		
 二叉树的前序,中序,后序,层序遍历的递归和迭代,一起打包送个你们!嘻嘻
 

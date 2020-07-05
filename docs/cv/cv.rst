@@ -53,12 +53,23 @@ Padding
 -------------
 
 | 激活函数是用来加入非线性因素的，解决线性模型所不能解决的问题。
+
 | sigmoid函数
 | 前面“逻辑回归”中有介绍，非线性，输出空间在【0,1】可以直接作为输出函数，但是存在一个问题：当x很大或者很小时，函数的梯度会变得很小，利用梯度下降去收敛误差变得非常缓慢。
+
 | Relu
 
 .. image:: ../../_static/cv/relu.png
 	:align: center
+	
+| Relu 速度快  但是容易导致神经元坏死  因为一旦变成0以后梯度就永远为0了
+
+| leakyRelu：
+| 数学表达式：y = max(0, x) + leak*min(0,x)  （leak是一个很小的常数，这样保留了一些负轴的值，使得负轴的信息不会全部丢失）
+
+.. image:: ../../_static/cv/leakyRelu.png
+	:align: center
+	
 	
 .. image:: ../../_static/cv/sigmoid.png
 	:align: center
@@ -72,13 +83,7 @@ Padding
 
 	
 | tanh激活函数得到的回归线是一条曲线，而ReLU激活函数得到的是由一段一段直线构成的回归线。
-| Relu 速度快  但是容易导致神经元坏死  因为一旦变成0以后梯度就永远为0了
 
-| leakyRelu：
-| 数学表达式：y = max(0, x) + leak*min(0,x)  （leak是一个很小的常数，这样保留了一些负轴的值，使得负轴的信息不会全部丢失）
-
-.. image:: ../../_static/cv/leakyRelu.png
-	:align: center
 
 
 
