@@ -190,9 +190,30 @@ AUC F1 等评价指标
 	:align: center
 
 
+这里要再多写点，包括为什么回归用CE，分类不能CE
+
+包括项目里用的 focal loss
+
 初始化
 ----------------
 https://blog.csdn.net/xxy0118/article/details/84333635
  
 .. image:: ../../_static/cv/初始化.png
 	:align: center
+
+
+
+反向传播的推导
+------------------------
+
+以前做过的作业  gradescope
+
+.. image:: ../../_static/cv/homework1.png
+	:align: center
+	
+.. image:: ../../_static/cv/homework2.png
+	:align: center
+
+CV的一些知识
+===================
+AlexNet  VGG  GoogleNet  ResNet  DenseNet

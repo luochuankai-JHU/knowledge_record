@@ -7,6 +7,12 @@
 Leetcode
 ******************
 
+
+**面试写题的时候可以把注释也写上**
+
+**写题的时候，在最前面写几个例子**
+
+
 二分查找类
 ==================
 
@@ -14,7 +20,7 @@ Leetcode
 
 二分查找
 --------------
-二分查找:
+二分查找::
 
 	def binary_search(target, array):
 		l = 0
@@ -31,18 +37,47 @@ Leetcode
 
 
 快排
-----------------
+====================
 https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 
+快排::
+
+	def parttion(v, left, right):
+		key = v[left]
+		low = left
+		high = right
+		while low < high:
+			while (low < high) and (v[high] >= key):
+				high -= 1
+			v[low] = v[high]
+			while (low < high) and (v[low] <= key):
+				low += 1
+			v[high] = v[low]
+			v[low] = key
+		return low
+	def quicksort(v, left, right):
+		if left < right:
+			p = parttion(v, left, right)
+			quicksort(v, left, p-1)
+			quicksort(v, p+1, right)
+		return v
+
+	s = [6, 8, 1, 4, 3, 9, 5, 4, 11, 2, 2, 15, 6]
+	print("before sort:",s)
+	s1 = quicksort(s, left = 0, right = len(s) - 1)
+	print("after sort:",s1)
+
+
 树的遍历：
-----------------------
+======================
+
 https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/di-gui-he-die-dai-by-powcai-5/
 
 
-思路:
-两种方法实现, 递归 和 迭代
+前序遍历
+---------------
 
-递归
+递归::
 
 class Solution(object):
     def preorderTraversal(self, root):
@@ -58,9 +93,9 @@ class Solution(object):
             helper(root.right)
         helper(root)
         return res
-迭代
+		
+迭代::
 
-pythonjava
 
 class Solution(object):
     def preorderTraversal(self, root):
@@ -78,6 +113,7 @@ class Solution(object):
                 p = p.left
             p = stack.pop().right
         return res
+		
 二叉树的前序,中序,后序,层序遍历的递归和迭代,一起打包送个你们!嘻嘻
 
 144. 二叉树的前序遍历
@@ -295,7 +331,8 @@ class Solution:
         return res
 
 
-
+回文
+================
 
 
 

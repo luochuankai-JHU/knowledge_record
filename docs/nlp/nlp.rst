@@ -23,3 +23,23 @@ GRU LSTM BRNN
 
 bert
 =================
+
+transformer
+-----------------
+
+知识蒸馏
+
+剪枝
+
+crf
+n gram
+attention
+transformer
+gpt
+bert
+bagofword
+fasttext
+glove
+elmo
+知识图谱
+模型压缩的相关知识三大角度：蒸馏，剪枝，量化

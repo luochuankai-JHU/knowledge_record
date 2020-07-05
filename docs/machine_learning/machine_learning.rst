@@ -45,6 +45,7 @@ GBDT、Adboost、xgboost
 
 
 | Xgboost 为什么用二阶泰勒展开
+
 | 二阶信息本身就能让梯度收敛更快更准确。这一点在优化算法里的牛顿法里已经证实了。可以简单认为一阶导指引梯度方向，二阶导指引梯度方向如何变化。这是从二阶导本身的性质，也就是为什么要用泰勒二阶展开的角度来说的
 
 | 收敛速度上有提升
@@ -87,6 +88,25 @@ SVM
 
 .. image:: ../../_static/machine_learning/SVM.png
 	:align: center
+	
+	
+	
+聚类
+-------------
+DBSCAN
+
+GMM
+
+两种聚类的思想，评价，具体实现
+
+https://www.nowcoder.com/discuss/432266?type=post&order=create&pos=&page=0&channel=666&source_id=search_post
+
+https://www.jianshu.com/p/78e9e1b8553a
+
+
+贝叶斯
+----------------
+李航统计学习
 	
 其他常见问题
 ======================
@@ -143,4 +163,25 @@ SVM
 
 
 | 维度低的时候，二维 可以直接用高斯函数的3希格玛原则，低维，KNN，实际上是计算相似度，再高维的话可以isolation Forrest， 之后两个月我可以学一下  （pca或者autoencoder降维 再高斯）
+
+sklearn
+
+https://scikit-learn.org/stable/modules/outlier_detection.html#overview-of-outlier-detection-methods
+
+
+
+
+各种距离 欧式 余弦
+-----------------------
+
+启发式 生成式算法
+-----------------------------
+
+
+
+
+
+推荐系统
+=====================
+Deepfm,Wide&Deep,YoutubeNet，PNN
 
