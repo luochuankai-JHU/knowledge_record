@@ -145,18 +145,18 @@ leetcode 35.
 
 你可以假设数组中无重复元素。::
 
-class Solution:
-    def searchInsert(self, nums: List[int], target: int) -> int:
-        l,r = 0, len(nums)-1
-        while l<=r:
-            mid = (l+r)//2
-            if nums[mid]==target:
-                return mid
-            elif nums[mid]>target:
-                r = mid - 1
-            else:
-                l = mid + 1
-        return l
+	class Solution:
+		def searchInsert(self, nums: List[int], target: int) -> int:
+			l,r = 0, len(nums)-1
+			while l<=r:
+				mid = (l+r)//2
+				if nums[mid]==target:
+					return mid
+				elif nums[mid]>target:
+					r = mid - 1
+				else:
+					l = mid + 1
+			return l
 
 
 
@@ -195,8 +195,10 @@ leetcode 153.
 ----------------------------------
 leetcode 81. 
 
+
 .. image:: ../../_static/leetcode/81.png
 	:align: center
+
 
 假设按照升序排序的数组在预先未知的某个点上进行了旋转。
 
@@ -204,42 +206,42 @@ leetcode 81.
 
 编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 true，否则返回 false。::
 
-class Solution:
-    def search(self, nums: List[int], target: int) -> bool:
-        def binary_search(nums,target):
-            l, r = 0, len(nums) - 1
-            while l <= r:
-                mid = (l+r) // 2
-                if nums[mid] == target:
-                    return True
-                elif nums[mid] < target:
-                    l = mid + 1
-                elif nums[mid] > target:
-                    r = mid -1 
-            return False
-        
-        l, r = 0, len(nums) - 1
-        while l <= r:
-            mid = (l+r) // 2
-            if target in [nums[mid],nums[r],nums[l]]:
-                return True
-            if nums[r] == nums[l]:
-                l = l + 1
-                r = r - 1
-                continue 
-            if nums[mid] <= nums[r]:
-                # 右边有序
-                if nums[mid] < target < nums[r]:
-                    return binary_search(nums[mid:r],target)
-                else:
-                    r = mid -1
-            else:
-                # 左边有序
-                if nums[l] < target < nums[mid]:
-                    return binary_search(nums[l:mid],target)
-                else:
-                    l = mid + 1
-        return False
+	class Solution:
+		def search(self, nums: List[int], target: int) -> bool:
+			def binary_search(nums,target):
+				l, r = 0, len(nums) - 1
+				while l <= r:
+					mid = (l+r) // 2
+					if nums[mid] == target:
+						return True
+					elif nums[mid] < target:
+						l = mid + 1
+					elif nums[mid] > target:
+						r = mid -1 
+				return False
+			
+			l, r = 0, len(nums) - 1
+			while l <= r:
+				mid = (l+r) // 2
+				if target in [nums[mid],nums[r],nums[l]]:
+					return True
+				if nums[r] == nums[l]:
+					l = l + 1
+					r = r - 1
+					continue 
+				if nums[mid] <= nums[r]:
+					# 右边有序
+					if nums[mid] < target < nums[r]:
+						return binary_search(nums[mid:r],target)
+					else:
+						r = mid -1
+				else:
+					# 左边有序
+					if nums[l] < target < nums[mid]:
+						return binary_search(nums[l:mid],target)
+					else:
+						l = mid + 1
+			return False
 
 
 	
@@ -288,20 +290,20 @@ https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/di-gui-
 
 递归::
 
-class Solution(object):
-    def preorderTraversal(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[int]
-        """
-        res = []
-        def helper(root):
-            if not root:return 
-            res.append(root.val)
-            helper(root.left)
-            helper(root.right)
-        helper(root)
-        return res
+	class Solution(object):
+		def preorderTraversal(self, root):
+			"""
+			:type root: TreeNode
+			:rtype: List[int]
+			"""
+			res = []
+			def helper(root):
+				if not root:return 
+				res.append(root.val)
+				helper(root.left)
+				helper(root.right)
+			helper(root)
+			return res
 		
 迭代::
 
