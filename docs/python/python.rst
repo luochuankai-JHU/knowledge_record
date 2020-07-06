@@ -40,6 +40,6 @@ https://www.cnblogs.com/zzqcn/p/5096876.html#_label7
 https://blog.csdn.net/c9Yv2cf9I06K2A9E/article/details/103900689
 
 
-.. image:: ../../_static/cv/entity linking.png
+.. image:: ../../_static/python/entity linking.png
 	:align: center
 
