@@ -553,8 +553,277 @@ class Solution:
         return res
 
 
+相同的树
+----------------
+leetcode 100. 
+
+给定两个二叉树，编写一个函数来检验它们是否相同。
+
+如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。::
+
+	# Definition for a binary tree node.
+	# class TreeNode:
+	#     def __init__(self, x):
+	#         self.val = x
+	#         self.left = None
+	#         self.right = None
+
+	class Solution:
+		def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+			if (p==None and q==None):
+				return True
+			if p==None or q == None:
+				return False
+			if p.val!= q.val:
+				return False
+			return self.isSameTree(p.left,q.left) and self.isSameTree(p.right,q.right)
+
+
+树的子结构
+----------------
+
+剑指 Offer 26. 
+
+输入两棵二叉树A和B，判断B是不是A的子结构。(约定空树不是任意一个树的子结构)
+
+B是A的子结构， 即 A中有出现和B相同的结构和节点值。::
+
+	# Definition for a binary tree node.
+	# class TreeNode:
+	#     def __init__(self, x):
+	#         self.val = x
+	#         self.left = None
+	#         self.right = None
+
+	class Solution:
+		def judge(self,a,b):
+			if not b:
+				return True
+			if not a:
+				return False
+			if a.val!= b.val:
+				return False
+			return self.judge(a.left,b.left) and self.judge(a.right,b.right)
+
+		def isSubStructure(self, A: TreeNode, B: TreeNode) -> bool:
+			if (B==None or A==None):
+				return False
+			if self.judge(A,B):
+				return True
+			return self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B)
+
+
+我的题解
+
+https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/solution/chao-hao-dong-ke-fu-yong-tong-guo-issametreena-dao/
+
+| 解题思路
+| 因为刚刚做完 leetcode第100题----isSameTree ： https://leetcode-cn.com/problems/same-tree/
+| 所以合理的衍生一下，非常的好理解。
+
+| 最开始的想法是：我们对A中的结点去遍历，每个结点都调用之前写的 isSameTree，如果A中的某个结点和B完全一样，那不就找到了吗！
+| 后来发现有个bug，就是 B不仅可以是 A的末端，也可以是中间的某段。（A可以比B 多一点分叉）
+| 所以只要把isSameTree的条件放宽一点就好了：不需要完全相等，只要在B的所有结点内都相等就好了。
+| isSameTree函数 放宽条件，改写成本文中的judge函数。
+
+| 第一个judge函数是判断，第二个就是不断的去调用。
+
+| 作者：luock
+| 链接：https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/solution/chao-hao-dong-ke-fu-yong-tong-guo-issametreena-dao/
+| 来源：力扣（LeetCode）
+| 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+平衡二叉树
+---------------
+剑指 Offer 55 - II. 
+
+输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。::
+
+	# Definition for a binary tree node.
+	# class TreeNode:
+	#     def __init__(self, x):
+	#         self.val = x
+	#         self.left = None
+	#         self.right = None
+
+	class Solution:
+		def isBalanced(self, root: TreeNode) -> bool:
+			def helper(root):
+				if not root:
+					return 0
+				left = helper(root.left)
+				if left == -1:
+					return -1
+				right = helper(root.right)
+				if right ==-1:
+					return -1
+				if abs(left-right)>1:
+					return -1
+				else:
+					return max(left,right)+1
+			depth = helper(root)
+			if depth ==-1:
+				return False
+			else:
+				return True
+
+
+对称的二叉树
+-----------------
+
+剑指 Offer 28. 
+
+请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的::
+
+	# Definition for a binary tree node.
+	# class TreeNode:
+	#     def __init__(self, x):
+	#         self.val = x
+	#         self.left = None
+	#         self.right = None
+
+	class Solution:
+		def check_list(self,list_level):
+			lens = len(list_level)
+			# if lens%2 !=0:
+			#     return False
+			for i in range(0,lens//2):
+				if list_level[i]!=list_level[lens-i-1]:
+					return False
+			return True
+
+		def isSymmetric(self, root: TreeNode) -> bool:
+			if not root:
+				return True
+			this_level = [root]
+			while this_level:
+				temp = []
+				next_level = []
+				for node in this_level:
+					if not node:
+						temp.append(None)
+					else:
+						temp.append(node.val)
+						next_level.append(node.left)
+						next_level.append(node.right)
+				if self.check_list(temp)==False:
+					return False
+				this_level = next_level
+			return True
+
+
+二叉树的镜像	
+-------------------		
+剑指 Offer 27.
+
+请完成一个函数，输入一个二叉树，该函数输出它的镜像。::
+
+	# Definition for a binary tree node.
+	# class TreeNode:
+	#     def __init__(self, x):
+	#         self.val = x
+	#         self.left = None
+	#         self.right = None
+
+	class Solution:
+		def mirrorTree(self, root: TreeNode) -> TreeNode:
+			'''
+			递归
+			'''
+			# if not root:
+			#     return None
+			# root.left,root.right = self.mirrorTree(root.right),self.mirrorTree(root.left)
+			# return root
+			'''
+			迭代
+			'''
+			if not root:
+				return None
+			queue = [root]
+			while queue:
+				node = queue.pop(0)
+				if node:
+					node.left,node.right = node.right, node.left
+					queue.append(node.left)
+					queue.append(node.right)
+			return root
+
+
+从前序与中序遍历序列构造二叉树
+----------------------------------------
+
+leetcode 105. 
+
+根据一棵树的前序遍历与中序遍历构造二叉树。
+
+注意:
+
+你可以假设树中没有重复的元素。::
+
+	# Definition for a binary tree node.
+	# class TreeNode:
+	#     def __init__(self, x):
+	#         self.val = x
+	#         self.left = None
+	#         self.right = None
+
+	class Solution:
+		def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+			# if not (preorder and inorder):
+			#     return None
+			# root = TreeNode(preorder[0])
+			# mid_idx = inorder.index(preorder[0])
+			# root.left = self.buildTree(preorder[1:mid_idx+1],inorder[:mid_idx])
+			# root.right = self.buildTree(preorder[mid_idx+1:],inorder[mid_idx+1:])
+			# return root
+			def building(preorder,inorder):
+				if not (preorder and inorder):
+					print(preorder)
+					return None
+				root_val = preorder[0]
+				root = TreeNode(root_val)
+				root_index = inorder.index(root_val)
+
+				root.left = building(preorder[1:root_index+1],inorder[:root_index])
+				root.right = building(preorder[root_index+1:],inorder[root_index+1:])
+				return root
+			return building(preorder,inorder)
+
+从中序与后序遍历序列构造二叉树
+--------------------------------------
+
+leetcode 106. 
+
+根据一棵树的中序遍历与后序遍历构造二叉树。
+
+注意:
+
+你可以假设树中没有重复的元素。::
+
+	# Definition for a binary tree node.
+	# class TreeNode:
+	#     def __init__(self, x):
+	#         self.val = x
+	#         self.left = None
+	#         self.right = None
+
+	class Solution:
+		def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
+			if not (inorder and postorder):
+				return None
+			root_val = postorder[-1]
+			root = TreeNode(root_val)
+			root_index = inorder.index(root_val)
+			lens = len(inorder)
+			root.right = self.buildTree(inorder[root_index+1:],postorder[root_index:-1])
+			root.left = self.buildTree(inorder[:root_index],postorder[:root_index])
+			return root
+
+
 回文
 ================
 
 
+动态规划
+===================
 
