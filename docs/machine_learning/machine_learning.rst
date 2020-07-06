@@ -183,5 +183,5 @@ https://scikit-learn.org/stable/modules/outlier_detection.html#overview-of-outli
 
 推荐系统
 =====================
-Deepfm,Wide&Deep,YoutubeNet，PNN
+light GBM, Deepfm,Wide&Deep,YoutubeNet, PNN
 
