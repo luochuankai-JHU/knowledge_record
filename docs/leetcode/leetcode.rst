@@ -198,6 +198,7 @@ leetcode 81.
 
 .. image:: ../../_static/leetcode/81.png
 	:align: center
+	:width: 400
 
 
 假设按照升序排序的数组在预先未知的某个点上进行了旋转。
