@@ -248,8 +248,12 @@ leetcode 81.
 	
 	
 
-快排
+排序
 ====================
+
+
+快排
+-------------------
 https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 
 快排::
@@ -299,7 +303,8 @@ https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/di-gui-
 			"""
 			res = []
 			def helper(root):
-				if not root:return 
+				if not root:
+					return None
 				res.append(root.val)
 				helper(root.left)
 				helper(root.right)
@@ -308,91 +313,85 @@ https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/di-gui-
 		
 迭代::
 
+	class Solution:
+		def preorderTraversal(self, root: TreeNode) -> List[int]:
+			res = []
+			if not root:
+				return res
+			stack = [root]
+			while stack:
+				node = stack.pop()
+				res.append(node.val)
+				if node.right:
+					stack.append(node.right)
+				if node.left:
+					stack.append(node.left)
+			return res
 
-class Solution(object):
-    def preorderTraversal(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[int]
-        """
-        res = []
-        p = root
-        stack = []
-        while p or stack:
-            while p:
-                res.append(p.val)
-                stack.append(p)
-                p = p.left
-            p = stack.pop().right
-        return res
+注意点：
+
+1.为什么这里要用stack 而不是 queue：
+| 因为这是深度优先，DFS。stack的话就是先处理子节点，深入到底然后再往上的根。
+
+2. 特别注意由于这里是stack，所以前序遍历的时候先stack.append(node.right)
 
 中序遍历
 ---------------------
+递归::
+
+	class Solution:
+		def inorderTraversal(self, root: TreeNode) -> List[int]:
+			res = []
+			def helper(root):
+				if not root:
+					return None
+				helper(root.left)
+				res.append(root.val)
+				helper(root.right)
+			helper(root)
+			return res
+
+迭代::
+
+	class Solution:
+		def inorderTraversal(self, root: TreeNode) -> List[int]:
+			res = []
+			if not root:
+				return res
+			stack = []
+			while root or stack:
+				while root:
+					stack.append(root)
+					root = root.left
+				root = stack.pop()
+				res.append(root.val)
+				root = root.right
+			return res
 
 后续遍历
 ----------------------
+递归::
+
+	class Solution:
+		def postorderTraversal(self, root: TreeNode) -> List[int]:
+			res = []
+			def helper(root):
+				if not root:
+					return None
+				helper(root.left)
+				helper(root.right)
+				res.append(root.val)
+			helper(root)
+			return res
+
+迭代::
+
 
 层次遍历
 -----------------------
 
 		
-二叉树的前序,中序,后序,层序遍历的递归和迭代,一起打包送个你们!嘻嘻
 
-144. 二叉树的前序遍历
-
-思路:
-
-递归:就是依次输出根,左,右,递归下去
-
-迭代:使用栈来完成,我们先将根节点放入栈中,然后将其弹出,依次将该弹出的节点的右节点,和左节点,**注意顺序,**是右,左,为什么?因为栈是先入后出的,我们要先输出右节点,所以让它先进栈.
-
-代码:
-
-递归:
-
-
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def preorderTraversal(self, root: TreeNode) -> List[int]:
-        res = []
-        def helper(root):
-            if not root:
-                return 
-            res.append(root.val)
-            helper(root.left)
-            helper(root.right)
-        helper(root)
-        return res
-迭代:
-
-
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def preorderTraversal(self, root: TreeNode) -> List[int]:
-        res = []
-        if not root:
-            return res
-        stack = [root]
-        while stack:
-            node = stack.pop()
-            res.append(node.val)
-            if node.right:
-                stack.append(node.right)
-            if node.left:
-                stack.append(node.left)
-        return res
 145. 二叉树的后序遍历
 
 思路:
@@ -820,10 +819,34 @@ leetcode 106.
 			return root
 
 
-回文
-================
-
-
 动态规划
 ===================
 
+最长回文子串
+-------------------
+
+leetcode 5. 
+
+给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。::
+
+	class Solution:
+		def longestPalindrome(self, s: str) -> str:
+			def check(string,index):
+				i=0
+				while index-i>=0 and index+i<=len(string)-1:
+					if string[index-i]==string[index+i]:
+						i+=1
+					else:
+						return i-1
+				return i-1
+			res = []
+			if len(s)<=1:
+				return s
+			for i in range(len(s)):
+				temp = check(s,i)
+				if 2*temp +1>len(res):
+					res = s[i-temp:i]+s[i:i+temp+1]
+				temp = check(s[:i]+'#'+s[i:],i)
+				if 2*temp +1>len(res):
+					res = s[i-temp:i]+s[i:i+temp]
+			return res

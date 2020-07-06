@@ -24,6 +24,8 @@ GRU LSTM BRNN
 bert
 =================
 
+马上上线
+
 transformer
 -----------------
 

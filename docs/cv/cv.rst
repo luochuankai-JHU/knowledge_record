@@ -223,4 +223,9 @@ https://blog.csdn.net/xxy0118/article/details/84333635
 
 CV的一些知识
 ===================
+
+各类模型
+------------
 AlexNet  VGG  GoogleNet  ResNet  DenseNet
+
+马上上线
