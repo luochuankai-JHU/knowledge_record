@@ -707,34 +707,34 @@ leetcode 5.
 
 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。::
 
-	def longestPalindrome(self, s: str) -> str:
-		def check(string,index):
-			i=0
-			while index-i>=0 and index+i<=len(string)-1:
-				if string[index-i]==string[index+i]:
-					i+=1
-				else:
-					return i-1
-			return i-1
-		res = []
-		if len(s)<=1:
-			return s
-		for i in range(len(s)):
-			temp = check(s,i)
-			if 2*temp +1>len(res):
-				res = s[i-temp:i]+s[i:i+temp+1]
-			temp = check(s[:i]+'#'+s[i:],i)
-			if 2*temp +1>len(res):
-				res = s[i-temp:i]+s[i:i+temp]
-		return res
+    def longestPalindrome(self, s: str) -> str:
+        def check(string,index):
+            i=0
+            while index-i>=0 and index+i<=len(string)-1:
+                if string[index-i]==string[index+i]:
+                    i+=1
+                else:
+                    return i-1
+            return i-1
+        res = []
+        if len(s)<=1:
+            return s
+        for i in range(len(s)):
+            temp = check(s,i)
+            if 2*temp +1>len(res):
+                res = s[i-temp:i]+s[i:i+temp+1]
+            temp = check(s[:i]+'#'+s[i:],i)
+            if 2*temp +1>len(res):
+                res = s[i-temp:i]+s[i:i+temp]
+        return res
 
 股票的最大利润
 ------------------------------
 剑指 Offer 63. 
 
 .. image:: ../../_static/leetcode/剑指63.png
-	:align: center
-	
+    :align: center
+    
 假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？::
 
     def maxProfit(self, prices: List[int]) -> int:
@@ -770,18 +770,18 @@ leetcode 5.
 例如，一个链表有6个节点，从头节点开始，它们的值依次是1、2、3、4、5、6。这个链表的倒数第3个节点是值为4的节点。::
 
     def getKthFromEnd(self, head: ListNode, k: int) -> ListNode:
-		l, r = head, head
-		i = 0
-		while i<k and r:
-			if not r:
-				return False
-			r = r.next
-			i+=1
+        l, r = head, head
+        i = 0
+        while i<k and r:
+            if not r:
+                return False
+            r = r.next
+            i+=1
 
-		while r:
-			r = r.next
-			l = l.next
-			
-		return l
+        while r:
+            r = r.next
+            l = l.next
+            
+        return l
 
 明显的双指针题目
