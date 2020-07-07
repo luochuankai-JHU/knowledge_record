@@ -734,6 +734,7 @@ leetcode 5.
 
 .. image:: ../../_static/leetcode/剑指63.png
     :align: center
+	:width: 400
     
 假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？::
 
@@ -806,7 +807,6 @@ leetcode 5.
         :type head: ListNode
         :rtype: ListNode
         """
-        # 申请两个节点，pre和 cur，pre指向None
         pre = None
         cur = head
         # 遍历链表，while循环里面的内容其实可以写成一行
@@ -820,3 +820,9 @@ leetcode 5.
             pre = cur
             cur = tmp
         return pre    
+
+https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-shi-duo-chong-jie-fa-206-fan-zhuan-li/
+
+.. image:: ../../_static/leetcode/剑指24.png
+    :align: center
+	:width: 200
