@@ -386,131 +386,32 @@ https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/di-gui-
 
 迭代::
 
+	class Solution:
+		def postorderTraversal(self, root: TreeNode) -> List[int]:
+			res = []
+			if not root:
+				return res
+			stack = [root]
+			while stack:
+				node = stack.pop()
+				if node.left:
+					stack.append(node.left)
+				if node.right:
+					stack.append(node.right)
+				res.append(node.val)
+			return res[::-1]
+
+注意点：
+
+后序遍历是 左右中，然后我们使用了stack，所以录入的时候是左右中，（先进后出），然后对结果[::-1] 取逆序就好了。 [::-1]这个操作对 string和list 都适用的
+
 
 层次遍历
 -----------------------
 
 		
 
-145. 二叉树的后序遍历
 
-思路:
-
-递归:同理,顺序:左,右,根
-
-迭代:这就很上面的先序一样,我们可以改变入栈的顺序,刚才先序是从右到左,我们这次从左到右,最后得到的结果取逆.
-
-代码:
-
-递归:
-
-
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def postorderTraversal(self, root: TreeNode) -> List[int]:
-        res = []
-        def helper(root):
-            if not root:
-                return 
-            helper(root.left)
-            helper(root.right)
-            res.append(root.val)
-        helper(root)
-        return res
-迭代:
-
-
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def postorderTraversal(self, root: TreeNode) -> List[int]:
-        res = []
-        if not root:
-            return res
-        stack = [root]
-        while stack:
-            node = stack.pop()
-            if node.left :
-                stack.append(node.left)
-            if node.right:
-                stack.append(node.right)
-            res.append(node.val)
-        return res[::-1]
-94. 二叉树的中序遍历
-
-思路:
-
-递归:顺序,左右根
-
-非递归:这次我们用一个指针模拟过程
-
-代码:
-
-递归:
-
-
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def inorderTraversal(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[int]
-        """
-        res = []
-        def helper(root):
-            if not root:
-                return 
-            helper(root.left)
-            res.append(root.val)
-            helper(root.right)
-        helper(root)
-        return res
-迭代:
-
-
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def inorderTraversal(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[int]
-        """
-        res = []
-        if not root:
-            return res
-        stack = []
-        cur = root
-        while stack or cur:
-            while cur:
-                stack.append(cur)
-                cur = cur.left
-            cur = stack.pop()
-            res.append(cur.val)
-            cur = cur.right
-        return res
 102. 二叉树的层次遍历
 
 思路:
