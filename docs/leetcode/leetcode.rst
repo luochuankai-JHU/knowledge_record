@@ -409,48 +409,25 @@ https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/di-gui-
 层次遍历
 -----------------------
 
-		
+leetcode 102. 二叉树的层次遍历::
 
-
-102. 二叉树的层次遍历
-
-思路:
-
-非常典型的BFS
-
-代码:
-
-
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def levelOrder(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[List[int]]
-        """
-        if not root:
-            return []
-
-        res,cur_level = [],[root]
-        while cur_level:
-            temp = []
-            next_level = []
-            for i in cur_level:
-                temp.append(i.val)
-
-                if i.left:
-                    next_level.append(i.left)
-                if i.right:
-                    next_level.append(i.right)
-            res.append(temp)
-            cur_level = next_level
-        return res
+	class Solution:
+		def levelOrder(self, root: TreeNode) -> List[List[int]]:
+			if not root:
+				return []
+			cur_level, res = [root], []
+			while cur_level:
+				temp = []
+				next_level = []
+				for node in cur_level:
+					temp.append(node.val)
+					if node.left:
+						next_level.append(node.left)
+					if node.right:
+						next_level.append(node.right)
+				res.append(temp)
+				cur_level = next_level
+			return res
 
 
 相同的树
