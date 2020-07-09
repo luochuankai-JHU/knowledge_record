@@ -45,3 +45,5 @@ glove
 elmo
 知识图谱
 模型压缩的相关知识三大角度：蒸馏，剪枝，量化
+
+https://cloud.tencent.com/developer/article/1558479

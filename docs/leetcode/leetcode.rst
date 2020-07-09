@@ -510,11 +510,8 @@ https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/solution/chao-hao-dong-k
 | 来源：力扣（LeetCode）
 | 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
-平衡二叉树
----------------
-剑指 Offer 55 - II. 
 
-输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。::
+或者在第二个函数用一下伪层次遍历::
 
     # Definition for a binary tree node.
     # class TreeNode:
@@ -522,71 +519,29 @@ https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/solution/chao-hao-dong-k
     #         self.val = x
     #         self.left = None
     #         self.right = None
-
     class Solution:
-        def isBalanced(self, root: TreeNode) -> bool:
-            def helper(root):
-                if not root:
-                    return 0
-                left = helper(root.left)
-                if left == -1:
-                    return -1
-                right = helper(root.right)
-                if right ==-1:
-                    return -1
-                if abs(left-right)>1:
-                    return -1
-                else:
-                    return max(left,right)+1
-            depth = helper(root)
-            if depth ==-1:
+        def isSubStructure(self, A: TreeNode, B: TreeNode) -> bool:
+            def judge(a,b):
+                if not b:
+                    return True
+                if not a:
+                    return False
+                if a.val!= b.val:
+                    return False
+                return judge(a.left,b.left) and judge(a.right,b.right)
+
+            if (A==None or B==None):
                 return False
-            else:
-                return True
-
-
-对称的二叉树
------------------
-
-剑指 Offer 28. 
-
-请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的::
-
-    # Definition for a binary tree node.
-    # class TreeNode:
-    #     def __init__(self, x):
-    #         self.val = x
-    #         self.left = None
-    #         self.right = None
-
-    class Solution:
-        def check_list(self,list_level):
-            lens = len(list_level)
-            # if lens%2 !=0:
-            #     return False
-            for i in range(0,lens//2):
-                if list_level[i]!=list_level[lens-i-1]:
-                    return False
-            return True
-
-        def isSymmetric(self, root: TreeNode) -> bool:
-            if not root:
-                return True
-            this_level = [root]
-            while this_level:
-                temp = []
-                next_level = []
-                for node in this_level:
-                    if not node:
-                        temp.append(None)
-                    else:
-                        temp.append(node.val)
-                        next_level.append(node.left)
-                        next_level.append(node.right)
-                if self.check_list(temp)==False:
-                    return False
-                this_level = next_level
-            return True
+            queue = [A]
+            while queue:
+                node = queue.pop(0)
+                if judge(node,B):
+                    return True             
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)  
+            return False 
 
 
 二叉树的镜像    
@@ -625,6 +580,108 @@ https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/solution/chao-hao-dong-k
                     queue.append(node.right)
             return root
 
+
+对称的二叉树
+-----------------
+
+剑指 Offer 28. 
+
+请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的::
+
+    # Definition for a binary tree node.
+    # class TreeNode:
+    #     def __init__(self, x):
+    #         self.val = x
+    #         self.left = None
+    #         self.right = None
+
+    class Solution:
+        def isSymmetric(self, root: TreeNode) -> bool:
+            if not root:
+                return True
+            this_level = [root]
+            while this_level:
+                temp = []
+                next_level = []
+                for node in this_level:
+                    if not node:
+                        temp.append(None)
+                    else:
+                        temp.append(node.val)
+                        next_level.append(node.left)
+                        next_level.append(node.right)
+                if temp!=temp[::-1]:
+                    return False
+                this_level = next_level
+            return True
+
+
+
+
+二叉树中和为某一值的路径**好题**
+---------------------------------
+剑指 Offer 34. 
+
+**好题目！！！**
+
+输入一棵二叉树和一个整数，打印出二叉树中节点值的和为输入整数的所有路径。从树的根节点开始往下一直到叶节点所经过的节点形成一条路径。
+            
+.. image:: ../../_static/leetcode/剑指34.png
+    :align: center
+    :width: 400
+
+::
+    def pathSum(self, root: TreeNode, target: int) -> List[List[int]]:
+        res, path = [], []
+        def order(root):
+            if not root:
+                return None
+            path.append(root.val)
+            if sum(path)==target and not root.right and not root.left:
+                res.append(path[:])
+            order(root.left)
+            order(root.right)
+            path.pop()
+        order(root)
+        return res
+    
+注意！res.append(path[:]) 这里一定要是 path[:]，因为list是可变变量，直接append是浅拷贝，最后res里面只会留下空数组
+
+
+平衡二叉树
+---------------
+剑指 Offer 55 - II. 
+
+输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。::
+
+    # Definition for a binary tree node.
+    # class TreeNode:
+    #     def __init__(self, x):
+    #         self.val = x
+    #         self.left = None
+    #         self.right = None
+
+    class Solution:
+        def isBalanced(self, root: TreeNode) -> bool:
+            def helper(root):
+                if not root:
+                    return 0
+                left = helper(root.left)
+                if left == -1:
+                    return -1
+                right = helper(root.right)
+                if right ==-1:
+                    return -1
+                if abs(left-right)>1:
+                    return -1
+                else:
+                    return max(left,right)+1
+            depth = helper(root)
+            if depth ==-1:
+                return False
+            else:
+                return True
+                
 
 从前序与中序遍历序列构造二叉树
 ----------------------------------------
@@ -734,7 +791,7 @@ leetcode 5.
 
 .. image:: ../../_static/leetcode/剑指63.png
     :align: center
-	:width: 400
+    :width: 400
     
 假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？::
 
@@ -754,7 +811,139 @@ leetcode 5.
         return res
 
 
+顺时针打印矩阵
+------------------------
+剑指 Offer 29. 
 
+输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。
+
+示例 1：
+
+| 输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
+| 输出：[1,2,3,6,9,8,7,4,5]
+
+示例 2：
+
+| 输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+| 输出：[1,2,3,4,8,12,11,10,9,5,6,7]
+
+一种很憨憨的解法，一板一眼的去做::
+    class Solution:
+        def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+            res = []
+            def turn_right(matrix,res):
+                res+=matrix[0]
+                matrix = matrix[1:]
+                return matrix, res
+
+            def turn_down(matrix,res):
+                new_matrix = []
+                for line in matrix:
+                    res.append(line[-1])
+                    line = line[:-1]
+                    new_matrix.append(line)
+                return new_matrix,res
+
+            def turn_left(matrix,res):
+                res+=matrix[-1][::-1]
+                matrix = matrix[:-1]
+                return matrix, res
+            
+            def turn_up(matrix,res):
+                new_matrix = []
+                temp = []
+                for line in matrix:
+                    temp.append(line[0])
+                    line = line[1:]
+                    new_matrix.append(line)
+                res += temp[::-1]
+                return new_matrix,res
+            i = 0
+            while len(matrix)>0 and len(matrix[0])>0:
+                if i%4==0:
+                    matrix,res = turn_right(matrix,res)
+                    i+=1
+                    continue
+                if i%4==1:
+                    matrix,res = turn_down(matrix,res)
+                    i+=1
+                    continue
+                if i%4==2:
+                    matrix,res = turn_left(matrix,res)
+                    i+=1
+                    continue
+                if i%4==3:
+                    matrix,res = turn_up(matrix,res)
+                    i+=1
+                    continue
+            return res
+
+
+字符串的排列
+--------------------
+剑指 Offer 38. 
+
+输入一个字符串，打印出该字符串中字符的所有排列。
+
+你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
+
+示例:
+
+| 输入：s = "abc"
+| 输出：["abc","acb","bac","bca","cab","cba"]
+
+我的一个憨憨解法
+::
+    def permutation(self, s: str) -> List[str]:
+        def insert(res,char):
+            temp = []
+            for string in res:
+                for i in range(len(string)+1):
+                    temp.append(string[:i]+char+string[i:])
+            temp = list(set(temp))
+            return temp
+
+        if len(s)==0:
+            return []
+        res = [s[0]]
+        for i in range(1,len(s)):
+            res = insert(res,s[i])
+        return res
+
+从第一个字符开始维护一个list，里面的内容是答案。然后每次都全部插入，再去重。如果不让用set去重可以字典啊或者直接set.add
+
+想法很朴素，写起来也很朴素，但是时间和空间使用率接近双百分
+
+
+数组中出现次数超过一半的数字
+-------------------------------------
+剑指 Offer 39. 
+
+数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。
+
+你可以假设数组是非空的，并且给定的数组总是存在多数元素。
+
+示例 1:
+
+| 输入: [1, 2, 3, 2, 2, 2, 5, 4, 2]
+| 输出: 2
+::
+    def majorityElement(self, nums: List[int]) -> int:
+        if nums==[]:
+            return []
+        count = 1
+        res = nums[0]
+        for i in range(1,len(nums)):
+            if nums[i]==res:
+                count+=1
+            else:
+                count -=1
+                if count ==0:
+                    res = nums[i]
+                    count = 1
+        return res
+        
+一个漂亮的解法。维护一个res和count。如果当前遍历到的数和res相等，count就+1，不不然就-1。减到0 res就换人。 记得换人后把count重新设为1 !!!
 
 链表
 ===================
@@ -825,4 +1014,63 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 
 .. image:: ../../_static/leetcode/剑指24.png
     :align: center
-	:width: 200
+    :width: 200
+    
+合并两个排序的链表
+-------------------------
+    
+剑指 Offer 25. 
+
+输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。
+
+示例1：
+
+输入：1->2->4, 1->3->4
+
+输出：1->1->2->3->4->4
+
+::
+    # class ListNode:
+    #     def __init__(self, x):
+    #         self.val = x
+    #         self.next = None
+
+    class Solution:
+        def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+            res = temp = ListNode(0)
+            while l1 and l2:
+                if l1.val>=l2.val:
+                    temp.next = l2
+                    l2 = l2.next
+                else:
+                    temp.next = l1
+                    l1 = l1.next
+                temp = temp.next
+            if l1:
+                temp.next = l1
+            if l2:
+                temp.next = l2
+            return res.next
+
+
+注意： temp = temp.next 这句话千万不能忘，然后开头的res = temp = ListNode(0) 也很关键！
+
+
+另外：不用额外空间合并两个排序的list
+
+不用额外空间合并两个排序的list
+---------------------------------
+::
+    list1 = [1,3,5,7,8,9,13]
+    list2 = [0,3,5,8,13,16]
+
+    i,j = 0,0
+    while i<=len(list1)-1 and list2:
+        print(i)
+        if list2[0]<=list1[i]:
+            num = list2.pop(0)
+            list1.insert(i,num)
+        else:
+            i+=1
+    if list2:
+        list1+=list2
