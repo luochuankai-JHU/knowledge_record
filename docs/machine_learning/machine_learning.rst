@@ -12,7 +12,7 @@ ensemble
 
 änˈsämbəl
 
-分为bagging 和 boost
+分为bagging(减小方差)、boosting(偏差) 和 stacking(改进预测)
 
 bagging和boost
 ---------------------
@@ -22,6 +22,16 @@ bagging和boost
 
 | Bagging和Boosting的区别（面试准备）
 | https://www.cnblogs.com/earendil/p/8872001.html
+
+stacking
+--------------------
+
+.. image:: ../../_static/machine_learning/stacking.png
+	:align: center
+	
+关于stacking 的使用
+https://blog.csdn.net/Li_yi_chao/article/details/89638009
+	
 
 GBDT、Adboost、xgboost
 -------------------------
@@ -66,7 +76,13 @@ GBDT、Adboost、xgboost
 | 6.	传统的GBDT没有设计对缺失值进行处理，XGBoost能够自动学习出缺失值的处理策略。
 
 
+决策树与这些算法框架进行结合所得到的新的算法：
 
+1）Bagging + 决策树 = 随机森林
+
+2）AdaBoost + 决策树 = 提升树
+
+3）Gradient Boosting + 决策树 = GBDT
 
 
 基础机器学习算法
@@ -179,6 +195,11 @@ https://scikit-learn.org/stable/modules/outlier_detection.html#overview-of-outli
 
 
 
+Rank Averaging
+-----------------------------
+
+.. image:: ../../_static/machine_learning/Rank_Averaging.png
+	:align: center
 
 
 推荐系统
