@@ -624,13 +624,12 @@ https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/solution/chao-hao-dong-k
 
 **好题目！！！**
 
-输入一棵二叉树和一个整数，打印出二叉树中节点值的和为输入整数的所有路径。从树的根节点开始往下一直到叶节点所经过的节点形成一条路径。
-            
 .. image:: ../../_static/leetcode/剑指34.png
     :align: center
     :width: 400
-
-::
+	
+输入一棵二叉树和一个整数，打印出二叉树中节点值的和为输入整数的所有路径。从树的根节点开始往下一直到叶节点所经过的节点形成一条路径。::
+            
     def pathSum(self, root: TreeNode, target: int) -> List[List[int]]:
         res, path = [], []
         def order(root):
@@ -828,6 +827,7 @@ leetcode 5.
 | 输出：[1,2,3,4,8,12,11,10,9,5,6,7]
 
 一种很憨憨的解法，一板一眼的去做::
+
     class Solution:
         def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
             res = []
@@ -927,7 +927,9 @@ leetcode 5.
 
 | 输入: [1, 2, 3, 2, 2, 2, 5, 4, 2]
 | 输出: 2
+
 ::
+
     def majorityElement(self, nums: List[int]) -> int:
         if nums==[]:
             return []
@@ -1030,6 +1032,7 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 输出：1->1->2->3->4->4
 
 ::
+
     # class ListNode:
     #     def __init__(self, x):
     #         self.val = x
@@ -1060,7 +1063,9 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 
 不用额外空间合并两个排序的list
 ---------------------------------
+
 ::
+
     list1 = [1,3,5,7,8,9,13]
     list2 = [0,3,5,8,13,16]
 
