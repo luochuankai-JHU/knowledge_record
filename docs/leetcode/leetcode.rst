@@ -7,11 +7,14 @@
 Leetcode
 ******************
 
-tips:
+这里保存一些我做题的解答和心得
 
-**面试写题的时候可以把注释也写上**
+tips
+--------------
 
-**写题的时候，在最前面写几个例子**
+面试写题的时候可以把注释也写上
+
+写题的时候，在最前面写几个例子
 
 
 二分查找类
@@ -135,8 +138,6 @@ leetcode 34.
             return [left,right]
 
 
-
-
 搜索插入位置
 -------------------------------
 
@@ -158,13 +159,6 @@ leetcode 35.
                 else:
                     l = mid + 1
             return l
-
-
-
-
-
-
-
 
 
 寻找旋转排序数组中的最小值
@@ -283,6 +277,17 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
     print("before sort:",s)
     s1 = quicksort(s, left = 0, right = len(s) - 1)
     print("after sort:",s1)
+
+数组中的逆序对
+----------------------
+剑指 Offer 51. 
+
+在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。
+
+| 输入: [7,5,6,4]
+| 输出: 5
+
+这个是真不会...做法是用到归并排序...
 
 
 树的遍历：
@@ -615,8 +620,6 @@ https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/solution/chao-hao-dong-k
                     return False
                 this_level = next_level
             return True
-
-
 
 
 二叉树中和为某一值的路径**好题**
@@ -990,19 +993,17 @@ leetcode 152.
 
 链接：https://leetcode-cn.com/problems/maximum-product-subarray/solution/duo-chong-si-lu-qiu-jie-by-powcai-3/
 
-思路很巧妙！ 因为这个题目比上一题难在，虽然现在的cur可能是一个很小的负数（但是绝对值大），再乘一个负数后就会变得很大。所以绝对值很重要。
-大正数和小负数（绝对值大）都要保存记录。而不是像上一题只用记录一个就行
+| 思路很巧妙！ 因为这个题目比上一题难在，虽然现在的cur可能是一个很小的负数（但是绝对值大），再乘一个负数后就会变得很大。所以绝对值很重要。
+| 大正数和小负数（绝对值大）都要保存记录。而不是像上一题只用记录一个就行
 
 
 还有一种解法暂时没太明白，也先记录下来。
 
 思路三：根据符号的个数 [^2]
 
-当负数个数为偶数时候，全部相乘一定最大
-
-当负数个数为奇数时候，它的左右两边的负数个数一定为偶数，只需求两边最大值
-
-当有 0 情况，重置就可以了
+| 当负数个数为偶数时候，全部相乘一定最大
+| 当负数个数为奇数时候，它的左右两边的负数个数一定为偶数，只需求两边最大值
+| 当有 0 情况，重置就可以了
 
 ::
 
@@ -1091,6 +1092,225 @@ https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/soluti
                 Max = prices[i]                 
         return res
         
+        
+礼物的最大价值
+----------------------
+剑指 Offer 47. 
+
+| 在一个 m*n 的棋盘的每一格都放有一个礼物，每个礼物都有一定的价值（价值大于 0）。
+| 你可以从棋盘的左上角开始拿格子里的礼物，并每次向右或者向下移动一格、直到到达棋盘的右下角。
+| 给定一个棋盘及其上面的礼物的价值，请计算你最多能拿到多少价值的礼物？
+
+
+示例 1:
+
+输入: 
+| [
+|   [1,3,1],
+|   [1,5,1],
+|   [4,2,1]
+| ]
+| 输出: 12
+| 解释: 路径 1→3→5→2→1 可以拿到最多价值的礼物
+
+::
+
+    def maxValue(self, grid: List[List[int]]) -> int:
+        if grid==[]:
+            return 0
+        for j in range(len(grid)):
+            for i in range(len(grid[0])):
+                if i==0 and j==0:
+                    continue
+                if j==0 and i!=0:
+                    grid[j][i] += grid[j][i-1]
+                if i==0 and j!=0:
+                    grid[j][i] += grid[j-1][i]
+                if i!=0 and j!=0:
+                    grid[j][i] += max(grid[j-1][i],grid[j][i-1])
+        return grid[-1][-1]
+
+注意，最后一个if（讨论中间的格子），不要写else.....血的教训。依然是if，不然会和第三个if 组成if...else。
+
+除了第一行和第一列，其他的情况： 选择 max（左边，上面）+ 自己那一格
+
+更方便的做法是在左边和上面都补上一列0，这样就不用分四种情况讨论了，公式能通用。
+
+https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof/solution/mian-shi-ti-47-li-wu-de-zui-da-jie-zhi-dong-tai-gu/
+
+最长不含重复字符的子字符串
+---------------------------------
+剑指 Offer 48. 
+
+请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。
+
+示例 1:
+
+| 输入: "abcabcbb"
+| 输出: 3 
+| 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+| 示例 2:
+
+| 输入: "bbbbb"
+| 输出: 1
+| 解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+| 示例 3:
+
+| 输入: "pwwkew"
+| 输出: 3
+| 解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+
+::
+
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if len(s)<=1:
+            return len(s)
+        i = 0
+        res = 1
+        for j in range(1,len(s)):
+            if s[j] not in s[i:j]:
+                pass
+            else:
+                i = s[i:j].index(s[j]) + i + 1
+            res = max(res,j-i+1)
+        return res
+
+
+丑数
+--------------
+剑指 Offer 49. 
+
+我们把只包含质因子 2、3 和 5 的数称作丑数（Ugly Number）。求按从小到大的顺序的第 n 个丑数。
+
+| 示例:
+| 输入: n = 10
+| 输出: 12
+| 解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。
+
+::
+
+    def nthUglyNumber(self, n: int) -> int:
+        index= 1
+        ugly = [1]
+        dp2,dp3,dp5 = 0,0,0
+        while index <= n-1:
+            cur = min(2*ugly[dp2], 3*ugly[dp3], 5*ugly[dp5])
+            if cur == 2*ugly[dp2]:
+                dp2 += 1
+            if cur == 3*ugly[dp3]:
+                dp3 += 1
+            if cur == 5*ugly[dp5]:
+                dp5 += 1
+            index += 1
+            ugly.append(cur)
+        return ugly[-1]
+
+| 最朴素（暴力）的解法是这样：
+| 首先我们明白，类比跳台阶那个题目，任意一个新的丑数，一定是之前的丑数 *2 或 *3 或 *5 得来的。
+| 那么最暴力的做法就是，要生成一个新的丑数，把之前所有的元素都乘 2，3，5。然后找到最小的那个（注意！不能只选倒数三个人，因为10=2*5）
+
+| 这里造成冗余的原因是：
+| 很多之前的数已经没有意义了，比如3，如果已经通过3*2得到了6，那么下次就不需要再算3*2了。
+
+| 由此，这道题可以维护三个指针。
+
+| 注意，这里用三个if的原因是为了解决这个难题：得到6的时候，不仅是2*3，其实也是3*2。所以这两种可能性都要失效，所以这两个指针都要+1
+
+| 再要注意的地方是，我最开始写的是while index<= n。这样算的是第n+1个丑数
+
+
+Z 字形变换
+-----------------
+leetcode 6. 
+
+将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
+
+.. image:: ../../_static/leetcode/6.png
+	:align: center
+	
+	
+找规律&斐波拉契
+===================
+
+跳台阶---斐波拉契
+
+剪绳子
+----------------------
+
+剑指 Offer 14- I. 
+
+| 给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n>1并且m>1），每段绳子的长度记为 k[0],k[1]...k[m-1] 。
+| 请问 k[0]*k[1]*...*k[m-1] 可能的最大乘积是多少？
+| 例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。
+
+| 示例
+| 输入: 10
+| 输出: 36
+| 解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36
+
+
+
+数字序列中某一位的数字
+-----------------------------
+剑指 Offer 44. 
+
+数字以0123456789101112131415…的格式序列化到一个字符序列中。在这个序列中，第5位（从下标0开始计数）是5，第13位是1，第19位是4，等等。
+
+请写一个函数，求任意第n位对应的数字。
+
+::
+
+    def findNthDigit(self, n: int) -> int:
+        digit, start, count = 1, 1, 9
+        while n > count: # 1.
+            n -= count
+            start *= 10
+            digit += 1
+            count = 9 * start * digit
+        num = start + (n - 1) // digit # 2.
+        return int(str(num)[(n - 1) % digit]) # 3.
+
+
+.. image:: ../../_static/leetcode/剑指44.png
+    :align: center
+
+
+https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/solution/mian-shi-ti-44-shu-zi-xu-lie-zhong-mou-yi-wei-de-6/
+
+
+把数字翻译成字符串
+--------------------------
+剑指 Offer 46. 
+
+给定一个数字，我们按照如下规则把它翻译为字符串：0 翻译成 “a” ，1 翻译成 “b”，……，11 翻译成 “l”，……，25 翻译成 “z”。一个数字可能有多个翻译。请编程实现一个函数，用来计算一个数字有多少种不同的翻译方法。
+
+| 示例
+| 输入: 12258
+| 输出: 5
+| 解释: 12258有5种不同的翻译，分别是"bccfi", "bwfi", "bczi", "mcfi"和"mzi"
+
+::
+
+    def translateNum(self, num: int) -> int:
+        num = str(num)
+        if len(num)<=1:
+            return len(num)
+        if len(num)>=2:
+            if int(num[:2])<=25:
+                res = [1,2]
+            else:
+                res = [1,1]
+
+        for i in range(2,len(num)):
+            if int(num[i-1]+num[i])<=25 and num[i-1]!="0":
+                res.append(res[-1] + res[-2])
+            else:
+                res.append(res[-1])
+        return res[-1]
+		
+num[i-1]!="0" 这里要注意，否则处理 506 这样带0的数据会出错
+
+
 
 链表
 ===================
@@ -1224,165 +1444,15 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
             i+=1
     if list2:
         list1+=list2
-        
-        
-礼物的最大价值
-----------------------
-剑指 Offer 47. 
+		
+		
+两个链表的第一个公共节点
+--------------------------------
+剑指 Offer 52. 
 
-| 在一个 m*n 的棋盘的每一格都放有一个礼物，每个礼物都有一定的价值（价值大于 0）。
-| 你可以从棋盘的左上角开始拿格子里的礼物，并每次向右或者向下移动一格、直到到达棋盘的右下角。
-| 给定一个棋盘及其上面的礼物的价值，请计算你最多能拿到多少价值的礼物？
+输入两个链表，找出它们的第一个公共节点。
 
-
-示例 1:
-
-输入: 
-| [
-|   [1,3,1],
-|   [1,5,1],
-|   [4,2,1]
-| ]
-| 输出: 12
-| 解释: 路径 1→3→5→2→1 可以拿到最多价值的礼物
-
-::
-
-    def maxValue(self, grid: List[List[int]]) -> int:
-        if grid==[]:
-            return 0
-        for j in range(len(grid)):
-            for i in range(len(grid[0])):
-                if i==0 and j==0:
-                    continue
-                if j==0 and i!=0:
-                    grid[j][i] += grid[j][i-1]
-                if i==0 and j!=0:
-                    grid[j][i] += grid[j-1][i]
-                if i!=0 and j!=0:
-                    grid[j][i] += max(grid[j-1][i],grid[j][i-1])
-        return grid[-1][-1]
-
-注意，最后一个if（讨论中间的格子），不要写else.....血的教训。依然是if，不然会和第三个if 组成if...else。
-
-除了第一行和第一列，其他的情况： 选择 max（左边，上面）+ 自己那一格
-
-更方便的做法是在左边和上面都补上一列0，这样就不用分四种情况讨论了，公式能通用。
-
-https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof/solution/mian-shi-ti-47-li-wu-de-zui-da-jie-zhi-dong-tai-gu/
-
-最长不含重复字符的子字符串
----------------------------------
-剑指 Offer 48. 
-
-请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。
-
-示例 1:
-
-| 输入: "abcabcbb"
-| 输出: 3 
-| 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
-| 示例 2:
-
-| 输入: "bbbbb"
-| 输出: 1
-| 解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
-| 示例 3:
-
-| 输入: "pwwkew"
-| 输出: 3
-| 解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
-
-::
-
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        if len(s)<=1:
-            return len(s)
-        i = 0
-        res = 1
-        for j in range(1,len(s)):
-            if s[j] not in s[i:j]:
-                pass
-            else:
-                i = s[i:j].index(s[j]) + i + 1
-            res = max(res,j-i+1)
-        return res
-
-
-找规律&斐波拉契
-===================
-
-跳台阶---斐波拉契
-
-剪绳子
-----------------------
-剑指 Offer 14- I. 
-| 给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n>1并且m>1），每段绳子的长度记为 k[0],k[1]...k[m-1] 。
-| 请问 k[0]*k[1]*...*k[m-1] 可能的最大乘积是多少？
-| 例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。
-
-| 示例
-| 输入: 10
-| 输出: 36
-| 解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36
-
-
-
-数字序列中某一位的数字
------------------------------
-剑指 Offer 44. 
-
-数字以0123456789101112131415…的格式序列化到一个字符序列中。在这个序列中，第5位（从下标0开始计数）是5，第13位是1，第19位是4，等等。
-
-请写一个函数，求任意第n位对应的数字。
-
-::
-
-    def findNthDigit(self, n: int) -> int:
-        digit, start, count = 1, 1, 9
-        while n > count: # 1.
-            n -= count
-            start *= 10
-            digit += 1
-            count = 9 * start * digit
-        num = start + (n - 1) // digit # 2.
-        return int(str(num)[(n - 1) % digit]) # 3.
-
-
-.. image:: ../../_static/leetcode/剑指44.png
+.. image:: ../../_static/leetcode/剑指52.png
     :align: center
 
-
-https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/solution/mian-shi-ti-44-shu-zi-xu-lie-zhong-mou-yi-wei-de-6/
-
-
-把数字翻译成字符串
---------------------------
-剑指 Offer 46. 
-
-给定一个数字，我们按照如下规则把它翻译为字符串：0 翻译成 “a” ，1 翻译成 “b”，……，11 翻译成 “l”，……，25 翻译成 “z”。一个数字可能有多个翻译。请编程实现一个函数，用来计算一个数字有多少种不同的翻译方法。
-
-示例 1:
-
-| 输入: 12258
-| 输出: 5
-| 解释: 12258有5种不同的翻译，分别是"bccfi", "bwfi", "bczi", "mcfi"和"mzi"::
-
-    def translateNum(self, num: int) -> int:
-        num = str(num)
-        if len(num)<=1:
-            return len(num)
-        if len(num)>=2:
-            if int(num[:2])<=25:
-                res = [1,2]
-            else:
-                res = [1,1]
-
-        for i in range(2,len(num)):
-            if int(num[i-1]+num[i])<=25 and num[i-1]!="0":
-                res.append(res[-1] + res[-2])
-            else:
-                res.append(res[-1])
-        return res[-1]
-		
-num[i-1]!="0" 这里要注意，否则处理 506 这样带0的数据会出错
+::
