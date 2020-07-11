@@ -1226,10 +1226,107 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
         list1+=list2
         
         
+礼物的最大价值
+----------------------
+剑指 Offer 47. 
+
+| 在一个 m*n 的棋盘的每一格都放有一个礼物，每个礼物都有一定的价值（价值大于 0）。
+| 你可以从棋盘的左上角开始拿格子里的礼物，并每次向右或者向下移动一格、直到到达棋盘的右下角。
+| 给定一个棋盘及其上面的礼物的价值，请计算你最多能拿到多少价值的礼物？
+
+
+示例 1:
+
+输入: 
+| [
+|   [1,3,1],
+|   [1,5,1],
+|   [4,2,1]
+| ]
+| 输出: 12
+| 解释: 路径 1→3→5→2→1 可以拿到最多价值的礼物
+
+::
+
+    def maxValue(self, grid: List[List[int]]) -> int:
+        if grid==[]:
+            return 0
+        for j in range(len(grid)):
+            for i in range(len(grid[0])):
+                if i==0 and j==0:
+                    continue
+                if j==0 and i!=0:
+                    grid[j][i] += grid[j][i-1]
+                if i==0 and j!=0:
+                    grid[j][i] += grid[j-1][i]
+                if i!=0 and j!=0:
+                    grid[j][i] += max(grid[j-1][i],grid[j][i-1])
+        return grid[-1][-1]
+
+注意，最后一个if（讨论中间的格子），不要写else.....血的教训。依然是if，不然会和第三个if 组成if...else。
+
+除了第一行和第一列，其他的情况： 选择 max（左边，上面）+ 自己那一格
+
+更方便的做法是在左边和上面都补上一列0，这样就不用分四种情况讨论了，公式能通用。
+
+https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof/solution/mian-shi-ti-47-li-wu-de-zui-da-jie-zhi-dong-tai-gu/
+
+最长不含重复字符的子字符串
+---------------------------------
+剑指 Offer 48. 
+
+请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。
+
+示例 1:
+
+| 输入: "abcabcbb"
+| 输出: 3 
+| 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+| 示例 2:
+
+| 输入: "bbbbb"
+| 输出: 1
+| 解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+| 示例 3:
+
+| 输入: "pwwkew"
+| 输出: 3
+| 解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+
+::
+
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if len(s)<=1:
+            return len(s)
+        i = 0
+        res = 1
+        for j in range(1,len(s)):
+            if s[j] not in s[i:j]:
+                pass
+            else:
+                i = s[i:j].index(s[j]) + i + 1
+            res = max(res,j-i+1)
+        return res
+
+
 找规律&斐波拉契
 ===================
 
 跳台阶---斐波拉契
+
+剪绳子
+----------------------
+剑指 Offer 14- I. 
+| 给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n>1并且m>1），每段绳子的长度记为 k[0],k[1]...k[m-1] 。
+| 请问 k[0]*k[1]*...*k[m-1] 可能的最大乘积是多少？
+| 例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。
+
+| 示例
+| 输入: 10
+| 输出: 36
+| 解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36
+
+
 
 数字序列中某一位的数字
 -----------------------------
