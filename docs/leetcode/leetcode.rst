@@ -627,7 +627,7 @@ https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/solution/chao-hao-dong-k
 .. image:: ../../_static/leetcode/剑指34.png
     :align: center
     :width: 400
-	
+    
 输入一棵二叉树和一个整数，打印出二叉树中节点值的和为输入整数的所有路径。从树的根节点开始往下一直到叶节点所经过的节点形成一条路径。::
             
     def pathSum(self, root: TreeNode, target: int) -> List[List[int]]:
@@ -1038,8 +1038,32 @@ leetcode 152.
                 if int(nums[i] + nums[j] > nums[j] + nums[i]):
                     nums[i], nums[j] = nums[j], nums[i]
         return ''.join(nums)
-		
+        
 O(n2)的解法，类似冒泡排序。
+
+有一种O(nlogn)的解法，类似于快排。暂时不理解，先记录下来：
+
+https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/solution/mian-shi-ti-45-ba-shu-zu-pai-cheng-zui-xiao-de-s-4/
+
+::
+
+    def minNumber(self, nums: List[int]) -> str:
+        def fast_sort(l , r):
+            if l >= r: return
+            i, j = l, r
+            while i < j:
+                while strs[j] + strs[l] >= strs[l] + strs[j] and i < j: j -= 1
+                while strs[i] + strs[l] <= strs[l] + strs[i] and i < j: i += 1
+                strs[i], strs[j] = strs[j], strs[i]
+            strs[i], strs[l] = strs[l], strs[i]
+            fast_sort(l, i - 1)
+            fast_sort(i + 1, r)
+        
+        strs = [str(num) for num in nums]
+        fast_sort(0, len(strs) - 1)
+        return ''.join(strs)
+
+里面涉及到一些数学推导与证明，评论区和下面其他大佬的解答里面有证明。
 
 股票的最大利润
 ------------------------------
@@ -1065,7 +1089,7 @@ O(n2)的解法，类似冒泡排序。
                 Min = prices[i]
                 Max = prices[i]                 
         return res
-		
+        
 
 链表
 ===================
@@ -1199,8 +1223,8 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
             i+=1
     if list2:
         list1+=list2
-		
-		
+        
+        
 找规律
 ===================
 
