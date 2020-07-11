@@ -26,9 +26,9 @@ copyright = '2020, Chuankai Luo'
 author = u'Chuankai Luo'
 
 # The short X.Y version
-# version = u''
+version = u''
 # # The full version, including alpha/beta/rc tags
-# release = u'0.1.1'
+release = u'洛传凯'
 
 
 # -- General configuration ---------------------------------------------------
