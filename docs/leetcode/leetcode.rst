@@ -784,31 +784,6 @@ leetcode 5.
                 res = s[i-temp:i]+s[i:i+temp]
         return res
 
-股票的最大利润
-------------------------------
-剑指 Offer 63. 
-
-.. image:: ../../_static/leetcode/剑指63.png
-    :align: center
-    :width: 400
-    
-假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？::
-
-    def maxProfit(self, prices: List[int]) -> int:
-        if len(prices)<=0:
-            return 0
-        Max,Min = prices[0],prices[0]
-        res = 0
-        for i in range(len(prices)):
-            if prices[i]>Max:
-                Max = prices[i]
-                temp = Max-Min
-                res = max(temp,res)
-            elif  prices[i]<Min:
-                Min = prices[i]
-                Max = prices[i]                 
-        return res
-
 
 顺时针打印矩阵
 ------------------------
@@ -947,6 +922,151 @@ leetcode 5.
         
 一个漂亮的解法。维护一个res和count。如果当前遍历到的数和res相等，count就+1，不不然就-1。减到0 res就换人。 记得换人后把count重新设为1 !!!
 
+
+连续子数组的最大和
+-------------------------
+剑指 Offer 42. 
+
+输入一个整型数组，数组里有正数也有负数。数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。
+
+要求时间复杂度为O(n)。
+
+示例1:
+
+| 输入: nums = [-2,1,-3,4,-1,2,1,-5,4]
+| 输出: 6
+| 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+
+::
+
+    def maxSubArray(self, nums: List[int]) -> int:
+        if len(nums)==0:
+            return 0
+        res, temp = nums[0], nums[0]
+        for i in range(1,len(nums)):
+            temp = max(nums[i],temp+nums[i])
+            res = max(temp,res)
+        return res
+
+值得再去好好想想
+
+
+更进一步，请看下一题：
+
+乘积最大子数组
+------------------------
+
+leetcode 152. 
+
+给你一个整数数组 nums ，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
+
+示例 1:
+
+| 输入: [2,3,-2,4]
+| 输出: 6
+| 解释: 子数组 [2,3] 有最大乘积 6。
+| 示例 2:
+
+| 输入: [-2,0,-1]
+| 输出: 0
+| 解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。
+
+::
+
+    def maxProduct(self, nums: List[int]) -> int:
+        if not nums: return 
+        res = nums[0]
+        pre_max = nums[0]
+        pre_min = nums[0]
+        for num in nums[1:]:
+            cur_max = max(pre_max * num, pre_min * num, num)
+            cur_min = min(pre_max * num, pre_min * num, num)
+            res = max(res, cur_max)
+            pre_max = cur_max
+            pre_min = cur_min
+        return res
+
+
+链接：https://leetcode-cn.com/problems/maximum-product-subarray/solution/duo-chong-si-lu-qiu-jie-by-powcai-3/
+
+思路很巧妙！ 因为这个题目比上一题难在，虽然现在的cur可能是一个很小的负数（但是绝对值大），再乘一个负数后就会变得很大。所以绝对值很重要。
+大正数和小负数（绝对值大）都要保存记录。而不是像上一题只用记录一个就行
+
+
+还有一种解法暂时没太明白，也先记录下来。
+
+思路三：根据符号的个数 [^2]
+
+当负数个数为偶数时候，全部相乘一定最大
+
+当负数个数为奇数时候，它的左右两边的负数个数一定为偶数，只需求两边最大值
+
+当有 0 情况，重置就可以了
+
+::
+
+    def maxProduct(self, nums: List[int]) -> int:
+        reverse_nums = nums[::-1]
+        for i in range(1, len(nums)):
+            nums[i] *= nums[i - 1] or 1
+            reverse_nums[i] *= reverse_nums[i - 1] or 1
+        return max(nums + reverse_nums)
+
+把数组排成最小的数
+------------------------
+剑指 Offer 45. 
+
+输入一个非负整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。
+
+示例 1:
+
+| 输入: [10,2]
+| 输出: "102"
+| 示例 2:
+
+| 输入: [3,30,34,5,9]
+| 输出: "3033459"
+
+::
+
+    def minNumber(self, nums: List[int]) -> str:
+        if nums==[]:
+            return ''
+        nums = [str(x) for x in nums]
+        for i in range(0,len(nums)-1):
+            for j in range(i+1,len(nums)):
+                if int(nums[i] + nums[j] > nums[j] + nums[i]):
+                    nums[i], nums[j] = nums[j], nums[i]
+        return ''.join(nums)
+		
+O(n2)的解法，类似冒泡排序。
+
+股票的最大利润
+------------------------------
+剑指 Offer 63. 
+
+.. image:: ../../_static/leetcode/剑指63.png
+    :align: center
+    :width: 400
+    
+假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？::
+
+    def maxProfit(self, prices: List[int]) -> int:
+        if len(prices)<=0:
+            return 0
+        Max,Min = prices[0],prices[0]
+        res = 0
+        for i in range(len(prices)):
+            if prices[i]>Max:
+                Max = prices[i]
+                temp = Max-Min
+                res = max(temp,res)
+            elif  prices[i]<Min:
+                Min = prices[i]
+                Max = prices[i]                 
+        return res
+		
+
 链表
 ===================
 
@@ -1079,3 +1199,36 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
             i+=1
     if list2:
         list1+=list2
+		
+		
+找规律
+===================
+
+跳台阶---斐波拉契
+
+数字序列中某一位的数字
+-----------------------------
+剑指 Offer 44. 
+
+数字以0123456789101112131415…的格式序列化到一个字符序列中。在这个序列中，第5位（从下标0开始计数）是5，第13位是1，第19位是4，等等。
+
+请写一个函数，求任意第n位对应的数字。
+
+::
+
+    def findNthDigit(self, n: int) -> int:
+        digit, start, count = 1, 1, 9
+        while n > count: # 1.
+            n -= count
+            start *= 10
+            digit += 1
+            count = 9 * start * digit
+        num = start + (n - 1) // digit # 2.
+        return int(str(num)[(n - 1) % digit]) # 3.
+
+
+.. image:: ../../_static/leetcode/剑指44.png
+    :align: center
+
+
+https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/solution/mian-shi-ti-44-shu-zi-xu-lie-zhong-mou-yi-wei-de-6/
