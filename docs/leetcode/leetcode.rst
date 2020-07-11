@@ -1450,9 +1450,64 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 --------------------------------
 剑指 Offer 52. 
 
+**好题！经典！常看！**
+
 输入两个链表，找出它们的第一个公共节点。
 
 .. image:: ../../_static/leetcode/剑指52.png
     :align: center
 
+优秀解法::
+    
+	def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        alist, blist = headA, headB
+        while headA != headB:
+            if headA:
+                headA = headA.next
+            else:
+                headA = blist
+            if headB:
+                headB = headB.next
+            else:
+                headB = alist
+        return headA
+
+| 我知道是双指针，然后把两个链表前后拼接在一起，以消除长度不一致的影响。但是，
+| 我最开始写的憨憨解法::
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        alist, blist = headA, headB
+        if not headA or not headB:
+            return None
+        while headA != headB:
+            if headA.next==None and headB.next==None:
+                return None
+            if headA.next:
+                headA = headA.next
+            else:
+                headA = blist
+            if headB.next:
+                headB = headB.next
+            else:
+                headB = alist
+        return headA
+		
+| 有几个坑的地方：
+| 1. if headA.next==None and headB.next==None:  return None 这里很重要。
+| 不然两个链表完全没有重合结点的时候就会无限循环下去
+| 2. 所以我加了 if not headA or not headB:  return None
+| 但我最开始写的 return 0. 会在leetcode上面报一个很奇怪的错，int object has not attribute val
+| 3. if not headA or not headB:  求求你别再写成 if not headA or headB: 了
+
+所以上面那种优秀的解法完美的避开了我下面的这些坑。如果两个链表完全没有相同的结点，他会循环到两个人都是None，然后headA==headB，返回headA，恰好是None
+
+当然，像他们那样写成这种形式的也可以
 ::
+
+	def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        node1, node2 = headA, headB
+        while node1 != node2:
+            node1 = node1.next if node1 else headB
+            node2 = node2.next if node2 else headA
+        return node1
+
+看着简洁，但是可读性没有最开始的好。我还是建议分开写
