@@ -1226,7 +1226,7 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
         list1+=list2
         
         
-找规律
+找规律&斐波拉契
 ===================
 
 跳台阶---斐波拉契
@@ -1257,3 +1257,35 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 
 
 https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/solution/mian-shi-ti-44-shu-zi-xu-lie-zhong-mou-yi-wei-de-6/
+
+
+把数字翻译成字符串
+--------------------------
+剑指 Offer 46. 
+
+给定一个数字，我们按照如下规则把它翻译为字符串：0 翻译成 “a” ，1 翻译成 “b”，……，11 翻译成 “l”，……，25 翻译成 “z”。一个数字可能有多个翻译。请编程实现一个函数，用来计算一个数字有多少种不同的翻译方法。
+
+示例 1:
+
+| 输入: 12258
+| 输出: 5
+| 解释: 12258有5种不同的翻译，分别是"bccfi", "bwfi", "bczi", "mcfi"和"mzi"::
+
+    def translateNum(self, num: int) -> int:
+        num = str(num)
+        if len(num)<=1:
+            return len(num)
+        if len(num)>=2:
+            if int(num[:2])<=25:
+                res = [1,2]
+            else:
+                res = [1,1]
+
+        for i in range(2,len(num)):
+            if int(num[i-1]+num[i])<=25 and num[i-1]!="0":
+                res.append(res[-1] + res[-2])
+            else:
+                res.append(res[-1])
+        return res[-1]
+		
+num[i-1]!="0" 这里要注意，否则处理 506 这样带0的数据会出错

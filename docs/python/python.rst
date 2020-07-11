@@ -34,6 +34,40 @@
 --------------------------------------
 https://www.cnblogs.com/zzqcn/p/5096876.html#_label7
 
+生成a到z，判断是否是数字，判断是否是字母
+---------------------------------------
+
+生成a到z::
+
+    num2char = dict()
+    for i in range(26):
+        num2char[i] = chr(ord("a")+i)
+
+string.isdigit()
+
+string.isalpha()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 知识图谱实体链接：一份“由浅入深”的综述
 ------------------------------------------
@@ -41,7 +75,7 @@ https://blog.csdn.net/c9Yv2cf9I06K2A9E/article/details/103900689
 
 
 .. image:: ../../_static/python/entity_linking.png
-	:align: center
+    :align: center
 
 
 被遮住的部分：
