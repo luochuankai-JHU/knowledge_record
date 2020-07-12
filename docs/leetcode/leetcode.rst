@@ -138,6 +138,41 @@ leetcode 34.
             return [left,right]
 
 
+emmmm 上面这样写好蠢啊
+
+剑指53跟这个几乎一样
+::
+
+	def search(self, nums: List[int], target: int) -> int:
+
+        def get_first(nums,target):
+            l, r = 0, len(nums)-1
+            while l <= r:
+                mid = (l + r)//2
+                if nums[mid]>=target:
+                    r = mid -1
+                elif nums[mid] < target:
+                    l = mid + 1
+            return l
+        
+        def get_last(nums,target):
+            l, r = 0, len(nums)-1
+            while l <= r:
+                mid = (l + r)//2
+                if nums[mid] <= target:
+                    l = mid + 1
+                elif nums[mid] > target:
+                    r = mid - 1
+            return r 
+        
+        r = get_last(nums,target)
+        l = get_first(nums,target)
+        if r < l:
+            return 0
+        else:
+            return r - l +1
+
+
 搜索插入位置
 -------------------------------
 
@@ -240,8 +275,57 @@ leetcode 81.
             return False
 
 
+0～n-1中缺失的数字
+--------------------------
+剑指 Offer 53 - II. 
+
+| 一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内。
+| 在范围0～n-1内的n个数字中有且只有一个数字不在该数组中，请找出这个数字。
+
+| 示例 1:
+| 输入: [0,1,3]
+| 输出: 2
+
+| 示例 2:
+| 输入: [0,1,2,3,4,5,6,7,9]
+| 输出: 8    
     
-    
+::
+
+    def missingNumber(self, nums: List[int]) -> int:
+        i, j = 0, len(nums) - 1
+        while i <= j:
+            m = (i + j) // 2
+            if nums[m] == m: i = m + 1
+            else: j = m - 1
+        return i
+
+别人的解法还是很简洁的
+
+相比之下，我的解法有些冗余::
+
+    def missingNumber(self, nums: List[int]) -> int:
+        l, r = 0, len(nums)
+        if nums[0] != 0:
+            return 0
+        if nums[-1] != len(nums):
+            return len(nums)
+        while l <= r:
+            mid = (l + r) // 2
+            if mid == nums[mid]:
+                l = mid
+            else:
+                r = mid
+            if r == l + 1:
+                return (nums[r] + nums[l])//2
+				
+| 想法其实很简单，就二分查找。因为这个题有个限定，是左边从0开始，所以最开始要讨论一下缺失两边的情况。
+| 然后中间的时候直接用if mid == nums[mid] 就可以了。
+
+| 有个想法。是不是 l = mid 这种地方，要不就都用 mid +1 ， mid-1 要不就都不加都不减。不然容易出问题
+| 反正最后那个if r == l + 1: return (nums[r] + nums[l])//2 直接耍流氓很舒服
+
+| 还是多多学习别人的吧！ 巧妙的利用了 二分查找之后，导致while停止循环的情况一定是： r在查找值的左边，l在查找值的右边。 
 
 排序
 ====================
@@ -1067,6 +1151,47 @@ https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/soluti
 
 里面涉及到一些数学推导与证明，评论区和下面其他大佬的解答里面有证明。
 
+
+和为s的连续正数序列
+-----------------------------
+剑指 Offer 57 - II. 
+
+输入一个正整数 target ，输出所有和为 target 的连续正整数序列（至少含有两个数）。
+
+序列内的数字由小到大排列，不同序列按照首个数字从小到大排列。
+
+| 示例 1：
+| 输入：target = 9
+| 输出：[[2,3,4],[4,5]]
+
+| 示例 2：
+| 输入：target = 15
+| 输出：[[1,2,3,4,5],[4,5,6],[7,8]]
+::
+
+    def findContinuousSequence(self, target: int) -> List[List[int]]:
+        if target<=2:
+            return None
+        l,r = 1,1
+        res = []
+        the_sum = 1
+        while l<=target//2:
+            if the_sum<target:
+                r+=1
+                the_sum+=r
+            elif the_sum>target:
+                the_sum-=l 
+                l+=1
+            elif the_sum==target:
+                res.append([x for x in range(l,r+1)])
+                the_sum-=l 
+                l+=1
+        return res
+
+经典双指针题目
+
+
+
 股票的最大利润
 ------------------------------
 剑指 Offer 63. 
@@ -1511,3 +1636,37 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
         return node1
 
 看着简洁，但是可读性没有最开始的好。我还是建议分开写
+
+
+位运算
+==============
+我菜狗，暂时不会
+
+数组中数字出现的次数 II
+-----------------------------------
+剑指 Offer 56 - II. 
+
+在一个数组 nums 中除一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。
+
+| 示例 1：
+| 输入：nums = [3,4,3,3]
+| 输出：4
+
+| 示例 2：
+| 输入：nums = [9,1,7,9,7,9,7]
+| 输出：1
+
+
+数组中数字出现的次数
+-----------------------------
+剑指 Offer 56 - I. 
+
+一个整型数组 nums 里除两个数字之外，其他数字都出现了两次。请写程序找出这两个只出现一次的数字。要求时间复杂度是O(n)，空间复杂度是O(1)。
+
+| 示例 1：
+| 输入：nums = [4,1,4,6]
+| 输出：[1,6] 或 [6,1]
+
+| 示例 2：
+| 输入：nums = [1,2,10,4,1,4,3,3]
+| 输出：[2,10] 或 [10,2]

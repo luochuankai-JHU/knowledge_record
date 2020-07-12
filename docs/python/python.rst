@@ -7,7 +7,7 @@
 一些零散记录
 ******************
 
-一些成系统的学习资料
+一些学习资料
 =========================
 
 李航 统计学习方法
@@ -22,7 +22,8 @@
 
 西瓜书
 
-
+一个做的很好的GitHub网站，里面总结了面试题
+https://github.com/luochuankai-JHU/Algorithm_Interview_Notes-Chinese
 
 
 
