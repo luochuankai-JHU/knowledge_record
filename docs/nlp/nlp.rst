@@ -26,6 +26,8 @@ bert & transformer
 
 马上上线
 
+李宏毅 transformer讲解视频：
+https://www.bilibili.com/video/BV1J441137V6?from=search&seid=1952161104243826844
 
 -----------------
 
@@ -48,6 +50,12 @@ bert & transformer
 
 https://cloud.tencent.com/developer/article/1558479
 
+
+.. image:: ../../_static/nlp/transformer.png
+	:align: center
+
+
+
 https://zhuanlan.zhihu.com/p/148656446
 
 史上最全Transformer面试题
@@ -57,12 +65,14 @@ Transformer为何使用多头注意力机制？（为什么不使用一个头）
 
 这个目前还没有公认的解释，本质上是论文原作者发现这样效果确实好。但是普遍的说法是，使用多个头可以提供多个角度的信息。
 
+在同一“multi-head attention”层中，输入均为“KQV”，同时进行注意力的计算，彼此之前参数不共享，最终将结果拼接起来，这样可以允许模型在不同的表示子空间里学习到相关的信息
 
 Transformer为什么Q和K使用不同的权重矩阵生成，为何不能使用同一个值进行自身的点乘？
 -----------------------------------------------------------------------------------------
 
 .. image:: ../../_static/nlp/self-attention.png
 	:align: center
+	:width: 400
 
 | 简单解释：
 | Q和K的点乘是为了计算一个句子中每个token相对于句子中其他token的相似度，这个相似度可以理解为attetnion score
@@ -81,20 +91,66 @@ Transformer计算attention的时候为何选择点乘而不是加法？两者计
 | 矩阵加法在加法这一块的计算量确实简单，但是作为一个整体计算attention的时候相当于一个隐层，整体计算量和点积相似。
 | 在效果上来说，从实验分析，两者的效果和dk相关，dk越大，加法的效果越显著。
 
-| 4. 为什么在进行softmax之前需要对attention进行scaled（为什么除以dk的平方根），并使用公式推导进行讲解
-| 5. 在计算attention score的时候如何对padding做mask操作？
-| 6. 为什么在进行多头注意力的时候需要对每个head进行降维？（可以参考上面一个问题）
-| 7. 大概讲一下Transformer的Encoder模块？
+为什么在进行softmax之前需要对attention进行scaled（为什么除以dk的平方根），并使用公式推导进行讲解
+-------------------------------------------------------------------------------------------------------------
+作者在分析模型性能不佳的原因时，认为是极大的点积值将落在 softmax 平缓区间，使得收敛困难。类似“梯度消失”。
+
+（洛）为什么其他的softmax不用scaled？因为以前类似于softmaxloss的时候，计算的是logits的softmax，是模型预测结果和真实值的差异，本来就不会出现一个很大的值。
+
+
+
+在计算attention score的时候如何对padding做mask操作？
+-------------------------------------------------------------------
+padding位置置为负无穷(一般来说-1000就可以)
+
+为什么在进行多头注意力的时候需要对每个head进行降维？（可以参考上面一个问题）
+--------------------------------------------------------------------------------------------
+？？？？
+
+Transformer的Encoder模块
+-----------------------------------
+
 | 8. 为何在获取输入词向量之后需要对矩阵乘以embedding size的开方？意义是什么？
 | 9. 简单介绍一下Transformer的位置编码？有什么意义和优缺点？
+
+.. image:: ../../_static/nlp/positional_encoding.png
+	:align: center
+
+.. image:: ../../_static/nlp/wp.png
+	:align: center
+
 | 10. 你还了解哪些关于位置编码的技术，各自的优缺点是什么？
 | 11. 简单讲一下Transformer中的残差结构以及意义。
 | 12. 为什么transformer块使用LayerNorm而不是BatchNorm？LayerNorm 在Transformer的位置是哪里？
 | 13. 简答讲一下BatchNorm技术，以及它的优缺点。
-| 14. 简单描述一下Transformer中的前馈神经网络？使用了什么激活函数？相关优缺点？
-| 15. Encoder端和Decoder端是如何进行交互的？（在这里可以问一下关于seq2seq的attention知识）
-| 16. Decoder阶段的多头自注意力和encoder的多头自注意力有什么区别？（为什么需要decoder自注意力需要进行 sequence mask)
+
+简单描述一下Transformer中的前馈神经网络？使用了什么激活函数？相关优缺点？
+--------------------------------------------------------------------------------------------
+前馈神经网络模块（即图示中的Feed Forward）由两个线性变换组成，中间有一个ReLU激活函数。
+
+Encoder端和Decoder端是如何进行交互的？（在这里可以问一下关于seq2seq的attention知识）
+--------------------------------------------------------------------------------------------------
+Q矩阵来源于下面子模块的输出（对应到图中即为masked多头self-attention模块经过Add&Norm后的输出），而K，V矩阵则来源于整个Encoder端的输出
+
+Decoder阶段的多头自注意力和encoder的多头自注意力有什么区别？（为什么需要decoder自注意力需要进行 sequence mask)
+---------------------------------------------------------------------------------------------------------------------------
+Decoder端的多头self-attention需要做mask，因为它在预测时，是“看不到未来的序列的”，所以要将当前预测的单词（token）及其之后的单词（token）全部mask掉。
+
 | 17. Transformer的并行化提现在哪个地方？Decoder端可以做并行化吗？
 | 18. 简单描述一下wordpiece model 和 byte pair encoding，有实际应用过吗？
 | 19. Transformer训练的时候学习率是如何设定的？Dropout是如何设定的，位置在哪里？Dropout 在测试的需要有什么需要注意的吗？
 | 20. 引申一个关于bert问题，bert的mask为何不学习transformer在attention处进行屏蔽score的技巧？
+
+self-attention的优点
+----------------------------------
+引入self-attention后会更容易捕获句子中长距离的相互依赖特征。
+因为如果是LSTM或者RNN，需要依次序序列计算，对于远距离的相互依赖的特征，要经过若干时间步步骤的信息累积才能将两者联系起来，而距离越远，有效捕获的可能性越小。
+
+self-attention在计算过程中会直接将句子中任意两个单词的联系通过一个计算步骤直接联系起来，
+所以远距离依赖特征之间的距离被极大缩短，有利于有效地利用这些特征。
+
+除此外，self-attention对计算的并行性也有直接帮助。
+
+关于并行计算
+--------------------
+Encoder端可以并行计算，一次性将输入序列全部encoding出来，但Decoder端不是一次性把所有单词（token）预测出来的，而是像seq2seq一样一个接着一个预测出来的
