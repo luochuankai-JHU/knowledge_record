@@ -26,8 +26,14 @@ bert & transformer
 
 马上上线
 
+一些学习资料
+----------------------
 李宏毅 transformer讲解视频：
 https://www.bilibili.com/video/BV1J441137V6?from=search&seid=1952161104243826844
+
+https://blog.csdn.net/urbanears/article/details/98742013  这个博客讲的不错
+
+
 
 -----------------
 
@@ -119,14 +125,16 @@ Transformer的Encoder模块
 .. image:: ../../_static/nlp/wp.png
 	:align: center
 
-| 10. 你还了解哪些关于位置编码的技术，各自的优缺点是什么？
+
 | 11. 简单讲一下Transformer中的残差结构以及意义。
 | 12. 为什么transformer块使用LayerNorm而不是BatchNorm？LayerNorm 在Transformer的位置是哪里？
-| 13. 简答讲一下BatchNorm技术，以及它的优缺点。
+
 
 简单描述一下Transformer中的前馈神经网络？使用了什么激活函数？相关优缺点？
 --------------------------------------------------------------------------------------------
-前馈神经网络模块（即图示中的Feed Forward）由两个线性变换组成，中间有一个ReLU激活函数。
+Feed Forward层是一个两层的fully-connection层，中间有一个ReLU激活函数，隐藏层的单元个数为 2048。
+
+是非线性变换，能增强学习能力
 
 Encoder端和Decoder端是如何进行交互的？（在这里可以问一下关于seq2seq的attention知识）
 --------------------------------------------------------------------------------------------------
@@ -137,9 +145,16 @@ Decoder阶段的多头自注意力和encoder的多头自注意力有什么区别
 Decoder端的多头self-attention需要做mask，因为它在预测时，是“看不到未来的序列的”，所以要将当前预测的单词（token）及其之后的单词（token）全部mask掉。
 
 | 17. Transformer的并行化提现在哪个地方？Decoder端可以做并行化吗？
-| 18. 简单描述一下wordpiece model 和 byte pair encoding，有实际应用过吗？
-| 19. Transformer训练的时候学习率是如何设定的？Dropout是如何设定的，位置在哪里？Dropout 在测试的需要有什么需要注意的吗？
-| 20. 引申一个关于bert问题，bert的mask为何不学习transformer在attention处进行屏蔽score的技巧？
+
+Transformer训练的时候学习率是如何设定的？Dropout是如何设定的，位置在哪里？Dropout 在测试的需要有什么需要注意的吗？
+-------------------------------------------------------------------------------------------------------------------------------
+| bert里面是1e-5，我自己尝试过1e-6和5e-6，效果略微下降
+| dropout的话，代码里是0.1 但这是训练的时候。我测试的时候最开始忘记dropout设为零了，后来发现了以后直接有1个百分点的提升。
+
+具体细节？？？？？？？位置在哪里？
+
+
+
 
 self-attention的优点
 ----------------------------------
@@ -154,3 +169,12 @@ self-attention在计算过程中会直接将句子中任意两个单词的联系
 关于并行计算
 --------------------
 Encoder端可以并行计算，一次性将输入序列全部encoding出来，但Decoder端不是一次性把所有单词（token）预测出来的，而是像seq2seq一样一个接着一个预测出来的
+
+前馈网络和BP神经网络
+--------------
+前馈神经网络主要强调的是无环
+
+BP网络指的是用BP算法进行训练的多层前馈神经网络
+
+batch norm & layer norm
+-----------------------------------
