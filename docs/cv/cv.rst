@@ -33,9 +33,13 @@ Dropout
 
 pooling池化
 ---------------------
-| pooling池化的作用则体现在降采样：保留显著特征、降低特征维度，增大kernel的感受野。另外一点值得注意：pooling也可以提供一些旋转不变性。
+| pooling池化的作用则体现在降采样：保留显著特征、降低特征维度，增大kernel的感受野。pooling可以提供一些旋转不变性。
 | 池化层可对提取到的特征信息进行降维，一方面使特征图变小，简化网络计算复杂度并在一定程度上避免过拟合的出现；一方面进行特征压缩，提取主要特征。
 | 我们的模型没做pooling
+
+| pooling的作用 
+| 特征不变性，特征降维，在一定程度防止过拟合，更方便优化。
+
 
 Padding
 ------------------
@@ -90,6 +94,9 @@ Padding
 
 过拟合
 -------------------
+| 数据少，模型过于复杂
+| 所选模型的复杂度比真模型更高;学习时选择的模型所包含的参数过多,对已经数据预测得很好,但是对未知数据预测得很差的现象.
+
 | 为了防止过拟合，我们需要用到一些方法，如：early stopping、数据增强（Data augmentation）、正则化（Regularization）、等。
 | Early stopping方法的具体做法是，在每一个Epoch结束时（一个Epoch集为对所有的训练数据的一轮遍历）计算validation data的accuracy，当accuracy不再提高时，就停止训练。
 | Dropout随机删除一些神经元防止参数过分依赖训练数据，增加参数对数据集的泛化能力
@@ -221,6 +228,16 @@ https://blog.csdn.net/xxy0118/article/details/84333635
 .. image:: ../../_static/cv/homework2.png
 	:align: center
 
+池化层如何反向传播 
+-------------------------
+https://blog.csdn.net/weixin_41683218/article/details/86473488
+
+.. image:: ../../_static/cv/mean_pooling.png
+	:align: center
+	
+.. image:: ../../_static/cv/max_pooling.png
+	:align: center
+	
 CV的一些知识
 ===================
 

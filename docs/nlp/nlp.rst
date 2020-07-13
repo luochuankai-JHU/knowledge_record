@@ -17,7 +17,10 @@ GRU LSTM BRNN
 .. image:: ../../_static/nlp/lstm.png
 	:align: center
 
- 
+RNN的弊端，还有LSTM内部结构，以及接收的是前一个LSTM的什么？怎样解决长期依赖？为什么要用sigmoid?
+
+长期依赖，三个门，加计算公式，sigmoid将值限制在了0-100%
+
 
  
 
@@ -178,3 +181,6 @@ BP网络指的是用BP算法进行训练的多层前馈神经网络
 
 batch norm & layer norm
 -----------------------------------
+
+warmup
+-------------
