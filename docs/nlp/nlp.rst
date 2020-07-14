@@ -130,7 +130,7 @@ Transformer的Encoder模块
 
 
 | 11. 简单讲一下Transformer中的残差结构以及意义。
-| 12. 为什么transformer块使用LayerNorm而不是BatchNorm？LayerNorm 在Transformer的位置是哪里？
+
 
 
 简单描述一下Transformer中的前馈神经网络？使用了什么激活函数？相关优缺点？
@@ -181,6 +181,18 @@ BP网络指的是用BP算法进行训练的多层前馈神经网络
 
 batch norm & layer norm
 -----------------------------------
+这个说的勉强还行：https://zhuanlan.zhihu.com/p/74516930
+
+| '''
+| 而LN则是针对一句话进行缩放的，且LN一般用在第三维度，如[batchsize, seq_len, dims]中的dims，一般为词向量的维度，或者是RNN的输出维度等等，
+| 这一维度各个特征的量纲应该相同。因此也不会遇到上面因为特征的量纲不同而导致的缩放问题。
+| '''
+
+batch normalization 受batch size的影响很大，因为他是用batch里的数据来假设是整体样本的情况
+
+https://zhuanlan.zhihu.com/p/54530247
+
+里面有些没看懂
 
 warmup
 -------------
