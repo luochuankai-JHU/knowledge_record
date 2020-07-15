@@ -124,7 +124,7 @@ padding位置置为负无穷(一般来说-1000就可以)
 	:align: center
 	:width: 150
 	
-一句话（如上图中的x），比如max_seq_len=210的时候，通过word embedding，得到一个210*256的矩阵，如上图a。
+一个 max_seq_len=210的句子，如上图中的x，通过word embedding，得到一个210*256的矩阵，如上图a。
 
 a 通过线性层（但还是210*256------210*256）,得到 QKV 三个矩阵，其实基本可以看成a'。然后通过上面的公式 Q和K(T)做点乘，除以dimensionK，然后softmax，然后乘V
 
@@ -134,6 +134,11 @@ a 通过线性层（但还是210*256------210*256）,得到 QKV 三个矩阵，�
 
 作者的目的应该是怕头多了以后，在高维空间中参数量大，学习效果不好。
 
+https://www.cnblogs.com/rosyYY/p/10115424.html
+这篇文章讲的multihead不错，截图在下方：
+
+.. image:: ../../_static/nlp/multihead.png
+	:align: center
 
 Transformer的Encoder模块
 -----------------------------------
@@ -211,7 +216,7 @@ batch normalization 受batch size的影响很大，因为他是用batch里的数
 
 https://zhuanlan.zhihu.com/p/54530247
 
-里面有些没看懂
+？？？里面有些没看懂
 
 warmup
 -------------
