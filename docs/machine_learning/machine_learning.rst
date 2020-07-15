@@ -120,6 +120,7 @@ SVM
 
 .. image:: ../../_static/machine_learning/hinge_loss.png
 	:align: center
+
 	
 聚类
 -------------

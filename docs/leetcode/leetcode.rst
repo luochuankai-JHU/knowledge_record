@@ -1352,6 +1352,7 @@ leetcode 6.
 
 .. image:: ../../_static/leetcode/6.png
 	:align: center
+	:width: 400
 	
 	
 圆圈中最后剩下的数字
@@ -1428,6 +1429,7 @@ leetcode 6.
 
 .. image:: ../../_static/leetcode/剑指44.png
     :align: center
+    :width: 400
 
 
 https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/solution/mian-shi-ti-44-shu-zi-xu-lie-zhong-mou-yi-wei-de-6/
@@ -1654,6 +1656,7 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 
 .. image:: ../../_static/leetcode/剑指52.png
     :align: center
+    :width: 400
 
 优秀解法::
     
