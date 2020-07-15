@@ -23,7 +23,7 @@
 西瓜书
 
 一个做的很好的GitHub网站，里面总结了面试题
-https://github.com/luochuankai-JHU/Algorithm_Interview_Notes-Chinese
+https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese
 
 
 
