@@ -118,11 +118,11 @@ padding位置置为负无穷(一般来说-1000就可以)
 
 .. image:: ../../_static/nlp/QKV.png
 	:align: center
-	:width: 400
+	:width: 500
 
 .. image:: ../../_static/nlp/QKVSMALL.png
 	:align: center
-	:width: 300
+	:width: 150
 	
 一句话（如上图中的x），比如max_seq_len=210的时候，通过word embedding，得到一个210*256的矩阵，如上图a。
 
