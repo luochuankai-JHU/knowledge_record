@@ -7,6 +7,97 @@
 NLP
 ******************
 
+NLP 的基础知识
+=====================
+
+（NLP）语义分析--文本分类、情感分析、意图识别
+--------------------------------------------------------
+https://blog.csdn.net/weixin_41657760/article/details/93163519
+
+摘录一下意图识别部分
+
+.. image:: ../../_static/nlp/意图识别.png
+	:align: center
+	:width: 400
+
+
+模型压缩
+------------------
+模型压缩的相关知识三大角度：蒸馏，剪枝，量化
+
+.. image:: ../../_static/nlp/模型压缩.png
+	:align: center
+	
+.. image:: ../../_static/nlp/模型压缩2.png
+	:align: center
+	
+知识蒸馏
+
+李宏毅是真的讲得好https://www.bilibili.com/video/BV1SC4y1h7HB?p=7
+
+.. image:: ../../_static/nlp/distillation.png
+	:align: center
+	:width: 400
+
+| 为什么distillation有效果。因为teacher的参数能提供比label data（one-hot label）更多的信息。
+| 比如上面那张图，如果student从teacher那里学习，他不仅能知道这张图片是1，而且知道1和7有点像，也知道1和9有点像
+
+.. image:: ../../_static/nlp/temperature.png
+	:align: center
+	:width: 300
+
+temperature就是为了防止teacher的反馈和one-hot label太像
+
+
+
+剪枝
+
+| crf
+| n gram
+| attention
+| transformer
+| gpt
+| bert
+| bagofword
+| fasttext
+| glove
+| elmo
+| 知识图谱
+| 
+
+意图识别
+编辑距离
+elasticsearch
+召回再匹配
+
+fastbert
+-----------------
+ACL2020一篇关于提高BERT推理速度的文章，提出了一种新的inference速度提升方式，相比单纯的student蒸馏有更高的确定性，且可以自行权衡效果与速度
+
+FastBERT的创新点很容易理解，就是在每层Transformer后都加分类器去预测样本标签，如果某样本预测结果的置信度很高，就不用继续计算了。
+
+论文把这个逻辑称为样本自适应机制（Sample-wise adaptive mechanism），就是自适应调整每个样本的计算量，容易的样本通过一两层就可以预测出来，较难的样本则需要走完全程。
+
+这里的分支Classifier都是最后一层的分类器蒸馏来的，作者将这称为自蒸馏（Self-distillation）。
+
+就是在预训练和精调阶段都只更新主干参数，精调完后freeze主干参数，用分支分类器（图中的student）蒸馏主干分类器（图中的teacher）的概率分布。
+
+之所以叫自蒸馏，是因为之前的蒸馏都是用两个模型去做，一个模型学习另一个模型的知识，而FastBERT是自己（分支）蒸馏自己（主干）的知识。
+
+.. image:: ../../_static/nlp/fastbert_uncertainty.png
+	:align: center
+	:width: 200
+	
+不确定性就是用熵来衡量的。熵越大代表结果越不可信，如果某一层的不确定性小于一个阈值，那么我们就对这层的结果进行输出，从而提高了推理速度
+
+
+知识图谱
+
+elasticsearch（es）原理
+
+倒排索引
+
+
 GRU LSTM BRNN
 =====================
 吴恩达https://www.bilibili.com/video/BV1F4411y7BA?p=9
@@ -37,35 +128,7 @@ https://www.bilibili.com/video/BV1J441137V6?from=search&seid=1952161104243826844
 https://blog.csdn.net/urbanears/article/details/98742013  这个博客讲的不错
 
 
-
------------------
-
-知识蒸馏
-
-剪枝
-
-| crf
-| n gram
-| attention
-| transformer
-| gpt
-| bert
-| bagofword
-| fasttext
-| glove
-| elmo
-| 知识图谱
-| 模型压缩的相关知识三大角度：蒸馏，剪枝，量化
-
-意图识别
-编辑距离
-elasticsearch
-召回再匹配
-fastbert
-
-知识图谱
-
-https://cloud.tencent.com/developer/article/1558479
+Bert需要理解的一些内容 https://cloud.tencent.com/developer/article/1558479
 
 
 .. image:: ../../_static/nlp/transformer.png
@@ -228,6 +291,7 @@ https://zhuanlan.zhihu.com/p/54530247
 
 .. image:: ../../_static/nlp/BNRNN.png
 	:align: center
+	:width: 300
 
 由于文本的长度不一致，例如这几句话，当句长大于4的时候，就只有一个样本了（剩下的全是padding）。做batch norm的话size太小，不能反映样本的整体分布。
 
