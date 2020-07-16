@@ -706,7 +706,7 @@ https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/solution/chao-hao-dong-k
             return True
 
 
-二叉树中和为某一值的路径**好题**
+二叉树中和为某一值的路径
 ---------------------------------
 剑指 Offer 34. 
 
@@ -1674,7 +1674,9 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
         return headA
 
 | 我知道是双指针，然后把两个链表前后拼接在一起，以消除长度不一致的影响。但是，
-| 我最开始写的憨憨解法::
+| 我最开始写的憨憨解法
+
+::
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         alist, blist = headA, headB
         if not headA or not headB:
