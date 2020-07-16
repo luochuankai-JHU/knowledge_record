@@ -1677,6 +1677,7 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 | 我最开始写的憨憨解法
 
 ::
+
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         alist, blist = headA, headB
         if not headA or not headB:
