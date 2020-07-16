@@ -7,7 +7,7 @@
 NLP
 ******************
 
-NLP 的基础知识
+基础知识&项目所用
 =====================
 
 （NLP）语义分析--文本分类、情感分析、意图识别
@@ -65,10 +65,17 @@ temperature就是为了防止teacher的反馈和one-hot label太像
 | 知识图谱
 | 
 
-意图识别
-编辑距离
 elasticsearch
 召回再匹配
+
+编辑距离
+-----------------
+一个单词转换为另一个单词所需要的最少单字符编辑操作次数
+
+具体计算过程 https://zhuanlan.zhihu.com/p/91667128
+
+？？ 再看，代码要会写
+
 
 fastbert
 -----------------
@@ -112,29 +119,33 @@ RNN的弊端，还有LSTM内部结构，以及接收的是前一个LSTM的什么
 
 长期依赖，三个门，加计算公式，sigmoid将值限制在了0-100%
 
+bert
+====================
 
+一些学习资料
+----------------------
+
+Bert的一些面试题 https://cloud.tencent.com/developer/article/1558479
  
+这篇文章讲解bert还不错 https://zhuanlan.zhihu.com/p/46652512
 
-bert & transformer
+李宏毅bert https://www.bilibili.com/video/BV1C54y1X7xJ?p=1
+
+BERT 时代的常见 NLP 面试题 https://blog.csdn.net/qq_34832393/article/details/104356462
+
+
+transformer
 =================
-
-马上上线
 
 一些学习资料
 ----------------------
 李宏毅 transformer讲解视频：
 https://www.bilibili.com/video/BV1J441137V6?from=search&seid=1952161104243826844
 
-https://blog.csdn.net/urbanears/article/details/98742013  这个博客讲的不错
-
-
-Bert需要理解的一些内容 https://cloud.tencent.com/developer/article/1558479
-
+Transformer模型中重点结构详解 https://blog.csdn.net/urbanears/article/details/98742013  这个博客讲的不错
 
 .. image:: ../../_static/nlp/transformer.png
 	:align: center
-
-
 
 https://zhuanlan.zhihu.com/p/148656446
 
@@ -298,3 +309,5 @@ https://zhuanlan.zhihu.com/p/54530247
 
 warmup
 -------------
+
+
