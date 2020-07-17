@@ -7,7 +7,7 @@
 NLP
 ******************
 
-基础知识&项目所用
+项目涉及
 =====================
 
 （NLP）语义分析--文本分类、情感分析、意图识别
@@ -18,7 +18,7 @@ https://blog.csdn.net/weixin_41657760/article/details/93163519
 
 .. image:: ../../_static/nlp/意图识别.png
 	:align: center
-	:width: 400
+
 
 
 模型压缩
@@ -27,46 +27,31 @@ https://blog.csdn.net/weixin_41657760/article/details/93163519
 
 .. image:: ../../_static/nlp/模型压缩.png
 	:align: center
+	:width: 200
 	
 .. image:: ../../_static/nlp/模型压缩2.png
 	:align: center
+	:width: 200
+	
 	
 知识蒸馏
-
+------------------
 李宏毅是真的讲得好https://www.bilibili.com/video/BV1SC4y1h7HB?p=7
 
 .. image:: ../../_static/nlp/distillation.png
 	:align: center
-	:width: 400
+	:width: 500
 
 | 为什么distillation有效果。因为teacher的参数能提供比label data（one-hot label）更多的信息。
 | 比如上面那张图，如果student从teacher那里学习，他不仅能知道这张图片是1，而且知道1和7有点像，也知道1和9有点像
 
 .. image:: ../../_static/nlp/temperature.png
 	:align: center
-	:width: 300
+	:width: 400
 
 temperature就是为了防止teacher的反馈和one-hot label太像
 
 
-
-剪枝
-
-| crf
-| n gram
-| attention
-| transformer
-| gpt
-| bert
-| bagofword
-| fasttext
-| glove
-| elmo
-| 知识图谱
-| 
-
-elasticsearch
-召回再匹配
 
 编辑距离
 -----------------
@@ -103,6 +88,34 @@ FastBERT的创新点很容易理解，就是在每层Transformer后都加分类�
 elasticsearch（es）原理
 
 倒排索引
+
+elasticsearch
+
+召回
+
+匹配
+
+ernie
+
+albert
+
+基础知识
+==================
+
+剪枝
+
+| crf
+| n gram
+| attention
+| transformer
+| gpt
+| bert
+| bagofword
+| fasttext
+| glove
+| elmo
+| 知识图谱
+| 
 
 
 GRU LSTM BRNN
