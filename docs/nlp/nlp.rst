@@ -99,6 +99,18 @@ ernie
 
 albert
 
+有个 SOP: sentence order prediction. 两句话如果是正确的前后位置就是1，顺序反了就是0
+
+attention机制
+
+解释我们的NSP：next sentence prediction
+-----------------------------------------------------
+| 为什么大家都说nsp效果不好，我觉得应该是数据太简单了。就是他的后文选取的太随意。
+| 但是我们的不是，我们的数据很难，比如第一句是汉武大帝这部电影，我们第二句的数据在构造的时候会包括汉武大帝这部电影，
+会包括汉武大帝这个人，会包括汉武大帝这本书，汉武大帝的纪录片等等，模型一定要深入理解了内在关系才能进行判断
+
+可以扯一下albert的sop
+
 基础知识
 ==================
 
@@ -108,15 +120,37 @@ albert
 | n gram
 | attention
 | transformer
+| word2vec
 | gpt
 | bert
 | bagofword
 | fasttext
 | glove
 | elmo
-| 知识图谱
-| 
 
+.. image:: ../../_static/nlp/ELMO.png
+	:align: center
+
+先进来w1，然后得到隐藏层h1，通过线性层和softmax预测下一句。所以w1 w2 w3不能一次性全读入
+
+ELMO双向： 
+
+.. image:: ../../_static/nlp/ELMO双向.png
+	:align: center
+	
+从前往后有个LSTM生成隐层，从后往前也有个LSTM生成隐层，然后两个隐层拼接起来才是总共的embedding结果
+
+但是相比BERT存在的问题是：从前往后的时候只看到这个词为止了，没有继续往后看，从后往前的时候也是没有看到最开始。
+	
+.. image:: ../../_static/nlp/bertmask.png
+	:align: center
+
+bert的话，把w2遮住或者随机替换。用隐藏层去预测w2。这样的话，隐藏层里面会看见前后的所有信息。
+
+| 知识图谱
+| 细粒度分类
+
+XLNet
 
 GRU LSTM BRNN
 =====================
