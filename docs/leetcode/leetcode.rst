@@ -1644,8 +1644,39 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
             i+=1
     if list2:
         list1+=list2
-		
-		
+	
+还有下面这道题
+	
+合并两个有序数组
+---------------------------------
+leetcode88. 
+
+.. image:: ../../_static/leetcode/88.png
+    :align: center
+    :width: 400
+
+::
+
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        p1, p2 = m-1, n-1
+        p = m + n -1
+        while p1>=0 and p2>=0:
+            if nums1[p1]>=nums2[p2]:
+                nums1[p] = nums1[p1]
+                p1 -= 1
+            else:
+                nums1[p] = nums2[p2]
+                p2 -= 1
+            p -= 1
+        if p2>=0:
+            nums1[:p2 + 1] = nums2[:p2 + 1]
+
+从后往前排序。三个指针
+	
+
 两个链表的第一个公共节点
 --------------------------------
 剑指 Offer 52. 
@@ -1716,6 +1747,9 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 
 看着简洁，但是可读性没有最开始的好。我还是建议分开写
 
+判断一个链表中是不是存在环
+-----------------------------------
+设立两个指针,都从头部开始遍历,一个指针每次前移一位,另一个指针每次前移两位,如果它们相遇就说明存在环,如果遇到null说明没有环.
 
 位运算
 ==============

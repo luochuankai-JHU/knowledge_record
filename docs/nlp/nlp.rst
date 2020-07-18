@@ -27,11 +27,11 @@ https://blog.csdn.net/weixin_41657760/article/details/93163519
 
 .. image:: ../../_static/nlp/模型压缩.png
 	:align: center
-	:width: 200
+	:width: 400
 	
 .. image:: ../../_static/nlp/模型压缩2.png
 	:align: center
-	:width: 200
+	:width: 400
 	
 	
 知识蒸馏
@@ -78,35 +78,63 @@ FastBERT的创新点很容易理解，就是在每层Transformer后都加分类�
 
 .. image:: ../../_static/nlp/fastbert_uncertainty.png
 	:align: center
-	:width: 200
+	:width: 400
 	
 不确定性就是用熵来衡量的。熵越大代表结果越不可信，如果某一层的不确定性小于一个阈值，那么我们就对这层的结果进行输出，从而提高了推理速度
 
 
 知识图谱
+---------------
+？？？？？？？？？
 
-elasticsearch（es）原理
 
-倒排索引
+elasticsearch（es）/倒排索引
+------------------------------------
+简单的说法
 
-elasticsearch
+.. image:: ../../_static/nlp/倒排索引.png
+	:align: center
+
+https://blog.csdn.net/RuiKe1400360107/article/details/103864216
+
+更详细的再去网上搜
+
+
 
 召回
+------------
+协同过滤，聚类
+
+搜索引擎的两大问题（1） - 召回https://www.douban.com/note/722330114/
+
+| 索引粒度问题。
+我们知道召回是通过倒排索引求交得到的，当以词为粒度，粒度较细，
+召回的文章的数目较多，但也可能由于倒排过长把一些相关的结果误截断；当以更大的phrase粒度，
+粒度较粗，召回的文章相对更相关，但也容易造成召回的结果过少。
 
 匹配
 
 ernie
+------------
+
 
 albert
-
+----------------
 有个 SOP: sentence order prediction. 两句话如果是正确的前后位置就是1，顺序反了就是0
 
+只用了四层的transformer，但是效果下降不多。
+
+具体内容还在看
+
+
 attention机制
+--------------------
+
 
 解释我们的NSP：next sentence prediction
 -----------------------------------------------------
 | 为什么大家都说nsp效果不好，我觉得应该是数据太简单了。就是他的后文选取的太随意。
-| 但是我们的不是，我们的数据很难，比如第一句是汉武大帝这部电影，我们第二句的数据在构造的时候会包括汉武大帝这部电影，
+但是我们的不是，我们的数据很难，比如第一句是汉武大帝这部电影，我们第二句的数据在构造的时候会包括汉武大帝这部电影，
 会包括汉武大帝这个人，会包括汉武大帝这本书，汉武大帝的纪录片等等，模型一定要深入理解了内在关系才能进行判断
 
 可以扯一下albert的sop
@@ -118,11 +146,8 @@ attention机制
 
 | crf
 | n gram
-| attention
-| transformer
 | word2vec
 | gpt
-| bert
 | bagofword
 | fasttext
 | glove
@@ -137,6 +162,7 @@ ELMO双向：
 
 .. image:: ../../_static/nlp/ELMO双向.png
 	:align: center
+	:width: 400
 	
 从前往后有个LSTM生成隐层，从后往前也有个LSTM生成隐层，然后两个隐层拼接起来才是总共的embedding结果
 
@@ -144,6 +170,7 @@ ELMO双向：
 	
 .. image:: ../../_static/nlp/bertmask.png
 	:align: center
+	:width: 400
 
 bert的话，把w2遮住或者随机替换。用隐藏层去预测w2。这样的话，隐藏层里面会看见前后的所有信息。
 
@@ -151,6 +178,10 @@ bert的话，把w2遮住或者随机替换。用隐藏层去预测w2。这样的
 | 细粒度分类
 
 XLNet
+
+nlp中的数据增强
+----------------------
+？？？？？？？？
 
 GRU LSTM BRNN
 =====================
