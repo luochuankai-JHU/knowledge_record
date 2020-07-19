@@ -123,3 +123,13 @@ Rank with NIL: 在 rank 的时候，在候选实体中加入 NIL Entity。 
 2. Type Classifier: 给定 mention 和 text，输出 mention 对应实体的 type； 
 
 
+feed流
+---------------
+https://www.jianshu.com/p/20293026d366
+
+https://www.jianshu.com/p/791817e6f1b0
+
+协同过滤
+-----------------
+.. image:: ../../_static/python/协同过滤.png
+    :align: center

@@ -143,7 +143,7 @@ emmmm 上面这样写好蠢啊
 剑指53跟这个几乎一样
 ::
 
-	def search(self, nums: List[int], target: int) -> int:
+    def search(self, nums: List[int], target: int) -> int:
 
         def get_first(nums,target):
             l, r = 0, len(nums)-1
@@ -318,7 +318,7 @@ leetcode 81.
                 r = mid
             if r == l + 1:
                 return (nums[r] + nums[l])//2
-				
+                
 | 想法其实很简单，就二分查找。因为这个题有个限定，是左边从0开始，所以最开始要讨论一下缺失两边的情况。
 | 然后中间的时候直接用if mid == nums[mid] 就可以了。
 
@@ -1351,10 +1351,27 @@ leetcode 6.
 将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
 
 .. image:: ../../_static/leetcode/6.png
-	:align: center
-	:width: 400
+    :align: center
+    :width: 400
 	
-	
+::
+
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows<2:
+            return s
+        res = ["" for _ in range(numRows)]
+        i = 0
+        flag = -1
+        for n in range(len(s)):
+            res[i] += s[n]
+            if i==0 or i==numRows-1:
+                flag = -flag
+            i += flag
+        return "".join(res)
+    
+多巧妙!常看！
+
+
 圆圈中最后剩下的数字
 ----------------------------
 剑指 Offer 62. 
@@ -1384,7 +1401,196 @@ leetcode 6.
 以前很怕这种圆圈的题目....因为不知道循环要怎么做。这道题解法不美妙，纯暴力，纯还原仿真，但是提供了一个很好的思路。
 
 圆圈的题目就用取余 %，判断条件就是 while 
+        
+盛最多水的容器
+------------------------
+leetcode 11. 
+
+| 给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。
+| 在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+
+.. image:: ../../_static/leetcode/11.png
+    :align: center
+	
+::
+
+    def maxArea(self, height: List[int]) -> int:
+        if len(height)<=1:
+            return 0
+        l, r = 0, len(height)-1
+        res = 0
+        while l<r:
+            res = max(res,(r-l)*min(height[l],height[r]))
+            if height[l]<=height[r]:
+                l += 1
+            else:
+                r -= 1
+        return res
+
+典型的双指针
+
+整数转罗马数字
+--------------------
+leetcode 12. 
+
+罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
+
+.. image:: ../../_static/leetcode/12.png
+    :align: center
+    :width: 400
+
+::
+
+    def intToRoman(self, num: int) -> str:
+        search = [(1000, "M"), (900, "CM"), (500, "D"), (400, "CD"), (100, "C"), (90, "XC"), 
+        (50, "L"), (40, "XL"), (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")]
+        res = []
+        for value,symbol in search:
+            count = num//value
+            num = num-count*value
+            if count>0:
+                res.append(symbol*count)
+        return "".join(res)	
+
+贪心算法。
+
+其实还有另一种解法，就是按照千位，百位这种的去做。但是情况会复杂很多
+
+联动的下一题：
+
+罗马数字转整数
+--------------------
+leetcode 13. 
+
+::
+
+    def romanToInt(self, s: str) -> int:
+        Roman2Int = {'I':1,'V':5,'X':10,'L':50,'C':100,'D':500,'M':1000}
+        Int = 0
+        n = len(s)
+
+        for index in range(n - 1):
+            if Roman2Int[s[index]] < Roman2Int[s[index + 1]]:
+                Int -= Roman2Int[s[index]]
+            else:
+                Int += Roman2Int[s[index]]
+
+        return Int + Roman2Int[s[-1]]
+
+也还很巧妙
+
+最长公共前缀
+---------------------
+leetcode 14. 
+
+编写一个函数来查找字符串数组中的最长公共前缀。
+如果不存在公共前缀，返回空字符串 ""。
+
+| 示例 1:
+| 输入: ["flower","flow","flight"]
+| 输出: "fl"
+
+| 示例 2:
+| 输入: ["dog","racecar","car"]
+| 输出: ""
+| 解释: 输入不存在公共前缀。
+
+::
+
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        length = 0
+        if strs==[]:
+            return ""
+        for i in range(len(strs[0])):
+            c = strs[0][i]
+            for j in range(len(strs)):
+                if i>len(strs[j])-1 or strs[j][i]!=c:
+                    return strs[0][:length]
+            length += 1
+        return strs[0]
 		
+纵向查找。
+
+如果还要优化，可以用二分查找而不是第一个for循环的时候用遍历。
+https://leetcode-cn.com/problems/longest-common-prefix/solution/zui-chang-gong-gong-qian-zhui-by-leetcode-solution/		
+
+三数之和 &  最接近的三数之和
+----------------------------------------
+leetcode 15. 和 leetcode 16
+
+给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。
+
+给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。
+
+（注意，都是无序的）
+
+都是先排序，再做双指针。第一个for循环是遍历，然后在他后面的元素里面，左指针是左边第一个，右指针是最右边。
+
+有效的括号
+----------------
+| leetcode 20. 
+| 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
+
+| 有效字符串需满足：
+| 左括号必须用相同类型的右括号闭合。
+| 左括号必须以正确的顺序闭合。
+
+::
+
+    def isValid(self, s: str) -> bool:
+        stack = []
+        left = ["(","{","["]
+        right = {")":"(","}":"{","]":"["}
+        for i in range(len(s)):
+            if s[i] in left:
+                stack.append(s[i])
+            elif s[i] in right:
+                if len(stack)==0 or stack[-1] != right[s[i]]:
+                    return False
+                stack.pop()
+        if len(stack)>0:
+            return False
+        return True      
+
+先入后出，用栈就好了。注意字典的生成方式，和最后要判断一下栈是否为空
+
+
+括号生成
+---------------
+| leetcode 22. 
+| 数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+
+| 示例：
+| 输入：n = 3
+| 输出：[
+|        "((()))",
+|        "(()())",
+|        "(())()",
+|        "()(())",
+|        "()()()"
+|      ]
+
+::
+
+    def generateParenthesis(self, n: int) -> List[str]:
+        if n<=0:
+            return []
+        res = ["()"]
+        if n==1:
+            return res
+        count = 1
+        while count<n:
+            temp = []
+            for i in range(len(res)):
+                for j in range(len(res[i])):
+                    cur = res[i][:j]+"()"+res[i][j:]
+                    temp.append(cur)
+            res = list(set(temp))
+            count += 1
+        return res
+
+我这个解法是动态规划做的。类似剑指 Offer 38. 字符串的排列。其他题解里面很多DFS BFS没太理解
+
 找规律&斐波拉契
 ===================
 
@@ -1464,7 +1670,7 @@ https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/s
             else:
                 res.append(res[-1])
         return res[-1]
-		
+        
 num[i-1]!="0" 这里要注意，否则处理 506 这样带0的数据会出错
 
 n个骰子的点数
@@ -1514,6 +1720,44 @@ n个骰子的点数
 
 链表
 ===================
+
+两数相加
+-------------------
+leetcode 2. 
+
+| 给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+| 如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+| 您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+
+| 示例：
+| 输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
+| 输出：7 -> 0 -> 8
+| 原因：342 + 465 = 807
+
+::
+
+    # Definition for singly-linked list.
+    # class ListNode:
+    #     def __init__(self, x):
+    #         self.val = x
+    #         self.next = None
+
+    class Solution:
+        def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+            res = head = ListNode(0)
+            temp = 0
+            while l1 or l2 or temp:
+                x = l1.val if l1 else 0
+                y = l2.val if l2 else 0
+                head.next = ListNode((x + y + temp) % 10)
+                temp = (x + y + temp) // 10
+                if l1:
+                    l1 = l1.next
+                if l2:
+                    l2 = l2.next
+                head = head.next
+            return res.next
+
 
 链表中倒数第k个节点
 ------------------------
@@ -1644,9 +1888,9 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
             i+=1
     if list2:
         list1+=list2
-	
+    
 还有下面这道题
-	
+    
 合并两个有序数组
 ---------------------------------
 leetcode88. 
@@ -1675,7 +1919,7 @@ leetcode88.
             nums1[:p2 + 1] = nums2[:p2 + 1]
 
 从后往前排序。三个指针
-	
+    
 
 两个链表的第一个公共节点
 --------------------------------
@@ -1691,7 +1935,7 @@ leetcode88.
 
 优秀解法::
     
-	def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         alist, blist = headA, headB
         while headA != headB:
             if headA:
@@ -1725,7 +1969,7 @@ leetcode88.
             else:
                 headB = alist
         return headA
-		
+        
 | 有几个坑的地方：
 | 1. if headA.next==None and headB.next==None:  return None 这里很重要。
 | 不然两个链表完全没有重合结点的时候就会无限循环下去
@@ -1738,7 +1982,7 @@ leetcode88.
 当然，像他们那样写成这种形式的也可以
 ::
 
-	def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         node1, node2 = headA, headB
         while node1 != node2:
             node1 = node1.next if node1 else headB
@@ -1749,7 +1993,19 @@ leetcode88.
 
 判断一个链表中是不是存在环
 -----------------------------------
-设立两个指针,都从头部开始遍历,一个指针每次前移一位,另一个指针每次前移两位,如果它们相遇就说明存在环,如果遇到null说明没有环.
+| 设立两个指针,都从头部开始遍历,一个指针每次前移一位,另一个指针每次前移两位,如果它们相遇就说明存在环,如果遇到null说明没有环.
+| ？？？再做下
+
+两两交换链表中的节点
+---------------------------------
+| leetcode 24. 
+| 给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
+| 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
+
+| 示例:
+| 给定 1->2->3->4, 你应该返回 2->1->4->3.
+
+？？没做完
 
 位运算
 ==============
