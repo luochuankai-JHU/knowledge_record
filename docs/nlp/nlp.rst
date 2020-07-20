@@ -141,8 +141,8 @@ albert
 
 attention机制
 --------------------
-其实就是权重。 比如汤姆追逐杰瑞，tom chase jerry。那么生成tom的时候，肯定是汤姆生成的隐藏层会占比巨大。那么如何得到权重呢，就算汤姆生成的隐藏层和Tom的隐藏层去做点积。
-在余弦相似度里面我们知道，如果两个向量相似，那么他们的cos会接近1。所以这样分分别计算，再softmax，就是权重。（其实具体过程和self-attention基本一致）
+| 其实就是权重。 比如汤姆追逐杰瑞，tom chase jerry。那么生成tom的时候，肯定是汤姆生成的隐藏层会占比巨大。那么如何得到权重呢，就算汤姆生成的隐藏层和Tom的隐藏层去做点积。
+| 在余弦相似度里面我们知道，如果两个向量相似，那么他们的cos会接近1。所以这样分分别计算，再softmax，就是权重。（其实具体过程和self-attention基本一致）
 
 
 
@@ -201,8 +201,25 @@ nlp中的数据增强
 ----------------------
 ？？？？？？？？待补充
 
+
+RNN及其变体LSTM等
+=============================================
+这个从基础知识里面单独拿出来讲
+
+完全图解RNN、RNN变体、Seq2Seq、Attention机制 https://www.leiphone.com/news/201709/8tDpwklrKubaecTa.html
+
+简单版RNN
+
+.. image:: ../../_static/nlp/RNN.png
+	:align: center
+	:width: 200
+
+例如在生成x2的隐藏层h2的时候，h2 = f(Ux2 + Wh1 + b)。然后依次计算剩下来的**（使用相同的参数U、W、b）**
+
+生成输出y1的时候，y1 = Softmax(Vh1 + c) 。剩下的输出类似进行**（使用和y1同样的参数V和c）**
+
 GRU LSTM BRNN
-=====================
+--------------------------------
 吴恩达https://www.bilibili.com/video/BV1F4411y7BA?p=9
 
 .. image:: ../../_static/nlp/GRULSTM.png
