@@ -141,6 +141,10 @@ albert
 
 attention机制
 --------------------
+其实就是权重。 比如汤姆追逐杰瑞，tom chase jerry。那么生成tom的时候，肯定是汤姆生成的隐藏层会占比巨大。那么如何得到权重呢，就算汤姆生成的隐藏层和Tom的隐藏层去做点积。
+在余弦相似度里面我们知道，如果两个向量相似，那么他们的cos会接近1。所以这样分分别计算，再softmax，就是权重。（其实具体过程和self-attention基本一致）
+
+
 
 
 解释我们的NSP：next sentence prediction
