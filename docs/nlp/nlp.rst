@@ -139,11 +139,6 @@ albert
 具体内容还在看
 
 
-attention机制
---------------------
-| 其实就是权重。 比如汤姆追逐杰瑞，tom chase jerry。那么生成tom的时候，肯定是汤姆生成的隐藏层会占比巨大。那么如何得到权重呢，就算汤姆生成的隐藏层和Tom的隐藏层去做点积。
-| 在余弦相似度里面我们知道，如果两个向量相似，那么他们的cos会接近1。所以这样分分别计算，再softmax，就是权重。（其实具体过程和self-attention基本一致）
-
 
 
 
@@ -196,6 +191,8 @@ bert的话，把w2遮住或者随机替换。用隐藏层去预测w2。这样的
 | 细粒度分类
 
 XLNet
+------------
+transformer-XL  具体细节待补充？？？
 
 nlp中的数据增强
 ----------------------
@@ -218,6 +215,13 @@ RNN及其变体LSTM等
 
 生成输出y1的时候，y1 = Softmax(Vh1 + c) 。剩下的输出类似进行 **（使用和y1同样的参数V和c）**
 
+为了输入输出不等长，所以出现了seq2seq （encoder decoder）
+
+.. image:: ../../_static/nlp/seq2seq.png
+	:align: center
+	:width: 300
+
+
 GRU LSTM BRNN
 --------------------------------
 吴恩达https://www.bilibili.com/video/BV1F4411y7BA?p=9
@@ -231,6 +235,78 @@ GRU LSTM BRNN
 RNN的弊端，还有LSTM内部结构，以及接收的是前一个LSTM的什么？怎样解决长期依赖？为什么要用sigmoid?
 
 长期依赖，三个门，加计算公式，sigmoid将值限制在了0-100%
+
+
+attention
+===================
+不错的资料
+-------------------
+自然语言处理中的Attention机制总结 https://blog.csdn.net/hahajinbu/article/details/81940355
+
+
+直观的解释
+---------------------
+| 核心就是权重。 比如汤姆追逐杰瑞，tom chase jerry。那么生成tom的时候，肯定是汤姆生成的隐藏层会占比巨大。那么如何得到权重呢，就算汤姆生成的隐藏层和Tom的隐藏层去做点积。
+| 在余弦相似度里面我们知道，如果两个向量相似，那么他们的cos会接近1。所以这样分分别计算，再softmax，就是权重。（其实具体过程和self-attention基本一致）
+
+为什么要引入Attention机制
+-----------------------------------
+计算能力的限制：当要记住很多“信息“，模型就要变得更复杂，然而目前计算能力依然是限制神经网络发展的瓶颈。
+
+优化算法的限制：虽然局部连接、权重共享以及pooling等优化操作可以让神经网络变得简单一些，有效缓解模型复杂度和表达能力之间的矛盾；
+但是，如循环神经网络中的长距离以来问题，信息“记忆”能力并不高。
+
+
+手写
+--------------
+？？？待补充
+
+attention的一个通用定义
+----------------------------------
+按照Stanford大学课件上的描述，attention的通用定义如下：
+
+| 给定一组向量集合values，以及一个向量query，attention机制是一种根据该query计算values的加权求和的机制。
+| attention的重点就是这个集合values中的每个value的“权值”的计算方法。
+| 有时候也把这种attention的机制叫做query的输出关注了（或者说叫考虑到了）原文的不同部分。（Query attends to the values）
+| 举例：刚才seq2seq中，哪个是query，哪个是values？
+| each decoder hidden state attends to the encoder hidden states （decoder的第t步的hidden state----st是query，encoder的hidden states是values）
+
+
+变体
+-------------
+答案是我自己根据一些博客总结的，待进一步考究与确认
+
+| Soft attention
+| 就是上面说的那种最普通的attention
+| 照顾到全部的位置，只是不同位置的权重不同
+
+| Hard attention
+| 取最大的地方为1，其他的为0。存在的问题是不可导，要用蒙特卡洛方法对 s 进行抽样
+| 直接从输入句子里面找到某个特定的单词，然后把目标句子单词和这个单词对齐，而其它输入句子中的单词硬性地认为对齐概率为0
+
+
+| local attention（“半软半硬”的attention）
+| 使用了一个人工经验设定的参数D去选择一个以pt为中心，[pt−D,pt+D]为窗口的区域，进行对应向量的weighted sum
+
+
+动态attention
+
+Attention score的计算方式变体
+
+.. image:: ../../_static/nlp/attention_score.png
+	:align: center
+	:width: 400
+
+静态attention
+
+强制前向attention
+
+self attention
+
+key-value attention
+
+multi-head attention
+
 
 bert
 ====================
@@ -334,6 +410,8 @@ https://www.cnblogs.com/rosyYY/p/10115424.html
 
 .. image:: ../../_static/nlp/multihead.png
 	:align: center
+
+记得多头之间参数不共享
 
 Transformer的Encoder模块
 -----------------------------------
