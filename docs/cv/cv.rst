@@ -242,6 +242,11 @@ https://blog.csdn.net/weixin_41683218/article/details/86473488
 .. image:: ../../_static/cv/max_pooling.png
 	:align: center
 	
+loss下降不下降的问题
+----------------------------
+https://blog.csdn.net/zongza/article/details/89185852
+
+
 CV的一些知识
 ===================
 
