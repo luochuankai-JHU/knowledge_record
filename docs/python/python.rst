@@ -77,7 +77,16 @@ https://www.jianshu.com/p/791817e6f1b0
     :align: center
 	
 	
-	
+详解可变、不可变数据类型+引用、深|浅拷贝
+----------------------------------------------------------
+https://leetcode-cn.com/problems/recover-a-tree-from-preorder-traversal/solution/yu-dao-jiu-shen-jiu-xiang-jie-ke-bian-bu-ke-bian-s/	
+
+可变类型——该对象所指向的内存中的值可以被改变。变量（准确的说是引用）改变后，实际上是其所指的值直接发生改变，并没有发生复制行为，也没有开辟新的出地址，通俗点说就是原地改变。
+不可变类型——该对象所指向的内存中的值不能被改变。当改变某个变量时候，由于其所指的值不能被改变，相当于把原来的值复制一份后再改变，这会开辟一个新的地址，变量再指向这个新的地址。
+
+可变类型——list, dict, set
+
+不可变类型——int, str, tuple
 	
 	
 	

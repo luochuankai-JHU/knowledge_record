@@ -732,7 +732,9 @@ https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/solution/chao-hao-dong-k
         order(root)
         return res
     
-注意！res.append(path[:]) 这里一定要是 path[:]，因为list是可变变量，直接append是浅拷贝，最后res里面只会留下空数组
+注意！res.append(path[:]) 这里一定要是 path[:]，因为list是可变变量，直接append是浅拷贝，最后res里面只会留下空数组？？？存疑....
+
+和https://leetcode-cn.com/problems/recover-a-tree-from-preorder-traversal/solution/yu-dao-jiu-shen-jiu-xiang-jie-ke-bian-bu-ke-bian-s/说的不太一致
 
 
 平衡二叉树
@@ -842,7 +844,10 @@ leetcode 106.
 
 199. 二叉树的右视图
 ---------------------------------
-？？？？待补充
+直接层次遍历，取每一层的最后一个就好了......
+
+题解里面很多DFS的....有空再看看
+
 
 动态规划
 ===================
@@ -979,6 +984,27 @@ leetcode 5.
 从第一个字符开始维护一个list，里面的内容是答案。然后每次都全部插入，再去重。如果不让用set去重可以字典啊或者直接set.add
 
 想法很朴素，写起来也很朴素，但是时间和空间使用率接近双百分
+
+全排列
+------------------
+leetcode 46. 
+
+给定一个 没有重复 数字的序列，返回其所有可能的全排列。
+
+| 示例:
+| 输入: [1,2,3]
+| 输出:
+| [
+|   [1,2,3],
+|   [1,3,2],
+|   [2,1,3],
+|   [2,3,1],
+|   [3,1,2],
+|   [3,2,1]
+| ]
+
+？？？
+再做下
 
 
 数组中出现次数超过一半的数字
@@ -1595,6 +1621,143 @@ leetcode 15. 和 leetcode 16
 
 我这个解法是动态规划做的。类似剑指 Offer 38. 字符串的排列。其他题解里面很多DFS BFS没太理解
 
+
+下一个排列
+-----------------
+leetcode 31. 
+
+| 实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
+| 如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。
+| 必须原地修改，只允许使用额外常数空间。
+| 以下是一些例子，输入位于左侧列，其相应输出位于右侧列。
+| 1,2,3 → 1,3,2
+| 3,2,1 → 1,2,3
+| 1,1,5 → 1,5,1
+
+| ？？？ 还是没想太明白
+
+
+外观数列
+-------------------
+| leetcode 38. 
+| 给定一个正整数 n（1 ≤ n ≤ 30），输出外观数列的第 n 项。
+| 注意：整数序列中的每一项将表示为一个字符串。
+| 「外观数列」是一个整数序列，从数字 1 开始，序列中的每一项都是对前一项的描述。前五项如下：
+
+| 1.     1
+| 2.     11
+| 3.     21
+| 4.     1211
+| 5.     111221
+
+| 第一项是数字 1
+| 描述前一项，这个数是 1 即 “一个 1 ”，记作 11
+| 描述前一项，这个数是 11 即 “两个 1 ” ，记作 21
+| 描述前一项，这个数是 21 即 “一个 2 一个 1 ” ，记作 1211
+| 描述前一项，这个数是 1211 即 “一个 1 一个 2 两个 1 ” ，记作 111221
+
+::
+
+    def countAndSay(self, n: int) -> str:
+        def count_num(last_level):
+            count = 1
+            num = last_level[0]
+            res = ""
+            for i in range(1,len(last_level)):
+                if last_level[i]==num:
+                    count += 1
+                else:
+                    res = res + str(count) + num
+                    num = last_level[i]
+                    count = 1
+            res = res + str(count) + num
+            return res
+        level = ["1"]
+        if n<=1:
+            return "1"
+        for i in range(1,n):
+            temp = count_num(level[-1])
+            level.append(temp)
+        return level[-1]
+
+
+旋转图像
+----------------
+| leetcode 48. 
+| 给定一个 n × n 的二维矩阵表示一个图像。
+| 将图像顺时针旋转 90 度。
+| 说明：
+| 你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。
+| 示例 1:
+| 给定 matrix = 
+| [
+|   [1,2,3],
+|   [4,5,6],
+|   [7,8,9]
+| ],
+
+| 原地旋转输入矩阵，使其变为:
+| [
+|   [7,4,1],
+|   [8,5,2],
+|   [9,6,3]
+| ]
+
+::
+
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        for i in range(len(matrix)):
+            for j in range(i,len(matrix[0])):
+                matrix[i][j],matrix[j][i] = matrix[j][i], matrix[i][j]
+        for i in range(len(matrix)):
+            matrix[i] = matrix[i][::-1]
+
+Pow(x, n)
+---------------
+leetcode 50. 
+
+实现 pow(x, n) ，即计算 x 的 n 次幂函数。
+
+？？？ 找时间再做
+
+
+
+跳跃游戏
+----------------
+| leetcode 55. 
+| 给定一个非负整数数组，你最初位于数组的第一个位置。
+| 数组中的每个元素代表你在该位置可以跳跃的最大长度。判断你是否能够到达最后一个位置。
+
+| 示例 1:
+| 输入: [2,3,1,1,4]
+| 输出: true
+| 解释: 我们可以先跳 1 步，从位置 0 到达 位置 1, 然后再从位置 1 跳 3 步到达最后一个位置。
+
+| 示例 2:
+| 输入: [3,2,1,0,4]
+| 输出: false
+| 解释: 无论怎样，你总会到达索引为 3 的位置。但该位置的最大跳跃长度是 0 ， 所以你永远不可能到达最后一个位置。
+
+::
+
+    def canJump(self, nums: List[int]) -> bool:
+        temp_max = 0 + nums[0]
+        for i in range(1,len(nums)):
+            if temp_max<i:
+                return False
+            temp_max = max(temp_max,i+nums[i])
+            if temp_max>=len(nums):
+                return True
+        return True
+
+其实只需要弄明白一件事。只要在遍历的时候，维护一个最远能达到的距离就好了。
+
+假设遍历到了n这个结点，然后n这里最远能走5步，那么从n---n+5都是可以到达的。为什么不怕n-3的时候能走的更远呢？因为已经遍历过了....
+
+
 找规律&斐波拉契
 ===================
 
@@ -2009,7 +2172,29 @@ leetcode88.
 | 示例:
 | 给定 1->2->3->4, 你应该返回 2->1->4->3.
 
-？？没做完
+::
+
+    def swapPairs(self, head: ListNode) -> ListNode:
+        i = 0
+        res = m = ListNode(0)
+        m.next = head
+        while m:
+            if m.next and m.next.next and i%2==0:
+                temp_a = m.next
+                temp_b = m.next.next
+                temp_bnext = m.next.next.next
+                m.next, m.next.next, m.next.next.next = temp_b, temp_a, temp_bnext
+            m = m.next
+            i+=1
+        return res.next
+
+
+.. image:: ../../_static/leetcode/24.png
+    :align: center
+    :width: 300
+	
+碰到这种结点交换的题目，手画一个，然后分清前后关系。最开始做题的时候如果怕做错，就拿temp变量把他们都保存下来。
+
 
 位运算
 ==============
@@ -2043,3 +2228,10 @@ leetcode88.
 | 示例 2：
 | 输入：nums = [1,2,10,4,1,4,3,3]
 | 输出：[2,10] 或 [10,2]
+
+
+
+
+回溯
+=====================
+https://leetcode-cn.com/problems/combination-sum-ii/solution/hui-su-xi-lie-by-powcai/

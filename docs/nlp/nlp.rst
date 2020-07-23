@@ -128,16 +128,59 @@ https://blog.csdn.net/RuiKe1400360107/article/details/103864216
 
 ernie
 ------------
+ERNIE 沿袭了 BERT 中绝大多数的设计思路，包括 预训练 (Pretraining) 加 微调 (Fine-tuning) 的流程，
+去噪自编码 (DAE, abbr. denoising autoencoding) 的模型本质，以及 Masked Language Model 和 
+Next Sentence Prediction 的训练环节。主要的不同，在于 ERNIE 采用了更为复杂的 Masking 策略：
+Knowledge Masking Strategies，并针对对话型数据引入一套新的训练机制：对话语言模型 (Dialogue Language Model)。
+
+
+ERNIE2是百度在ERNIE1基础上的一个升级版，不过这次升级幅度比较大. ERNIE 2.0 将 1.0 版本中的功能特性全部予以保留，
+并在此基础上做更为丰富的扩展和延伸。论文指出，近几年来基于未标注语料进行无监督编码的预训练模型，
+包括 Word2Vec、ELMo、GPT、BERT、XLNet、ERNIE 1.0， 存在一个共同缺陷：仅仅只是利用了token与token之间的共现(Co-occurance) 信息。
+当两个 token 拥有相似的上下文语境时，最终的编码必然具有极高的相似度。这使得模型无法在词向量中嵌入语料的 词汇 (lexical)、语法 (syntatic) 
+以及 语义 (semantic) 信息。为此，ERNIE 2.0 首次引入 连续预训练 (Continual Pre-training) 机制 —— 以串行的方式进行多任务学习，学习以上三类特征。
+设计的初衷在于模拟人类的学习行为：利用已经积累的知识，持续地进行新的学习。
 
 
 albert
 ----------------
-有个 SOP: sentence order prediction. 两句话如果是正确的前后位置就是1，顺序反了就是0
+ALBERT的贡献
+
+文章里提出一个有趣的现象：当我们让一个模型的参数变多的时候，一开始模型效果是提高的趋势，但一旦复杂到了一定的程度，接着再去增加参数反而会让效果降低，这个现象叫作“model degratation"。
+
+基于上面所讲到的目的，ALBERT提出了三种优化策略，做到了比BERT模型小很多的模型，但效果反而超越了BERT， XLNet。
+
+- Factorized Embedding Parameterization. 他们做的第一个改进是针对于Vocabulary Embedding。在BERT、XLNet中，
+词表的embedding size(E)和transformer层的hidden size(H)是等同的，所以E=H。但实际上词库的大小一般都很大，
+这就导致模型参数个数就会变得很大。为了解决这些问题他们提出了一个基于factorization的方法。
+
+他们没有直接把one-hot映射到hidden layer, 而是先把one-hot映射到低维空间之后，再映射到hidden layer。这其实类似于做了矩阵的分解。
+
+- Cross-layer parameter sharing. Zhenzhong博士提出每一层的layer可以共享参数，这样一来参数的个数不会以层数的增加而增加。所以最后得出来的模型相比BERT-large小18倍以上。
+
+- Inter-sentence coherence loss. 在BERT的训练中提出了next sentence prediction loss, 也就是给定两个sentence segments, 然后让BERT去预测它俩之间的先后顺序，但在ALBERT文章里提出这种是有问题的，其实也说明这种训练方式用处不是很大。 
+所以他们做出了改进，他们使用的是setence-order prediction loss (SOP)，其实是基于主题的关联去预测是否两个句子调换了顺序。
 
 只用了四层的transformer，但是效果下降不多。
 
-具体内容还在看
 
+
+RoBERTa
+-------------------
+| 从模型上来说，RoBERTa基本没有什么太大创新，主要是在BERT基础上做了几点调整：
+| 1）动态Masking，相比于静态，动态Masking是每次输入到序列的Masking都不一样；
+| 2）移除next predict loss，相比于BERT，采用了连续的full-sentences和doc-sentences作为输入（长度最多为512）；
+| 3）更大batch size，batch size更大，training step减少，实验效果相当或者更好些；
+| 4）text encoding，基于bytes的编码可以有效防止unknown问题。另外，预训练数据集从16G增加到了160G，训练轮数比BERT有所增加。
+
+静态Masking vs 动态Masking
+
+原来Bert对每一个序列随机选择15%的Tokens替换成[MASK]，为了消除与下游任务的不匹配，还对这15%的Tokens进行
+（1）80%的时间替换成[MASK]；（2）10%的时间不变；（3）10%的时间替换成其他词。
+但整个训练过程，这15%的Tokens一旦被选择就不再改变，也就是说从一开始随机选择了这15%的Tokens，之后的N个epoch里都不再改变了。这就叫做静态Masking。
+
+而RoBERTa一开始把预训练的数据复制10份，每一份都随机选择15%的Tokens进行Masking，也就是说，
+同样的一句话有10种不同的mask方式。然后每份数据都训练N/10个epoch。这就相当于在这N个epoch的训练中，每个序列的被mask的tokens是会变化的。这就叫做动态Masking。
 
 
 
@@ -145,6 +188,9 @@ albert
 解释我们的NSP：next sentence prediction
 -----------------------------------------------------
 | 为什么大家都说nsp效果不好，我觉得应该是数据太简单了。就是他的后文选取的太随意。
+
+NSP是预训练，我们这个是下游任务
+
 但是我们的不是，我们的数据很难，比如第一句是汉武大帝这部电影，我们第二句的数据在构造的时候会包括汉武大帝这部电影，
 会包括汉武大帝这个人，会包括汉武大帝这本书，汉武大帝的纪录片等等，模型一定要深入理解了内在关系才能进行判断
 
@@ -196,7 +242,7 @@ transformer-XL  具体细节待补充？？？
 
 nlp中的数据增强
 ----------------------
-？？？？？？？？待补充
+随机drop和shuffle、同义词替换、回译、文档裁剪、GAN、预训练的语言模型
 
 
 RNN及其变体LSTM等
@@ -235,6 +281,11 @@ GRU LSTM BRNN
 RNN的弊端，还有LSTM内部结构，以及接收的是前一个LSTM的什么？怎样解决长期依赖？为什么要用sigmoid?
 
 长期依赖，三个门，加计算公式，sigmoid将值限制在了0-100%
+
+.. image:: ../../_static/nlp/LSTM复杂度.png
+	:align: center
+	:width: 300
+
 
 
 attention
@@ -322,6 +373,26 @@ Bert的一些面试题 https://cloud.tencent.com/developer/article/1558479
 
 BERT 时代的常见 NLP 面试题 https://blog.csdn.net/qq_34832393/article/details/104356462
 
+
+embedding
+--------------------
+
+.. image:: ../../_static/nlp/embedding.png
+	:align: center
+	:width: 400
+
+| • Token Embeddings是词向量，第一个单词是CLS标志，可以用于之后的分类任务
+| • Segment Embeddings用来区别两种句子，因为预训练不光做LM还要做以两个句子为输入的分类任务
+| • Position Embeddings和之前文章中的Transformer不一样，不是三角函数而是学习出来的
+
+
+GPT 与 BERT 的区别是什么
+-------------------------------
+？？？ 待补充
+
+GPT 是单向的，BERT 是双向的。
+
+训练方法不同，GPT 是语言模型使用最大似然，BERT 的训练分为 MLM 和 NSP。
 
 transformer
 =================
