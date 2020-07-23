@@ -208,6 +208,10 @@ top1 error， top5 error
 	:align: center
 
 
+.. image:: ../../_static/cv/交叉损失.png
+	:align: center
+	
+	
 这里要再多写点，包括为什么回归用CE，分类不能CE
 
 包括项目里用的 focal loss
