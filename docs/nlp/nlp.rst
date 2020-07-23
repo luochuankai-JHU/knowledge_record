@@ -394,6 +394,14 @@ GPT 是单向的，BERT 是双向的。
 
 训练方法不同，GPT 是语言模型使用最大似然，BERT 的训练分为 MLM 和 NSP。
 
+GPT Bert与XLNet的差异
+https://cloud.tencent.com/developer/article/1507551
+
+.. image:: ../../_static/nlp/GPTBERTXLNET.png
+	:align: center
+	:width: 400
+
+
 transformer
 =================
 
