@@ -284,7 +284,7 @@ RNN的弊端，还有LSTM内部结构，以及接收的是前一个LSTM的什么
 
 .. image:: ../../_static/nlp/LSTM复杂度.png
 	:align: center
-	:width: 300
+
 
 
 
@@ -399,7 +399,10 @@ https://cloud.tencent.com/developer/article/1507551
 
 .. image:: ../../_static/nlp/GPTBERTXLNET.png
 	:align: center
-	:width: 400
+	
+	
+BERT 与BiLSTM 有什么不同
+-----------------------------------
 
 
 transformer
@@ -579,6 +582,27 @@ https://zhuanlan.zhihu.com/p/54530247
 
 warmup
 -------------
+
+
+CRF 条件随机场
+==========================
+
+一些资料
+----------------
+条件随机场（CRF） 举例讲解 https://www.cnblogs.com/sss-justdDoIt/p/10218886.html
+
+CRF系列(一)——一个简单的例子 https://zhuanlan.zhihu.com/p/69849877
+
+至此，我们通过一个词性标注的例子，了解了：
+
+CRF适用于这样的情况：对于多个位置的标注，每一个位置的标注结果，不仅与其本身有关，而且依赖于其他位置的标注结果。
+
+CRF与其他统计机器学习模型一样，可以分为三个部分，分别是：
+模型的建立
+参数的学习
+推测
+对于模型的建立，我们使用了特征函数，它保证了模型拥有表示我们所需的依赖关系的能力。
+对于模型参数的学习以及结果的预测，发现高维数据带来很大的计算量，因此需要一些算法来简化计算。
 
 
 知识图谱
