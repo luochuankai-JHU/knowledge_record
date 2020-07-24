@@ -327,6 +327,16 @@ leetcode 81.
 
 | 还是多多学习别人的吧！ 巧妙的利用了 二分查找之后，导致while停止循环的情况一定是： r在查找值的左边，l在查找值的右边。 
 
+
+x的平方根
+------------------------------
+| leetcode 69. 
+| 实现 int sqrt(int x) 函数。
+| 计算并返回 x 的平方根，其中 x 是非负整数。
+| 由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
+
+::
+
 排序
 ====================
 
@@ -1292,6 +1302,78 @@ https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/soluti
 
 https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof/solution/mian-shi-ti-47-li-wu-de-zui-da-jie-zhi-dong-tai-gu/
 
+请看下一题：
+
+不同路径 II
+---------------------
+leetcode 63. 
+
+.. image:: ../../_static/leetcode/63.png
+    :align: center
+    :width: 400
+
+::
+
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        m = len(obstacleGrid)
+        n = len(obstacleGrid[0])
+        if obstacleGrid[0][0]==1:
+            return 0
+        res = [[0 for _ in range(n)] for _ in range(m)]
+        res[0][0]=1
+        for i in range(1,m):
+            if obstacleGrid[i-1][0]==0 and res[i-1][0]==1 and obstacleGrid[i][0] == 0:
+                res[i][0]=1
+        for j in range(1,n):
+            if obstacleGrid[0][j-1]==0 and res[0][j-1]==1 and obstacleGrid[0][j] == 0:
+                res[0][j]=1
+        if m==1 or n==1:
+            return res[-1][-1]
+        for i in range(1,m):
+            for j in range(1,n):
+                if obstacleGrid[i][j]==1:
+                    res[i][j]=0
+                else:
+                    res[i][j]= res[i-1][j] + res[i][j-1]
+        return res[-1][-1]
+		
+请再看一题：
+
+最小路径和
+----------------------
+| leetcode 64. 
+| 给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
+| 说明：每次只能向下或者向右移动一步。
+| 示例:
+| 输入:
+| [
+|   [1,3,1],
+|   [1,5,1],
+|   [4,2,1]
+| ]
+| 输出: 7
+| 解释: 因为路径 1→3→1→1→1 的总和最小。	
+
+::
+
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        if len(grid)==1:
+            return sum(grid[0])
+        if len(grid[0])==1:
+            the_sum = 0
+            for x in grid:
+                the_sum += x[0] 
+            return the_sum
+        for i in range(1,len(grid)):
+            grid[i][0] += grid[i-1][0]
+        for j in range(1,len(grid[0])):
+            grid[0][j] += grid[0][j-1]
+        for i in range(1,len(grid)):
+            for j in range(1,len(grid[0])):
+                grid[i][j] += min(grid[i-1][j],grid[i][j-1])
+        return grid[-1][-1]
+		
+		
 最长不含重复字符的子字符串
 ---------------------------------
 剑指 Offer 48. 
