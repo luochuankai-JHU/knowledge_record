@@ -1758,6 +1758,115 @@ leetcode 50.
 假设遍历到了n这个结点，然后n这里最远能走5步，那么从n---n+5都是可以到达的。为什么不怕n-3的时候能走的更远呢？因为已经遍历过了....
 
 
+合并区间
+-------------------
+| leetcode 56. 
+| 给出一个区间的集合，请合并所有重叠的区间。
+
+| 示例 1:
+| 输入: [[1,3],[2,6],[8,10],[15,18]]
+| 输出: [[1,6],[8,10],[15,18]]
+| 解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
+
+| 示例 2:
+| 输入: [[1,4],[4,5]]
+| 输出: [[1,5]]
+| 解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。
+
+::
+
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if len(intervals)<=1:
+            return intervals
+        intervals.sort()
+        res = [intervals[0]]
+        for i in range(1,len(intervals)):
+            if intervals[i][0]>res[-1][-1]:
+                res.append(intervals[i])
+            else:
+                res[-1][-1] = max(res[-1][-1],intervals[i][-1])
+        return res
+		
+只要明白一件事就好了，先排序（sort以后先按第一个排序，再按第二个排序）。排序后的列表，如果说新判断的区间，左边的区间都比上一个的右区间大，那么一定不重合
+
+请看下一题：
+
+插入区间
+------------------
+leetcode 57. 
+
+| 给出一个无重叠的 ，按照区间起始端点排序的区间列表。
+| 在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠（如果有必要的话，可以合并区间）。
+
+| 示例 1:
+| 输入: intervals = [[1,3],[6,9]], newInterval = [2,5]
+| 输出: [[1,5],[6,9]]
+
+| 示例 2:
+| 输入: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+| 输出: [[1,2],[3,10],[12,16]]
+| 解释: 这是因为新的区间 [4,8] 与 [3,5],[6,7],[8,10] 重叠。
+
+::
+
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        i= 0
+        while i<len(intervals) and intervals[i][1]<newInterval[0]:
+            i += 1
+        if i<=len(intervals)-1:  # 防止i越界
+            newInterval[0] = min(newInterval[0],intervals[i][0])
+        j = i
+        while j<len(intervals) and intervals[j][0]<=newInterval[1]:
+            newInterval[1] = max(newInterval[1],intervals[j][1])
+            j+=1
+        del(intervals[i:j])
+        intervals.insert(i,newInterval)
+        return intervals
+		
+请再次深思，为什么i那里是intervals[i][1]<newInterval[0]，而j那里是intervals[j][0]<=newInterval[1]
+
+同时，del的话是可以越界的。比如the_list只有3长度，可以del(the_list[7:9])
+
+螺旋矩阵 II
+------------------------------
+| leetcode 59.  
+| 给定一个正整数 n，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。
+| 示例:
+| 输入: 3
+| 输出:
+| [
+|  [ 1, 2, 3 ],
+|  [ 8, 9, 4 ],
+|  [ 7, 6, 5 ]
+| ]
+
+？？？
+再做下
+
+不同路径
+------------------------
+leetcode 62. 
+
+.. image:: ../../_static/leetcode/62.png
+    :align: center
+    :width: 400
+	
+::
+
+    def uniquePaths(self, m: int, n: int) -> int:
+        # 数学法不香吗?总共要做出 m+n-2次选择，在这些选择里面有m-1次（或者n-1次）要做出向下走的选择，直接用C啊！
+        # C m+n-2 m-1
+        def jiecheng(num):
+            res = 1
+            if num==0:
+                return 1
+            while num>0:
+                res *= num
+                num -= 1
+            return res
+        return int(jiecheng(m+n-2)/(jiecheng(m-1)*jiecheng(m+n-2-m+1)))
+		
+		
 找规律&斐波拉契
 ===================
 
@@ -2195,6 +2304,56 @@ leetcode88.
 	
 碰到这种结点交换的题目，手画一个，然后分清前后关系。最开始做题的时候如果怕做错，就拿temp变量把他们都保存下来。
 
+旋转链表
+----------------
+leetcode 61. 
+
+给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。
+
+| 示例 1:
+| 输入: 1->2->3->4->5->NULL, k = 2
+| 输出: 4->5->1->2->3->NULL
+| 解释:
+| 向右旋转 1 步: 5->1->2->3->4->NULL
+| 向右旋转 2 步: 4->5->1->2->3->NULL
+
+| 示例 2:
+| 输入: 0->1->2->NULL, k = 4
+| 输出: 2->0->1->NULL
+| 解释:
+| 向右旋转 1 步: 2->0->1->NULL
+| 向右旋转 2 步: 1->2->0->NULL
+| 向右旋转 3 步: 0->1->2->NULL
+| 向右旋转 4 步: 2->0->1->NULL
+
+::
+
+    def rotateRight(self, head: ListNode, k: int) -> ListNode:
+        if not head:
+            return None
+        pre = head
+        count = 0
+        while head:
+            count += 1
+            if head.next:
+                head = head.next
+            else:
+                break
+        k = k % count
+        move = count - k
+        head.next = pre
+        while move:
+            head = head.next
+            pre = pre.next
+            move -= 1
+        head.next = None
+        return pre
+		
+做的多漂亮啊！先遍历一遍得到深度，然后取余数，得到指针该走多少步。
+
+这也是个双指针的问题。仔细想想，如果成环了以后，那个头节点所在的位置，上一步就是尾结点。 所以在计算深度的地方，break就用的很巧妙了，
+相当于是停留在最后，然后正好和头部差了1，形成双指针。
+
 
 位运算
 ==============
@@ -2235,3 +2394,5 @@ leetcode88.
 回溯
 =====================
 https://leetcode-cn.com/problems/combination-sum-ii/solution/hui-su-xi-lie-by-powcai/
+
+leetcode 60. 第k个排列
