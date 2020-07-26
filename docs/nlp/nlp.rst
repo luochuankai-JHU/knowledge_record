@@ -641,5 +641,5 @@ DNN+CRF的结构非常的通用，DNN部分可以使用一些主流的特征抽�
 https://zhuanlan.zhihu.com/p/100248426
 
 
-.. image:: ../../_static/python/entity_linking.png
+.. image:: ../../_static/nlp/entity_linking.png
     :align: center
