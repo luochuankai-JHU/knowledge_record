@@ -874,6 +874,21 @@ leetcode 106.
 题解里面很多DFS的....有空再看看
 
 
+二叉搜索树
+------------------
+？？？目前不会，记得学
+
+剑指 Offer 54	
+二叉搜索树的第k大节点  
+
+剑指 Offer 36	
+二叉搜索树与双向链表  
+
+剑指 Offer 33	
+二叉搜索树的后序遍历序列  
+
+leetcode 95--99
+
 动态规划
 ===================
 
@@ -1995,6 +2010,83 @@ leetcode 62.
 很愚蠢的题目，直接按照规则一条条来就好了
 
 
+颜色分类
+----------------------
+leetcode 75. 
+
+| 给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+| 此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+
+| 注意:
+| 不能使用代码库中的排序函数来解决这道题。
+| 示例:
+| 输入: [2,0,2,1,1,0]
+| 输出: [0,0,1,1,2,2]
+
+| 进阶：
+| 一个直观的解决方案是使用计数排序的两趟扫描算法。
+| 首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。
+| 你能想出一个仅使用常数空间的一趟扫描算法吗？
+::
+
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        cur, p0, p2 = 0, 0, len(nums)-1
+        if p2==-1:
+            return None
+        while cur <= p2:
+            if nums[cur]==0:
+                nums[cur], nums[p0] = nums[p0] , nums[cur]
+                p0 += 1
+                cur += 1
+            elif nums[cur]==1:
+                cur += 1
+            else:
+                nums[cur], nums[p2] = nums[p2] , nums[cur]
+                p2 -= 1
+				
+这道题简直太巧妙了！伪三指针。cur 什么时候要 += 1是精髓！ 请再想想！以及while cur <= p2:
+
+？？？
+
+删除排序数组中的重复项 II
+--------------------------------------
+leetcode 80. 
+
+给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。
+
+不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。							
+::
+
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        i = 1
+        dup = 1
+        temp = nums[0]
+        # for i in range(1,len(nums)):
+        while i <= len(nums)-1:
+            if nums[i]==temp:
+                if dup==1:
+                    dup += 1
+                    i += 1
+                else:
+                    del(nums[i])
+            else:
+                temp = nums[i]
+                dup = 1
+                i += 1
+        return len(nums)
+
+| 思考点：
+|  **因为涉及到了del(nums[i])**
+| 1. 用while 而不是 for！ 不然的话，i会超出索引，因为range不变的
+| 2. 注意，在del的那一步不需要i+=1了，因为已经删除了当前的数
+| 3. 一个用来保存当前处理的值，另一个记录duplicate，很巧妙
+
+
 找规律&斐波拉契
 ===================
 
@@ -2076,6 +2168,47 @@ https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/s
         return res[-1]
         
 num[i-1]!="0" 这里要注意，否则处理 506 这样带0的数据会出错
+
+请看下一题
+
+解码方法
+-----------------------
+| leetcode 91. 
+| 一条包含字母 A-Z 的消息通过以下方式进行了编码：
+| 'A' -> 1
+| 'B' -> 2
+| ...
+| 'Z' -> 26
+| 给定一个只包含数字的非空字符串，请计算解码方法的总数。
+::
+
+    def numDecodings(self, s: str) -> int:
+        if s[0]=="0":
+            return 0
+        if len(s)==1:
+            return 1
+        res = [1,2]
+        if s[1] == "0" and int(s[0])>2:
+            return 0
+        if int(s[:2])>26 or s[:2]=="10" or s[:2]=="20":
+            res = [1, 1]
+        for i in range(2,len(s)):
+            if s[i]=="0":
+                temp1 = 0
+                if s[i-1]=="0" or int(s[i-1])>2:
+                    return 0
+            else:
+                temp1 = res[-1]
+            if s[i-1]!="0" and int(s[i-1]+s[i])<=26:
+                temp2 = res[-2]
+            else:
+                temp2 = 0
+            res.append(temp1 + temp2)
+        return res[-1]
+		
+情况的讨论还比较复杂，比上一题难在0没有对应，所以初始化包括之后会要多讨论。
+
+而且注意这是字符串，所以s[i]==str(xxx)这里的str不能忘
 
 n个骰子的点数
 ----------------------
@@ -2230,7 +2363,46 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 .. image:: ../../_static/leetcode/剑指24.png
     :align: center
     :width: 200
-    
+
+请看下一题
+
+反转链表 II
+--------------------
+| leetcode 92. 
+| 反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。
+| 说明:
+| 1 ≤ m ≤ n ≤ 链表长度。
+| 示例:
+| 输入: 1->2->3->4->5->NULL, m = 2, n = 4
+| 输出: 1->4->3->2->5->NULL
+::
+
+    def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
+        res = pre = ListNode(-1)
+        pre.next = head
+        count = 0
+        while count<m-1:
+            pre = pre.next
+            count += 1
+        temp1 = pre
+        tail = pre.next
+        after = None
+        pre = pre.next
+        count += 1
+        while count <= n:
+            temp2 = pre
+            temp = pre.next
+            pre.next = after
+            after = pre
+            pre = temp
+            count += 1
+        temp1.next = temp2
+        tail.next = temp
+        return res.next
+
+| 变量名没取好.....用了很多中间变量保存临时参数
+| 题目还是有点难度的，做了挺久。从上一题反转链表引申而来。值得再看看	
+		
 合并两个排序的链表
 -------------------------
     
@@ -2483,6 +2655,99 @@ leetcode 61.
 相当于是停留在最后，然后正好和头部差了1，形成双指针。
 
 
+删除排序链表中的重复元素 II
+------------------------------------------
+leetcode 82. 
+
+给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。
+
+| 示例 1:
+| 输入: 1->2->3->3->4->4->5
+| 输出: 1->2->5
+
+| 示例 2:
+| 输入: 1->1->1->2->3
+| 输出: 2->3
+::
+
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        res = ListNode(-1)
+        res.next = head
+        l, r = res, head
+        while r and r.next:
+            if l.next.val != r.next.val:
+                l = l.next
+                r = r.next
+            elif l.next.val == r.next.val:
+                while r.next and l.next.val == r.next.val:
+                    r = r.next
+                l.next = r.next
+                r = r.next
+        return res.next
+		
+多漂亮的解法！先来个伪头节点，然后双指针。注意while r.next and l.next.val == r.next.val: 这里的循环判断条件
+
+请看下一题
+
+删除排序链表中的重复元素
+----------------------------------------
+| leetcode 83. 
+| 给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
+| 示例 1:
+| 输入: 1->1->2
+| 输出: 1->2
+
+| 示例 2:
+| 输入: 1->1->2->3->3
+| 输出: 1->2->3
+
+::
+
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        pre = ListNode(-1)
+        pre.next = head
+        l, r = pre, head
+        while r and r.next:
+            if l.next.val != r.next.val:
+                l = l.next
+                r = r.next
+            else:
+                while r.next and l.next.val == r.next.val:
+                    r = r.next
+                l.next.next = r.next
+                l = l.next
+                r = r.next
+        return pre.next
+		
+分隔链表
+--------------------
+| leetcode 86. 
+| 给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前。
+| 你应当保留两个分区中每个节点的初始相对位置。
+
+| 示例:
+| 输入: head = 1->4->3->2->5->2, x = 3
+| 输出: 1->2->2->4->3->5
+::
+
+    def partition(self, head: ListNode, x: int) -> ListNode:
+        res1 = small = ListNode(-1)
+        res2 = big = ListNode(-1)
+        while head:
+            if head.val<x:
+                small.next = head
+                small = small.next
+            else:
+                big.next = head
+                big = big.next
+            head = head.next
+        big.next = None
+        small.next = res2.next
+        return res1.next
+
+big.next = None这个不要忘了，不然没有尾结点
+
+		
 位运算
 ==============
 我菜狗，暂时不会
@@ -2517,10 +2782,54 @@ leetcode 61.
 | 输出：[2,10] 或 [10,2]
 
 
+格雷编码
+----------------
+| leetcode 89. 
+| 格雷编码是一个二进制数字系统，在该系统中，两个连续的数值仅有一个位数的差异。
+| 给定一个代表编码总位数的非负整数 n，打印其格雷编码序列。即使有多个不同答案，你也只需要返回其中一种。
+| 格雷编码序列必须以 0 开头。
+::
 
+    def grayCode(self, n: int) -> List[int]:
+        res = ["0","1"]
+        if n == 0:
+            return [0]
+        for i in range(1,n):
+            temp0 = []
+            temp1 = []
+            for j in range(len(res)):
+                temp0.append("0"+res[j])
+                temp1.append("1"+res[::-1][j])
+            res = temp0 + temp1
+        result = [int(x,2) for x in res]
+        return result
 
+我这样做不是位运算，是动态规划
+		
+解法的思想来自 https://leetcode-cn.com/problems/gray-code/solution/gray-code-jing-xiang-fan-she-fa-by-jyd/
+
+.. image:: ../../_static/leetcode/89.png
+    :align: center
+	
 回溯
 =====================
 https://leetcode-cn.com/problems/combination-sum-ii/solution/hui-su-xi-lie-by-powcai/
 
 leetcode 60. 第k个排列
+
+39.组合总和
+
+40. 组合总和 II
+
+46. 全排列
+
+47. 全排列 II
+
+77. 组合
+
+78. 子集
+
+79. 单词搜索
+
+90. 子集 II
+
