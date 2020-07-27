@@ -1772,7 +1772,6 @@ leetcode 31.
 
 .. image:: ../../_static/leetcode/31.png
     :align: center
-    :width: 400
 
 
 外观数列
