@@ -1769,6 +1769,7 @@ leetcode 31.
             nums[:] = nums[:pos1+1] + nums[pos1+1:][::-1]
 
 思想来自于  https://leetcode-cn.com/problems/next-permutation/solution/xia-yi-ge-pai-lie-by-powcai/
+
 .. image:: ../../_static/leetcode/31.png
     :align: center
     :width: 400
