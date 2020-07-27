@@ -1745,8 +1745,33 @@ leetcode 31.
 | 1,2,3 → 1,3,2
 | 3,2,1 → 1,2,3
 | 1,1,5 → 1,5,1
+::
 
-| ？？？ 还是没想太明白
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        if len(nums)<=1:
+            return nums
+        pos1 = -1
+        for i in range(0,len(nums)-1):
+            if nums[i] < nums[i+1]:
+                pos1 = i
+        if pos1 == -1:
+            nums[:] = nums[::-1]
+            return 
+        pos2 = -1
+        for j in range(pos1,len(nums)):
+            if nums[j]>nums[pos1]:
+                pos2 = j
+        nums[pos1], nums[pos2] = nums[pos2], nums[pos1]
+        if pos1+1<=len(nums)-1:
+            nums[:] = nums[:pos1+1] + nums[pos1+1:][::-1]
+
+思想来自于  https://leetcode-cn.com/problems/next-permutation/solution/xia-yi-ge-pai-lie-by-powcai/
+.. image:: ../../_static/leetcode/31.png
+    :align: center
+    :width: 400
 
 
 外观数列
