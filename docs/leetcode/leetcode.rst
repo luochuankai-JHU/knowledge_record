@@ -2838,23 +2838,336 @@ big.next = None这个不要忘了，不然没有尾结点
 	
 回溯
 =====================
+思路模仿自 https://leetcode-cn.com/problems/permutations/solution/hui-su-suan-fa-xiang-jie-by-labuladong-2/   
+
+**回溯模板**
+
+回溯模板
+------------------
+
+::
+
+result = []
+def backtrack(路径, 选择列表):
+    if 满足结束条件:
+        result.add(路径)
+        return
+    
+    for 选择 in 选择列表:
+        做选择
+        backtrack(路径, 选择列表)
+        撤销选择
+
+
+
 https://leetcode-cn.com/problems/combination-sum-ii/solution/hui-su-xi-lie-by-powcai/
 
 leetcode 60. 第k个排列
 
-39.组合总和
+组合总和
+-----------------
+| leetcode 39.
+| 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+| candidates 中的数字可以无限制重复被选取。
+| 说明：
+| 所有数字（包括 target）都是正整数。
+| 解集不能包含重复的组合。 
+| 示例 1：
+| 输入：candidates = [2,3,6,7], target = 7,
+| 所求解集为：
+| [
+|   [7],
+|   [2,2,3]
+| ]
+::
 
-40. 组合总和 II
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res, path = [], []
+        candidates.sort()
+        start = 0
+        def calculate(res,path,start):
+            for i in range(start,len(candidates)):
+                path.append(candidates[i])
+                if sum(path)==target:
+                    res.append(path[:])
+                    path.pop()
+                    break
+                elif sum(path)>target:
+                    path.pop()
+                    break
+                calculate(res,path,i)
+                path.pop()
+        calculate(res,path,start)
+        return res
+		
+倒数第三行的path.pop()值得再好好思考！
 
-46. 全排列
+用标准的回溯模板写出来::
 
-47. 全排列 II
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res, path = [], []
+        candidates.sort()
+        start = 0
+        def calculate(res,path,start):
+            if sum(path)==target:
+                res.append(path[:])
+                return
+            for i in range(start,len(candidates)):
+                path.append(candidates[i])
+                if sum(path)>target:
+                    path.pop()
+                    break
+                calculate(res,path,i)
+                path.pop()
+        calculate(res,path,start)
+        return res
 
-77. 组合
 
-78. 子集
+组合总和 II
+-------------------------
+| leetcode 40. 
+| 给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+| candidates 中的每个数字在每个组合中只能使用一次。
+| 说明：
+| 所有数字（包括目标数）都是正整数。
+| 解集不能包含重复的组合。 
+| 示例 1:
+| 输入: candidates = [10,1,2,7,6,1,5], target = 8,
+| 所求解集为:
+| [
+|   [1, 7],
+|   [1, 2, 5],
+|   [2, 6],
+|   [1, 1, 6]
+| ]
+::
 
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        res, path = [], []
+        candidates.sort()
+        def findit(res,path,start):
+            for i in range(start,len(candidates)):
+                if i>start and candidates[i]==candidates[i-1]:
+                    continue
+                path.append(candidates[i])
+                total = sum(path)
+                if total==target:
+                    res.append(path[:])
+                    path.pop()
+                    break
+                elif total > target:
+                    path.pop()
+                    break
+                findit(res,path,i+1)
+                path.pop()
+        findit(res,path,0)
+        return res
+
+if i>start and candidates[i]==candidates[i-1]:这里要仔细思考
+
+按照标准的回溯模板来写::
+
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        res, path = [], []
+        candidates.sort()
+        def findit(res,path,start):
+            if sum(path)==target:
+                res.append(path[:])
+                return
+            for i in range(start,len(candidates)):
+                if i>start and candidates[i]==candidates[i-1]:
+                    continue
+                path.append(candidates[i])
+                if sum(path) > target:
+                    path.pop()
+                    break
+                findit(res,path,i+1)
+                path.pop()
+        findit(res,path,0)
+        return res
+		
+		
+全排列
+---------------------------------
+| leetcode 46. 
+| 给定一个 没有重复 数字的序列，返回其所有可能的全排列。
+| 示例:
+| 输入: [1,2,3]
+| 输出:
+| [
+|   [1,2,3],
+|   [1,3,2],
+|   [2,1,3],
+|   [2,3,1],
+|   [3,1,2],
+|   [3,2,1]
+| ]
+::
+
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res, path = [], []
+        def all_sort(res, path):
+            if len(path)==len(nums):
+                res.append(path[:])
+                return 
+            for i in range(0,len(nums)):
+                if nums[i] not in path:
+                    path.append(nums[i])
+                    all_sort(res, path)
+                    path.pop()
+        all_sort(res, path)
+        return res
+		
+		
+全排列 II
+-----------------
+| leetcode 47. 
+| 给定一个可包含重复数字的序列，返回所有不重复的全排列。
+| 示例:
+| 输入: [1,1,2]
+| 输出:
+| [
+|   [1,1,2],
+|   [1,2,1],
+|   [2,1,1]
+| ]
+::
+
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        res, path = [], []
+        nums.sort()
+        used = [0 for i in range(len(nums))]
+        def backtrack(res,path,used):
+            if len(path)==len(nums):
+                res.append(path[:])
+                return
+            for i in range(len(nums)):
+                if used[i] == 1:
+                    continue
+                if i>0 and nums[i]==nums[i-1] and used[i-1]:
+                    continue
+                path.append(nums[i])
+                used[i] = 1
+                backtrack(res,path,used)
+                path.pop()
+                used[i] = 0
+        backtrack(res,path,used)
+        return res
+		
+关键点 		
+
+if used[i] == 1:
+
+if i>0 and nums[i]==nums[i-1] and used[i-1]:		
+
+组合
+------------------
+| leetcode 77. 
+| 给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。
+| 示例:
+| 输入: n = 4, k = 2
+| 输出:
+| [
+|   [2,4],
+|   [3,4],
+|   [2,3],
+|   [1,2],
+|   [1,3],
+|   [1,4],
+| ]
+::
+
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        nums = [x for x in range(1,n+1)]
+        res, path = [], []
+        def backtrack(res, path, start):
+            if len(path)==k:
+                res.append(path[:])
+                return
+            for i in range(start, len(nums)):
+                path.append(nums[i])
+                backtrack(res, path, i+1)
+                path.pop()
+        backtrack(res, path, 0)
+        return res
+		
+		
+子集
+----------------
+| leetcode 78. 
+| 给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+| 说明：解集不能包含重复的子集。
+| 示例:
+| 输入: nums = [1,2,3]
+| 输出:
+| [
+|   [3],
+|   [1],
+|   [2],
+|   [1,2,3],
+|   [1,3],
+|   [2,3],
+|   [1,2],
+|   []
+| ]
+
+::
+
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res, path = [], []
+        def backtrack(res, path, length, start):
+            if len(path)==length:
+                res.append(path[:])
+                return
+            for i in range(start,len(nums)):
+                path.append(nums[i])
+                backtrack(res, path, length, i+1)
+                path.pop()
+        for i in range(0,len(nums)+1):
+            backtrack(res, path, i, 0)
+        return res
+		
+思想是借鉴的上一题。不算很优秀的解法，因为重复点在于最后那个for循环，并没有用上上一次循环的结果
+
+为什么官方的那个解答也是这么写的.......以后有时间再优化吧
+
+子集 II
+-------------------------
+| leetcode 90. 
+| 给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+| 说明：解集不能包含重复的子集。
+| 示例:
+| 输入: [1,2,2]
+| 输出:
+| [
+|   [2],
+|   [1],
+|   [1,2,2],
+|   [2,2],
+|   [1,2],
+|   []
+| ]
+::
+
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = []
+        def backtrack(path, res, start, length):
+            if len(path)==length:
+                res.append(path[:])
+                return
+            for i in range(start,len(nums)):
+                if i>start and nums[i]==nums[i-1]:
+                    continue
+                path.append(nums[i])
+                backtrack(path, res, i+1, length)
+                path.pop()
+        for length in range(0,len(nums)+1):
+            path = []
+            backtrack(path, res, 0, length)
+        return res
+		
+		
 79. 单词搜索
 
-90. 子集 II
 
