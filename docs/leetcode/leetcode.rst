@@ -3168,6 +3168,45 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
         return res
 		
 		
-79. 单词搜索
+单词搜索
+----------------------
+| leetcode 79. 
+| 给定一个二维网格和一个单词，找出该单词是否存在于网格中。
+| 单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+| 示例:
+| board =
+| [
+|   ['A','B','C','E'],
+|   ['S','F','C','S'],
+|   ['A','D','E','E']
+| ]
+| 给定 word = "ABCCED", 返回 true
+| 给定 word = "SEE", 返回 true
+| 给定 word = "ABCB", 返回 false
+::
+
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        directions = [(1,0),(-1,0),(0,1),(0,-1)]
+        used = [[0 for j in range(len(board[0]))] for i in range(len(board))]
+        def search(i,j,index):
+            if index==len(word)-1:
+                return board[i][j]==word[index]
+            if board[i][j]==word[index]:
+                used[i][j] = 1
+                for direct in directions:
+                    new_i = i + direct[0]
+                    new_j = j + direct[1]
+                    if 0<=new_i<=len(board)-1 and 0<=new_j<=len(board[0])-1 and not used[new_i][new_j] and search(new_i,new_j,index+1):
+                        return True
+                used[i][j] = 0
+                return False
+        
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if search(i,j,0):
+                    return True
+        return False
+		
+这个还真有点难....回溯法的集成
 
 
