@@ -49,10 +49,12 @@ batch normalize BN
 **BN层具体过程、反向传播、求导**
 
 具体过程
+
 .. image:: ../../_static/cv/BN.png
 	:align: center
 
 求导
+
 .. image:: ../../_static/cv/BN求导.png
 	:align: center
 	
@@ -253,7 +255,6 @@ https://blog.csdn.net/xxy0118/article/details/84333635
 
 反向传播的推导
 ------------------------
-
 以前做过的作业  gradescope
 
 .. image:: ../../_static/cv/homework1.png
