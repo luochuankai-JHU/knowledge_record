@@ -196,11 +196,13 @@ https://www.zhihu.com/question/19725590/answer/241988854
 ------------------------
 | ID3 提出了初步的决策树算法，内部使用信息熵和信息增益来进行构建，每次迭代算则信息增益最大的特征属性作为分割属性。
 | C4.5 提出了完整的决策树算法。使用信息增益率来取代ID3中的信息增益，在树的构造过程中会进行剪枝操作进行优化，能够自动完成对连续属性的离散化处理。
-| CART (Classification And Regression Tree) 目前使用最多的决策树算法，使用基尼系数 Gain作为数据纯度的量化指标来构建决策树
+| CART (Classification And Regression Tree) 目前使用最多的决策树算法，选择那个使得划分后基尼指数最小的属性作为最优划分属性
 
+| 一些资料
+| https://www.jianshu.com/p/195d50a42ad5
+|《李航 统计学习方法》 P60
 
 ** 信息增益 **
-| 《李航 统计学习方法》 P60
 
 .. image:: ../../_static/machine_learning/熵.png
 	:align: center
@@ -224,12 +226,35 @@ https://www.zhihu.com/question/19725590/answer/241988854
 	:align: center
 
 g（D,A）是上面的的信息增益。g(D,A) = H(D) - H(D|A)
+
+| 优点：
+| 产生规则易于理解。
+| 准确率较高。(因为考虑了连续值，数据越多拟合程度就越好。)
+| 实现简单。
+
+| 缺点：
+| 对数据集需要进行多次扫描和排序，所以效率较低。(比如之前例子中收入的连续值，分割次数越多，需要扫描的次数也就越多，排序次数也越多。)
+| 只适合小规模数据集，需要将数据放到内存中。
+
 	
 **决策树的剪枝**
 
 .. image:: ../../_static/machine_learning/剪枝1.png
 	:align: center
 
+设树的结点个数为|T|，则像正则化一样，损失函数加上 α|T|
+
+**基尼系数**
+
+
+
+.. image:: ../../_static/machine_learning/基尼系数1.png
+	:align: center
+	
+.. image:: ../../_static/machine_learning/基尼系数2.png
+	:align: center
+	
+	
 其他常见问题
 ======================
 
