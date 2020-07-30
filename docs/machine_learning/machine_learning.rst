@@ -202,13 +202,15 @@ https://www.zhihu.com/question/19725590/answer/241988854
 | https://www.jianshu.com/p/195d50a42ad5
 |《李航 统计学习方法》 P60
 
-** 信息增益 **
+**信息增益**
 
 .. image:: ../../_static/machine_learning/熵.png
 	:align: center
+	:width: 400
 
 .. image:: ../../_static/machine_learning/信息增益.png
 	:align: center
+	:width: 400
 
 | 优点：
 | 决策树构建速度快，实现简单。
@@ -220,10 +222,11 @@ https://www.zhihu.com/question/19725590/answer/241988854
 | 抗噪性差。数据集中噪音点多可能会出现过拟合。
 | 只适合小规模的数据集，需要将数据放到内存中。
 
-** 信息增益率 **
+**信息增益率**
 
 .. image:: ../../_static/machine_learning/信息增益率.png
 	:align: center
+	:width: 400
 
 g（D,A）是上面的的信息增益。g(D,A) = H(D) - H(D|A)
 
@@ -241,6 +244,7 @@ g（D,A）是上面的的信息增益。g(D,A) = H(D) - H(D|A)
 
 .. image:: ../../_static/machine_learning/剪枝1.png
 	:align: center
+	:width: 400
 
 设树的结点个数为|T|，则像正则化一样，损失函数加上 α|T|
 
@@ -250,9 +254,11 @@ g（D,A）是上面的的信息增益。g(D,A) = H(D) - H(D|A)
 
 .. image:: ../../_static/machine_learning/基尼系数1.png
 	:align: center
+	:width: 400
 	
 .. image:: ../../_static/machine_learning/基尼系数2.png
 	:align: center
+	:width: 400
 	
 	
 其他常见问题
@@ -329,19 +335,23 @@ https://blog.csdn.net/J_Boom/article/details/86763024
 
 
 欧氏距离
+
 .. image:: ../../_static/machine_learning/欧氏距离.png
 	:align: center
 
 曼哈顿距离
+
 .. image:: ../../_static/machine_learning/曼哈顿距离.png
 	:align: center
 
 切比雪夫距离
+
 .. image:: ../../_static/machine_learning/切比雪夫距离.png
 	:align: center
 
 | 马氏距离
 | 就是做个PCA 排除均值和方差的影响
+
 .. image:: ../../_static/machine_learning/马氏距离.png
 	:align: center
 
@@ -350,10 +360,12 @@ https://blog.csdn.net/J_Boom/article/details/86763024
 汉明距离(Hamming Distance)  就是编辑距离
 
 杰卡德距离(Jaccard Distance)
+
 .. image:: ../../_static/machine_learning/杰卡德距离.png
 	:align: center
 
 相关距离(Correlation distance)
+
 .. image:: ../../_static/machine_learning/相关距离.png
 	:align: center
 
