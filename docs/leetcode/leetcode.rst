@@ -2847,16 +2847,16 @@ big.next = None这个不要忘了，不然没有尾结点
 
 ::
 
-result = []
-def backtrack(路径, 选择列表):
-    if 满足结束条件:
-        result.add(路径)
-        return
-    
-    for 选择 in 选择列表:
-        做选择
-        backtrack(路径, 选择列表)
-        撤销选择
+	result = []
+	def backtrack(路径, 选择列表):
+		if 满足结束条件:
+			result.add(路径)
+			return
+		
+		for 选择 in 选择列表:
+			做选择
+			backtrack(路径, 选择列表)
+			撤销选择
 
 
 
@@ -3210,3 +3210,11 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
 这个还真有点难....回溯法的集成
 
 
+
+非常规题
+======================
+
+超多数字，从中找出只出现过一次的数字
+--------------------------------------------------
+.. image:: ../../_static/leetcode/超多数字.png
+    :align: center

@@ -266,8 +266,40 @@ https://www.cnblogs.com/zhanjiahui/p/11643544.html
 
 https://www.jianshu.com/p/fd9e2166cfcc
 
-各种距离 欧式 余弦
+
+几种距离度量方法比较
 -----------------------
+https://blog.csdn.net/J_Boom/article/details/86763024
+
+
+欧氏距离
+.. image:: ../../_static/machine_learning/欧氏距离.png
+	:align: center
+
+曼哈顿距离
+.. image:: ../../_static/machine_learning/曼哈顿距离.png
+	:align: center
+
+切比雪夫距离
+.. image:: ../../_static/machine_learning/切比雪夫距离.png
+	:align: center
+
+| 马氏距离
+| 就是做个PCA 排除均值和方差的影响
+.. image:: ../../_static/machine_learning/马氏距离.png
+	:align: center
+
+余弦距离 略
+
+汉明距离(Hamming Distance)  就是编辑距离
+
+杰卡德距离(Jaccard Distance)
+.. image:: ../../_static/machine_learning/杰卡德距离.png
+	:align: center
+
+相关距离(Correlation distance)
+.. image:: ../../_static/machine_learning/相关距离.png
+	:align: center
 
 启发式 生成式算法
 -----------------------------

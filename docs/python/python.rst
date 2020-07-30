@@ -51,7 +51,12 @@ string.isalpha()
 
 python里的map函数，讲一下它的作用和返回值
 ------------------------------------------------
-？？？待补充
+.. image:: ../../_static/python/map.png
+    :align: center
+
+作用：括号里前面是函数，后面是作用的数据集
+
+python2里面是直接返回列表，python3里面是返回返回迭代器，list一下就好
 
 
 哈希表的原理
@@ -63,7 +68,17 @@ python里的map函数，讲一下它的作用和返回值
 -------------------------
 https://www.cnblogs.com/v-July-v/archive/2012/03/22/2413055.html
 
+生成器和迭代器
+----------------------
+https://www.jianshu.com/p/dcc4c1af63c7
 
+http://www.techweb.com.cn/cloud/2020-07-27/2798448.shtml
+
+生成器：iter() 和 next()
+
+迭代器： yield
+
+省内存
 
 feed流
 ---------------
@@ -130,3 +145,6 @@ https://leetcode-cn.com/problems/recover-a-tree-from-preorder-traversal/solution
 8.面试要经常总结和做面经，不然会在一个坑里一次又一次的跌倒。
 
 9.多去和师兄同学讨论，请教。不要闭门造车
+
+
+
