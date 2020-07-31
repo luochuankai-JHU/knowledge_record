@@ -284,9 +284,10 @@ fasttext
 字符级n-gram特征的引入以及分层Softmax分类。
 
 
-| gpt
-| glove
-| elmo
+glove
+----------------
+word2vec是“predictive”的模型，而GloVe是“count-based”的模型
+
 
 .. image:: ../../_static/nlp/ELMO.png
 	:align: center

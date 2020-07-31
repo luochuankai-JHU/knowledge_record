@@ -100,7 +100,6 @@ Dead ReLU
 
 .. image:: ../../_static/cv/Dead_ReLU.png
 	:align: center
-	:width: 400
 
 
 | leakyRelu：
@@ -238,16 +237,22 @@ top1 error， top5 error
 --------------
 .. image:: ../../_static/cv/softmaxloss.png
 	:align: center
-
+	:width: 400
+	
 .. image:: ../../_static/cv/crossentropyloss.png
 	:align: center
+	:width: 400
 
 
 .. image:: ../../_static/cv/交叉损失.png
 	:align: center
+	:width: 400
 	
 	
-这里要再多写点，包括为什么回归用CE，分类不能CE
+分类为什么用CE而不是MSE
+
+| MSE作为分类的损失函数会有梯度消失的问题。
+| MSE是非凸的，存在很多局部极小值点。
 
 包括项目里用的 focal loss
 
