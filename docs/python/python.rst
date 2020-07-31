@@ -78,6 +78,13 @@ http://www.techweb.com.cn/cloud/2020-07-27/2798448.shtml
 
 省内存
 
+*arg与**kwargs参数的用法
+----------------------------------------------
+https://www.cnblogs.com/xujiu/p/8352635.html
+
+*arg表示任意多个无名参数，类型为tuple;**kwargs表示关键字参数，为dict
+
+
 feed流
 ---------------
 https://www.jianshu.com/p/20293026d366

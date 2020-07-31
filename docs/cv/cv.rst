@@ -96,6 +96,13 @@ Padding
 	
 | Relu 速度快  但是容易导致神经元坏死  因为一旦变成0以后梯度就永远为0了
 
+Dead ReLU
+
+.. image:: ../../_static/cv/Dead_ReLU.png
+	:align: center
+	:width: 400
+
+
 | leakyRelu：
 | 数学表达式：y = max(0, x) + leak*min(0,x)  （leak是一个很小的常数，这样保留了一些负轴的值，使得负轴的信息不会全部丢失）
 

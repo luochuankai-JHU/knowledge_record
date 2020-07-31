@@ -338,22 +338,26 @@ https://blog.csdn.net/J_Boom/article/details/86763024
 
 .. image:: ../../_static/machine_learning/欧氏距离.png
 	:align: center
+	:width: 400
 
 曼哈顿距离
 
 .. image:: ../../_static/machine_learning/曼哈顿距离.png
 	:align: center
+	:width: 400
 
 切比雪夫距离
 
 .. image:: ../../_static/machine_learning/切比雪夫距离.png
 	:align: center
+	:width: 400
 
 | 马氏距离
 | 就是做个PCA 排除均值和方差的影响
 
 .. image:: ../../_static/machine_learning/马氏距离.png
 	:align: center
+	:width: 400
 
 余弦距离 略
 
@@ -400,8 +404,20 @@ Rank Averaging
 
 进程与线程
 -------------------
-？？？？？？待补充
+先来个直观的解释。核心是 一个进程可以是多线程 （可以有多条线）
 
+.. image:: ../../_static/machine_learning/进程线程.png
+	:align: center
+	:width: 400
+
+https://www.zhihu.com/question/25532384/answer/1130818664 这个解答说的很好，解释的具体，而且面试题也涉及了
+
+| 核心：
+| 进程是资源分配的基本单位；线程是程序执行的基本单位。
+| 一个进程可以包含若干个线程。
+
+| 进程/线程如何通信
+| 答：进程可以通过管道、套接字、信号交互、共享内存、消息队列等等进行通信；而线程本身就会共享内存，指针指向同一个内容，交互很容易。
 
 推荐系统
 =====================

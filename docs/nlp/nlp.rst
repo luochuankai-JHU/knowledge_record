@@ -204,11 +204,87 @@ NSP是预训练，我们这个是下游任务
 剪枝
 
 | crf
-| n gram
-| word2vec
+
+word2vec
+--------------------
+李宏毅机器学习 unsupervised learning word embedding  https://www.bilibili.com/video/BV13x411v7US?p=25
+
+这个是别人做的笔记 https://www.jianshu.com/p/8c7030ccbf9e
+
+核心：通过一个词汇的上下文去了解他的意思
+
+count base的做法
+
+wi词和wj词查找共同出现的次数，那么wi词的向量和wj词的向量的乘积应该接近于这个数
+
+.. image:: ../../_static/nlp/count_base.png
+	:align: center
+	:width: 400
+
+predition base的做法
+
+.. image:: ../../_static/nlp/predition_base.png
+	:align: center
+	:width: 400
+
+用前一个字去预测后一个字。先用one-hot编码，然后输入到一个神经网络，接着去预测。那么他把神经网络的第一层（相当于是一个降维的功能）当作word embedding
+
+如果不仅是只用前一个词，而是前N个词。那么w这个权重是共享的。
+
+.. image:: ../../_static/nlp/predition_base2.png
+	:align: center
+	:width: 400
+
+变体：
+
+.. image:: ../../_static/nlp/变体.png
+	:align: center
+	:width: 400
+
+
+CBOW 用两边预测中间。 skip-gram 用中间预测两边
+
+skip-gram 训练时间更长，出来的准确率比cbow 高。但是生僻词较多时cbow更好
+
+优化：
+
+hierarchical softmax优化、负采样
+
+Negative Sampling是对于给定的词,并生成其负采样词集合的一种策略,已知有一个词,这个词可以看做一个正例,而它的上下文词集可以看做是负例,
+但是负例的样本太多,而在语料库中,各个词出现的频率是不一样的,所以在采样时可以要求高频词选中的概率较大,
+低频词选中的概率较小,这样就转化为一个带权采样问题,大幅度提高了模型的性能。
+
+hierarchical softmax 将词库表示成前缀树，从树根到叶子的路径可以表示为一系列二分类器，一次多分类计算的复杂度从|V|降低到了树的高度
+
+Word2vec ------算法岗面试题
+https://www.cnblogs.com/zhangyang520/p/10969975.html
+
+
+
+
+
+bag_of_word
+--------------------
+它的基本思想是假定对于一个文本，忽略其词序和语法、句法，仅仅将其看做是一些词汇的集合，而文本中的每个词汇都是独立的。
+简单说就是将每篇文档都看成一个袋子（因为里面装的都是词汇，所以称为词袋，Bag of words即因此而来），然后根据袋子里装的词汇对其进行分类。
+如果文档中猪、马、牛、羊、山谷、土地、拖拉机这样的词汇多些，而银行、大厦、汽车、公园这样的词汇少些，我们就倾向于判断它是一篇描绘乡村的文档，而不是描述城镇的。
+
+各种词语出现的数量
+
+n-gram
+-------------------
+
+.. image:: ../../_static/nlp/n-gram.png
+	:align: center
+	:width: 400
+
+
+fasttext
+------------------------
+字符级n-gram特征的引入以及分层Softmax分类。
+
+
 | gpt
-| bagofword
-| fasttext
 | glove
 | elmo
 
