@@ -136,7 +136,7 @@ https://zhuanlan.zhihu.com/p/56938216
 
 损失函数为合页损失函数
 
-pariwise和pointwise忽视了一个事实就是答案选择就是从一系列候选句子中的预测问题。在listwise中单一训练样本就是提问数据和它的所有候选回答句子。
+listwise：  pariwise和pointwise忽视了一个事实就是答案选择就是从一系列候选句子中的预测问题。在listwise中单一训练样本就是提问数据和它的所有候选回答句子。
 在训练过程中给定提问和它的一系列候选句子和标签
 
 ernie
@@ -289,7 +289,6 @@ n-gram
 
 .. image:: ../../_static/nlp/n-gram.png
 	:align: center
-	:width: 400
 
 
 fasttext
