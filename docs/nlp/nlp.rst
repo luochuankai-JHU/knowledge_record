@@ -124,7 +124,20 @@ https://blog.csdn.net/RuiKe1400360107/article/details/103864216
 | 排序学习 Learning to Rank
 | https://lumingdong.cn/learning-to-rank-in-recommendation-system.html
 
+pointwise、pairwise、listwise
+------------------------------------------
+https://zhuanlan.zhihu.com/p/56938216
 
+在pointwise中把排序问题当成一个二分类问题，训练的样本被组织成为一个三元组（qi，cij，yij）跟我们的构造方法一样
+
+在pairwise方法中排序模型让正确的回答的得分明显高于错误的候选回答。给一个提问，pairwise给定一对候选回答学习并预测哪一个句子才是提问的最佳回答。
+
+训练的样例为（qi，ci+，ci-）,其中qi为提问,ci+为正确的回答，ci-为候选答案中一个错误的回答。
+
+损失函数为合页损失函数
+
+pariwise和pointwise忽视了一个事实就是答案选择就是从一系列候选句子中的预测问题。在listwise中单一训练样本就是提问数据和它的所有候选回答句子。
+在训练过程中给定提问和它的一系列候选句子和标签
 
 ernie
 ------------
