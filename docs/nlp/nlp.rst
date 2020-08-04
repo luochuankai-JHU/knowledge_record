@@ -709,15 +709,15 @@ HMM
 
 .. image:: ../../_static/nlp/HMM1.png
 	:align: center
-	:width: 300
+	:width: 400
 	
 .. image:: ../../_static/nlp/HMM2.png
 	:align: center
-	:width: 300
+	:width: 400
 	
 .. image:: ../../_static/nlp/HMM3.png
 	:align: center
-	:width: 300
+	:width: 400
 
 
 CRF
@@ -727,7 +727,7 @@ CRF
 
 .. image:: ../../_static/nlp/CRF1.png
 	:align: center
-	:width: 300
+	:width: 400
 
 | 下面那个式子是针对红框里的
 | s是tags，词性，    t是具体的词
@@ -736,13 +736,13 @@ CRF
 
 .. image:: ../../_static/nlp/CRF2.png
 	:align: center
-	:width: 300
+	:width: 400
 	
 w是训练中要学习的权重
 
 .. image:: ../../_static/nlp/CRF3.png
 	:align: center
-	:width: 300
+	:width: 400
 
 所以，训练的时候要寻找一个权重w，做到O(w)表达的那个式子最大
 
@@ -750,7 +750,7 @@ w是训练中要学习的权重
 
 .. image:: ../../_static/nlp/CRF4.png
 	:align: center
-	:width: 300
+	:width: 400
 	
 反向传播 求导
 
@@ -763,7 +763,7 @@ Bi-LSTM，CRF
 
 .. image:: ../../_static/nlp/bilstm-crf.png
 	:align: center
-	:width: 300
+	:width: 400
 
 从上图可以看出，BiLSTM层的输出是每个标签的得分，如单词w0，BiLSTM的输出为1.5（B-Person），0.9（I-Person），0.1(B-Organization), 0.08 (I-Organization) and 0.05 (O)，
 这些得分就是CRF层的输入。
