@@ -210,7 +210,6 @@ NSP是预训练，我们这个是下游任务
 
 剪枝
 
-| crf
 
 word2vec
 --------------------
@@ -261,7 +260,25 @@ Negative Sampling是对于给定的词,并生成其负采样词集合的一种�
 但是负例的样本太多,而在语料库中,各个词出现的频率是不一样的,所以在采样时可以要求高频词选中的概率较大,
 低频词选中的概率较小,这样就转化为一个带权采样问题,大幅度提高了模型的性能。
 
+Negative Sampling · 负采样
+在训练神经网络时，每当接受一个训练样本，然后调整所有神经单元权重参数，来使神经网络预测更加准确。换句话说，每个训练样本都将会调整所有神经网络中的参数。
+我们词汇表的大小决定了我们skip-gram 神经网络将会有一个非常大的权重参数，并且所有的权重参数会随着数十亿训练样本不断调整。
+
+negative sampling 每次让一个训练样本仅仅更新一小部分的权重参数，从而降低梯度下降过程中的计算量。
+如果 vocabulary 大小为1万时， 当输入样本 ( "fox", "quick") 到神经网络时， “ fox” 经过 one-hot 编码，
+在输出层我们期望对应 “quick” 单词的那个神经元结点输出 1，其余 9999 个都应该输出 0。
+在这里，这9999个我们期望输出为0的神经元结点所对应的单词我们为 negative word. negative sampling 的想法也很直接 ，
+将随机选择一小部分的 negative words，比如选 10个 negative words 来更新对应的权重参数。
+
+在论文中作者指出指出对于小规模数据集，建议选择 5-20 个 negative words，对于大规模数据集选择 2-5个 negative words.
+
+如果使用了 negative sampling 仅仅去更新positive word- “quick” 和选择的其他 10 个negative words 的结点对应的权重，共计 11 个输出神经元，相当于每次只更新 300 x 11 = 3300 个权重参数。对于 3百万 的权重来说，相当于只计算了千分之一的权重，这样计算效率就大幅度提高。
+
+
+
 hierarchical softmax 将词库表示成前缀树，从树根到叶子的路径可以表示为一系列二分类器，一次多分类计算的复杂度从|V|降低到了树的高度
+
+Hierarchical Softmax（层次Softmax） https://zhuanlan.zhihu.com/p/56139075
 
 Word2vec ------算法岗面试题
 https://www.cnblogs.com/zhangyang520/p/10969975.html
@@ -471,6 +488,28 @@ embedding
 | • Segment Embeddings用来区别两种句子，因为预训练不光做LM还要做以两个句子为输入的分类任务
 | • Position Embeddings和之前文章中的Transformer不一样，不是三角函数而是学习出来的
 
+为什么Bert的三个Embedding可以进行相加？
+---------------------------------------------
+知乎的一些解释：
+
+1.空间维度很高，所以模型总能分开各个组分。
+举个例子，假设词表大小 50k，segment 只有 2 种，position embedding 只有 512 种，这三者任选一个进行组合，至多有 50k x 2 x 512 = 50 M 种组合。
+embedding 维度我没记错的话是 768 维，假设每个维度的取值范围是 [-1, 1]，这就相当于要求模型在体积为 2^768 的空间里区分 50 M 个不同的点，
+我觉得这个空间还是相对比较开阔的，所以模型能做到。
+
+2.在实际场景中，叠加是一个更为常态的操作。比如声音、图像等信号。一个时序的波可以用多个不同频率的正弦波叠加来表示。只要叠加的波的频率不同，我们就可以通过傅里叶变换进行逆向转换。
+一串文本也可以看作是一些时序信号，也可以有很多信号进行叠加，只要频率不同，都可以在后面的复杂神经网络中得到解耦（但也不一定真的要得到解耦）。
+在BERT这个设定中，token，segment，position明显可以对应三种非常不同的频率。
+
+3.等等
+
+BERT为何使用学习的position embedding而非正弦position encoding
+------------------------------------------------------------------------------
+知乎的一些解释：
+
+1.有个答主说 他的实验结果也是使用两种embedding的方法最终结果差不多，所以选择简单的方法
+2.破坏轮换对称性，同时给长距离的 token 关联做自动衰减
+
 
 GPT 与 BERT 的区别是什么
 -------------------------------
@@ -489,6 +528,29 @@ https://cloud.tencent.com/developer/article/1507551
 	
 BERT 与BiLSTM 有什么不同
 -----------------------------------
+
+bert里面的 intermediate layer
+---------------------------------------------
+Transformer block是由multi-head self-attention + FFN构成的？
+其实论文原文以及配图就是这样写的，但这么说不确切。如果你仔细地看过Transformer部分的源码，你会发现，在multi-head self-attention和FFN层之间，
+还有一个“intermediate layer”，即中间层。这个中间层将前面Attention-layer的hidden size扩大了4倍，然后再做一次非线性变换（
+即过一个激活函数，如gelu、relu），再将hidden size变回原size。中间这部分的功能，我个人理解，有点类似于“特征组合器”，增大神经元个数，
+增强Transformer对于distributed的文本特征的组合能力，从而获取更多、更复杂的语义信息。此外，中间层是Transformer中唯一一个过了激活函数的layer，
+所以也引入了非线性信息，当然从理论上也对提升模型的拟合不同语义信息能力有帮助。（当然，BERT预训练的MLM任务中，在bert_model的输出之后，在接softmax+将结果计算loss之前，
+有一个hidden_size不变的线性变换Linear + 激活函数激活 + LayerNorm的过程，，这里也有个激活函数，但这并非Transformer的结构，这属于接了下游MLM任务的结构，
+故真正Transformer-block中的非线性映射，只在中间层的激活函数引入）
+
+实际上，“intermediate layer”在bert代码里是集成到FFN类中的，但由于很多人经常把FFN层直接当做一次线性变换（即简单的nn.Linear layer）而忽略了其中的intermediate layer，
+故在这里单拎出来加以解释。
+
+
+变种：BERT-wwm、BERT-wwm-ext、RoBERTa、SpanBERT、ERNIE2
+----------------------------------------------------------------------
+bert 掩码：
+
+Mask 15% of all tokens
+
+80% of the time, replace with [mask] token， 10% of the time, replace with random token, 10% of the time, keep the word unchanged
 
 
 transformer
@@ -707,6 +769,11 @@ HMM
 | aij = Aij/sum 1<=j<=N (Aij)  aij是求分布。Aij是计数，前面一个词性是i，后面一个词性是j的数量。
 | Bjk也是一样，词性j下，词语为k的计数
 
+HMM的两个基本假设：
+
+| 齐次马尔可夫性假设，即假设隐藏的马尔科夫链在任意时刻tt的状态只依赖于其前一时刻的状态，与其他时刻的状态及观测无关，也与时刻t观测无关。
+| 观测独立性假设，即假设任意时刻的观测只依赖于该时刻的马尔科夫链的状态，与其他观测及状态无关。
+
 .. image:: ../../_static/nlp/HMM1.png
 	:align: center
 	:width: 400
@@ -782,6 +849,10 @@ CRF层可以自己学习这些约束条件，而无需人为构建该矩阵。�
 维特比算法
 ------------------------
 最短路径和？？？再看
+
+最大熵马尔科夫模型(MEMM)
+---------------------------------
+
 
 知识图谱
 ====================

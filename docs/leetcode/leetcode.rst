@@ -3253,3 +3253,9 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
 https://www.cnblogs.com/v-July-v/archive/2012/03/22/2413055.html
 
 多看看！
+
+
+KMP
+------------------
+KMP算法易懂版https://www.bilibili.com/video/BV1jb411V78H?from=search&seid=4251637190584004649  
+这个视频基本上从原理上讲懂了
