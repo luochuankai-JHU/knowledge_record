@@ -553,6 +553,35 @@ Mask 15% of all tokens
 80% of the time, replace with [mask] token， 10% of the time, replace with random token, 10% of the time, keep the word unchanged
 
 
+bert 论文里读的
+---------------------------
+**模型参数**
+
+BERTBASE (L=12, H=768, A=12, Total Parameters=110M) and BERTLARGE (L=24, H=1024, A=16, Total Parameters=340M).
+
+**MASK**
+
+In this case, the final hidden vectors corresponding to the mask tokens are fed into an output softmax over the vocabulary, as in a standard LM. 
+In all of our experiments, we mask 15% of all WordPiece tokens in each sequence at random.
+
+Although this allows us to obtain a bidirectional pre-trained model, a downside is that we are creating a mismatch between pre-training and fine-tuning, 
+since the [MASK] token does not appear during fine-tuning. To mitigate this, we do not always replace “masked” words with the actual [MASK] token. 
+
+The training data generator chooses 15% of the token positions at random for prediction. If the i-th token is chosen, we replace the i-th token with 
+
+(1) the [MASK] token 80% of the time 
+(2) a random token 10% of the time 
+(3) the unchanged i-th token 10% of the time. 
+
+Then, Ti will be used to predict the original token with cross entropy loss
+
+**NSP**
+
+Specifically, when choosing the sentences A and B for each pretraining example, 50% of the time B is the actual next sentence that follows A (labeled as IsNext),
+and 50% of the time it is a random sentence from the corpus (labeled as NotNext).  (语料库不一定是同一篇文章，可以是其他文章)
+
+（MLM和NSP的loss在预训的时候，好像是加在一起，两个任务同时算的）
+
 transformer
 =================
 
@@ -821,6 +850,63 @@ w是训练中要学习的权重
 	
 反向传播 求导
 
+HMM、CRF、MEMM区别
+------------------------------
+HMM、CRF、MEMM区别 https://www.cnblogs.com/gczr/p/10248232.html
+
+隐马尔可夫模型（Hidden Markov Model，HMM），最大熵马尔可夫模型（Maximum Entropy Markov Model，MEMM）以及条件随机场（Conditional Random Field，CRF）
+是序列标注中最常用也是最基本的三个模型。
+
+HMM首先出现，MEMM其次，CRF最后。三个算法主要思想如下：
+
+1）HMM模型是对转移概率和表现概率直接建模，统计共现概率，HMM就是典型的概率有向图，其就是概率有向图的计算概率方式，只不过概率有向图中的前边节点会有多个节点，
+而隐马尔可夫前面只有一个节点。
+
+2）MEMM模型是对转移概率和表现概率建立联合概率，统计时统计的是条件概率，但MEMM容易陷入局部最优，是因为MEMM只在局部做归一化。
+
+3）CRF模型中，统计了全局概率，在 做归一化时，考虑了数据在全局的分布，而不是仅仅在局部归一化，这样就解决了MEMM中的标记偏置（label bias）的问题。
+
+| 
+| 
+| 举例如下：
+
+对于一个标注任务，“我爱北京天安门“， 标注为” s s  b  e b c e”。
+
+| • 对于HMM的话，其判断这个标注成立的概率为 P= P(s转移到s)*P(‘我’表现为s)* P(s转移到b)*P(‘爱’表现为s)* …*P()训练时，要统计状态转移概率矩阵和表现矩阵。
+| • 对于MEMM的话，其判断这个标注成立的概率为 P= P(s转移到s|’我’表现为s)*P(‘我’表现为s)* P(s转移到b|’爱’表现为s)*P(‘爱’表现为s)*..训练时，要统计条件状态转移概率矩阵和表现矩阵，
+相比于HMM，状态转移概率矩阵变成了条件状态概率矩阵。
+| • 对于CRF的话，其判断这个标注成立的概率为 P= F(s转移到s,’我’表现为s)….F为一个函数，是在全局范围统计归一化的概率而不是像MEMM在局部统计归一化的概率，MEMM所谓的局部归一化，
+我的理解就是你加了一个前提条件下的概率，也就是前提条件下概率也要满足各个概率之和为1，是这样的局部归一化。当前，最后出现的CRF在多项任务上达到了统治级的表现，所以如果重头搞应用的话，
+大家可以首选CRF。
+
+
+本质上，CRF有以下三个优点：
+
+1）与HMM比较，CRF没有HMM那样严格的独立性假设条件，因而可以容纳任意的上下文信息。特征设计灵活（与ME一样） 
+
+2）与与MEMM比较，由于CRF计算全局最优输出节点的条件概率，它还克服了最大熵马尔可夫模型标记偏置（Label-bias）的缺点。
+
+3）CRF是在给定需要标记的观察序列的条件下，计算整个标记序列的联合概率分布，而不是在给定当前状态条件下，定义下一个状态的状态分布。凡事都有两面，正由于这些优点，CRF需要训练的参数更多，与MEMM和HMM相比，它存在训练代价大、复杂度高的缺点。
+
+
+CRF VS 词典统计分词
+ 
+| • 基于词典的分词过度依赖词典和规则库，因此对于歧义词和未登录词的识别能力较低；其优点是速度快，效率高
+| • CRF代表了新一代的机器学习技术分词，其基本思路是对汉字进行标注即由字构词(组词)，不仅考虑了文字词语出现的频率信息，同时考虑上下文语境，
+具备较好的学习能力，因此其对歧义词和未登录词的识别都具有良好的效果；其不足之处是训练周期较长，运营时计算量较大，性能不如词典分词
+ 
+
+将三者放在一块做一个总结：
+
+HMM -> MEMM： 
+| HMM模型中存在两个假设：一是输出观察值之间严格独立，二是状态的转移过程中当前状态只与前一状态有关。但实际上序列标注问题不仅和单个词相关，而且和观察序列的长度，
+单词的上下文，等等相关。MEMM解决了HMM输出独立性假设的问题。因为HMM只限定在了观测与状态之间的依赖，而MEMM引入自定义特征函数，不仅可以表达观测之间的依赖，还可表示当前观测与
+前后多个状态之间的复杂依赖。
+
+MEMM -> CRF:
+| • CRF不仅解决了HMM输出独立性假设的问题，还解决了MEMM的标注偏置问题，MEMM容易陷入局部最优是因为只在局部做归一化，而CRF统计了全局概率，在做归一化时考虑了数据在全局的分布，而不是
+仅仅在局部归一化，这样就解决了MEMM中的标记偏置的问题。使得序列标注的解码变得最优解。
+| • HMM、MEMM属于有向图，所以考虑了x与y的影响，但没讲x当做整体考虑进去（这点问题应该只有HMM）。CRF属于无向图，没有这种依赖性，克服此问题。
 
 Bi-LSTM，CRF
 -------------------------
