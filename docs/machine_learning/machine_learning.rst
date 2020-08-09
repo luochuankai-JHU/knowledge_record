@@ -225,11 +225,11 @@ https://www.zhihu.com/question/19725590/answer/241988854
 
 .. image:: ../../_static/machine_learning/熵.png
 	:align: center
-	:width: 400
+	:width: 500
 
 .. image:: ../../_static/machine_learning/信息增益.png
 	:align: center
-	:width: 400
+	:width: 500
 
 | 优点：
 | 决策树构建速度快，实现简单。
@@ -245,7 +245,7 @@ https://www.zhihu.com/question/19725590/answer/241988854
 
 .. image:: ../../_static/machine_learning/信息增益率.png
 	:align: center
-	:width: 400
+	:width: 500
 
 g（D,A）是上面的的信息增益。g(D,A) = H(D) - H(D|A)
 
@@ -263,7 +263,7 @@ g（D,A）是上面的的信息增益。g(D,A) = H(D) - H(D|A)
 
 .. image:: ../../_static/machine_learning/剪枝1.png
 	:align: center
-	:width: 400
+	:width: 500
 
 设树的结点个数为|T|，则像正则化一样，损失函数加上 α|T|
 
@@ -273,11 +273,11 @@ g（D,A）是上面的的信息增益。g(D,A) = H(D) - H(D|A)
 
 .. image:: ../../_static/machine_learning/基尼系数1.png
 	:align: center
-	:width: 400
+	:width: 500
 	
 .. image:: ../../_static/machine_learning/基尼系数2.png
 	:align: center
-	:width: 400
+	:width: 500
 	
 	
 其他常见问题
