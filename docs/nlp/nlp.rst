@@ -388,8 +388,22 @@ RNN的弊端，还有LSTM内部结构，以及接收的是前一个LSTM的什么
 .. image:: ../../_static/nlp/LSTM复杂度.png
 	:align: center
 
+RNN LSTM  参数量
+--------------------------------------------
+RNN。U是输入，W是隐藏层，V是输出。那么参数量应该是dim(W)+dim(U)+dim(V)。
+
+即 n**2 + kn + nm。其中 n是隐藏层的维度，K是输出层的维度，m是输入层的维度。详细可见 https://www.cnblogs.com/wdmx/p/9284037.html
 
 
+LSTM 模型的参数数量（包括 bias）：4(mh+h**2+h)   其中m是输入向量的长度，h是输出向量（隐层）的长度。
+
+LSTM 和 Transformer 复杂度对比
+--------------------------------------
+LSTM：seq_length * hidden**2
+
+Transformer： seq_length**2 * hidden
+
+因此，当隐层神经元数量大于序列长度时，Transformer 比 LSTM 快。
 
 attention
 ===================

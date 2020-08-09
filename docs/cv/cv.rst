@@ -178,13 +178,20 @@ Dead ReLU
 	:align: center
 
 
+CNN参数计算
+----------------------
+经过CNN后输出的维度：
+
+(N-F+2P / stride) + 1
+
+N是上一层的image size，比如256*256。 F是filter的size，比如3*3。P是padding
+
+参数量：
+假设上一层是 227*227*3 这一层用了96个  11*11的filter
+那么参数量是  3*11*11*96  注意要乘上一层的3和这一层的96
 
 
-
-
-
-
-
+RNN LSTM Transformer的参数量见NLP那一页
 
 
 1x1卷积核的作用
@@ -277,7 +284,7 @@ Kaiming 大神团队在他们的论文Focal Loss for Dense Object Detection
 
 .. image:: ../../_static/cv/focalloss.png
 	:align: center
-	:width: 200
+	:width: 300
 
 意思是这个正样本如果预测出来的概率很大，那么loss就相对小，如果预测出来概率小，那么相应的loss就大，迫使模型去更加注意那些难区分的样本
 （可以自己拿个正样本，预测出来的概率是0.9试试，0.1的平方）
@@ -332,6 +339,15 @@ https://blog.csdn.net/weixin_41683218/article/details/86473488
 loss下降不下降的问题
 ----------------------------
 https://blog.csdn.net/zongza/article/details/89185852
+
+
+梯度爆炸 梯度消失
+-------------------------------
+反向传播时，如果网络过深，每层梯度连乘小于1的数，值会趋向0，发生梯度消失。大于1则趋向正无穷，发生梯度爆炸。
+
+梯度爆炸 — 梯度剪裁 ：如果梯度过大则投影到一个较小的尺度上
+
+梯度消失 — 使用ReLU, Batch Norm，Xavier初始化和He初始化
 
 
 CV的一些知识
