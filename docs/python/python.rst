@@ -189,13 +189,14 @@ pytorch，DDP(DistributedDataParallel)
 ---------------------------------------------------------------
 本来设计主要是为了多机多卡使用，但是单机上也能用
 
-DistributedDataParallel 比DataParallel 快很多的原因。好像是每个卡都是主卡，...这个再看下。
+DistributedDataParallel 比DataParallel 快很多，据说能快三倍以上。原因是每个卡都是主卡，...这个具体再看下。
 
 除此之外，还能用 horovod或者 apex 但是都要单独配置
 
 先贴一段自己能跑通的代码。
 
 ::
+
     # import 阶段要多import 这些
     import torch.distributed as dist
     from torch.nn.parallel import DistributedDataParallel
