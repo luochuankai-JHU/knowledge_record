@@ -229,7 +229,7 @@ DistributedDataParallel 比DataParallel 快很多，据说能快三倍以上。�
     # 如果用到了parser.add_argument，这句话也是需要的
     parser.add_argument('--local_rank', default=-1, type=int)
     
-    # 要用shell来跑，按照如下的来写。jupyter的话要另外在代码里面设置别的内容。
+    # 要用shell来跑，按照如下的来写。jupyter的话要另外在代码里面设置别的内容。--nproc_per_node=2因为有两张卡
     python -m torch.distributed.launch --nproc_per_node=2 train_distribute.py
     
 **几个坑的地方要特别注意：**
@@ -243,18 +243,18 @@ DistributedDataParallel 比DataParallel 快很多，据说能快三倍以上。�
 | os.environ['SLURM_STEP_NODELIST']   #从中取得一个ip作为通讯ip
 | 这几个功能的？？
 
-2. shuffle那里不能用。因为sampler和shuffle是互斥的。所以要自己建立数据集的时候手动shuffle
+| 2. shuffle那里不能用。因为sampler和shuffle是互斥的。所以要自己建立数据集的时候手动shuffle
 
-3. find_unused_parameters=True一定要设置，不然坑死！！会报一堆的错，说是有很多数据没有参与反向传播，会变成None，然后都给你打出来了
+| 3. find_unused_parameters=True一定要设置，不然坑死！！会报一堆的错，说是有很多数据没有参与反向传播，会变成None，然后都给你打出来了
 
 | 4.初始化这个最恶心。
-| 不要初始化端口 不然第一个用了以后第二个会被占用？ 而且world_size，rank 也不要写，不然也会把端口占了？
+| 不要初始化端口，不然第一个用了以后第二个会被占用？ 而且world_size，rank 也不要写，不然也会把端口占了？
 | world_size: 介绍都是说是进程, 实际就是机器的个数
 | rank: 区分主节点和从节点的, 主节点为0, 剩余的为了1-(N-1), N为要使用的机器的数量
 
-5.别忘了去掉master_gpu_ids
+| 5.别忘了去掉master_gpu_ids
 
-6. 这个可有可无。在使用DataLoader时，别忘了设置pip_memory=true，为什么呢？且看下面的解释，
+| 6. 这个可有可无。在使用DataLoader时，别忘了设置pip_memory=true，为什么呢？且看下面的解释，
 
 | 多GPU训练的时候注意机器的内存是否足够(一般为使用显卡显存x2)，如果不够，建议关闭pin_memory(锁页内存)选项。
 | 采用DistributedDataParallel多GPUs训练的方式比DataParallel更快一些，如果你的Pytorch编译时有nccl的支持，那么最好使用DistributedDataParallel方式。
