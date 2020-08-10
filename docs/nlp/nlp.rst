@@ -399,6 +399,9 @@ LSTM 模型的参数数量（包括 bias）：4(mh+h**2+h)   其中m是输入向
 
 LSTM 和 Transformer 复杂度对比
 --------------------------------------
+.. image:: ../../_static/nlp/复杂度.png
+	:align: center
+
 LSTM：seq_length * hidden**2
 
 Transformer： seq_length**2 * hidden

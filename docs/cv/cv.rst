@@ -160,8 +160,6 @@ Dead ReLU
 | 选择合适的learning rate比较困难 - 对所有的参数更新使用同样的learning rate。对于稀疏数据或者特征，有时我们可能想更新快一些对于不经常出现的特征，对于常出现的特征更新慢一些，这时候SGD就不太能满足要求了
 | SGD容易收敛到局部最优，并且在某些情况下可能被困在鞍点
 
-| Adam
-| Adam(Adaptive Moment Estimation)本质上是带有动量项的RMSprop，它利用梯度的一阶矩估计和二阶矩估计动态调整每个参数的学习率。Adam的优点主要在于经过偏置校正后，每一次迭代学习率都有个确定范围，使得参数比较平稳。结合了adagrad和monument的优点
 
 | •	SGD通常训练时间更长，但是在好的初始化和学习率调度方案的情况下，结果更可靠
 
@@ -177,6 +175,12 @@ Dead ReLU
 .. image:: ../../_static/cv/RMSPROP.png
 	:align: center
 
+| Adam
+| Adam(Adaptive Moment Estimation)本质上是带有动量项的RMSprop，它利用梯度的一阶矩估计和二阶矩估计动态调整每个参数的学习率。Adam的优点主要在于经过偏置校正后，每一次迭代学习率都有个确定范围，使得参数比较平稳。结合了adagrad和monument的优点
+
+
+.. image:: ../../_static/cv/adam.png
+	:align: center
 
 CNN参数计算
 ----------------------
@@ -358,3 +362,10 @@ CV的一些知识
 AlexNet  VGG  GoogleNet  ResNet  DenseNet
 
 马上上线
+
+HighwayNetworks
+---------------------------------
+Highway Network保留了ResNet中的短路通道，但是可以通过可学习的参数来加强它们，以确定在哪层可以跳过，哪层需要非线性连接。
+
+其实所谓Highway网络，无非就是输入某一层网络的数据一部分经过非线性变换，另一部分直接从该网络跨过去不做任何转换，就像走在高速公路上一样，
+而多少的数据需要非线性变换，多少的数据可以直接跨过去，是由一个权值矩阵和输入数据共同决定的。
