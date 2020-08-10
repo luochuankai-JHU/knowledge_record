@@ -402,6 +402,8 @@ LSTM 和 Transformer 复杂度对比
 .. image:: ../../_static/nlp/复杂度.png
 	:align: center
 
+Transformer vs CNN vs RNN 时间复杂度比较 https://blog.csdn.net/Jerry_Lu_ruc/article/details/107690998
+
 LSTM：seq_length * hidden**2
 
 Transformer： seq_length**2 * hidden

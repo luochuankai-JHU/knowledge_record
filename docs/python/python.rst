@@ -95,11 +95,11 @@ https://www.jianshu.com/p/791817e6f1b0
 -----------------
 .. image:: ../../_static/python/协同过滤.png
     :align: center
-	
-	
+    
+    
 详解可变、不可变数据类型+引用、深|浅拷贝
 ----------------------------------------------------------
-https://leetcode-cn.com/problems/recover-a-tree-from-preorder-traversal/solution/yu-dao-jiu-shen-jiu-xiang-jie-ke-bian-bu-ke-bian-s/	
+https://leetcode-cn.com/problems/recover-a-tree-from-preorder-traversal/solution/yu-dao-jiu-shen-jiu-xiang-jie-ke-bian-bu-ke-bian-s/    
 
 可变类型——该对象所指向的内存中的值可以被改变。变量（准确的说是引用）改变后，实际上是其所指的值直接发生改变，并没有发生复制行为，也没有开辟新的出地址，通俗点说就是原地改变。
 不可变类型——该对象所指向的内存中的值不能被改变。当改变某个变量时候，由于其所指的值不能被改变，相当于把原来的值复制一份后再改变，这会开辟一个新的地址，变量再指向这个新的地址。
@@ -107,10 +107,10 @@ https://leetcode-cn.com/problems/recover-a-tree-from-preorder-traversal/solution
 可变类型——list, dict, set
 
 不可变类型——int, str, tuple
-	
-	
-	
-	
+    
+    
+    
+    
 linux 操作系统一些命令
 ---------------------------
 
@@ -162,14 +162,14 @@ linux 操作系统一些命令
 | • wc: 统计指定文件中的字节数、字数、行数，并将统计结果显示输出。 
 | • tail/head -n 1000 -f nohup.out  看文件的后/前 多少行
 
-	
+    
 lambda
 ------------------
 匿名函数
 
-g = lambda x, y: x + y	
+g = lambda x, y: x + y    
 print(g(2, 3))
-	
+    
 将lambda函数作为参数传递给其他函数。
 
 | • filter函数。此时lambda函数用于指定过滤列表元素的条件。
@@ -185,9 +185,85 @@ print(g(2, 3))
 | 例如reduce(lambda a, b: '{}, {}'.format(a, b), [1, 2, 3, 4, 5, 6, 7, 8, 9])将列表 [1, 2, 3, 4, 5, 6, 7, 8, 9]中的元素从左往右两两以逗号分隔的字符的形式依次结合起来，其结果是'1, 2, 3, 4, 5, 6, 7, 8, 9'。
 
 
-	
-	
-	
+pytorch，DDP(DistributedDataParallel)
+---------------------------------------------------------------
+本来设计主要是为了多机多卡使用，但是单机上也能用
+
+DistributedDataParallel 比DataParallel 快很多的原因。好像是每个卡都是主卡，...这个再看下。
+
+除此之外，还能用 horovod或者 apex 但是都要单独配置
+
+先贴一段自己能跑通的代码。
+
+::
+    # import 阶段要多import 这些
+    import torch.distributed as dist
+    from torch.nn.parallel import DistributedDataParallel
+    from torch.utils.data.distributed import DistributedSampler
+    from torch.utils.data import DataLoader
+
+    # dataloader 这里要用sampler
+    sampler = torch.utils.data.distributed.DistributedSampler(dataset)
+    dataloader = data.DataLoader(dataset=dataset,
+                                 collate_fn=TextCollate(dataset),
+                                 pin_memory=True,
+                                 batch_size=batch_size,
+                                 num_workers=num_workers,
+                                 shuffle=False,
+                                 sampler=sampler)
+    
+    # 初始化这里最恶心
+    torch.distributed.init_process_group(backend='nccl')
+    # local_rank = args.local_rank
+    # torch.cuda.set_device(local_rank)  这样设置好像也可
+    local_rank = torch.distributed.get_rank()  # 这样最好
+    torch.cuda.set_device(local_rank)
+    device = torch.device("cuda", local_rank)
+    model.to(device)
+    model = model.cuda()
+    model = torch.nn.parallel.DistributedDataParallel(model,
+                                                  device_ids=[local_rank],
+                                                  output_device=local_rank,find_unused_parameters=True)
+                                                  
+    # 如果用到了parser.add_argument，这句话也是需要的
+    parser.add_argument('--local_rank', default=-1, type=int)
+    
+    # 要用shell来跑，按照如下的来写。jupyter的话要另外在代码里面设置别的内容。
+    python -m torch.distributed.launch --nproc_per_node=2 train_distribute.py
+    
+**几个坑的地方要特别注意：**
+
+| 1. 如果pytorch版本只有1.0或者1.1  貌似是没有其他作者写的
+| import os
+| os.environ['SLURM_NTASKS']          #可用作world size
+| os.environ['SLURM_NODEID']          #node id
+| os.environ['SLURM_PROCID']          #可用作全局rank
+| os.environ['SLURM_LOCALID']         #local_rank
+| os.environ['SLURM_STEP_NODELIST']   #从中取得一个ip作为通讯ip
+| 这几个功能的？？
+
+2. shuffle那里不能用。因为sampler和shuffle是互斥的。所以要自己建立数据集的时候手动shuffle
+
+3. find_unused_parameters=True一定要设置，不然坑死！！会报一堆的错，说是有很多数据没有参与反向传播，会变成None，然后都给你打出来了
+
+| 4.初始化这个最恶心。
+| 不要初始化端口 不然第一个用了以后第二个会被占用？ 而且world_size，rank 也不要写，不然也会把端口占了？
+| world_size: 介绍都是说是进程, 实际就是机器的个数
+| rank: 区分主节点和从节点的, 主节点为0, 剩余的为了1-(N-1), N为要使用的机器的数量
+
+5.别忘了去掉master_gpu_ids
+
+6. 这个可有可无。在使用DataLoader时，别忘了设置pip_memory=true，为什么呢？且看下面的解释，
+
+| 多GPU训练的时候注意机器的内存是否足够(一般为使用显卡显存x2)，如果不够，建议关闭pin_memory(锁页内存)选项。
+| 采用DistributedDataParallel多GPUs训练的方式比DataParallel更快一些，如果你的Pytorch编译时有nccl的支持，那么最好使用DistributedDataParallel方式。
+| 关于什么是锁页内存：
+| pin_memory就是锁页内存，创建DataLoader时，设置pin_memory=True，则意味着生成的Tensor数据最开始是属于内存中的锁页内存，这样将内存的Tensor转义到GPU的显存就会更快一些。
+| 主机中的内存，有两种存在方式，一是锁页，二是不锁页，锁页内存存放的内容在任何情况下都不会与主机的虚拟内存进行交换（注：虚拟内存就是硬盘），
+| 而不锁页内存在主机内存不足时，数据会存放在虚拟内存中。显卡中的显存全部是锁页内存,当计算机的内存充足的时候，可以设置pin_memory=True。当系统卡住，
+| 或者交换内存使用过多的时候，设置pin_memory=False。因为pin_memory与电脑硬件性能有关，pytorch开发者不能确保每一个炼丹玩家都有高端设备，因此pin_memory默认为False。
+
+
 面试总结
 ==================================
 总结一下教训
