@@ -1895,75 +1895,6 @@ leetcode 50.
 假设遍历到了n这个结点，然后n这里最远能走5步，那么从n---n+5都是可以到达的。为什么不怕n-3的时候能走的更远呢？因为已经遍历过了....
 
 
-合并区间
--------------------
-| leetcode 56. 
-| 给出一个区间的集合，请合并所有重叠的区间。
-
-| 示例 1:
-| 输入: [[1,3],[2,6],[8,10],[15,18]]
-| 输出: [[1,6],[8,10],[15,18]]
-| 解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
-
-| 示例 2:
-| 输入: [[1,4],[4,5]]
-| 输出: [[1,5]]
-| 解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。
-
-::
-
-    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        if len(intervals)<=1:
-            return intervals
-        intervals.sort()
-        res = [intervals[0]]
-        for i in range(1,len(intervals)):
-            if intervals[i][0]>res[-1][-1]:
-                res.append(intervals[i])
-            else:
-                res[-1][-1] = max(res[-1][-1],intervals[i][-1])
-        return res
-        
-只要明白一件事就好了，先排序（sort以后先按第一个排序，再按第二个排序）。排序后的列表，如果说新判断的区间，左边的区间都比上一个的右区间大，那么一定不重合
-
-请看下一题：
-
-插入区间
-------------------
-leetcode 57. 
-
-| 给出一个无重叠的 ，按照区间起始端点排序的区间列表。
-| 在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠（如果有必要的话，可以合并区间）。
-
-| 示例 1:
-| 输入: intervals = [[1,3],[6,9]], newInterval = [2,5]
-| 输出: [[1,5],[6,9]]
-
-| 示例 2:
-| 输入: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
-| 输出: [[1,2],[3,10],[12,16]]
-| 解释: 这是因为新的区间 [4,8] 与 [3,5],[6,7],[8,10] 重叠。
-
-::
-
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        i= 0
-        while i<len(intervals) and intervals[i][1]<newInterval[0]:
-            i += 1
-        if i<=len(intervals)-1:  # 防止i越界
-            newInterval[0] = min(newInterval[0],intervals[i][0])
-        j = i
-        while j<len(intervals) and intervals[j][0]<=newInterval[1]:
-            newInterval[1] = max(newInterval[1],intervals[j][1])
-            j+=1
-        del(intervals[i:j])
-        intervals.insert(i,newInterval)
-        return intervals
-        
-请再次深思，为什么i那里是intervals[i][1]<newInterval[0]，而j那里是intervals[j][0]<=newInterval[1]
-
-同时，del的话是可以越界的。比如the_list只有3长度，可以del(the_list[7:9])
-
 螺旋矩阵 II
 ------------------------------
 | leetcode 59.  
@@ -2157,6 +2088,106 @@ leetcode 79
 
 ？？
 再看
+
+区间问题
+=======================
+
+合并区间
+-------------------
+| leetcode 56. 
+| 给出一个区间的集合，请合并所有重叠的区间。
+
+| 示例 1:
+| 输入: [[1,3],[2,6],[8,10],[15,18]]
+| 输出: [[1,6],[8,10],[15,18]]
+| 解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
+
+| 示例 2:
+| 输入: [[1,4],[4,5]]
+| 输出: [[1,5]]
+| 解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。
+
+::
+
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if len(intervals)<=1:
+            return intervals
+        intervals.sort()
+        res = [intervals[0]]
+        for i in range(1,len(intervals)):
+            if intervals[i][0]>res[-1][-1]:
+                res.append(intervals[i])
+            else:
+                res[-1][-1] = max(res[-1][-1],intervals[i][-1])
+        return res
+        
+只要明白一件事就好了，先排序（sort以后先按第一个排序，再按第二个排序）。排序后的列表，如果说新判断的区间，左边的区间都比上一个的右区间大，那么一定不重合
+
+请看下一题：
+
+插入区间
+------------------
+leetcode 57. 
+
+| 给出一个无重叠的 ，按照区间起始端点排序的区间列表。
+| 在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠（如果有必要的话，可以合并区间）。
+
+| 示例 1:
+| 输入: intervals = [[1,3],[6,9]], newInterval = [2,5]
+| 输出: [[1,5],[6,9]]
+
+| 示例 2:
+| 输入: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+| 输出: [[1,2],[3,10],[12,16]]
+| 解释: 这是因为新的区间 [4,8] 与 [3,5],[6,7],[8,10] 重叠。
+
+::
+
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        i= 0
+        while i<len(intervals) and intervals[i][1]<newInterval[0]:
+            i += 1
+        if i<=len(intervals)-1:  # 防止i越界
+            newInterval[0] = min(newInterval[0],intervals[i][0])
+        j = i
+        while j<len(intervals) and intervals[j][0]<=newInterval[1]:
+            newInterval[1] = max(newInterval[1],intervals[j][1])
+            j+=1
+        del(intervals[i:j])
+        intervals.insert(i,newInterval)
+        return intervals
+        
+请再次深思，为什么i那里是intervals[i][1]<newInterval[0]，而j那里是intervals[j][0]<=newInterval[1]
+
+同时，del的话是可以越界的。比如the_list只有3长度，可以del(the_list[7:9])
+
+
+会议室
+-------------------
+leetcode 252
+给定一个会议时间安排的数组，每个会议时间都会包括开始和结束的时间 [[s1,e1],[s2,e2],...] (si < ei)，请你判断一个人是否能够参加这里面的全部会议。
+
+示例 1:
+输入: [[0,30],[5,10],[15,20]]
+输出: false
+示例 2:
+输入: [[7,10],[2,4]]
+输出: true
+::
+
+    def merge(intervals):
+        if len(intervals)==1:
+            return True
+        intervals.sort()
+        for i in range(1,len(intervals)):
+            if intervals[i][0]>=intervals[i-1][1]:
+                return False
+        return True
+
+仿照leetcode56 写的。 没在leetcode上测过....因为这是锁定题目，要收费...
+
+
+leetcode 435.252  253 452 218 228 163 56 57 759 986  630
 
 
 找规律&斐波拉契
