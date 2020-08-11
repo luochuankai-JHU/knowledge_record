@@ -878,13 +878,13 @@ leetcode 106.
 ------------------
 ？？？目前不会，记得学
 
-剑指 Offer 54	
+剑指 Offer 54    
 二叉搜索树的第k大节点  
 
-剑指 Offer 36	
+剑指 Offer 36    
 二叉搜索树与双向链表  
 
-剑指 Offer 33	
+剑指 Offer 33    
 二叉搜索树的后序遍历序列  
 
 leetcode 95--99
@@ -1366,7 +1366,7 @@ leetcode 63.
                 else:
                     res[i][j]= res[i-1][j] + res[i][j-1]
         return res[-1][-1]
-		
+        
 请再看一题：
 
 最小路径和
@@ -1382,7 +1382,7 @@ leetcode 63.
 |   [4,2,1]
 | ]
 | 输出: 7
-| 解释: 因为路径 1→3→1→1→1 的总和最小。	
+| 解释: 因为路径 1→3→1→1→1 的总和最小。    
 
 ::
 
@@ -1402,8 +1402,8 @@ leetcode 63.
             for j in range(1,len(grid[0])):
                 grid[i][j] += min(grid[i-1][j],grid[i][j-1])
         return grid[-1][-1]
-		
-		
+        
+        
 最长不含重复字符的子字符串
 ---------------------------------
 剑指 Offer 48. 
@@ -1494,7 +1494,7 @@ leetcode 6.
 .. image:: ../../_static/leetcode/6.png
     :align: center
     :width: 400
-	
+    
 ::
 
     def convert(self, s: str, numRows: int) -> str:
@@ -1552,8 +1552,8 @@ leetcode 11.
 
 .. image:: ../../_static/leetcode/11.png
     :align: center
-	:width: 400
-	
+    :width: 400
+    
 ::
 
     def maxArea(self, height: List[int]) -> int:
@@ -1592,7 +1592,7 @@ leetcode 12.
             num = num-count*value
             if count>0:
                 res.append(symbol*count)
-        return "".join(res)	
+        return "".join(res)    
 
 贪心算法。
 
@@ -1650,11 +1650,11 @@ leetcode 14.
                     return strs[0][:length]
             length += 1
         return strs[0]
-		
+        
 纵向查找。
 
 如果还要优化，可以用二分查找而不是第一个for循环的时候用遍历。
-https://leetcode-cn.com/problems/longest-common-prefix/solution/zui-chang-gong-gong-qian-zhui-by-leetcode-solution/		
+https://leetcode-cn.com/problems/longest-common-prefix/solution/zui-chang-gong-gong-qian-zhui-by-leetcode-solution/        
 
 三数之和 &  最接近的三数之和
 ----------------------------------------
@@ -1923,7 +1923,7 @@ leetcode 50.
             else:
                 res[-1][-1] = max(res[-1][-1],intervals[i][-1])
         return res
-		
+        
 只要明白一件事就好了，先排序（sort以后先按第一个排序，再按第二个排序）。排序后的列表，如果说新判断的区间，左边的区间都比上一个的右区间大，那么一定不重合
 
 请看下一题：
@@ -1959,7 +1959,7 @@ leetcode 57.
         del(intervals[i:j])
         intervals.insert(i,newInterval)
         return intervals
-		
+        
 请再次深思，为什么i那里是intervals[i][1]<newInterval[0]，而j那里是intervals[j][0]<=newInterval[1]
 
 同时，del的话是可以越界的。比如the_list只有3长度，可以del(the_list[7:9])
@@ -1987,7 +1987,7 @@ leetcode 62.
 .. image:: ../../_static/leetcode/62.png
     :align: center
     :width: 400
-	
+    
 ::
 
     def uniquePaths(self, m: int, n: int) -> int:
@@ -2002,7 +2002,7 @@ leetcode 62.
                 num -= 1
             return res
         return int(jiecheng(m+n-2)/(jiecheng(m-1)*jiecheng(m+n-2-m+1)))
-		
+        
 
 简化路径
 ----------------------
@@ -2031,7 +2031,7 @@ leetcode 62.
         if result.endswith("/"):
             result = result[:-1]
         return "/"+result
-		
+        
 很愚蠢的题目，直接按照规则一条条来就好了
 
 
@@ -2071,7 +2071,7 @@ leetcode 75.
             else:
                 nums[cur], nums[p2] = nums[p2] , nums[cur]
                 p2 -= 1
-				
+                
 这道题简直太巧妙了！伪三指针。cur 什么时候要 += 1是精髓！ 请再想想！以及while cur <= p2:
 
 ？？？
@@ -2082,7 +2082,7 @@ leetcode 80.
 
 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。
 
-不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。							
+不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。                            
 ::
 
     def removeDuplicates(self, nums: List[int]) -> int:
@@ -2277,7 +2277,7 @@ num[i-1]!="0" 这里要注意，否则处理 506 这样带0的数据会出错
                 temp2 = 0
             res.append(temp1 + temp2)
         return res[-1]
-		
+        
 情况的讨论还比较复杂，比上一题难在0没有对应，所以初始化包括之后会要多讨论。
 
 而且注意这是字符串，所以s[i]==str(xxx)这里的str不能忘
@@ -2473,8 +2473,8 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
         return res.next
 
 | 变量名没取好.....用了很多中间变量保存临时参数
-| 题目还是有点难度的，做了挺久。从上一题反转链表引申而来。值得再看看	
-		
+| 题目还是有点难度的，做了挺久。从上一题反转链表引申而来。值得再看看    
+        
 合并两个排序的链表
 -------------------------
     
@@ -2673,7 +2673,7 @@ leetcode88.
 .. image:: ../../_static/leetcode/24.png
     :align: center
     :width: 300
-	
+    
 碰到这种结点交换的题目，手画一个，然后分清前后关系。最开始做题的时候如果怕做错，就拿temp变量把他们都保存下来。
 
 旋转链表
@@ -2720,7 +2720,7 @@ leetcode 61.
             move -= 1
         head.next = None
         return pre
-		
+        
 做的多漂亮啊！先遍历一遍得到深度，然后取余数，得到指针该走多少步。
 
 这也是个双指针的问题。仔细想想，如果成环了以后，那个头节点所在的位置，上一步就是尾结点。 所以在计算深度的地方，break就用的很巧妙了，
@@ -2756,7 +2756,7 @@ leetcode 82.
                 l.next = r.next
                 r = r.next
         return res.next
-		
+        
 多漂亮的解法！先来个伪头节点，然后双指针。注意while r.next and l.next.val == r.next.val: 这里的循环判断条件
 
 请看下一题
@@ -2790,7 +2790,7 @@ leetcode 82.
                 l = l.next
                 r = r.next
         return pre.next
-		
+        
 分隔链表
 --------------------
 | leetcode 86. 
@@ -2819,7 +2819,7 @@ leetcode 82.
 
 big.next = None这个不要忘了，不然没有尾结点
 
-		
+        
 位运算
 ==============
 我菜狗，暂时不会
@@ -2877,12 +2877,12 @@ big.next = None这个不要忘了，不然没有尾结点
         return result
 
 我这样做不是位运算，是动态规划
-		
+        
 解法的思想来自 https://leetcode-cn.com/problems/gray-code/solution/gray-code-jing-xiang-fan-she-fa-by-jyd/
 
 .. image:: ../../_static/leetcode/89.png
     :align: center
-	
+    
 回溯
 =====================
 思路模仿自 https://leetcode-cn.com/problems/permutations/solution/hui-su-suan-fa-xiang-jie-by-labuladong-2/   
@@ -2894,16 +2894,16 @@ big.next = None这个不要忘了，不然没有尾结点
 
 ::
 
-	result = []
-	def backtrack(路径, 选择列表):
-		if 满足结束条件:
-			result.add(路径)
-			return
-		
-		for 选择 in 选择列表:
-			做选择
-			backtrack(路径, 选择列表)
-			撤销选择
+    result = []
+    def backtrack(路径, 选择列表):
+        if 满足结束条件:
+            result.add(路径)
+            return
+        
+        for 选择 in 选择列表:
+            做选择
+            backtrack(路径, 选择列表)
+            撤销选择
 
 
 
@@ -2946,7 +2946,7 @@ leetcode 60. 第k个排列
                 path.pop()
         calculate(res,path,start)
         return res
-		
+        
 倒数第三行的path.pop()值得再好好思考！
 
 用标准的回溯模板写出来::
@@ -3032,8 +3032,8 @@ if i>start and candidates[i]==candidates[i-1]:这里要仔细思考
                 path.pop()
         findit(res,path,0)
         return res
-		
-		
+        
+        
 全排列
 ---------------------------------
 | leetcode 46. 
@@ -3064,8 +3064,8 @@ if i>start and candidates[i]==candidates[i-1]:这里要仔细思考
                     path.pop()
         all_sort(res, path)
         return res
-		
-		
+        
+        
 全排列 II
 -----------------
 | leetcode 47. 
@@ -3100,12 +3100,12 @@ if i>start and candidates[i]==candidates[i-1]:这里要仔细思考
                 used[i] = 0
         backtrack(res,path,used)
         return res
-		
-关键点 		
+        
+关键点         
 
 if used[i] == 1:
 
-if i>0 and nums[i]==nums[i-1] and used[i-1]:		
+if i>0 and nums[i]==nums[i-1] and used[i-1]:        
 
 组合
 ------------------
@@ -3137,8 +3137,8 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
                 path.pop()
         backtrack(res, path, 0)
         return res
-		
-		
+        
+        
 子集
 ----------------
 | leetcode 78. 
@@ -3173,7 +3173,7 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
         for i in range(0,len(nums)+1):
             backtrack(res, path, i, 0)
         return res
-		
+        
 思想是借鉴的上一题。不算很优秀的解法，因为重复点在于最后那个for循环，并没有用上上一次循环的结果
 
 为什么官方的那个解答也是这么写的.......以后有时间再优化吧
@@ -3213,8 +3213,8 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
             path = []
             backtrack(path, res, 0, length)
         return res
-		
-		
+        
+        
 单词搜索
 ----------------------
 | leetcode 79. 
@@ -3253,7 +3253,7 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
                 if search(i,j,0):
                     return True
         return False
-		
+        
 这个还真有点难....回溯法的集成
 
 
@@ -3280,48 +3280,106 @@ KMP算法易懂版https://www.bilibili.com/video/BV1jb411V78H?from=search&seid=4
 
 ::
 
-	def KMP(s, p):
-		"""
-		s为主串
-		p为模式串
-		如果t里有p，返回打头下标
-		"""
-		nex = getNext(p)
-		i = 0
-		j = 0  # 分别是s和p的指针
-		while i < len(s) and j < len(p):
-			if j == -1 or s[i] == p[j]:  # j==-1是由于j=next[j]产生
-				i += 1
-				j += 1
-			else:
-				j = nex[j]
+    def KMP(s, p):
+        """
+        s为主串
+        p为模式串
+        如果t里有p，返回打头下标
+        """
+        nex = getNext(p)
+        i = 0
+        j = 0  # 分别是s和p的指针
+        while i < len(s) and j < len(p):
+            if j == -1 or s[i] == p[j]:  # j==-1是由于j=next[j]产生
+                i += 1
+                j += 1
+            else:
+                j = nex[j]
 
-		if j == len(p):  # j走到了末尾，说明匹配到了
-			return i - j
-		else:
-			return -1
+        if j == len(p):  # j走到了末尾，说明匹配到了
+            return i - j
+        else:
+            return -1
 
 
-	def getNext(p):
-		"""
-		p为模式串
-		返回next数组，即部分匹配表
-		"""
-		nex = [0] * (len(p) + 1)
-		nex[0] = -1
-		i = 0
-		j = -1
-		while i < len(p):
-			if j == -1 or p[i] == p[j]:
-				i += 1
-				j += 1
-				nex[i] = j  # 这是最大的不同：记录next[i]
-			else:
-				j = nex[j]
-		return nex
+    def getNext(p):
+        """
+        p为模式串
+        返回next数组，即部分匹配表
+        """
+        nex = [0] * (len(p) + 1)
+        nex[0] = -1
+        i = 0
+        j = -1
+        while i < len(p):
+            if j == -1 or p[i] == p[j]:
+                i += 1
+                j += 1
+                nex[i] = j  # 这是最大的不同：记录next[i]
+            else:
+                j = nex[j]
+        return nex
 
-	s="abxababcabyabc"
-	p="abyab"
-	KMP(s, p)
-	
+    s="abxababcabyabc"
+    p="abyab"
+    KMP(s, p)
+    
 代码贴一下。不是太懂。下面那个getNext(p)只被调用了一次。生成的是一个 list，长度比substring大1，开头是-1.然后似乎是在找重合的前缀后缀。
+
+用pytorch手写逻辑回归
+------------------------------------
+假设已经准备好数据集了
+
+::
+
+    import torch
+    import torch.nn as nn
+    import torchvision
+    import torchvision.transforms as transforms
+    import torch.nn.functional as F
+
+    # 准备数据集和参数
+    train_dataset = xxxx
+    test_dataset = xxxx
+
+    train_loader = torch.utils.data.DataLoader(dataset=train_dataset,batch_size=batch_size,shuffle=True)
+    test_loader = torch.utils.data.DataLoader(dataset=test_dataset,batch_size=batch_size,shuffle=False)
+
+    # 核心函数                                  
+    class LR(nn.Module):
+        def __init__(self,input_dims,output_dims):
+            super().__init__()
+            self.linear=nn.Linear(input_dims, output_dims,bias=True)
+        def forward(self,x):
+            x=self.linear(x)
+            return x
+
+    model = LR(input_size, num_classes)
+    criterion = nn.CrossEntropyLoss()
+    optimizer = torch.optim.SGD(model.parameters(),lr=learning_rate)
+
+    for epoch in range(num_epochs):
+        for i,(images,labels)in enumerate(train_loader):
+        
+            # forward
+            y_pred = model(images)
+            loss = criterion(y_pred,labels)
+            
+            # backward()
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+    # 验证和测试
+    with torch.no_grad():
+        correct = 0
+        total = 0
+        for images, labels in test_loader:
+            images = images.reshape(-1, 28*28)
+            outputs = model(images)
+            _ , predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum()
+
+    # 保存模型
+    torch.save(LR_model.state_dict(), 'model.ckpt')
