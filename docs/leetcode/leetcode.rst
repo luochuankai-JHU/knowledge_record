@@ -3360,7 +3360,7 @@ KMP算法易懂版https://www.bilibili.com/video/BV1jb411V78H?from=search&seid=4
 
     for epoch in range(num_epochs):
         for i,(images,labels)in enumerate(train_loader):
-        
+
             # forward
             y_pred = model(images)
             loss = criterion(y_pred,labels)
