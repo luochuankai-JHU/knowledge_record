@@ -140,6 +140,63 @@ Dead ReLU
 
 | tanh激活函数得到的回归线是一条曲线，而ReLU激活函数得到的是由一段一段直线构成的回归线。
 
+ 
+损失函数
+--------------
+.. image:: ../../_static/cv/softmaxloss.png
+	:align: center
+	:width: 400
+	
+.. image:: ../../_static/cv/crossentropyloss.png
+	:align: center
+	:width: 400
+
+
+.. image:: ../../_static/cv/交叉损失.png
+	:align: center
+	:width: 400
+	
+	
+分类为什么用CE而不是MSE
+
+| MSE作为分类的损失函数会有梯度消失的问题。
+| MSE是非凸的，存在很多局部极小值点。
+
+关于softmax细节
+--------------------
+更加细致的东西 从最优化的角度看待Softmax损失函数 https://zhuanlan.zhihu.com/p/45014864
+
+focal loss
+-------------------------
+Kaiming 大神团队在他们的论文Focal Loss for Dense Object Detection 
+
+解决分类问题中类别不平衡、分类难度差异
+
+.. image:: ../../_static/cv/focalloss.png
+	:align: center
+	:width: 300
+
+意思是这个正样本如果预测出来的概率很大，那么loss就相对小，如果预测出来概率小，那么相应的loss就大，迫使模型去更加注意那些难区分的样本
+（可以自己拿个正样本，预测出来的概率是0.9试试，0.1的平方）
+
+不难理解，α是用来适应正负样本的比例的。（如果正样本少，α为小于0.5的数，这样正样本的loss也会小）
+
+γ称作focusing parameter，控制难易程度。
+
+在他的模型上 α=0.25, γ=2的效果最好
+
+为什么需要对 classification subnet 的最后一层conv设置它的偏置b为-log((1-Π)/Π)，Π代表先验概率，
+就是类别不平衡中个数少的那个类别占总数的百分比，在检测中就是代表object的anchor占所有anchor的比重。论文中设置的为0.01
+
+一开始最后一层是sigmoid，如果默认初始化情况下即w零均值，b为0，正负样本的输出都是-log(0.5)。刚开始训练的时候，loss肯定要被代表背景的anchor的误差带偏。
+
+这样第一次，代表正样本的loss变成-log(Π), 负样本的loss变成 -log(1-Π)。正样本的loss变大
+
+作者设置成了Π=0.01
+
+
+focal loss理解与初始化偏置b设置解释 https://zhuanlan.zhihu.com/p/63626711
+
 
 过拟合
 -------------------
@@ -258,58 +315,7 @@ top1 error， top5 error
 
 | top5  error（正确标记 不在 模型输出的前5个最佳标记中的样本数）/ 总样本数
 | 能猜五个，五个都猜不中的概率
- 
-损失函数
---------------
-.. image:: ../../_static/cv/softmaxloss.png
-	:align: center
-	:width: 400
-	
-.. image:: ../../_static/cv/crossentropyloss.png
-	:align: center
-	:width: 400
 
-
-.. image:: ../../_static/cv/交叉损失.png
-	:align: center
-	:width: 400
-	
-	
-分类为什么用CE而不是MSE
-
-| MSE作为分类的损失函数会有梯度消失的问题。
-| MSE是非凸的，存在很多局部极小值点。
-
-focal loss
--------------------------
-Kaiming 大神团队在他们的论文Focal Loss for Dense Object Detection 
-
-解决分类问题中类别不平衡、分类难度差异
-
-.. image:: ../../_static/cv/focalloss.png
-	:align: center
-	:width: 300
-
-意思是这个正样本如果预测出来的概率很大，那么loss就相对小，如果预测出来概率小，那么相应的loss就大，迫使模型去更加注意那些难区分的样本
-（可以自己拿个正样本，预测出来的概率是0.9试试，0.1的平方）
-
-不难理解，α是用来适应正负样本的比例的。（如果正样本少，α为小于0.5的数，这样正样本的loss也会小）
-
-γ称作focusing parameter，控制难易程度。
-
-在他的模型上 α=0.25, γ=2的效果最好
-
-为什么需要对 classification subnet 的最后一层conv设置它的偏置b为-log((1-Π)/Π)，Π代表先验概率，
-就是类别不平衡中个数少的那个类别占总数的百分比，在检测中就是代表object的anchor占所有anchor的比重。论文中设置的为0.01
-
-一开始最后一层是sigmoid，如果默认初始化情况下即w零均值，b为0，正负样本的输出都是-log(0.5)。刚开始训练的时候，loss肯定要被代表背景的anchor的误差带偏。
-
-这样第一次，代表正样本的loss变成-log(Π), 负样本的loss变成 -log(1-Π)。正样本的loss变大
-
-作者设置成了Π=0.01
-
-
-focal loss理解与初始化偏置b设置解释 https://zhuanlan.zhihu.com/p/63626711
 
 初始化
 ----------------
