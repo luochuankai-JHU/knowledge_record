@@ -431,7 +431,7 @@ https://blog.csdn.net/J_Boom/article/details/86763024
 
 生成式和判别式 算法
 ----------------------------
-.. image:: ../../_static/machine_learning/DVSG.png
+.. image:: ../../_static/machine_learning/scpb.png
 	:align: center
 	:width: 400
 
