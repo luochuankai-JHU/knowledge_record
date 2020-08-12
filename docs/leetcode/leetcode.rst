@@ -2089,6 +2089,31 @@ leetcode 79
 ？？
 再看
 
+最长上升子序列
+---------------------------
+| leetcode 300. 
+| 给定一个无序的整数数组，找到其中最长上升子序列的长度。
+
+| 示例:
+| 输入: [10,9,2,5,3,7,101,18]
+| 输出: 4 
+| 解释: 最长的上升子序列是 [2,3,7,101]，它的长度是 4。
+::
+
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        temp = [1]*len(nums)
+        if len(nums)<=1:
+            return len(nums)
+        for i in range(1,len(nums)):
+            for j in range(i):
+                if nums[i]>nums[j]:
+                    temp[i] = max(temp[i],temp[j]+1)
+        return max(temp)
+		
+.. image:: ../../_static/leetcode/300.png
+    :align: center
+    :width: 400
+		
 区间问题
 =======================
 
@@ -2164,15 +2189,15 @@ leetcode 57.
 
 会议室
 -------------------
-leetcode 252
-给定一个会议时间安排的数组，每个会议时间都会包括开始和结束的时间 [[s1,e1],[s2,e2],...] (si < ei)，请你判断一个人是否能够参加这里面的全部会议。
+| leetcode 252
+| 给定一个会议时间安排的数组，每个会议时间都会包括开始和结束的时间 [[s1,e1],[s2,e2],...] (si < ei)，请你判断一个人是否能够参加这里面的全部会议。
 
-示例 1:
-输入: [[0,30],[5,10],[15,20]]
-输出: false
-示例 2:
-输入: [[7,10],[2,4]]
-输出: true
+| 示例 1:
+| 输入: [[0,30],[5,10],[15,20]]
+| 输出: false
+| 示例 2:
+| 输入: [[7,10],[2,4]]
+| 输出: true
 ::
 
     def merge(intervals):
@@ -2186,8 +2211,66 @@ leetcode 252
 
 仿照leetcode56 写的。 没在leetcode上测过....因为这是锁定题目，要收费...
 
+请看下一题
 
-leetcode 435.252  253 452 218 228 163 56 57 759 986  630
+会议室II
+---------------------
+| leetcode 253 
+| 给定一个会议时间安排的数组，每个会议时间都会包括开始和结束的时间 [[s1,e1],[s2,e2],...] (si < ei)，为避免会议冲突，同时要考虑充分利用会议室资源，请你计算至少需要多少间会议室，才能满足这些会议安排。
+
+| 输入：[[0, 30],[5, 10],[15, 20]]
+| 输出：2
+::
+
+	def minMeetingRooms(self, intervals):
+			intervals.sort(key = lambda x: x.start)
+			heap = []
+			for interval in intervals:
+				if heap and interval.start >= heap[0]:
+					heapq.heapreplace(heap, interval.end)					
+				else:
+					heapq.heappush(heap, interval.end)
+			return len(heap)
+		
+这个题也是被锁住了所以就自己写写。原题好像是要用inter.start, inter.end		
+
+跟leetcode 56 一个思路嘛....只不过是 如果重叠就开个新会议室，不重合就能用同一个会议室
+
+无重叠区间
+---------------------
+leetcode 435. 
+给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。
+
+注意:
+可以认为区间的终点总是大于它的起点。
+区间 [1,2] 和 [2,3] 的边界相互“接触”，但没有相互重叠。
+示例 1:
+输入: [ [1,2], [2,3], [3,4], [1,3] ]
+输出: 1
+解释: 移除 [1,3] 后，剩下的区间没有重叠。
+::
+
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        if len(intervals)<=1:
+            return 0
+        intervals = sorted(intervals, key = lambda x: x[1])
+        temp = intervals[0]
+        count = 0
+        for i in range(1,len(intervals)):
+            if intervals[i][0] < temp[1]:
+                count += 1
+            else:
+                temp = intervals[i]
+        return count
+
+这里是按照结束时间排序。因为这里的重要性是按照结束时间来定的：选择区间组成无重叠区间，为使区间数量尽可能多，
+被选区间的右端点应尽可能小，留给后面的区间的空间就大，那么后面能够选择的区间个数也就大。
+
+可以自己拿示例试试。排完序后是[[1, 11], [2, 12], [11, 22], [1, 100]]。那么很明显，第二个[2, 12]是没有用的
+
+
+
+leetcode 452 228 163 759 986  630
 
 
 找规律&斐波拉契

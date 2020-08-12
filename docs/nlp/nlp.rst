@@ -141,12 +141,13 @@ Next Sentence Prediction 的训练环节。主要的不同，在于 ERNIE 采用
 Knowledge Masking Strategies，并针对对话型数据引入一套新的训练机制：对话语言模型 (Dialogue Language Model)。
 
 
-ERNIE2是百度在ERNIE1基础上的一个升级版，不过这次升级幅度比较大. ERNIE 2.0 将 1.0 版本中的功能特性全部予以保留，
-并在此基础上做更为丰富的扩展和延伸。论文指出，近几年来基于未标注语料进行无监督编码的预训练模型，
-包括 Word2Vec、ELMo、GPT、BERT、XLNet、ERNIE 1.0， 存在一个共同缺陷：仅仅只是利用了token与token之间的共现(Co-occurance) 信息。
-当两个 token 拥有相似的上下文语境时，最终的编码必然具有极高的相似度。这使得模型无法在词向量中嵌入语料的 词汇 (lexical)、语法 (syntatic) 
-以及 语义 (semantic) 信息。为此，ERNIE 2.0 首次引入 连续预训练 (Continual Pre-training) 机制 —— 以串行的方式进行多任务学习，学习以上三类特征。
-设计的初衷在于模拟人类的学习行为：利用已经积累的知识，持续地进行新的学习。
+ERNIE2
+
+不同于ERNIE1仅有词级别的Pretraining Task，ERNIE2考虑了词级别、结构级别和语义级别3类Pretraining Task，词级别包括Knowledge Masking（短语Masking）
+、Capitalization Prediction（大写预测）和Token-Document Relation Prediction（词是否会出现在文档其他地方）三个任务，结构级别包括Sentence Reordering
+（句子排序分类）和Sentence Distance（句子距离分类）两个任务，语义级别包括Discourse Relation（句子语义关系）和IR Relevance（句子检索相关性）两个任务
+
+ERNIE2采用了持续学习的机制，多个任务轮番学习
 
 
 albert
