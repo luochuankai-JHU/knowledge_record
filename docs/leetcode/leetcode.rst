@@ -2376,15 +2376,50 @@ leetcode 435.
 
 思路和上一题leetcode 435. 很像。就是一定要按照结束时间排序。什么时候开始不重要，什么时候结束才重要。举例如下
 
-| ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-| ^^^^^^^^^^^^^
-|     ^^^^^^^^^^
-| 	      ^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+^^^^^^^^^^^^^
+
+    ^^^^^^^^^
+	
+	     ^^^^
 
 这种的是可以一箭洞穿的
 
+汇总区间
+-------------------
+| leetcode 228. 
+| 给定一个无重复元素的有序整数数组，返回数组区间范围的汇总。
+| 示例 1:
+| 输入: [0,1,2,4,5,7]
+| 输出: ["0->2","4->5","7"]
+| 解释: 0,1,2 可组成一个连续的区间; 4,5 可组成一个连续的区间。
+::
 
-leetcode 228 163 759 986  630
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        if nums == []:
+            return []
+        if len(nums) == 1:
+            return [str(nums[0])]
+        res = []
+        temp = [str(nums[0])]
+        for i in range(1, len(nums)):
+            if nums[i] == int(temp[-1]) + 1:
+                if len(temp)==1:
+                    temp.append("->")
+                    temp.append(str(nums[i]))
+                else:
+                    temp[-1] = str(nums[i])
+            else:
+                res.append("".join(temp))
+                temp = [str(nums[i])]
+        if temp:
+            res.append("".join(temp))
+        return res
+		
+这种题连easy都不配好吗.....
+
+leetcode 163 759 986  630
 
 
 找规律&斐波拉契
