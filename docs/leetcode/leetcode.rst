@@ -1894,6 +1894,40 @@ leetcode 50.
 
 假设遍历到了n这个结点，然后n这里最远能走5步，那么从n---n+5都是可以到达的。为什么不怕n-3的时候能走的更远呢？因为已经遍历过了....
 
+请看下一题：
+
+跳跃游戏 II
+----------------------
+| leetcode 45. 
+| 给定一个非负整数数组，你最初位于数组的第一个位置。数组中的每个元素代表你在该位置可以跳跃的最大长度。你的目标是使用最少的跳跃次数到达数组的最后一个位置。
+
+| 示例:
+| 输入: [2,3,1,1,4]
+| 输出: 2
+| 解释: 跳到最后一个位置的最小跳跃数是 2。从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。
+::
+
+    def jump(self, nums: List[int]) -> int:
+        max_arrive = nums[0]
+        last_max = nums[0]
+        if len(nums)==1:
+            return 0
+        if max_arrive >= len(nums)-1:
+            return 1
+        count = 1
+        for i in range(1,len(nums)):
+            max_arrive = max(max_arrive,i+nums[i])
+            if max_arrive >= len(nums)-1:
+                return count + 1
+            if i==last_max:
+                count += 1
+                last_max = max_arrive
+        return count
+
+特殊情况的讨论稍微有点无聊。这一题比上题多了一步。记录达到上次最远的最少跳跃次数。
+
+从第k步（最远距离）到第k+1步（最远距离）。属于贪心算法的思想
+
 
 螺旋矩阵 II
 ------------------------------
