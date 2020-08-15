@@ -2109,7 +2109,7 @@ leetcode 79
                 if nums[i]>nums[j]:
                     temp[i] = max(temp[i],temp[j]+1)
         return max(temp)
-		
+        
 .. image:: ../../_static/leetcode/300.png
     :align: center
     :width: 400
@@ -2137,7 +2137,7 @@ leetcode 79
         for i in range(2,len(nums)):
             temp[i] = max(temp[i-1],temp[i-2]+nums[i])
         return max(temp)
-		
+        
 思考： 为什么这样可以避免我之前设想的 7，2，3，9  取最前最后的问题呢？ 因为取到2的时候就已经避免这个问题了，因为2比7小，所以根本就没用取2
 
 请看下一题
@@ -2190,7 +2190,57 @@ leetcode 79
             return v1, v2
         return max(helper(root))
 
+计数质数
+----------------
+| leetcode 204. 
+| 统计所有小于非负整数 n 的质数的数量。
+| 示例:
+| 输入: 10
+| 输出: 4
+| 解释: 小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。
+::
 
+    def countPrimes(self, n: int) -> int:
+        res = [2]
+        if n<=2:
+            return 0
+        for i in range(2,n):
+            for j in range(len(res)):
+                if i%res[j]==0:
+                    break
+            else:
+                res.append(i)
+        return len(res)
+
+会有点超时
+
+01背包问题
+-------------------------
+假设有一组物品，w的list是他们的weight，v的list是他们的value，tar是背包的重量。求能带上的最大价值
+::
+
+    w = [2,2,6,5,4]
+    v = [6,3,5,4,6]
+    tar = 10
+
+    # i 是是否用物品
+    # j 是背包的重量
+    temp = [[0 for _ in range(tar+1)] for _ in range(len(w)+1)]
+    for i in range(1,len(w)+1):
+        for j in range(1,tar+1):
+            if j < w[i-1]:
+                temp[i][j] = temp[i-1][j]
+            else:
+                temp[i][j] = max(temp[i-1][j-w[i-1]]+v[i-1],temp[i-1][j])
+            
+| 几个要注意的地方：
+| 1. 生成temp列表的时候要多一行并且多一列，为了保证i-1和j-w[i-1]不越界
+| 2. 由于多生成了一行一列，所以在用下标控制w,v里面的元素的时候，记得-1才是真实的指针
+| 3. 转移条件很简单。
+|     if 背包重量比当前要判断的重量都要小，那么这个肯定不能取。temp[i][j] = temp[i-1][j]
+|     else：判断哪个大：不取这个，还是背包空间为j-w[i-1]时的价值+当前的价值。注意这里一定是temp[i-1][j-w[i-1]]而不是temp[i][j-w[i-1]]。后者意味着这个物品已经取了。
+    
+    
 区间问题
 =======================
 
@@ -2299,17 +2349,17 @@ leetcode 57.
 | 输出：2
 ::
 
-	def minMeetingRooms(self, intervals):
-			intervals.sort(key = lambda x: x.start)
-			heap = []
-			for interval in intervals:
-				if heap and interval.start >= heap[0]:
-					heapq.heapreplace(heap, interval.end)					
-				else:
-					heapq.heappush(heap, interval.end)
-			return len(heap)
-		
-这个题也是被锁住了所以就自己写写。原题好像是要用inter.start, inter.end		
+    def minMeetingRooms(self, intervals):
+            intervals.sort(key = lambda x: x.start)
+            heap = []
+            for interval in intervals:
+                if heap and interval.start >= heap[0]:
+                    heapq.heapreplace(heap, interval.end)                    
+                else:
+                    heapq.heappush(heap, interval.end)
+            return len(heap)
+        
+这个题也是被锁住了所以就自己写写。原题好像是要用inter.start, inter.end        
 
 跟leetcode 56 一个思路嘛....只不过是 如果重叠就开个新会议室，不重合就能用同一个会议室
 
@@ -2381,7 +2431,7 @@ leetcode 435.
 `````````````
 
      ````````
-	
+    
         `````
 
 这种的是可以一箭洞穿的
@@ -2416,7 +2466,7 @@ leetcode 435.
         if temp:
             res.append("".join(temp))
         return res
-		
+        
 这种题连easy都不配好吗.....
 
 leetcode 163 759 986  630
