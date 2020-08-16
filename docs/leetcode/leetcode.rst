@@ -2274,7 +2274,37 @@ leetcode 79
 |     if 背包重量比当前要判断的重量都要小，那么这个肯定不能取。temp[i][j] = temp[i-1][j]
 |     else：判断哪个大：不取这个，还是背包空间为j-w[i-1]时的价值+当前的价值。注意这里一定是temp[i-1][j-w[i-1]]而不是temp[i][j-w[i-1]]。后者意味着这个物品已经取了。
     
-    
+请看下一题
+
+分割等和子集
+--------------------------
+| leetcode 416. 
+| 给定一个只包含正整数的非空数组。是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。
+
+| 示例 1:
+| 输入: [1, 5, 11, 5]
+| 输出: true
+| 解释: 数组可以分割成 [1, 5, 5] 和 [11].
+::
+
+    def canPartition(self, nums: List[int]) -> bool:
+        if sum(nums)%2 != 0:
+            return False
+        tar = sum(nums)//2
+        store = [[False for _ in range(tar+1)] for _ in range(len(nums)+1)]
+        for i in range(len(nums)+1):
+            store[i][0] = True
+        for i in range(1,len(nums)+1):
+            for j in range(1,tar+1):
+                store[i][j] = store[i-1][j]
+                if j >= nums[i-1]:
+                    store[i][j] = store[i-1][j] or store[i-1][j-nums[i-1]]
+        return store[-1][-1]
+		
+| dp就是用空间换时间。这样别看是俩个for循环，其实时间复杂度是O(nc), c是一半的求和。所以还是On。
+| 跟上一题不同的地方是，最开始第一列应该是True
+| 解答里面还有些回溯法，理论上更好，这先讨论01背包的解法
+
 区间问题
 =======================
 
