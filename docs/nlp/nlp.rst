@@ -1071,6 +1071,15 @@ RDF 一个重要的设计原则是数据的易发布以及共享，图数据库�
 
 知识图谱的一些介绍 知识图谱研究进展 https://www.jiqizhixin.com/articles/2017-03-20
 
+实体链接的应用。一般有KB的地方就离不开EL。以下是EL的几个应用：
+
+| 1.	Question Answering：EL是KBQA的刚需，linking到实体之后才能查询图数据库；
+| 2.	Content Analysis：舆情分析、内容推荐、阅读增强；
+| 3.	Information Retrieval：基于语义实体的搜索引擎，google搜索一些实体，右侧会出现wikipedia页面；
+| 4.	Knowledge Base population：扩充知识库，更新实体和关系。
+
+
+
 知识图谱实体链接：一份“由浅入深”的综述
 ------------------------------------------
 太长了  放最后
