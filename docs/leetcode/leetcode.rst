@@ -2298,10 +2298,41 @@ leetcode 79
                 if j >= nums[i-1]:
                     store[i][j] = store[i-1][j] or store[i-1][j-nums[i-1]]
         return store[-1][-1]
-		
+        
 | dp就是用空间换时间。这样别看是俩个for循环，其实时间复杂度是O(nc), c是一半的求和。所以还是On。
 | 跟上一题不同的地方是，最开始第一列应该是True
 | 解答里面还有些回溯法，理论上更好，这先讨论01背包的解法
+
+零钱兑换
+----------------------
+| leetcode  322. 
+| 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。
+| 示例 1:
+| 输入: coins = [1, 2, 5], amount = 11
+| 输出: 3 
+| 解释: 11 = 5 + 5 + 1
+| 示例 2:
+| 输入: coins = [2], amount = 3
+| 输出: -1
+::
+
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        temp = [float('inf') for _ in range(amount + 1)]
+        temp[0] = 0
+        for i in range(1, amount + 1):
+            for j in range(len(coins)):
+                if coins[j] > i:
+                    continue
+                else:
+                    temp[i] = min(temp[i], temp[i - coins[j]] + 1)
+        if temp[-1]==float('inf'):
+            return -1
+        else:
+            return temp[-1]
+            
+| float('inf')这个写法可以借鉴。初始化那里需要关注temp[0] = 0。想想为什么？？？
+| 首先初始化，价值为0应该要是0，不然 temp[i - coins[j]] + 1这如果是0----10，会有问题。
+| 然后其他的每个值应该是无穷大，因为是取min操作。
 
 区间问题
 =======================
@@ -3668,7 +3699,7 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
                     ans +=1
                     self.dfs(grid,i,j)
         return ans
-		
+        
 | 思想就是：遍历，然后DFS。注意DFS的时候不要越界-------0<=new_x<=row-1 and 0<=new_y<=col-1
 | 这个写法很不错：
 |         next_step = [(i+1,j),(i-1,j),(i,j+1),(i,j-1)]
