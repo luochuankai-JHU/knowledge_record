@@ -283,7 +283,7 @@ mp的问题，上次拍过棉洲老哥的照片，代码。传到这个GitHub里
 排序问题
 -------------------
 .. image:: ../../_static/python/sort_all.png
-	:align: center
+    :align: center
 
 一些排序算法的简单解释
 
@@ -336,6 +336,56 @@ mp的问题，上次拍过棉洲老哥的照片，代码。传到这个GitHub里
 
 排序算法不受数据初始状态的影响值得是无论数据是以什么的样的初始状态，那么其最好、平均、最坏的时间复杂度都是一样的，这样的排序算法有堆排序、归并排序、选择排序。
 他们的时间复杂度为O(nlgn)、O(nlgn)、O(n2)
+
+topK 问题
+------------------
+坑死了...被很多面试官问过这个问题...这里总结一下。
+
+（1）排序。再取前k个
+
+（2）局部排序。冒泡。冒k个泡，就得到TopK
+
+（3）堆/动态规划。 堆的方法要再看看。  适合处理海量数据
+
+（4）快速排序改编。 !! **重要**
+
+从数组S中随机取出一个元素，使用一次partition函数，找到该元素对应的位置p，同时将原始数组分成了两个部分S1和S2，显然S1中的元素都小于等于该数，S2中的元素都大于等于该数；此时有三种情况：
+
+| a.如果p等于k，则直接输出S1
+| b,如果p大于k,则说明要找的元素全部在S1中,则partition(S1,k)
+| c,如果p小于k,则说明要找的元素是S1和S2中的部分元素，则 partition(S2,k-p)
+::
+
+    class Solution(object):
+        def partition(self,arr,k,low,high):
+            i,j = low,high
+            p = arr[low]
+            while i<j:
+                while i<j and arr[j]>=p:
+                    j-=1
+                while i<j and arr[i]<=p:
+                    i+=1
+                if i<j:
+                    arr[i],arr[j] = arr[j],arr[i]
+            arr[low],arr[i] = arr[i],p
+            if i==low+k-1:
+                return arr[low:low+k]
+            elif i>low+k-1:
+                return self.partition(arr,k,low,i-1)
+            else:
+                return arr[low:i+1]+self.partition(arr,k-(i+1-low),i+1,high)
+        def getLeastNumbers(self, arr, k):
+            """
+            :type arr: List[int]
+            :type k: int
+            :rtype: List[int]
+            """
+            if k==0:
+                return []
+            if len(arr)<=k:
+                return arr
+            return self.partition(arr,k,0,len(arr)-1)
+
 
 面试总结
 ==================================
