@@ -116,10 +116,17 @@ XGBoost与GBDT有什么不同
 | 2）AdaBoost + 决策树 = 提升树
 | 3）Gradient Boosting + 决策树 = GBDT
 
-xgboost怎么给特征评分？
------------------------------------------
-| 在训练的过程中，通过Gini指数选择分离点的特征，一个特征被选中的次数越多，那么该特征评分越高。
-| 特征评分可以看成是被用来分离决策树的次数。
+xgboost判断特征重要程度的三种指标
+-------------------------------------------
+掉包里面，get_fscore 有三种种评判特征重要程度的方法：
+
+| ‘weight’ - the number of times a feature is used to split the data across all trees.
+| ‘gain’ - the average gain of the feature when it is used in trees.
+| ‘cover’ - the average coverage of the feature when it is used in trees.
+
+| weight - 该特征在所有树中被用作分割样本的特征的次数。
+| gain - 在所有树中的平均增益。
+| cover - 在树中使用该特征时的平均覆盖范围。
 
 
 基础机器学习算法

@@ -71,6 +71,22 @@ re正则
 ----------------
 ？？？待总结
 
+enumerate
+--------------------------
+::
+
+seq = ['one', 'two', 'three']
+for i, element in enumerate(seq):
+    print i, element
+
+zip
+----------------
+zip 方法在 Python 2 和 Python 3 中的不同：在 Python 3.x 中为了减少内存，zip() 返回的是一个对象。如需展示列表，需手动 list() 转换。
+
+.. image:: ../../_static/python/zip.png
+    :align: center
+
+
 零碎
 ================
 
