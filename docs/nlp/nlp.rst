@@ -487,9 +487,7 @@ LSTM处理长序列的方法
 
 除基于整个序列更新模型的方法之外，我们还可以在最后的数个时间步中估计梯度。这种方法被称为「时间截断的反向传播（TBPTT）」。它可以显著加速循环神经网络（如 LSTM）长序列学习的过程。
 
-这将允许所有输入并执行的序列向前传递，但仅有最后数十或数百时间步会被估计梯度，并用于权重更新。一些最新的 LSTM 应用允许我们指定用于更新的时间步数，分离出一部分输入序列以供使用。例如：
-
-Theano 中的「truncate_gradient」参数：http://deeplearning.net/software/theano/library/scan.html
+这将允许所有输入并执行的序列向前传递，但仅有最后数十或数百时间步会被估计梯度，并用于权重更新。一些最新的 LSTM 应用允许我们指定用于更新的时间步数，分离出一部分输入序列以供使用。
 
 **6.使用编码器-解码器架构**
 
@@ -580,6 +578,18 @@ Bert的一些面试题 https://cloud.tencent.com/developer/article/1558479
 
 BERT 时代的常见 NLP 面试题 https://blog.csdn.net/qq_34832393/article/details/104356462
 
+模型结构
+------------------
+
+.. image:: ../../_static/nlp/bertmodel.png
+	:align: center
+	:width: 400
+
+用Transformer的Encoder层，堆叠起来，就组装成了BERT
+
+.. image:: ../../_static/nlp/bertmodel2.png
+	:align: center
+	:width: 400
 
 embedding
 --------------------

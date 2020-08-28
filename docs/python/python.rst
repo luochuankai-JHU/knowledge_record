@@ -388,6 +388,37 @@ topK 问题
 
 时间空间复杂度？？ 和K有关吗？
 
+找到数组中第k大的元素 (leetcode215. 数组中的第K个最大元素)  跟上面那个有点区别。上面的是topk小，这是第k大
+::
+
+        def parti(arr, low, high):
+            tmp = arr[low]
+            while low<high:
+                while low<high and arr[high]>=tmp:
+                    high-=1
+                arr[low] = arr[high]
+                while low<high and arr[low]<=tmp:
+                    low +=1
+                if low<high:
+                    arr[high] = arr[low]
+            arr[low] = tmp
+            return low
+
+        if not arr or k<=0 or len(arr)<k:
+            return []
+
+        low, high, n = 0, len(arr)-1, len(arr)
+        index = parti(arr,low, high)
+        
+        while index != (n-k):
+            if index>(n-k):
+                high = index-1
+                index=parti(arr, low, high)
+            else:
+                low = index+1
+                index=parti(arr, low, high)
+        return arr[n-k]
+
 
 面试总结
 ==================================
