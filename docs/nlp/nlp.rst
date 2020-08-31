@@ -376,10 +376,27 @@ bert的话，把w2遮住或者随机替换。用隐藏层去预测w2。这样的
 ----------------------
 ？？？？待补充
 
+transformer-XL
+----------------------------
+.. image:: ../../_static/nlp/xl0.png
+	:align: center
+	:width: 400
+
+这个是以前的模式
+
+.. image:: ../../_static/nlp/xl1.png
+	:align: center
+	:width: 400
+
+这个是transformer-xl的模式
+
+具体细节待补充？？？
+
+
 
 XLNet
 ------------
-transformer-XL  具体细节待补充？？？
+具体细节待补充？？？
 
 nlp中的数据增强
 ----------------------
