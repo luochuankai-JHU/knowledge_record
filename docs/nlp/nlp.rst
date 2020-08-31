@@ -691,9 +691,7 @@ https://cloud.tencent.com/developer/article/1507551
 .. image:: ../../_static/nlp/GPTBERTXLNET.png
 	:align: center
 	
-	
-BERT 与BiLSTM 有什么不同
------------------------------------
+
 
 bert里面的 intermediate layer
 ---------------------------------------------

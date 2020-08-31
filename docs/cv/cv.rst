@@ -157,6 +157,8 @@ Dead ReLU
 	:align: center
 	:width: 400
 	
+softmax loss只是交叉熵的一个特例
+
 .. image:: ../../_static/cv/crossentropyloss.png
 	:align: center
 	:width: 400
@@ -173,6 +175,22 @@ Dead ReLU
 | MSE是非凸的，存在很多局部极小值点。
 
 具体算一下....以前不是会推吗 ？？？好像是 用了sigmoid以后， 求一次导，链式法则，然后发现不管true label=1/-1 还是0？？导数都等于零
+
+**有哪些损失函数**
+| 深度学习中有哪些常用损失函数(优化目标函数)？ https://www.zhihu.com/question/317383780?sort=created
+
+| Zero-one Loss（0-1损失）
+| 交叉熵
+| softmax loss
+| KL散度
+| Hinge loss
+| Exponential loss与Logistic loss   (logistic loss取了Exponential loss的对数形式)
+
+| L1 loss
+| L2 loss
+| smooth L1 loss (|x|<1 时等于0.5x**2,  else:等于|x|-0.5)
+
+
 
 关于softmax细节
 --------------------
