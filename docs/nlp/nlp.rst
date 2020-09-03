@@ -355,7 +355,8 @@ word2vec是“predictive”的模型，而GloVe是“count-based”的模型
 
 先进来w1，然后得到隐藏层h1，通过线性层和softmax预测下一句。所以w1 w2 w3不能一次性全读入
 
-ELMO双向： 
+ELMO双向 
+-----------------------
 
 .. image:: ../../_static/nlp/ELMO双向.png
 	:align: center
@@ -396,7 +397,23 @@ transformer-XL
 
 XLNet
 ------------
-具体细节待补充？？？
+
+从language model的观点来看：
+
+.. image:: ../../_static/nlp/xlnet1.png
+	:align: center
+	:width: 400
+
+从Bert的观点来看：
+
+.. image:: ../../_static/nlp/xlnet2.png
+	:align: center
+	:width: 400 
+ 
+而且不给model看见mask。 注意这张图里面的mask是没有一条线的。因为作者任务下游任务也没有出现mask
+
+
+
 
 nlp中的数据增强
 ----------------------
