@@ -3190,6 +3190,51 @@ leetcode 82.
 
 big.next = None这个不要忘了，不然没有尾结点
 
+排序链表
+-------------------
+| leetcode 148. 
+| 在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序。
+| 示例 1:
+| 输入: 4->2->1->3
+| 输出: 1->2->3->4
+| 示例 2:
+| 输入: -1->5->3->4->0
+| 输出: -1->0->3->4->5
+::
+
+    def sortList(self, head: ListNode) -> ListNode:
+        # 快速排序
+        if not head: return None
+        # small equal large 的缩写
+        # 都指向相应链表的 head
+        s = e = l = None
+        target = head.val
+        while head:
+            nxt = head.next
+            if head.val>target:
+                head.next = l
+                l = head
+            elif head.val==target:
+                head.next = e
+                e = head
+            else:
+                head.next = s
+                s = head
+            head = nxt
+        
+        s = self.sortList(s)
+        l = self.sortList(l)
+        # 合并 3 个链表
+        dummy = ListNode(0)
+        cur = dummy # cur: 非 None 的尾节点
+        # p: 下一个需要连接的节点
+        for p in [s, e, l]:
+            while p:
+                cur.next = p
+                p = p.next
+                cur = cur.next
+        return dummy.next
+
         
 位运算
 ==============

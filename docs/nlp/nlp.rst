@@ -413,7 +413,7 @@ XLNet
 而且不给model看见mask。 注意这张图里面的mask是没有一条线的。因为作者任务下游任务也没有出现mask
 
 
-
+？？再看！！
 
 nlp中的数据增强
 ----------------------
@@ -701,6 +701,8 @@ GPT 与 BERT 的区别是什么
 GPT 是单向的，BERT 是双向的。
 
 训练方法不同，GPT 是语言模型使用最大似然，BERT 的训练分为 MLM 和 NSP。
+
+bert在seq2seq方面，也就是生成文本有欠缺。
 
 GPT Bert与XLNet的差异
 https://cloud.tencent.com/developer/article/1507551
