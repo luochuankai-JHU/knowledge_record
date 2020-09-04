@@ -2211,6 +2211,24 @@ leetcode 79
 
 会有点超时
 
+这种厄拉多塞筛法可以::
+
+    def countPrimes(self, n: int) -> int:
+        # 0, 1 不是质数，第一个质数从2开始
+        prime = [0,0] + [1]*(n-2)
+        for i in range(2,len(prime)):
+            if prime[i] ==1:
+                prime[i**2::i] = [0] * len(prime[i**2::i])
+        return sum(prime)
+        # 如果是看谁是质数，就
+        # p = [i for i,v in enumerate(prime) if v == 1]
+        # return p
+
+| 解释如下：
+| i是质数，i的倍数都不是质数
+| 写成 [i * 2 :: i] 会有重复的数字 如 ： 2，4，6，8       3，6，9
+| prime[i**2::i]的意思是  从i**2 开始，每隔数量i。   
+
 01背包问题
 -------------------------
 假设有一组物品，w的list是他们的weight，v的list是他们的value，tar是背包的重量。求能带上的最大价值
