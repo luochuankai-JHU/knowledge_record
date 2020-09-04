@@ -2268,6 +2268,57 @@ leetcode 79
 | 跟上一题不同的地方是，最开始第一列应该是True
 | 解答里面还有些回溯法，理论上更好，这先讨论01背包的解法
 
+目标和
+------------------
+leetcode 494. 
+给定一个非负整数数组，a1, a2, ..., an, 和一个目标数，S。现在你有两个符号 + 和 -。对于数组中的任意一个整数，你都可以从 + 或 -中选择一个符号添加在前面。
+
+返回可以使最终数组和为目标数 S 的所有添加符号的方法数。
+::
+
+    def findTargetSumWays(self, nums: List[int], S: int) -> int:
+        P = (sum(nums) + S) // 2
+        if (sum(nums) + S) % 2 != 0 or sum(nums) < S:
+            return 0
+        count0 = 0
+        while 0 in nums:
+            nums.remove(0)
+            count0 += 1
+        dp = [[0 for _ in range(P+1)] for _ in range(len(nums)+1)]
+        for i in range(len(nums)+1):
+            dp[i][0] = 1
+        for i in range(1, len(nums) + 1):
+            for j in range(1, P + 1):
+                dp[i][j] = dp[i - 1][j]
+                if dp[i-1][j - nums[i-1]] != 0:
+                    dp[i][j] += dp[i-1][j-nums[i-1]]
+        return dp[-1][-1]*2**(count0)
+
+这个也是模仿的01背包的解法。P = (sum(nums) + S) // 2 这个思路十分的巧妙。
+
+.. image:: ../../_static/leetcode/494.png
+    :align: center
+    :width: 400
+
+count0这里是会有一些0的情况，0取不取所以乘二
+
+然后这种初始化的方式不可以： dp = [[[1] + [0] * P] * (len(nums) + 1)]
+
+这样的话，* (len(nums) + 1)]部分会变成浅拷贝的复制，下一行改了之后上一行也会变。虽然 [0] * P 这里没问题
+
+https://leetcode-cn.com/problems/target-sum/solution/python-dfs-xiang-jie-by-jimmy00745/   题解里面这种一维的就能解决了，解法也放上来
+::
+
+    def findTargetSumWays(self, nums: List[int], S: int) -> int:
+        if sum(nums) < S or (sum(nums) + S) % 2 == 1: return 0
+        P = (sum(nums) + S) // 2
+        dp = [1] + [0 for _ in range(P)]
+        for num in nums:
+            for j in range(P,num-1,-1):dp[j] += dp[j - num]
+        return dp[P]
+
+
+
 零钱兑换
 ----------------------
 | leetcode  322. 
