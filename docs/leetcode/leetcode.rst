@@ -916,8 +916,8 @@ leetcode 95--99
 
 .. image:: ../../_static/leetcode/236.png
     :align: center
-    :width: 400
-
+	
+	
 动态规划
 ===================
 
