@@ -19,11 +19,53 @@ CV
 | fully connected layers，FC
 | dense 
 
-Activation
---------------
-| keras.layers.Activation(activation)
-| 将激活函数应用于输出。
+一般像我们bert这种模型最后的全连接层是不接激活函数的。因为会有信息损失。
 
+白化(Whitening)PCA白化 ZCA白化
+--------------------------------------------
+https://blog.csdn.net/danieljianfeng/article/details/42147109  白化（Whitening） PCA白化 ZCA白化
+
+白化是一种重要的预处理过程，其目的就是降低输入数据的冗余性，使得经过白化处理的输入数据具有如下性质：(i)特征之间相关性较低；(ii)所有特征具有相同的方差。
+
+原始数据
+
+.. image:: ../../_static/cv/whitening1.png
+	:align: center
+
+PCA白化
+
+.. image:: ../../_static/cv/whitening2.png
+	:align: center
+	
+ZCA白化
+
+.. image:: ../../_static/cv/whitening3.png
+	:align: center
+
+**PCA白化**
+
+PCA找到特征矩阵的正交基之后，进行旋转（这一步其实消除了一些特征之间的相关性）
+
+然后使得方差为1 （均值肯定是0，平移到中心原点）
+
+**ZCA白化**
+
+只不过是把他再转回原来的角度
+
+**PCA白化和ZCA白化的异同**
+
+PCA白化ZCA白化都降低了特征之间相关性较低，同时使得所有特征具有相同的方差。
+
+1.PCA白化需要保证数据各维度的方差为1，ZCA白化只需保证方差相等。
+
+2.PCA白化可进行降维也可以去相关性，而ZCA白化主要用于去相关性另外。
+
+3.ZCA白化相比于PCA白化使得处理后的数据更加的接近原始数据。
+
+**正则化**
+
+.. image:: ../../_static/cv/whitening4.png
+	:align: center
 
 Dropout
 ---------------
