@@ -2416,6 +2416,44 @@ https://leetcode-cn.com/problems/target-sum/solution/python-dfs-xiang-jie-by-jim
 | 首先初始化，价值为0应该要是0，不然 temp[i - coins[j]] + 1这如果是0----10，会有问题。
 | 然后其他的每个值应该是无穷大，因为是取min操作。
 
+最长有效括号
+-------------------------
+| leetcode 32. 
+| 给定一个只包含 '(' 和 ')' 的字符串，找出最长的包含有效括号的子串的长度。
+
+| 示例 1:
+| 输入: "(()"
+| 输出: 2
+| 解释: 最长有效括号子串为 "()"
+
+| 示例 2:
+| 输入: ")()())"
+| 输出: 4
+| 解释: 最长有效括号子串为 "()()"
+::
+
+    def longestValidParentheses(self, s: str) -> int:
+        res = 0
+        stack = [-1]
+        for i,v in enumerate(s):
+            if s[i]=="(":
+                stack.append(i)
+            else:
+                if len(stack)>1:
+                    stack.pop()
+                    res = max(res, i-stack[-1])
+                else:
+                    stack = [i]
+        return res
+
+
+这个题的思路和最开始想的不太一样。因为()括号一左一右是两个，最开始想的是每次遇到右括号就长度加2.但是会遇到种种问题。
+
+所以这里记录一下上一次的非法右括号。 所以初始化的时候是stack = [-1] 。 stack打空了之后再遇到右括号就当成非法右括号，stack = [i]
+
+所以从 i-j+1 变成了 i- j的上一个
+
+
 区间问题
 =======================
 
