@@ -23,7 +23,8 @@
 **虽然这个博客的深度和广度都还不错，但是我所掌握的知识一般都写在这了~ 感谢理解**
 
 
-
+.. image:: ../../_static/python/感谢理解.png
+    :align: center
 
 .. toctree::
    :caption: 机器学习
