@@ -21,7 +21,7 @@ CV
 
 一般像我们bert这种模型最后的全连接层是不接激活函数的。因为会有信息损失。
 
-白化(Whitening)PCA白化 ZCA白化
+白化(Whitening)
 --------------------------------------------
 https://blog.csdn.net/danieljianfeng/article/details/42147109  白化（Whitening） PCA白化 ZCA白化
 

@@ -889,6 +889,25 @@ leetcode 106.
 
 leetcode 95--99
 
+二叉搜索树的最近公共祖先
+----------------------------------------
+| leetcode 235. 
+| 给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。::
+
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        a = min(p.val,q.val)
+        b = max(p.val,q.val)
+        def helper(root,a,b):
+            if a<= root.val <= b:
+                return root
+            elif root.val <a:
+                return helper(root.right,a,b)
+            else:
+                return helper(root.left,a,b)
+        if not root:
+            return None
+        r = helper(root,a,b)
+        return r
 
 二叉树的最近公共祖先
 ------------------------------

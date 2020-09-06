@@ -213,9 +213,36 @@ SVM
 | 林轩田的 
 | 包括李航的统计学习
 
+SVM中的常考点以及手推SVM
+
+机器学习--手推SVM以及KKT条件 https://zhuanlan.zhihu.com/p/45444502
+
+手推SVM 支持向量机的简易推导和理解 https://blog.csdn.net/asd136912/article/details/79192239  这个讲的稍微简单些
+
 .. image:: ../../_static/machine_learning/SVM.png
 	:align: center
 	
+手推一下：
+
+是一种二分类有监督算法，目标是最小间隔最大化，可以理解为一个求解凸二次规划问题
+
+（函数间隔 、 几何间隔（对函数间隔做了归一化））
+
+然后，使其满足KKT条件，变为二次凸优化问题，引入拉格朗日乘子
+
+.. image:: ../../_static/machine_learning/SVM2.png
+	:align: center
+
+未完待续....
+
+
+为什么要把原问题转化为对偶问题？
+| （方便计算，方便引入核函数）
+| 1.对偶问题将原始问题中的约束转为了对偶问题中的等式约束
+| 2.方便核函数的引入
+| 3.改变了问题的复杂度。由求特征向量w转化为求比例系数a，在原始问题下，求解的复杂度与样本的维度有关，即w的维度。在对偶问题下，只与样本数量有关。
+
+
 
 .. image:: ../../_static/machine_learning/hinge_loss.png
 	:align: center
@@ -224,9 +251,7 @@ SVM
 等方式来做多分类问题。而如论文[3]这样直接把hinge loss应用在多分类上的话，当类别数特别大时，会有大量的非目标分数得到优化，
 这样每次优化时的梯度幅度不等且非常巨大，极易梯度爆炸。
 
-SVM中的常考点以及手推SVM
 
-先看看这个人的 机器学习--手推SVM以及KKT条件 https://zhuanlan.zhihu.com/p/45444502
 
 聚类
 -------------
