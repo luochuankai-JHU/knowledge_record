@@ -240,12 +240,20 @@ softmax loss只是交叉熵的一个特例
 	:width: 400
 	
 	
-分类为什么用CE而不是MSE
+**分类为什么用CE而不是MSE**
 
 | MSE作为分类的损失函数会有梯度消失的问题。
 | MSE是非凸的，存在很多局部极小值点。
 
-具体算一下....以前不是会推吗 ？？？好像是 用了sigmoid以后， 求一次导，链式法则，然后发现不管true label=1/-1 还是0？？导数都等于零
+.. image:: ../../_static/cv/cemse.png
+	:align: center
+
+非凸：
+
+.. image:: ../../_static/cv/cemse2.png
+	:align: center
+
+非凸应该是如果有很多个x，这些loss叠加起来是一个非凸的，因为是二次的叠加。
 
 **有哪些损失函数**
 | 深度学习中有哪些常用损失函数(优化目标函数)？ https://www.zhihu.com/question/317383780?sort=created
