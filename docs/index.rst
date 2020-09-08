@@ -24,7 +24,7 @@
 
 
 .. image:: ./_static/python/感谢理解.png
-
+	:width: 400
 
 .. toctree::
    :caption: 机器学习
