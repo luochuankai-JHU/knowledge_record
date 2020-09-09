@@ -396,8 +396,43 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 | 输入: [7,5,6,4]
 | 输出: 5
 
-这个是真不会...做法是用到归并排序...
+::
 
+    def mergeSort(self, nums, tmp, left, right):
+        if left >= right:
+            return 0
+        mid = (left + right) // 2
+        inv_count = self.mergeSort(nums, tmp, left, mid) + self.mergeSort(nums, tmp, mid + 1, right)
+        i, j, pos = left, mid + 1, left
+        while i <= mid and j <= right:
+            if nums[i] <= nums[j]:
+                tmp[pos] = nums[i]
+                i += 1
+            else:
+                tmp[pos] = nums[j]
+                j += 1
+                inv_count += mid - i + 1
+            pos += 1
+        for k in range(i, mid + 1):
+            tmp[pos] = nums[k]
+            pos += 1
+        for k in range(j, right + 1):
+            tmp[pos] = nums[k]
+            inv_count += mid - i + 1
+            pos += 1
+        nums[left:right+1] = tmp[left:right+1]
+        return inv_count
+
+    def reversePairs(self, nums: List[int]) -> int:
+        n = len(nums)
+        tmp = [0] * n
+        return self.mergeSort(nums, tmp, 0, n - 1)
+
+思路是归并排序。  解法和题解可以看 https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/solution/shu-zu-zhong-de-ni-xu-dui-by-leetcode-solution/  视频讲解不错。
+
+我这个代码和他的略有一点区别。（他的思路是一种解法，代码是另一种解法）。
+
+这个代码和他的思路都是向前看的思想。  他的代码是向后看的思想
 
 树的遍历：
 ======================
