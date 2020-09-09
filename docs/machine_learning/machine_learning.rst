@@ -67,7 +67,7 @@ stacking
 https://blog.csdn.net/Li_yi_chao/article/details/89638009
 	
 
-GBDT、Adboost、xgboost
+GBDT
 -------------------------
 | GBDT与Adboost最主要的区别在于两者如何识别模型的问题。Adaboost用错分数据点来识别问题，通过调整错分数据点的权重来改进模型。GBDT通过负梯度来识别问题，通过计算负梯度来改进模型。
 
@@ -81,6 +81,25 @@ GBDT、Adboost、xgboost
 
 | 这个文字资料写的不错：
 | http://www.52caml.com/head_first_ml/ml-chapter6-boosting-family/
+
+| 看看这个博客 机器学习算法GBDT  https://www.cnblogs.com/bnuvincent/p/9693190.html 里面讲了：
+| gbdt 的算法的流程？
+| gbdt 如何选择特征 ？
+| gbdt 如何构建特征 ？
+| gbdt 如何用于分类？
+| gbdt 通过什么方式减少误差 ？
+| gbdt的效果相比于传统的LR，SVM效果为什么好一些 ？
+| gbdt 如何加速训练？
+| gbdt的参数有哪些，如何调参 ？
+| gbdt 实战当中遇到的一些问题 ？
+| gbdt的优缺点 ？
+
+截图选取一些部分
+
+.. image:: ../../_static/machine_learning/gbdt.png
+	:align: center
+
+GBDT 如何用于分类？？？？
 
 AdaBoost算法缺点
 --------------------------
