@@ -164,6 +164,20 @@ Logistics regression
 
 模型的输出值是样本为正例的概率
 
+**分类为什么用CE而不是MSE**
+
+| MSE作为分类的损失函数会有梯度消失的问题。
+| MSE是非凸的，存在很多局部极小值点。
+
+.. image:: ../../_static/machine_learning/cemse.png
+	:align: center
+
+非凸：
+
+.. image:: ../../_static/machine_learning/cemse2.png
+	:align: center
+
+非凸应该是如果有很多个x，这些loss叠加起来是一个非凸的，因为是二次的叠加。
 
 PCA
 ---------------

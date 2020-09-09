@@ -238,22 +238,8 @@ softmax loss只是交叉熵的一个特例
 .. image:: ../../_static/cv/交叉损失.png
 	:align: center
 	:width: 400
-	
-	
-**分类为什么用CE而不是MSE**
 
-| MSE作为分类的损失函数会有梯度消失的问题。
-| MSE是非凸的，存在很多局部极小值点。
-
-.. image:: ../../_static/cv/cemse.png
-	:align: center
-
-非凸：
-
-.. image:: ../../_static/cv/cemse2.png
-	:align: center
-
-非凸应该是如果有很多个x，这些loss叠加起来是一个非凸的，因为是二次的叠加。
+分类为什么用CE而不是MSE 请见 machine_learning 那一页的 Logistics regression
 
 **有哪些损失函数**
 | 深度学习中有哪些常用损失函数(优化目标函数)？ https://www.zhihu.com/question/317383780?sort=created
