@@ -278,8 +278,8 @@ skip-gram 训练时间更长，出来的准确率比cbow 高。但是生僻词�
 
 hierarchical softmax优化、负采样
 
-**Negative Sampling负采样**
-
+Negative Sampling负采样
+''''''''''''''''''''''''''''''''''
 Negative Sampling是对于给定的词,并生成其负采样词集合的一种策略,已知有一个词,这个词可以看做一个正例,而它的上下文词集可以看做是负例,
 但是负例的样本太多,而在语料库中,各个词出现的频率是不一样的,所以在采样时可以要求高频词选中的概率较大,
 低频词选中的概率较小,这样就转化为一个带权采样问题,大幅度提高了模型的性能。
@@ -298,8 +298,8 @@ negative sampling 每次让一个训练样本仅仅更新一小部分的权重�
 
 如果使用了 negative sampling 仅仅去更新positive word- “quick” 和选择的其他 10 个negative words 的结点对应的权重，共计 11 个输出神经元，相当于每次只更新 300 x 11 = 3300 个权重参数。对于 3百万 的权重来说，相当于只计算了千分之一的权重，这样计算效率就大幅度提高。
 
-**hierarchical softmax层次softmax**
-
+hierarchical softmax层次softmax
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 构造Huffman树
 
 | 算法描述：假设有n个权值，则构造出来的Huffman树有n个叶子结点。若n个权值分别为{\(w_1\),\(w_2\),…,\(w_n\)}。
@@ -742,18 +742,18 @@ Mask 15% of all tokens
 
 80% of the time, replace with [mask] token， 10% of the time, replace with random token, 10% of the time, keep the word unchanged
 
-**BERT-wwm**
-
+BERT-wwm
+''''''''''''''''''''''''''''''''''
 wwm是Whole Word Masking（对全词进行Mask），它相比于Bert的改进是用Mask标签替换一个完整的词而不是子词，中文和英文不同，
 英文中最小的Token就是一个单词，而中文中最小的Token却是字，词是由一个或多个字组成，且每个词之间没有明显的分隔，包含更多信息的是词，全词Mask就是对整个词都通过Mask进行掩码。
 
-**BERT-wwm-ext**
-
+BERT-wwm-ext
+''''''''''''''''''''''''''''''''''
 它是BERT-wwm的一个升级版，相比于BERT-wwm的改进是增加了训练数据集同时也增加了训练步数。
 
 
-**RoBERTa**
-
+RoBERTa
+''''''''''''''''''''''''''''''''''
 相比于Bert的改进：更多的数据、更多的训练步数、更大的批次（用八千为批量数），用字节进行编码以解决未发现词的问题。
 
 对Adam算法中的两处进行了调整：
@@ -766,8 +766,8 @@ Adam 中二阶矩估计时的 β_2，一般对于梯度稀疏之问题，如 NLP
 取消了Next Sentence这一预训练任务，输入的不再是通过[SEP]隔开的句子对，而是一个句子段，对于短句会进行拼接，但是最大长度仍是512（这样做是因为更长的语境对模型更有利，
 能够使模型获得更长的上下文），同时输入的句子段不跨文档（是因为引入不同文档的语境会给MLM带来噪音）。
 
-**SpanBERT**
-
+SpanBERT
+''''''''''''''''''''''''''''''''''
 作者提出一种分词级别的预训练方法。它不再是对单个Token进行掩码，而是随机对邻接分词添加掩码。对于掩码词的选取，
 作者首先从几何分布中采样得到分词的长度，该几何分布是偏态分布，偏向于较短的分词，分词的最大长度只允许为10（超过10的不是截取而是舍弃）。
 之后随机（均匀分布）选择分词的起点。对选取的这一段词进行Mask，Mask的比例和Bert相同，15%、80%、10%、10%。
@@ -781,8 +781,8 @@ Adam 中二阶矩估计时的 β_2，一般对于梯度稀疏之问题，如 NLP
 作者使用向量表示yi来预测xi，并和 MLM 一样使用交叉熵作为损失函数，就是 SBO 目标的损失，之后将这个损失和 BERT 的 Mased Language Model（MLM）的损失加起来，一起用于训练模型
 
 
-**ERNIE2**
-
+ERNIE2
+''''''''''''''''''''''''''''''''''
 它的主要创新是ERNIE2采用Multi-task进行预训练，训练任务有词级别的、结构级别、语义级别三类。同时多任务是轮番学习，学习完一个任务再学习下一个任务，
 不同任务使用相应损失函数，类似于教课，不同课应该分开上，若多任务同时学习会学的较为混乱，多个任务同时学习最好是任务之间存在关系，能够相互指导。
 
@@ -801,12 +801,12 @@ word2vec由词义的分布式假设(一个单词的意思由频繁出现在它�
 
 bert 论文里读的
 ---------------------------
-**模型参数**
-
+模型参数
+''''''''''''''''''''''''''''''''''
 BERTBASE (L=12, H=768, A=12, Total Parameters=110M) and BERTLARGE (L=24, H=1024, A=16, Total Parameters=340M).
 
-**MASK**
-
+MASK
+''''''''''''''''''''''''''''''''''
 In this case, the final hidden vectors corresponding to the mask tokens are fed into an output softmax over the vocabulary, as in a standard LM. 
 In all of our experiments, we mask 15% of all WordPiece tokens in each sequence at random.
 
@@ -821,8 +821,8 @@ The training data generator chooses 15% of the token positions at random for pre
 
 Then, Ti will be used to predict the original token with cross entropy loss
 
-**NSP**
-
+NSP
+''''''''''''''''''''''''''''''''''
 Specifically, when choosing the sentences A and B for each pretraining example, 50% of the time B is the actual next sentence that follows A (labeled as IsNext),
 and 50% of the time it is a random sentence from the corpus (labeled as NotNext).  (语料库不一定是同一篇文章，可以是其他文章)
 
