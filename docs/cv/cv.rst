@@ -130,7 +130,15 @@ BN层具体过程、反向传播、求导
 
 .. image:: ../../_static/cv/BN求导.png
 	:align: center
-	
+
+BN解决过拟合
+''''''''''''''''''''''''''''''''''
+Batch Normalization的主要作用是加快网络的训练速度。
+
+如果硬要说是防止过拟合，可以这样理解：BN每次的mini-batch的数据都不一样，但是每次的mini-batch的数据都会对moving mean和moving variance产生作用，可以认为是引入了噪声
+
+
+
 BN和Dropout 共同使用
 ------------------------------------------
 不会产生1+1>2的效果，相反可能会得到比单独使用更差的效果。 论文《Understanding the Disharmony between Dropout and Batch Normalization by Variance Shift》
@@ -426,6 +434,29 @@ N是上一层的image size，比如256*256。 F是filter的size，比如3*3。P�
 
 
 RNN LSTM Transformer的参数量见NLP那一页
+
+Inception 
+-----------------------
+.. image:: ../../_static/cv/Inception.png
+	:align: center
+
+Inception Module基本组成结构有四个成分。1*1卷积，3*3卷积，5*5卷积，3*3最大池化。最后对四个成分运算结果进行通道上组合。这就是Inception Module的核心思想。
+通过多个卷积核提取图像不同尺度的信息，最后进行融合，可以得到图像更好的表征。
+
+
+Inception V2
+
+1.学习VGGNet的特点，用两个3*3卷积代替5*5卷积，可以降低参数量。
+
+2.提出BN算法。BN算法是一个正则化方法，可以提高大网络的收敛速度。简单介绍一下BN算法。就是对输入层信息分布标准化处理，使得规范化为N(0,1)的高斯分布，收敛速度大大提高。
+
+Inception V3
+
+学习Factorization into small convolutions的思想，将一个二维卷积拆分成两个较小卷积，例如将7*7卷积拆成1*7卷积和7*1卷积。这样做的好处是降低参数量。paper中指出，通过这种非对称的卷积拆分，比对称的拆分为几个相同的卷积效果更好，可以处理更多，更丰富的空间特征。
+
+Inception V4
+
+resnet有关
 
 
 1x1卷积核的作用
