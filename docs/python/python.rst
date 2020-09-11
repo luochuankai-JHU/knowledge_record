@@ -90,11 +90,11 @@ zip 方法在 Python 2 和 Python 3 中的不同：在 Python 3.x 中为了减�
 零碎
 ================
 
-【文档】使用Sphinx + reST编写文档
+ReadtheDocs、Sphinx
 --------------------------------------
-https://www.cnblogs.com/zzqcn/p/5096876.html#_label7
+【文档】使用Sphinx + reST编写文档  https://www.cnblogs.com/zzqcn/p/5096876.html#_label7
 
-
+如何用ReadtheDocs、Sphinx快速搭建写书环境  https://www.jianshu.com/p/78e9e1b8553a
 
 python里的map函数，讲一下它的作用和返回值
 ------------------------------------------------
