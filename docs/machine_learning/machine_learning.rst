@@ -561,8 +561,17 @@ GMM
 DBSCAN
 --------------------
 
+sequential leader clustering
+----------------------------------
+
+.. image:: ../../_static/machine_learning/sequential-leader-clustering.png
+	:align: center
+
 聚类的衡量
 --------------------
+类内距离和类间距离
+
+？？？
 
 
 其他常见问题
