@@ -183,6 +183,15 @@ xgboost判断特征重要程度的三种指标
 有监督机器学习算法
 ========================
 
+liner regression 线性回归
+----------------------------------
+
+lasso 回归和岭回归（ridge regression）其实就是在标准线性回归的基础上分别加入 L1 和 L2 正则化（regularization）
+
+.. image:: ../../_static/machine_learning/lasso.png
+	:align: center
+
+
 Logistics regression
 ----------------------------
 李宏毅视频
@@ -569,6 +578,25 @@ DBSCAN
 kmeans 球形 而且倾向于簇的形状一样大
 GMM 高斯分布球形  
 DBSCAN 不要求形状一样
+
+AGNES聚类
+------------------
+.. image:: ../../_static/machine_learning/AGNES.png
+	:align: center
+
+
+AGNES聚类的优点：
+
+| 距离和规则的相似度容易定义，限制少
+| 不需要预先制定聚类数
+| 可以发现类的层次关系
+| 可以聚类成其它形状
+
+AGNES聚类的缺点：
+
+| 计算复杂度太高
+| 奇异值也能产生很大影响
+| 算法很可能聚类成链状
 
 sequential leader clustering
 ----------------------------------
