@@ -472,10 +472,13 @@ g（D,A）是上面的的信息增益。g(D,A) = H(D) - H(D|A)
 ==============================
 
 资料
+------------------
+清华大学【数据挖掘：聚类分析】  https://www.bilibili.com/video/BV1Vt411v7YS?p=1
 
 机器学习中的聚类算法演变及学习笔记  https://www.nowcoder.com/discuss/432266?type=post&order=create&pos=&page=0&channel=666&source_id=search_post
 
-
+聚类的种类
+--------------------------
 | 基于划分的聚类
 | K-Means
 
@@ -497,7 +500,7 @@ Kmeans
 ------------------------
 .. image:: ../../_static/machine_learning/kmeans.png
 	:align: center
-	:width: 400
+	:width: 500
 
 
 K-Means聚类的优点：
@@ -556,11 +559,16 @@ K-Means聚类变体
 
 
 
-GMM
+GMM EM
 -----------------
 
 DBSCAN
 --------------------
+
+
+kmeans 球形 而且倾向于簇的形状一样大
+GMM 高斯分布球形  
+DBSCAN 不要求形状一样
 
 sequential leader clustering
 ----------------------------------
