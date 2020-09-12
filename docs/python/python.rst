@@ -177,9 +177,30 @@ https://leetcode-cn.com/problems/recover-a-tree-from-preorder-traversal/solution
 
 不可变类型——int, str, tuple
     
+  
+python 常用的 string format 形式
+-----------------------------------------
+| a. %号
+|     print("%d" % a)
+| b. str.format # python2.6+
+|     print("{}".format(a))
+| c. f-string  # python3.6+
+|     print(f"{a}")
+| d. 标准库模板 # python2.4+
+|     from string import Template
+|     name='EGON'
+|     t = Template('Hello $name!')
+|     res=t.substitute(name=name)
+|     print(res) # Hello EGON!
+
+| 注：总结四种方式的应用场景
+| a. 如果格式化的字符串是由用户输入的，那么基于安全性考虑，推荐使用Template
+| b. 如果使用的python3.6+版本的解释器，推荐使用f-Stings
+| c. 如果要兼容python2.x版本的python解释器，推荐使用str.format
+| d. 如果不是测试的代码，不推荐使用%    
     
-    
-    
+	
+	
 linux 操作系统一些命令
 ---------------------------
 
