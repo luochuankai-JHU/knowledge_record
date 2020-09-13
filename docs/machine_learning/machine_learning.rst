@@ -584,6 +584,43 @@ GMM EM
 
 DBSCAN
 --------------------
+核心思想....类似传销，发展下线直到不能发展为止
+
+.. image:: ../../_static/machine_learning/DBSCAN1.png
+	:align: center
+
+核心点就是划分一个半径，圆内被圈到的数据数量要求大于阈值
+
+.. image:: ../../_static/machine_learning/DBSCAN2.png
+	:align: center
+	
+.. image:: ../../_static/machine_learning/DBSCAN3.png
+	:align: center
+	
+	
+不能被发展成下线又不能自成一体的就是离群点。
+
+流程：
+
+.. image:: ../../_static/machine_learning/DBSCAN4.png
+	:align: center
+
+DBSCAN的主要优点有：
+
+1）可以对任意形状的稠密数据集进行聚类，相对的，K-Means之类的聚类算法一般只适用于凸数据集。
+
+2）可以在聚类的同时发现异常点，对数据集中的异常点不敏感。
+
+3）聚类结果没有偏倚，相对的，K-Means之类的聚类算法初始值对聚类结果有很大影响。
+
+DBSCAN的主要缺点有：
+
+1）如果样本集的密度不均匀、聚类间距差相差很大时，聚类质量较差，这时用DBSCAN聚类一般不适合。
+
+2）如果样本集较大时，聚类收敛时间较长，此时可以对搜索最近邻时建立的KD树或者球树进行规模限制来改进。
+
+3）调参相对于传统的K-Means之类的聚类算法稍复杂，主要需要对距离阈值ϵ，邻域样本数阈值MinPts联合调参，不同的参数组合对最后的聚类效果有较大影响。
+
 
 
 kmeans 球形 而且倾向于簇的形状一样大
