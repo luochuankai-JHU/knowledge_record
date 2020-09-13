@@ -341,6 +341,12 @@ SVM中的常考点以及手推SVM
 	
 https://www.zhihu.com/question/19725590/answer/241988854
 
+.. image:: ../../_static/machine_learning/bys.png
+	:align: center
+
+P(x | w1)这个x在w上的条件概率是有意义的，  因为可能存在P(y | w1)   （那个检测的问题   有患病、阳性、不患病、阴性）
+
+朴素贝叶斯的假设    "属性条件独立性假设   假设所有属性相互独立
 
 
 随机森林
@@ -581,9 +587,18 @@ K-Means聚类变体
 
 GMM EM
 -----------------
+目前的理解是： 
+kmeans是先随机初始化一些中心点，然后根据距离重新划分数据集，然后选择新的中心点，再重新划分数据集   
+
+那GMM这里，看起来是首先随机选取几个高斯分布，然后分布计算每个点属于某个高斯分布的概率
+
+看起来像是把kmeans用距离划分改成了 用 高斯分布的概率 ？
 
 DBSCAN
 --------------------
+
+20聚类算法-DBSCAN  https://www.bilibili.com/video/BV1j4411H7xv?p=1
+
 核心思想....类似传销，发展下线直到不能发展为止
 
 .. image:: ../../_static/machine_learning/DBSCAN1.png
