@@ -962,7 +962,7 @@ https://www.zhihu.com/question/25532384/answer/1130818664 这个解答说的很�
 
 投硬币连续两次是正面就停止，求投掷的次数的期望
 -----------------------------------------------------
-.. image:: ../../_static/machine_learning/硬币.png
+.. image:: ../../_static/machine_learning/硬币1.png
 	:align: center
 	:width: 400
 	
