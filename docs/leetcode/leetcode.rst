@@ -2520,7 +2520,63 @@ https://leetcode-cn.com/problems/target-sum/solution/python-dfs-xiang-jie-by-jim
             return True
         else:
             return False 
+
+请看下一题：
+
+单词拆分 II
+-----------------------
+| leetcode 140. 
+| 给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，在字符串中增加空格来构建一个句子，使得句子中所有的单词都在词典中。返回所有这些可能的句子。
+
+| 说明：
+| 分隔时可以重复使用字典中的单词。
+| 你可以假设字典中没有重复的单词。
+
+| 示例 1：
+| 输入:
+| s = "catsanddog"
+| wordDict = ["cat", "cats", "and", "sand", "dog"]
+| 输出:
+| [
+|   "cats and dog",
+|   "cat sand dog"
+| ]
+
+| 示例 2：
+| 输入:
+| s = "pineapplepenapple"
+| wordDict = ["apple", "pen", "applepen", "pine", "pineapple"]
+| 输出:
+| [
+|   "pine apple pen apple",
+|   "pineapple pen apple",
+|   "pine applepen apple"
+| ]
+
+| 解释: 注意你可以重复使用字典中的单词。
+::
+
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+		# 前几行处理特殊情况，但是除了lc上面的测试案例，一般不会这么无聊
+        # tmp = set("".join(wordDict))
+        # if any([i not in tmp for i in s]):
+        #     return []
+
+        dp = [['   ']] + [['']] * len(s)
+        store = set(wordDict)
+        for i in range(len(s)):
+            for j in wordDict:
+                if i+1-len(j) >= 0 and j == s[i+1-len(j):i+1] and dp[i+1-len(j)] !=['']:
+                    if dp[i + 1] == ['']:
+                        dp[i + 1] = [x +' '+ j for x in dp[i + 1 - len(j)]]
+                    else:
+                        dp[i + 1] += [x +' '+ j for x in dp[i + 1 - len(j)]]
+        if dp[-1]==['']:
+            return []
+        else:
+            return [x.strip() for x in dp[-1]]
 	 
+这里的话，跟上一题相比需要保存当前为True的结果。由于输出格式的问题，所以dp里面每个元素用['']保存，第一个多一点空格，最后strip掉就好
 	 
 区间问题
 =======================
