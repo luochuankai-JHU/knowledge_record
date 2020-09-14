@@ -344,7 +344,7 @@ https://www.zhihu.com/question/19725590/answer/241988854
 .. image:: ../../_static/machine_learning/bys.png
 	:align: center
 
-P(x | w1)这个x在w上的条件概率是有意义的，  因为可能存在P(y | w1)   （那个检测的问题   有患病、阳性、不患病、阴性）      luo
+P(x | w1)这个x在w上的条件概率是有意义的，  因为可能存在P(y | w1)   （那个检测的问题   有患病、阳性、不患病、阴性）  luo
 
 朴素贝叶斯的假设    "属性条件独立性假设   假设所有属性相互独立
 

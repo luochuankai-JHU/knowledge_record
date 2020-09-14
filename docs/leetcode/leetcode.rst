@@ -2488,7 +2488,40 @@ https://leetcode-cn.com/problems/target-sum/solution/python-dfs-xiang-jie-by-jim
 
 所以从 i-j+1 变成了 i- j的上一个
 
+单词拆分
+----------------------
+| leetocde 139. 
+| 给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。
 
+| 说明：
+| 拆分时可以重复使用字典中的单词。
+| 你可以假设字典中没有重复的单词。
+
+| 示例 1：
+| 输入: s = "leetcode", wordDict = ["leet", "code"]
+| 输出: true
+| 解释: 返回 true 因为 "leetcode" 可以被拆分成 "leet code"。
+
+| 示例 2：
+| 输入: s = "applepenapple", wordDict = ["apple", "pen"]
+| 输出: true
+| 解释: 返回 true 因为 "applepenapple" 可以被拆分成 "apple pen apple"。
+| 注意你可以重复使用字典中的单词。
+::
+
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [1] + [0]*len(s)
+        store = set(wordDict)
+        for i in range(len(s)):
+            for j in wordDict:
+                if i+1-len(j) >=0 and j == s[i+1-len(j):i+1] and dp[i+1-len(j)]==1:
+                    dp[i+1] = 1
+        if dp[-1] == 1:
+            return True
+        else:
+            return False 
+	 
+	 
 区间问题
 =======================
 
