@@ -970,8 +970,8 @@ leetcode 95--99
 
 .. image:: ../../_static/leetcode/236.png
     :align: center
-	
-	
+    
+    
 动态规划
 ===================
 
@@ -1143,9 +1143,9 @@ leetcode 5.
 一个漂亮的解法。维护一个res和count。如果当前遍历到的数和res相等，count就+1，不不然就-1。减到0 res就换人。 记得换人后把count重新设为1 !!!
 
 
-连续子数组的最大和
--------------------------
-剑指 Offer 42. 
+连续子数组的最大和/最大子序和
+----------------------------------------------
+剑指 Offer 42. leetcode 53. （题目一样的）
 
 输入一个整型数组，数组里有正数也有负数。数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。
 
@@ -2557,7 +2557,8 @@ https://leetcode-cn.com/problems/target-sum/solution/python-dfs-xiang-jie-by-jim
 ::
 
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
-		# 前几行处理特殊情况，但是除了lc上面的测试案例，一般不会这么无聊
+    
+        # 前几行处理特殊情况，但是除了lc上面的测试案例，一般不会这么无聊
         # tmp = set("".join(wordDict))
         # if any([i not in tmp for i in s]):
         #     return []
@@ -2575,9 +2576,69 @@ https://leetcode-cn.com/problems/target-sum/solution/python-dfs-xiang-jie-by-jim
             return []
         else:
             return [x.strip() for x in dp[-1]]
-	 
+     
 这里的话，跟上一题相比需要保存当前为True的结果。由于输出格式的问题，所以dp里面每个元素用['']保存，第一个多一点空格，最后strip掉就好
-	 
+
+黑白棋翻转
+--------------------
+| 百度笔试题
+| 小明最近学会了一种棋，这种棋的玩法和围棋有点类似，最后通过比较黑子和白子所占区域的大小来决定胜负。
+| 在下棋过程中，如果白子或者黑子将对方全部围住，则所围区域中的棋子将更换颜色。
+| 如果用1表示黑子，0表示白子，给出如下实例：
+| 1111
+| 0101
+| 1101
+| 0010
+| 因为第2行第3列的白子(0)和第3行第3列的白子(0)完全被黑子(1)围住，因此需要这两个0将变为1.
+| 结果变为：
+| 1111
+| 0111
+| 1111
+| 0010
+| 为了简化问题的求解只需要大家找出所有被黑子围住的白子，并将这些白子变为黑子后输出。
+::
+
+    def solution(arr):
+        if not arr:
+            return []
+        queue = []
+        m = len(arr)
+        for i in range(m):
+            if arr[i][0] == 0:
+                queue.append((i, 0))
+            if arr[i][m - 1] == 0:
+                queue.append((i, m - 1))
+            if arr[0][i] == 0:
+                queue.append((0, i))
+            if arr[m - 1][i] == 0:
+                queue.append((m - 1, i))
+
+        while queue:
+            r, c = queue.pop()
+            if 0 <= r < m and 0 <= c < m and arr[r][c] == 0:
+                arr[r][c] = "#"
+                for (i,j) in [(r + 1, c),(r - 1, c),(r, c + 1),(r, c - 1)]:
+                    if 0 <= i < m and 0 <= j < m and arr[i][j]==0:
+                        queue.append((i,j))
+
+        for i in range(m):
+            for j in range(m):
+                if arr[i][j] == 0:
+                    arr[i][j] = 1
+                elif arr[i][j] == "#":
+                    arr[i][j] = 0
+
+        return arr
+
+扫描三次就好了。第一次把四条边上的0计入队列，准备变成'#'
+
+第二次把这些#的四周以及能够蔓延到的地方全部变#
+
+第三次把剩下的0变1，然后把#再变回0.
+
+注意，第二次遍历的时候需要用这个队列，而不能直接从左上到右下去扫描，不然矩阵靠右的会有点问题。 比如有一行是1000，那么第一个0是看不到最右边的#的
+
+
 区间问题
 =======================
 
