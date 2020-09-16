@@ -2684,7 +2684,6 @@ leetcode 84.
 
 .. image:: ../../_static/leetcode/84解法精华.png
     :align: center
-    :width: 400
 
 
 Leetcode 84：柱状图中最大的矩形（超详细的解法！！！） https://blog.csdn.net/qq_17550379/article/details/85093224
