@@ -2690,6 +2690,58 @@ Leetcode 84：柱状图中最大的矩形（超详细的解法！！！） https
 
 截图太长，不放上来，保存在 _static/leetcode/84_.png了
 
+请看下一题：
+
+最大矩形
+----------------------
+| leetcode 85. 
+| 给定一个仅包含 0 和 1 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。
+
+| 示例:
+| 输入:
+| [
+|   ["1","0","1","0","0"],
+|   ["1","0","1","1","1"],
+|   ["1","1","1","1","1"],
+|   ["1","0","0","1","0"]
+| ]
+| 输出: 6
+::
+
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        if not matrix:
+            return 0
+
+        def largestRectangleArea(heights):
+            heights.append(0)
+            stack = [-1]
+            max_area = 0
+            for i in range(len(heights)):
+                while heights[i] < heights[stack[-1]]:
+                    h = heights[stack.pop()]
+                    w = i - stack[-1] - 1
+                    max_area = max(max_area, h*w)
+                stack.append(i)
+            return max_area
+
+        cur = [0] * len(matrix[0])
+        ans = 0
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if matrix[i][j] == "0":
+                    cur[j] = 0
+                else:
+                    cur[j] += 1
+            ans = max(ans, largestRectangleArea(cur))
+        return ans
+
+这个题需要结合上一题（leetcode 84）
+
+基本思路是这样：以行为单位，遍历到某行的时候，向上看，形成类似上一题的一个个矩形。如果当前是1，那么就一直到上一个0为止，如果本身是0，那么当前位置的矩形也是0。
+然后再调用上一题的代码求面积。
+
+
+
 区间问题
 =======================
 
