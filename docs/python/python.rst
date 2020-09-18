@@ -120,13 +120,13 @@ all() ：如果全不为空，则返回True；否则返回False。
 
 .. image:: ../../_static/python/any.png
     :align: center
-	:width: 400
-	
+    :width: 400
+    
 .. image:: ../../_static/python/all.png
     :align: center
-	:width: 400
-	
-emmmmmm,  () 和 [] 这里有点奇怪.... 但基本上 any 就是逻辑中or，all就是逻辑中 and	
+    :width: 400
+    
+emmmmmm,  () 和 [] 这里有点奇怪.... 但基本上 any 就是逻辑中or，all就是逻辑中 and    
 
 零碎
 ================
@@ -228,8 +228,8 @@ python 常用的 string format 形式
 | c. 如果要兼容python2.x版本的python解释器，推荐使用str.format
 | d. 如果不是测试的代码，不推荐使用%    
     
-	
-	
+    
+    
 linux 操作系统一些命令
 ---------------------------
 
