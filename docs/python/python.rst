@@ -120,11 +120,13 @@ all() ：如果全不为空，则返回True；否则返回False。
 
 .. image:: ../../_static/python/any.png
     :align: center
-    :width: 400
-    
+	:width: 300
+	
 .. image:: ../../_static/python/all.png
     :align: center
-    :width: 400
+	:width: 300
+
+
     
 emmmmmm,  () 和 [] 这里有点奇怪.... 但基本上 any 就是逻辑中or，all就是逻辑中 and    
 
