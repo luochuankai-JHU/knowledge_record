@@ -1160,13 +1160,13 @@ leetcode 5.
 ::
 
     def maxSubArray(self, nums: List[int]) -> int:
-        if len(nums)==0:
-            return 0
-        res, temp = nums[0], nums[0]
-        for i in range(1,len(nums)):
-            temp = max(nums[i],temp+nums[i])
-            res = max(temp,res)
-        return res
+        if not nums:
+            return -999e999
+        ans = temp = -99e99
+        for i in range(len(nums)):
+            temp = max(temp+nums[i], nums[i])
+            ans = max(ans, temp)
+        return ans
 
 值得再去好好想想
 
