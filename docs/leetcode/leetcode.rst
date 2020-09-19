@@ -2769,7 +2769,63 @@ https://leetcode-cn.com/problems/maximal-rectangle/solution/zhong-die-fa-kuai-su
 | 所以结果就是 6
 
 
+最大子矩阵
+-----------------------
+| 面试题 17.24.    也是某次考试的笔试题，滴滴的面试题
+| 给定一个正整数和负整数组成的 N × M 矩阵，编写代码找出元素总和最大的子矩阵。
 
+| 返回一个数组 [r1, c1, r2, c2]，其中 r1, c1 分别代表子矩阵左上角的行号和列号，r2, c2 分别代表右下角的行号和列号。若有多个满足条件的子矩阵，返回任意一个均可。
+
+| 0 -2 -7 0
+| 9 2 -6 2
+| -4 1 -4 1
+| -1 8 0 -2
+
+| 最大子矩阵和为
+| 9 2
+| -4 1
+| -1 8 
+::
+
+    def getMaxMatrix(self, matrix: List[List[int]]) -> List[int]:
+        def max_1d(array):
+            if not array:
+                return float('-inf')
+            ans = temp = float('-inf')
+            start_temp, start_final, end_final = 0, 0, 0
+            for i in range(len(array)):
+                if temp + array[i] > array[i]:
+                    temp = temp + array[i]
+                else:
+                    start_temp = i
+                    temp = array[i]
+
+                if temp > ans:
+                    start_final, end_final = start_temp, i
+                    ans = temp
+            return start_final, end_final, ans
+
+        row = len(matrix)
+        col = len(matrix[0])
+        maxArea = float('-inf')                     #最大面积
+        res = [0, 0, 0, 0]
+
+        for left in range(col):                     #从左到右，从上到下，滚动遍历
+            colSum = [0] * row                      #以left为左边界，每行的总和
+            for right in range(left, col):          #这一列每一位为右边界
+                for i in range(row):                #遍历列中每一位，计算前缀和
+                    colSum[i] += matrix[i][right]
+
+                startX, endX, maxAreaCur= max_1d(colSum)#在left，right为边界下的矩阵中，前缀和colSum的最大值
+                if maxAreaCur > maxArea:
+                    res = [startX, left, endX, right]        #left是起点y轴坐标，right是终点y轴坐标
+                    maxArea = maxAreaCur
+        return res
+
+.. image:: ../../_static/leetcode/1724.png
+    :align: center
+
+为什么是以列来两个指针遍历？ 因为按照行的话不好求和
 
 区间问题
 =======================
