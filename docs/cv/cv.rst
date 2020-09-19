@@ -264,7 +264,7 @@ softmax loss只是交叉熵的一个特例
 
 | L1 loss
 | L2 loss
-| smooth L1 loss (|x|<1 时等于0.5x**2,  else:等于|x|-0.5)
+| smooth L1 loss(|x|<1 时等于0.5x**2, else:等于|x|-0.5)
 
 熵，交叉熵，KL散度
 -----------------------------

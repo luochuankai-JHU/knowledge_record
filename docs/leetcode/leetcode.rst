@@ -2827,6 +2827,52 @@ https://leetcode-cn.com/problems/maximal-rectangle/solution/zhong-die-fa-kuai-su
 
 为什么是以列来两个指针遍历？ 因为按照行的话不好求和
 
+为运算表达式设计优先级/ 对表达式添加括号并求值
+-----------------------------------------------------------------
+| leetcode 241. 
+| 给定一个含有数字和运算符的字符串，为表达式添加括号，改变其运算优先级以求出不同的结果。你需要给出所有可能的组合的结果。有效的运算符号包含 +, - 以及 * 。
+
+| 示例 1:
+| 输入: "2-1-1"
+| 输出: [0, 2]
+| 解释: 
+| ((2-1)-1) = 0 
+| (2-(1-1)) = 2
+
+| 示例 2:
+| 输入: "2*3-4*5"
+| 输出: [-34, -14, -10, -10, 10]
+| 解释: 
+| (2*(3-(4*5))) = -34 
+| ((2*3)-(4*5)) = -14 
+| ((2*(3-4))*5) = -10 
+| (2*((3-4)*5)) = -10 
+| (((2*3)-4)*5) = 10
+::
+
+    def diffWaysToCompute(self, input: str) -> List[int]:
+        def helper(arr):
+            if arr.isdigit():
+                return [int(arr)]
+            ans = []
+            for i in range(len(arr)):
+                if arr[i] in ["+","-","*"]:
+                    left = helper(arr[:i])
+                    right = helper(arr[i+1:])
+                    for x in left:
+                        for y in right:
+                            if arr[i] == "+":
+                                ans.append(x + y)
+                            elif arr[i] == "-":
+                                ans.append(x - y)
+                            else:
+                                ans.append(x * y)
+            return ans
+        return helper(input)
+
+
+思路：分治思想，分成两部分。遍历到一个符号的时候，可以递归得到左边的全部结果和右边的全部结果。然后看符号是什么，分别相加相减相乘。
+
 区间问题
 =======================
 
