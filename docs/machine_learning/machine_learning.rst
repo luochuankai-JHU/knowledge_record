@@ -245,6 +245,12 @@ lasso 回归和岭回归（ridge regression）其实就是在标准线性回归�
 | 从面经上拔下来的....有待考证
 
 
+liner regression 矩阵解
+''''''''''''''''''''''''''''''''''
+.. image:: ../../_static/machine_learning/liner.png
+	:align: center
+
+
 Logistics regression
 ----------------------------
 李宏毅视频
