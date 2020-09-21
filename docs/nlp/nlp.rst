@@ -1102,7 +1102,10 @@ HMM、CRF、MEMM
 ------------------------------
 HMM、CRF、MEMM区别 https://www.cnblogs.com/gczr/p/10248232.html
 
-隐马尔可夫模型（Hidden Markov Model，HMM），最大熵马尔可夫模型（Maximum Entropy Markov Model，MEMM）以及条件随机场（Conditional Random Field，CRF）
+| **隐马尔可夫模型（Hidden Markov Model，HMM）**
+| **最大熵马尔可夫模型（Maximum Entropy Markov Model，MEMM）**
+| **条件随机场（Conditional Random Field，CRF）**
+
 是序列标注中最常用也是最基本的三个模型。
 
 HMM首先出现，MEMM其次，CRF最后。三个算法主要思想如下：
@@ -1197,8 +1200,12 @@ CRF层可以自己学习这些约束条件，而无需人为构建该矩阵。�
 
 
 
-最大熵马尔科夫模型(MEMM)
----------------------------------
+
+文本分类
+=================
+
+
+
 
 
 知识图谱&实体链接
