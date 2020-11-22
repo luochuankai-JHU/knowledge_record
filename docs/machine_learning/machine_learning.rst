@@ -1120,3 +1120,19 @@ https://www.zhihu.com/question/25532384/answer/1130818664 这个解答说的很�
 =====================
 light GBM, Deepfm,Wide&Deep,YoutubeNet, PNN
 
+稍后学习
+
+用户画像
+========================
+稍后学习
+
+用户画像  https://www.bilibili.com/video/BV1qK4y1r7R9?p=2
+
+.. image:: ../../_static/machine_learning/用户画像1.png
+	:align: center
+
+.. image:: ../../_static/machine_learning/用户画像2.png
+	:align: center
+	
+.. image:: ../../_static/machine_learning/用户画像3.png
+	:align: center
