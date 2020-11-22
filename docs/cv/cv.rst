@@ -278,6 +278,49 @@ softmax loss只是交叉熵的一个特例
 | L2 loss
 | smooth L1 loss(|x|<1 时等于0.5x**2, else:等于|x|-0.5)
 
+
+pytorch中有哪些损失函数
+''''''''''''''''''''''''''''''''''
+PyTorch 学习笔记（六）：PyTorch的十八个损失函数   https://zhuanlan.zhihu.com/p/61379965
+
+文章里面有详细的解释
+
+1.L1loss
+
+2.MSELoss
+
+3.CrossEntropyLoss
+
+4.NLLLoss
+
+5.PoissonNLLLoss
+
+6.KLDivLoss
+
+7.BCELoss
+
+8.BCEWithLogitsLoss
+
+9.MarginRankingLoss
+
+10.HingeEmbeddingLoss
+
+11.MultiLabelMarginLoss
+
+12.SmoothL1Loss
+
+13.SoftMarginLoss
+
+14.MultiLabelSoftMarginLoss
+
+15.CosineEmbeddingLoss
+
+16.MultiMarginLoss
+
+17.TripletMarginLoss
+
+18.CTCLoss
+
 熵，交叉熵，KL散度
 -----------------------------
 这个视频讲的不错 Entropy,Cross Entropy,KL Divergence 信息熵，交叉熵，KL散度  https://www.bilibili.com/video/BV1Rb411M75k?from=search&seid=9372239679612024672
