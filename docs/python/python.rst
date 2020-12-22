@@ -141,6 +141,40 @@ ReadtheDocs、Sphinx
 
 
 
+tmux的使用
+------------------
+tmux new -s session-name  新建会话 
+
+tmux ls或ctrl+b s  查看目前有开启的会话 
+
+tmux a -t session-name  接入session-name这个会话 
+
+ctrl+b d或tmux detach  临时断开会话
+
+tmux kill-session -t 1  关闭会话
+
+
+**窗口操作**
+| Ctrl+b PgUp/PgDn/   查看页面之前的输出，按q退出
+
+
+| Ctrl+b c - (c)reate 生成一个新的窗口
+| Ctrl+b n - (n)ext 移动到下一个窗口
+| Ctrl+b p - (p)revious 移动到前一个窗口.
+
+| Ctrl+b " - split pane horizontally
+| Ctrl+b % - 将当前窗格垂直划分
+| Ctrl+b 方向键 - 在各窗格间切换
+| Ctrl+b，并且不要松开Ctrl，方向键 - 调整窗格大小
+| Ctrl+b 空格键 - 切换窗口内置布局 
+| Ctrl+b q - 显示分隔窗口的编号 
+| Ctrl+b o - 跳到下一个分隔窗口
+| Ctrl+b z - 当前窗口最大化
+| Ctrl+b x - 关闭当前窗口
+| Ctrl+b & - 确认后退出 tmux 
+
+
+
 哈希表的原理
 ----------------------
 利用哈希函数映射,构造出一个键值对。（查找的时候直接根据key去计算储存的位置  洛）
