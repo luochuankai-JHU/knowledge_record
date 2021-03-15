@@ -18,13 +18,7 @@
 
 洛传凯学习自用，未经本人书面允许不得抄袭。
 
-#**有个小小的请求：虽然这个博客的深度和广度都还不错，但是我所掌握的知识一般都写在这了~**
 
-#**如果您是面试我的面试官，请不要专门挑博客里没有的内容进行提问~ 感谢理解~**
- 
-
-#.. image:: ./_static/python/感谢理解.png
-	:width: 150
 
 .. toctree::
    :caption: 机器学习
@@ -45,6 +39,14 @@
    :maxdepth: 2
 
    nlp/nlp
+   
+
+.. toctree::
+   :caption: 推荐系统
+   :maxdepth: 2
+
+   recommend/recommend
+   
    
 .. toctree::
    :caption: 题目
