@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 ******************
-推荐系统
+recommend
 ******************
 
 整体概念
