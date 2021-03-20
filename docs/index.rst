@@ -47,6 +47,12 @@
 
    recommend/recommend
    
+
+.. toctree::
+   :caption: 实用工具
+   :maxdepth: 2
+
+   tools/tools
    
 .. toctree::
    :caption: 题目
