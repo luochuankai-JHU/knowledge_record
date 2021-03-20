@@ -67,6 +67,7 @@ SQL SELECT 语法::
 
 
 eg::
+
     SELECT name,country FROM Websites;//选择name、country列
     SELECT * FROM Websites;
 
@@ -84,7 +85,8 @@ SQL SELECT DISTINCT 语法::
 
 eg::
 
-    SELECT DISTINCT country FROM Websites;//从 "Websites" 表的 "country" 列中选取唯一不同的值，也就是去掉 "country" 列重复值
+    SELECT DISTINCT country FROM Websites;
+	//从 "Websites" 表的 "country" 列中选取唯一不同的值，也就是去掉 "country" 列重复值
     
 SQL WHERE 子句
 -------------------------------------
@@ -110,6 +112,16 @@ eg::
       
 WHERE 子句中的运算符
 -------------------------------
-=, <>, > ,< ,>= ,<=, BETWEEN, LIKE, IN
+
+|     = 	      等于
+|     <> 	      不等于。注释：在 SQL 的一些版本中，该操作符可被写成 !=
+|     > 	      大于
+|     < 	      小于
+|     >= 	      大于等于
+|     <= 	      小于等于
+| BETWEEN 	  在某个范围内
+|     LIKE 	  搜索某种模式
+|     IN 	      指定针对某个列的多个可能值
+
 
 
