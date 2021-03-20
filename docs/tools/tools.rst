@@ -474,4 +474,4 @@ GROUP BY 简单应用，统计 access_log 各个 site_id 的访问量::
 
 .. image:: ../../_static/tools/groupby1.png
     :align: center
-    :width: 300
+    :width: 500
