@@ -113,15 +113,15 @@ eg::
 WHERE 子句中的运算符
 -------------------------------
 
-| •	=	等于
-| •	<>	不等于。注释：在 SQL 的一些版本中，该操作符可被写成 !=
-| •	>	大于
-| •	<	小于
-| •	>=	大于等于
-| •	<=	小于等于
-| •	BETWEEN	在某个范围内
-| •	LIKE	搜索某种模式
-| •	IN	指定针对某个列的多个可能值
+| •	   =	   等于
+| •   	<>	   不等于。注释：在 SQL 的一些版本中，该操作符可被写成 !=
+| •	   >	   大于
+| •	   <   	小于
+| •	   >=	大于等于
+| •	   <=   	小于等于
+| •	   BETWEEN   	在某个范围内
+| •	   LIKE   	搜索某种模式
+| •	   IN   	指定针对某个列的多个可能值
 
 
 SQL AND & OR 运算符
@@ -199,9 +199,7 @@ UPDATE 语句用于更新表中已存在的记录。
 SQL UPDATE 语法::
 
     UPDATE table_name
-
     SET column1=value1,column2=value2,...
-
     WHERE some_column=some_value;
 
 eg::
@@ -227,5 +225,126 @@ eg::
 
 
 
+
+
+IN 操作符
+------------------------
+IN 操作符允许您在 WHERE 子句中规定多个值。
+
+SQL IN 语法::
+
+	SELECT column_name(s)
+	FROM table_name
+	WHERE column_name IN (value1,value2,...);
+
+	SELECT * FROM Websites
+	WHERE name IN ('Google','菜鸟教程');
+
+
+SQL LIKE 操作符
+----------------------------
+LIKE 操作符用于在 WHERE 子句中搜索列中的指定模式。
+
+SQL LIKE 语法::
+
+	SELECT column_name(s)
+	FROM table_name
+	WHERE column_name LIKE pattern;
+
+	SELECT * FROM Websites
+	WHERE name LIKE 'G%';//以G开头
+	
+	SELECT * FROM Websites
+	WHERE name LIKE '%k';//以k结尾
+	
+	SELECT * FROM Websites
+	WHERE name LIKE '%oo%';//包含oo
+	
+	SELECT * FROM Websites
+	WHERE name NOT LIKE '%oo%';//不包含oo
+	
+	SELECT * FROM Websites
+	WHERE name LIKE '_oogle';
+	
+	SELECT * FROM Websites
+	WHERE name REGEXP '^[GFs]';//选取 name 以 "G"、"F" 或 "s" 开始的所有网站
+	
+	SELECT * FROM Websites
+	WHERE name REGEXP '^[A-H]';//选取 name 不以 A 到 H 字母开头的网站
+
+
+
+SQL BETWEEN 操作符
+--------------------------------
+BETWEEN 操作符选取介于两个值之间的数据范围内的值。这些值可以是数值、文本或者日期。
+
+SQL BETWEEN 语法::
+
+	SELECT column_name(s)
+	FROM table_name
+	WHERE column_name BETWEEN value1 AND value2;
+
+	SELECT * FROM Websites
+	WHERE alexa BETWEEN 1 AND 20;//选取 alexa 介于 1 和 20 之间的所有网站
+	
+	SELECT * FROM Websites
+	WHERE alexa NOT BETWEEN 1 AND 20;
+	
+	SELECT * FROM Websites
+	WHERE (alexa BETWEEN 1 AND 20)
+	AND NOT country IN ('USA', 'IND');//选取alexa介于 1 和 20 之间但 country 不为 USA 和 IND 的所有网站
+	
+	SELECT * FROM Websites
+	WHERE name BETWEEN 'A' AND 'H';//选取 name 以介于 'A' 和 'H' 之间字母开始的所有网站
+	
+	SELECT * FROM Websites
+	WHERE name NOT BETWEEN 'A' AND 'H';//选取 name 不介于 'A' 和 'H' 之间字母开始的所有网站
+	
+	SELECT * FROM access_log
+	WHERE date BETWEEN '2016-05-10' AND '2016-05-14';//选取 date 介于 '2016-05-10' 和 '2016-05-14' 之间的所有访问记录
+
+
+SQL 别名
+---------------------
+通过使用 SQL，可以为表名称或列名称指定别名。基本上，创建别名是为了让列名称的可读性更强。
+
+列的 SQL 别名语法::
+
+	SELECT column_name AS alias_name
+	FROM table_name;
+
+表的 SQL 别名语法::
+
+	SELECT column_name(s)
+	FROM table_name AS alias_name;
+
+	SELECT name, CONCAT(url, ', ', alexa, ', ', country) AS site_info
+	FROM Websites;//我们把三个列（url、alexa 和 country）结合在一起，
+	并创建一个名为 "site_info" 的别名
+
+	SELECT w.name, w.url, a.count, a.date 
+	FROM Websites AS w, access_log AS a 
+	WHERE a.site_id=w.id and w.name="菜鸟教程";//我们使用 "Websites" 和 "access_log" 表，
+	并分别为它们指定表别名 "w" 和 "a"
+	
+	
+SQL JOIN
+---------------------------------
+SQL JOIN 子句用于把来自两个或多个表的行结合起来，基于这些表之间的共同字段。
+
+最常见的 JOIN 类型：SQL INNER JOIN（简单的 JOIN）。 
+
+SQL INNER JOIN 从多个表中返回满足 JOIN 条件的所有行::
+
+	SELECT Websites.id, Websites.name, access_log.count, access_log.date
+	FROM Websites
+	INNER JOIN access_log
+	ON Websites.id=access_log.site_id;//"Websites" 表中的 "id" 列指向 "access_log" 表中的字段 "site_id"。
+	上面这两个表是通过 "site_id" 列联系起来的
+
+| •	INNER JOIN：如果表中有至少一个匹配，则返回行
+| •	LEFT JOIN：即使右表中没有匹配，也从左表返回所有的行
+| •	RIGHT JOIN：即使左表中没有匹配，也从右表返回所有的行
+| •	FULL JOIN：只要其中一个表中存在匹配，则返回行
 
 
