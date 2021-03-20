@@ -367,4 +367,111 @@ SQL INNER JOIN 语法::
 
 .. image:: ../../_static/tools/innerjoin.png
     :align: center
+    :width: 150
+    
+    
+    
+SQL UNION 操作符
+--------------------------
+UNION 操作符用于合并两个或多个 SELECT 语句的结果集。请注意，UNION 内部的每个 SELECT 语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每个 SELECT 语句中的列的顺序必须相同。
+
+SQL UNION 语法::
+
+    SELECT column_name(s) FROM table1
+    UNION
+    SELECT column_name(s) FROM table2;
+
+注释：默认地，UNION 操作符选取不同的值。如果允许重复的值，请使用 UNION ALL。
+
+eg::
+
+    SELECT country FROM Websites
+    UNION
+    SELECT country FROM apps
+    ORDER BY country;
+
+//UNION 不能用于列出两个表中所有的country。如果一些网站和APP来自同一个国家，每个国家只会列出一次。UNION 只会选取不同的值。请使用 UNION ALL 来选取重复的值！
+
+SQL UNION ALL 语法
+----------------------------------------
+
+eg::
+
+    SELECT column_name(s) FROM table1
+    UNION ALL
+    SELECT column_name(s) FROM table2;
+
+eg::
+
+    SELECT country FROM Websites
+    UNION ALL
+    SELECT country FROM apps
+    ORDER BY country;//使用 UNION ALL 从 "Websites" 和 "apps" 表中选取所有的country（也有重复的值）
+
+    SELECT country, name FROM Websites
+    WHERE country='CN'
+    UNION ALL
+    SELECT country, app_name FROM apps
+    WHERE country='CN'
+    ORDER BY country;
+
+//下面的 SQL 语句使用 UNION ALL 从 "Websites" 和 "apps" 表中选取所有的中国(CN)的数据SQL NULL 值如果表中的某个列是可选的，那么我们可以在不向该列添加值的情况下插入新记录或更新已有的记录。这意味着该字段将以 NULL 值保存。
+
+SQL IS NULL
+--------------------------
+我们如何仅仅选取在 "Address" 列中带有 NULL 值的记录呢？
+
+我们必须使用 IS NULL 操作符::
+
+    SELECT LastName,FirstName,Address FROM Persons
+    WHERE Address IS NULL
+
+SQL IS NOT NULL
+-------------------------------------
+我们如何仅仅选取在 "Address" 列中不带有 NULL 值的记录呢？
+
+我们必须使用 IS NOT NULL 操作符::
+
+    SELECT LastName,FirstName,Address FROM Persons
+    WHERE Address IS NOT NULL
+	
+	
+GROUP BY 语句
+-----------------------
+GROUP BY 语句用于结合聚合函数，根据一个或多个列对结果集进行分组。
+
+SQL GROUP BY 语法::
+
+	SELECT column_name, aggregate_function(column_name)
+	FROM table_name
+	WHERE column_name operator value
+	GROUP BY column_name;
+
+GROUP BY 简单应用，统计 access_log 各个 site_id 的访问量::
+
+	mysql> SELECT * FROM access_log;
+	+-----+---------+-------+------------+
+	| aid | site_id | count | date       |
+	+-----+---------+-------+------------+
+	|   1 |       1 |    45 | 2016-05-10 |
+	|   2 |       3 |   100 | 2016-05-13 |
+	|   3 |       1 |   230 | 2016-05-14 |
+	|   4 |       2 |    10 | 2016-05-14 |
+	|   5 |       5 |   205 | 2016-05-14 |
+	|   6 |       4 |    13 | 2016-05-15 |
+	|   7 |       3 |   220 | 2016-05-15 |
+	|   8 |       5 |   545 | 2016-05-16 |
+	|   9 |       3 |   201 | 2016-05-17 |
+	+-----+---------+-------+------------+
+	9 rows in set (0.00 sec)
+
+
+
+	SELECT site_id, SUM(access_log.count) AS nums
+	FROM access_log GROUP BY site_id;
+	
+执行以上 SQL 输出结果如下：
+
+.. image:: ../../_static/tools/groupby1.png
+    :align: center
     :width: 300
