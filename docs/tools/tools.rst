@@ -434,42 +434,42 @@ SQL IS NOT NULL
 
     SELECT LastName,FirstName,Address FROM Persons
     WHERE Address IS NOT NULL
-	
-	
+    
+    
 GROUP BY 语句
 -----------------------
 GROUP BY 语句用于结合聚合函数，根据一个或多个列对结果集进行分组。
 
 SQL GROUP BY 语法::
 
-	SELECT column_name, aggregate_function(column_name)
-	FROM table_name
-	WHERE column_name operator value
-	GROUP BY column_name;
+    SELECT column_name, aggregate_function(column_name)
+    FROM table_name
+    WHERE column_name operator value
+    GROUP BY column_name;
 
 GROUP BY 简单应用，统计 access_log 各个 site_id 的访问量::
 
-	mysql> SELECT * FROM access_log;
-	+-----+---------+-------+------------+
-	| aid | site_id | count | date       |
-	+-----+---------+-------+------------+
-	|   1 |       1 |    45 | 2016-05-10 |
-	|   2 |       3 |   100 | 2016-05-13 |
-	|   3 |       1 |   230 | 2016-05-14 |
-	|   4 |       2 |    10 | 2016-05-14 |
-	|   5 |       5 |   205 | 2016-05-14 |
-	|   6 |       4 |    13 | 2016-05-15 |
-	|   7 |       3 |   220 | 2016-05-15 |
-	|   8 |       5 |   545 | 2016-05-16 |
-	|   9 |       3 |   201 | 2016-05-17 |
-	+-----+---------+-------+------------+
-	9 rows in set (0.00 sec)
+    mysql> SELECT * FROM access_log;
+    +-----+---------+-------+------------+
+    | aid | site_id | count | date       |
+    +-----+---------+-------+------------+
+    |   1 |       1 |    45 | 2016-05-10 |
+    |   2 |       3 |   100 | 2016-05-13 |
+    |   3 |       1 |   230 | 2016-05-14 |
+    |   4 |       2 |    10 | 2016-05-14 |
+    |   5 |       5 |   205 | 2016-05-14 |
+    |   6 |       4 |    13 | 2016-05-15 |
+    |   7 |       3 |   220 | 2016-05-15 |
+    |   8 |       5 |   545 | 2016-05-16 |
+    |   9 |       3 |   201 | 2016-05-17 |
+    +-----+---------+-------+------------+
+    9 rows in set (0.00 sec)
 
 
 
-	SELECT site_id, SUM(access_log.count) AS nums
-	FROM access_log GROUP BY site_id;
-	
+    SELECT site_id, SUM(access_log.count) AS nums
+    FROM access_log GROUP BY site_id;
+    
 执行以上 SQL 输出结果如下：
 
 .. image:: ../../_static/tools/groupby1.png
@@ -518,7 +518,7 @@ ls命令
 
 e.g::
 
-	hadoop fs -ls afs://xingtian.afs.baidu.com:portname/path 列出path目录下所有文件的上述信息
+    hadoop fs -ls afs://xingtian.afs.baidu.com:portname/path 列出path目录下所有文件的上述信息
 
 
 
@@ -528,7 +528,7 @@ hadoop fs -cat ***：查看***文件内容（可以搭配grep/wc/count等命令�
 
 e.g::
 
-	hadoop fs -cat afs://xingtian.afs.baidu.com:portname/path/filename | grep 'index' | head -n 100
+    hadoop fs -cat afs://xingtian.afs.baidu.com:portname/path/filename | grep 'index' | head -n 100
 
     查看文件filename（只显示带有index字符串的前100行）
 
@@ -540,29 +540,39 @@ hadoop fs -mkdir <paths>：创建目录（一般创建目录需要有对应目�
 
 e.g::
 
-	hadoop fs -mkdir  afs://xingtian.afs.baidu.com:portname/path/test 在path路径下创建新文件夹test
+    hadoop fs -mkdir  afs://xingtian.afs.baidu.com:portname/path/test 在path路径下创建新文件夹test
 
 rmr命令
 ~~~~~~~~~~~~~~~~~~~~~~~~
 hadoop fs -rmr ***：删除文件或目录（可能会需要权限，慎用此命令）
 
-e.g，hadoop fs -rmr afs://xingtian.afs.baidu.com:portname/path/test 删除文件test或者文件夹test
+e.g::
+
+    hadoop fs -rmr afs://xingtian.afs.baidu.com:portname/path/test 删除文件test或者文件夹test
 
 get命令
 ~~~~~~~~~~~~~~~~~~~~~~~~
 hadoop fs -get <afs_paths> <localdst>：复制文件到本地文件系统
 
-e.g，hadoop fs -get afs://xingtian.afs.baidu.com:portname/path/test ~/example
+e.g::
 
-         从afs复制文件（或目录）test到本地~/example文件夹
+    hadoop fs -get afs://xingtian.afs.baidu.com:portname/path/test ~/example
+
+    从afs复制文件（或目录）test到本地~/example文件夹
 
 put命令
 ~~~~~~~~~~~~~~~~~~~~~~~~
 hadoop fs -put *** <afs-paths> ：复制本地文件***到afs系统
 
-e.g，hadoop fs -put /home/work/20180703/ afs://xingtian.afs.baidu.com:portname/path/test/data
+e.g::
 
-         复制本地当前文件夹20180703到集群data目录，如果目标data目录不存在，则会创建data目录并把/home/work/test/下面的文件拷贝到data目录下（不保留20180703文件夹）。即如果20180703目录下有文件test.txt，而目标路径无data目录，则结果会是/test/data/test.txt，目标路径有data目录，put的结果才会是/test/data/20180703/test.txt，这里要注意，否则会跟预期结果不一样。
+    hadoop fs -put /home/work/20180703/ afs://xingtian.afs.baidu.com:portname/path/test/data
+
+复制本地当前文件夹20180703到集群data目录，如果目标data目录不存在，则会创建data目录并把/home/work/test/下面的文件拷贝到data目录下（不保留20180703文件夹）。
+
+即如果20180703目录下有文件test.txt，而目标路径无data目录，则结果会是/test/data/test.txt，目标路径有data目录，put的结果才会是/test/data/20180703/test.txt，
+
+这里要注意，否则会跟预期结果不一样。
 
 权限问题（ugi）
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -570,21 +580,27 @@ e.g，hadoop fs -put /home/work/20180703/ afs://xingtian.afs.baidu.com:portname/
 
 -D hadoop.job.ugi=username,groupname以新的用户ID和组ID去访问目标路径文件。
 
-e.g，hadoop fs -D hadoop.job.ugi=username,groupname ls ***
+e.g::
+
+    hadoop fs -D hadoop.job.ugi=username,groupname ls ***
 
 杀死任务（kill命令）
 ~~~~~~~~~~~~~~~~~~~~~~~~
 hadoop job <ugi> <tracker> -kill <job id>：kill tracker集群中正运行的job
 
-e.g，hadoop job -Dhadoop.job.ugi=***,***  -Dmapred.job.tracker=szwg-wuge-job.szwg.dmop.baidu.com:54311 -kill job_20190501005919_3804195
+e.g::
 
-         杀死集群szwg-wuge-job.szwg.dmop.baidu.com:54311中job job_20190501005919_3804195。
+    hadoop job -Dhadoop.job.ugi=***,***  -Dmapred.job.tracker=szwg-wuge-job.szwg.dmop.baidu.com:54311 -kill job_20190501005919_3804195
+
+杀死集群szwg-wuge-job.szwg.dmop.baidu.com:54311中job job_20190501005919_3804195。
 
 更改任务优先级
 ~~~~~~~~~~~~~~~~~~~~~~~~
 hadoop job <ugi> <tracker> -set-priority <job id> <priority>
 
-e.g，hadoop job -Dhadoop.job.ugi=***,*** -Dmapred.job.tracker=szwg-wuge-job.szwg.dmop.baidu.com:54311 -set-priority job_20190501005919_3789481 VERY_HIGH
+e.g::
+
+    hadoop job -Dhadoop.job.ugi=***,*** -Dmapred.job.tracker=szwg-wuge-job.szwg.dmop.baidu.com:54311 -set-priority job_20190501005919_3789481 VERY_HIGH
 
 计算文件夹/文件大小（du/dus命令）
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -596,14 +612,18 @@ touchz命令
 ~~~~~~~~~~~~~~~~~~~~~~~~
 hadoop fs -touchz <afs_paths>：创建一个0字节的空文件，成功返回0，失败返回 -1.
 
-e.g，hadoop fs -touchz afs://xingtian.afs.baidu.com:9902/user/feed/mlarch/lijunjun/test_file
+e.g::
 
-         在afs://xingtian.afs.baidu.com:9902/user/feed/mlarch/lijunjun目录下创建空文件test_file。
+    hadoop fs -touchz afs://xingtian.afs.baidu.com:9902/user/feed/mlarch/lijunjun/test_file
+
+    在afs://xingtian.afs.baidu.com:9902/user/feed/mlarch/lijunjun目录下创建空文件test_file。
 
 集群间copy数据(distcp)
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 命令
+
 /home/work/pingo/tool/hmpclient/bin/hadoop distcp -Dfs.default.name=<任务default集群> -Dhadoop.job.ugi=<任务ugi> -D mapred.job.queue.name=<任务队列> -D mapred.job.tracker=<任务集群tracker> -D dfs.replication=3 -D mapred.job.map.capacity=5000 -D mapred.job.priority=HIGH -su src_ugi -du dest_ugi -update src_path dest_path
 用例
+
 hadoop distcp  -Dfs.default.name=afs://xingtian.afs.baidu.com:9902 -Dhadoop.job.ugi=mlarch,****** -D mapred.job.queue.name=feed-mlarch -D mapred.job.tracker=yq01-xingtian-job.dmop.baidu.com:54311  -D dfs.replication=3 -D mapred.job.map.capacity=5000 -D mapred.job.priority=HIGH -su mlarch,****** -du mlarch,****** -update afs://xingtian.afs.baidu.com:9902/user/feed/mlarch/ctr-logmerge/baipai_video_sample/20200521/ afs://shaolin.afs.baidu.com:9902/user/mlarch/ctr-logmerge/baobaozhidao_sample/20200520/13
