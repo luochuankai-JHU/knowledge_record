@@ -505,11 +505,11 @@ hadoop常用命令
 大部分hadoop命令跟Linux命令相同，只是在使用时需要加上hadoop fs前缀。
 
 hadoop fs、hadoop dfs、hdfs dfs的区别
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------
 fs与dfs对于hadoop来说是两个不同的shell，两者的区别在于fs可以操作所有的文件系统，而dfs只能操作HDFS文件系统。
 
 ls命令
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------
 使用方法：hadoop fs -ls ***
 
 对于文件***，返回文件信息（权限 副本数 用户ID 组ID 文件大小 修改日期 修改时间 文件名）
@@ -523,7 +523,7 @@ e.g::
 
 
 cat命令
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------
 hadoop fs -cat ***：查看***文件内容（可以搭配grep/wc/count等命令一起使用）
 
 e.g::
@@ -535,7 +535,7 @@ e.g::
 
 
 mkdir命令
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------
 hadoop fs -mkdir <paths>：创建目录（一般创建目录需要有对应目录的权限）
 
 e.g::
@@ -543,7 +543,7 @@ e.g::
     hadoop fs -mkdir  afs://xingtian.afs.baidu.com:portname/path/test 在path路径下创建新文件夹test
 
 rmr命令
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 hadoop fs -rmr ***：删除文件或目录（可能会需要权限，慎用此命令）
 
 e.g::
@@ -551,17 +551,17 @@ e.g::
     hadoop fs -rmr afs://xingtian.afs.baidu.com:portname/path/test 删除文件test或者文件夹test
 
 get命令
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 hadoop fs -get <afs_paths> <localdst>：复制文件到本地文件系统
 
 e.g::
 
-    hadoop fs -get afs://xingtian.afs.baidu.com:portname/path/test ~/example
+    hadoop fs -get afs://xingtian.afs.baidu.com:portname/path/test -/example
 
-    从afs复制文件（或目录）test到本地~/example文件夹
+    从afs复制文件（或目录）test到本地-/example文件夹
 
 put命令
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 hadoop fs -put *** <afs-paths> ：复制本地文件***到afs系统
 
 e.g::
@@ -575,7 +575,7 @@ e.g::
 这里要注意，否则会跟预期结果不一样。
 
 权限问题（ugi）
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 当对非当前用户组的文件进行操作时，会遇到权限问题，解决办法为在 fs 和命令中添加
 
 -D hadoop.job.ugi=username,groupname以新的用户ID和组ID去访问目标路径文件。
@@ -585,7 +585,7 @@ e.g::
     hadoop fs -D hadoop.job.ugi=username,groupname ls ***
 
 杀死任务（kill命令）
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 hadoop job <ugi> <tracker> -kill <job id>：kill tracker集群中正运行的job
 
 e.g::
@@ -595,7 +595,7 @@ e.g::
 杀死集群szwg-wuge-job.szwg.dmop.baidu.com:54311中job job_20190501005919_3804195。
 
 更改任务优先级
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 hadoop job <ugi> <tracker> -set-priority <job id> <priority>
 
 e.g::
@@ -603,13 +603,13 @@ e.g::
     hadoop job -Dhadoop.job.ugi=***,*** -Dmapred.job.tracker=szwg-wuge-job.szwg.dmop.baidu.com:54311 -set-priority job_20190501005919_3789481 VERY_HIGH
 
 计算文件夹/文件大小（du/dus命令）
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 hadoop fs -du <afs-paths-dir>  ：列出文件夹中所有文件的大小
 
 hadoop fs -dus <afs-paths-dir>：列出文件夹的大小
 
 touchz命令
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 hadoop fs -touchz <afs_paths>：创建一个0字节的空文件，成功返回0，失败返回 -1.
 
 e.g::
@@ -619,7 +619,7 @@ e.g::
     在afs://xingtian.afs.baidu.com:9902/user/feed/mlarch/lijunjun目录下创建空文件test_file。
 
 集群间copy数据(distcp)
-~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------
 
 命令
 
