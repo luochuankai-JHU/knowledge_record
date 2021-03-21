@@ -710,12 +710,12 @@ Hadoop Streaming提供了一个便于进行MapReduce编程的工具包，使用�
 
 首先要在hdfs中创建相应的目录，为了方便，我将一部分hadoop命令做了别名::
 
-alias stop-dfs='/usr/local/hadoop/sbin/stop-dfs.sh'
-alias start-dfs='/usr/local/hadoop/sbin/start-dfs.sh'
-alias dfs='/usr/local/hadoop/bin/hdfs dfs'
-echo "alias stop-dfs='/usr/local/hadoop/sbin/stop-dfs.sh'" >> /etc/profile
-echo "alias start-dfs='/usr/local/hadoop/sbin/start-dfs.sh'" >> /etc/profile
-echo "alias dfs='/usr/local/hadoop/bin/hdfs dfs'" >> /etc/profile
+    alias stop-dfs='/usr/local/hadoop/sbin/stop-dfs.sh'
+    alias start-dfs='/usr/local/hadoop/sbin/start-dfs.sh'
+    alias dfs='/usr/local/hadoop/bin/hdfs dfs'
+    echo "alias stop-dfs='/usr/local/hadoop/sbin/stop-dfs.sh'" >> /etc/profile
+    echo "alias start-dfs='/usr/local/hadoop/sbin/start-dfs.sh'" >> /etc/profile
+    echo "alias dfs='/usr/local/hadoop/bin/hdfs dfs'" >> /etc/profile
 
 
 启动hadoop后，先创建一个用户目录
