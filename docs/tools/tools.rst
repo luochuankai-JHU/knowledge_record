@@ -7,7 +7,7 @@
 实用工具
 ******************
 
-SQL
+SQL语法
 =====================
 
 大致概念与资源
@@ -28,7 +28,7 @@ SQL
 SQL 常用命令及练习--之一     https://zhuanlan.zhihu.com/p/37110401
 
 
-SQL语法
+开始
 --------------------
 
 开始::
@@ -483,8 +483,13 @@ GROUP BY 简单应用，统计 access_log 各个 site_id 的访问量::
 
 
 
-hadoop
+hadoop常用命令
 ==========================
+
+大部分hadoop命令跟Linux命令相同，只是在使用时需要加上hadoop fs前缀。
+
+各命令请看官方文档： Hadoop Shell命令  http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html
+
 
 hadoop HDFS MapReduce afs简介
 ------------------------------------------
@@ -500,13 +505,10 @@ AFS：Advanced/Amazing File System，是百度的第二代超大规模文件系�
 ML-arch离线服务的存储与运算使用afs集群与mapreduce计算框架，关于hadoop与mapreduce的详细介绍参见hadoop用户手册。
 
 
-hadoop常用命令
----------------------------
-大部分hadoop命令跟Linux命令相同，只是在使用时需要加上hadoop fs前缀。
-
 hadoop fs、hadoop dfs、hdfs dfs的区别
 ----------------------------------------------------
 fs与dfs对于hadoop来说是两个不同的shell，两者的区别在于fs可以操作所有的文件系统，而dfs只能操作HDFS文件系统。
+
 
 ls命令
 ----------------------------------------------------
@@ -627,3 +629,149 @@ e.g::
 用例
 
 hadoop distcp  -Dfs.default.name=afs://xingtian.afs.baidu.com:9902 -Dhadoop.job.ugi=mlarch,****** -D mapred.job.queue.name=feed-mlarch -D mapred.job.tracker=yq01-xingtian-job.dmop.baidu.com:54311  -D dfs.replication=3 -D mapred.job.map.capacity=5000 -D mapred.job.priority=HIGH -su mlarch,****** -du mlarch,****** -update afs://xingtian.afs.baidu.com:9902/user/feed/mlarch/ctr-logmerge/baipai_video_sample/20200521/ afs://shaolin.afs.baidu.com:9902/user/mlarch/ctr-logmerge/baobaozhidao_sample/20200520/13
+
+
+python在hadoop下编写map-reduce示例
+==========================================
+
+
+Hadoop Streaming提供了一个便于进行MapReduce编程的工具包，使用它可以基于一些可执行命令、脚本语言或其他编程语言来实现Mapper和 Reducer，从而充分利用Hadoop并行计算框架的优势和能力，来处理大数据。
+
+部署hadoop环境，这点可以参考 http://www.powerxing.com/install-hadoop-in-centos/
+
+部署hadoop完成后，需要下载hadoop-streaming包，这个可以到 http://www.java2s.com/Code/JarDownload/hadoop-streaming/hadoop-streaming-0.23.6.jar.zip 去下载，
+或者访问 http://www.java2s.com/Code/JarDownload/hadoop-streaming/
+选择最新版本，千万不要选择source否则后果自负，选择编译好的jar包即可，放到/usr/local/hadoop目录下备用
+
+数据：在阿里的天池大数据竞赛网站下载了母婴类购买统计数据，记录了900+个萌萌哒小baby的购买用户名、出生日期和性别信息，天池的地址https://tianchi.shuju.aliyun.com/datalab/index.htm
+
+数据是一个csv文件，结构如下：
+
+用户名,出生日期,性别（0女，1男，2不愿意透露性别）
+
+比如：415971,20121111,0（数据已经脱敏处理）
+
+下面我们来试着统计每年的男女婴人数
+
+接下来开始写mapper程序mapper.py，由于hadoop-streaming是基于Unix Pipe的，数据会从标准输入sys.stdin输入，所以输入就写sys.stdin::
+
+    #!/usr/bin/python
+    # -*- coding: utf-8 -*-
+     
+    import sys
+     
+    for line in sys.stdin:
+        line = line.strip()
+        data = line.split(',')
+        if len(data)<3:
+            continue
+        user_id = data[0]
+        birthyear = data[1][0:4]
+        gender = data[2]
+        print >>sys.stdout,"%s\t%s"%(birthyear,gender)
+
+
+下面是reduce程序，这里大家需要注意一下，map到reduce的期间，hadoop会自动给map出的key排序，所以到reduce中是一个已经排序的键值对，这简化了我们的编程工作::
+
+    #!/usr/bin/python
+    # -*- coding: utf-8 -*-
+    import sys
+     
+    gender_totle = {'0':0,'1':0,'2':0}
+    prev_key = False
+    for line in sys.stdin:#map的时候map中的key会被排序
+        line = line.strip()    
+        data = line.split('\t')
+        birthyear = data[0]
+        curr_key = birthyear
+        gender = data[1]
+        
+        #寻找边界，输出结果
+        if prev_key and curr_key !=prev_key:#不是第一次，并且找到了边界
+            print >>sys.stdout,"%s year has female %s and male %s"%(prev_key,gender_totle['0'],gender_totle['1'])
+            #先输出上一次统计的结果
+            prev_key = curr_key
+            gender_totle['0'] = 0
+            gender_totle['1'] = 0
+            gender_totle['2'] = 0#清零
+            gender_totle[gender] +=1#开始计数
+        else:
+            prev_key = curr_key
+            gender_totle[gender] += 1
+    #输出最后一行
+    if prev_key:
+        print >>sys.stdout,"%s year has female %s and male %s"%(prev_key,gender_totle['0'],gender_totle['1'])
+
+接下来就是将样本和mapper reducer上传到hdfs中并执行了
+
+可以先这样测试下python脚本是否正确::
+
+    cat sample.csv | python mapper.py | sort -k1,1 | python reducer.py > result.log
+
+首先要在hdfs中创建相应的目录，为了方便，我将一部分hadoop命令做了别名::
+
+alias stop-dfs='/usr/local/hadoop/sbin/stop-dfs.sh'
+alias start-dfs='/usr/local/hadoop/sbin/start-dfs.sh'
+alias dfs='/usr/local/hadoop/bin/hdfs dfs'
+echo "alias stop-dfs='/usr/local/hadoop/sbin/stop-dfs.sh'" >> /etc/profile
+echo "alias start-dfs='/usr/local/hadoop/sbin/start-dfs.sh'" >> /etc/profile
+echo "alias dfs='/usr/local/hadoop/bin/hdfs dfs'" >> /etc/profile
+
+
+启动hadoop后，先创建一个用户目录
+
+hadoop fs -mkdir /user/root/input
+
+然后将样本上传到此目录中
+
+hadoop fs -put ./sample.csv /user/root/input
+
+接下来将mapper.py和reducer.py上传到服务器上，切换到上传以上两个文件的目录
+
+然后就可以执行了::
+
+    hadoop jar /usr/local/hadoop/hadoop-streaming-0.23.6.jar \
+    -D mapred.job.name="testhadoop" \
+    -D mapred.job.queue.name=testhadoopqueue \
+    -D mapred.map.tasks=50 \
+    -D mapred.min.split.size=1073741824 \
+    -D mapred.reduce.tasks=10 \
+    -D stream.num.map.output.key.fields=1 \
+    -D num.key.fields.for.partition=1 \
+    -input input/sample.csv \    #样本的路径
+    -output output-streaming \   #输出结果的路径，自己定义
+    -mapper mapper.py \          #上面写的mapper的脚本
+    -reducer reducer.py \        #上面写的reducer的脚本
+    -file mapper.py \
+    -file reducer.py \
+    -partitioner org.apache.hadoop.mapred.lib.KeyFieldBasedPartitioner  
+
+命令的解释：
+
+（1）-input：输入文件路径
+
+（2）-output：输出文件路径
+
+（3）-mapper：用户自己写的mapper程序，可以是可执行文件或者脚本
+
+（4）-reducer：用户自己写的reducer程序，可以是可执行文件或者脚本
+
+（5）-file：打包文件到提交的作业中，可以是mapper或者reducer要用的输入文件，如配置文件，字典等。这个一般是必须有的，
+因为mapper和reducer函数都是写在本地的文件中，因此需要将文件上传到集群中才能被执行
+
+（6）-partitioner：用户自定义的partitioner程序
+
+| （7）-D：作业的一些属性（以前用的是-jonconf），具体有：
+|               1）mapred.map.tasks：map task数目  
+|               设置的数目与实际运行的值并不一定相同，若输入文件含有M个part，而此处设置的map_task数目超过M，那么实际运行map_task仍然是M
+|               2）mapred.reduce.tasks：reduce task数目  不设置的话，默认值就为1
+|               3）num.key.fields.for.partition=N：shuffle阶段将数据集的前N列作为Key；所以对于wordcount程序，map输出为“word  1”，shuffle是以word作为Key，因此这里N=1
+
+（8）-D stream.num.map.output.key.fields=1 这个是指在reduce之前将数据按前1列做排序，一般情况下可以去掉
+
+ 
+
+出现以下字样就是成功了::
+
+    16/08/18 18:35:20 INFO mapreduce.Job:  map 100% reduce 100%
+    16/08/18 18:35:20 INFO mapreduce.Job: Job job_local926114196_0001 completed successfully
