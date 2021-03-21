@@ -473,5 +473,137 @@ GROUP BY 简单应用，统计 access_log 各个 site_id 的访问量::
 执行以上 SQL 输出结果如下：
 
 .. image:: ../../_static/tools/groupby1.png
-    :align: center
     :width: 500
+
+
+
+
+
+
+
+
+
+hadoop
+==========================
+
+hadoop HDFS MapReduce afs简介
+------------------------------------------
+
+hadoop：一个由Apache基金会所开发的分布式系统基础架构。核心包括两部分：HDFS和mapreduce。
+
+HDFS：Hadoop Distributed File System，hadoop实现的一个分布式文件系统，用于海量数据的存储。
+
+MapReduce：hadoop使用的计算框架，用于执行对海量数据的高速计算。
+
+AFS：Advanced/Amazing File System，是百度的第二代超大规模文件系统，可以作为其他存储系统的下层，托管所有的离线存储资源，提供存储服务化能力。
+
+ML-arch离线服务的存储与运算使用afs集群与mapreduce计算框架，关于hadoop与mapreduce的详细介绍参见hadoop用户手册。
+
+
+hadoop常用命令
+---------------------------
+大部分hadoop命令跟Linux命令相同，只是在使用时需要加上hadoop fs前缀。
+
+hadoop fs、hadoop dfs、hdfs dfs的区别
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fs与dfs对于hadoop来说是两个不同的shell，两者的区别在于fs可以操作所有的文件系统，而dfs只能操作HDFS文件系统。
+
+ls命令
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+使用方法：hadoop fs -ls ***
+
+对于文件***，返回文件信息（权限 副本数 用户ID 组ID 文件大小 修改日期 修改时间 文件名）
+
+对于目录***，列出目录文件（权限 副本数 用户ID 组ID 0（文件）/子目录文件数 修改日期 修改时间 文件名/子目录名）
+
+e.g::
+
+	hadoop fs -ls afs://xingtian.afs.baidu.com:portname/path 列出path目录下所有文件的上述信息
+
+
+
+cat命令
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+hadoop fs -cat ***：查看***文件内容（可以搭配grep/wc/count等命令一起使用）
+
+e.g::
+
+	hadoop fs -cat afs://xingtian.afs.baidu.com:portname/path/filename | grep 'index' | head -n 100
+
+    查看文件filename（只显示带有index字符串的前100行）
+
+
+
+mkdir命令
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+hadoop fs -mkdir <paths>：创建目录（一般创建目录需要有对应目录的权限）
+
+e.g::
+
+	hadoop fs -mkdir  afs://xingtian.afs.baidu.com:portname/path/test 在path路径下创建新文件夹test
+
+rmr命令
+~~~~~~~~~~~~~~~~~~~~~~~~
+hadoop fs -rmr ***：删除文件或目录（可能会需要权限，慎用此命令）
+
+e.g，hadoop fs -rmr afs://xingtian.afs.baidu.com:portname/path/test 删除文件test或者文件夹test
+
+get命令
+~~~~~~~~~~~~~~~~~~~~~~~~
+hadoop fs -get <afs_paths> <localdst>：复制文件到本地文件系统
+
+e.g，hadoop fs -get afs://xingtian.afs.baidu.com:portname/path/test ~/example
+
+         从afs复制文件（或目录）test到本地~/example文件夹
+
+put命令
+~~~~~~~~~~~~~~~~~~~~~~~~
+hadoop fs -put *** <afs-paths> ：复制本地文件***到afs系统
+
+e.g，hadoop fs -put /home/work/20180703/ afs://xingtian.afs.baidu.com:portname/path/test/data
+
+         复制本地当前文件夹20180703到集群data目录，如果目标data目录不存在，则会创建data目录并把/home/work/test/下面的文件拷贝到data目录下（不保留20180703文件夹）。即如果20180703目录下有文件test.txt，而目标路径无data目录，则结果会是/test/data/test.txt，目标路径有data目录，put的结果才会是/test/data/20180703/test.txt，这里要注意，否则会跟预期结果不一样。
+
+权限问题（ugi）
+~~~~~~~~~~~~~~~~~~~~~~~~
+当对非当前用户组的文件进行操作时，会遇到权限问题，解决办法为在 fs 和命令中添加
+
+-D hadoop.job.ugi=username,groupname以新的用户ID和组ID去访问目标路径文件。
+
+e.g，hadoop fs -D hadoop.job.ugi=username,groupname ls ***
+
+杀死任务（kill命令）
+~~~~~~~~~~~~~~~~~~~~~~~~
+hadoop job <ugi> <tracker> -kill <job id>：kill tracker集群中正运行的job
+
+e.g，hadoop job -Dhadoop.job.ugi=***,***  -Dmapred.job.tracker=szwg-wuge-job.szwg.dmop.baidu.com:54311 -kill job_20190501005919_3804195
+
+         杀死集群szwg-wuge-job.szwg.dmop.baidu.com:54311中job job_20190501005919_3804195。
+
+更改任务优先级
+~~~~~~~~~~~~~~~~~~~~~~~~
+hadoop job <ugi> <tracker> -set-priority <job id> <priority>
+
+e.g，hadoop job -Dhadoop.job.ugi=***,*** -Dmapred.job.tracker=szwg-wuge-job.szwg.dmop.baidu.com:54311 -set-priority job_20190501005919_3789481 VERY_HIGH
+
+计算文件夹/文件大小（du/dus命令）
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+hadoop fs -du <afs-paths-dir>  ：列出文件夹中所有文件的大小
+
+hadoop fs -dus <afs-paths-dir>：列出文件夹的大小
+
+touchz命令
+~~~~~~~~~~~~~~~~~~~~~~~~
+hadoop fs -touchz <afs_paths>：创建一个0字节的空文件，成功返回0，失败返回 -1.
+
+e.g，hadoop fs -touchz afs://xingtian.afs.baidu.com:9902/user/feed/mlarch/lijunjun/test_file
+
+         在afs://xingtian.afs.baidu.com:9902/user/feed/mlarch/lijunjun目录下创建空文件test_file。
+
+集群间copy数据(distcp)
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+命令
+/home/work/pingo/tool/hmpclient/bin/hadoop distcp -Dfs.default.name=<任务default集群> -Dhadoop.job.ugi=<任务ugi> -D mapred.job.queue.name=<任务队列> -D mapred.job.tracker=<任务集群tracker> -D dfs.replication=3 -D mapred.job.map.capacity=5000 -D mapred.job.priority=HIGH -su src_ugi -du dest_ugi -update src_path dest_path
+用例
+hadoop distcp  -Dfs.default.name=afs://xingtian.afs.baidu.com:9902 -Dhadoop.job.ugi=mlarch,****** -D mapred.job.queue.name=feed-mlarch -D mapred.job.tracker=yq01-xingtian-job.dmop.baidu.com:54311  -D dfs.replication=3 -D mapred.job.map.capacity=5000 -D mapred.job.priority=HIGH -su mlarch,****** -du mlarch,****** -update afs://xingtian.afs.baidu.com:9902/user/feed/mlarch/ctr-logmerge/baipai_video_sample/20200521/ afs://shaolin.afs.baidu.com:9902/user/mlarch/ctr-logmerge/baobaozhidao_sample/20200520/13
