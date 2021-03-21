@@ -633,7 +633,7 @@ hadoop distcp  -Dfs.default.name=afs://xingtian.afs.baidu.com:9902 -Dhadoop.job.
 
 python在hadoop下编写map-reduce示例
 ==========================================
-
+使用python在hadoop下编写map-reduce https://blog.csdn.net/laobai1015/article/details/103086737
 
 Hadoop Streaming提供了一个便于进行MapReduce编程的工具包，使用它可以基于一些可执行命令、脚本语言或其他编程语言来实现Mapper和 Reducer，从而充分利用Hadoop并行计算框架的优势和能力，来处理大数据。
 
