@@ -775,3 +775,11 @@ hadoop fs -put ./sample.csv /user/root/input
 
     16/08/18 18:35:20 INFO mapreduce.Job:  map 100% reduce 100%
     16/08/18 18:35:20 INFO mapreduce.Job: Job job_local926114196_0001 completed successfully
+
+
+
+
+
+C++ 入门
+==========================================
+
