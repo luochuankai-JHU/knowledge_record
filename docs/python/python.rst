@@ -120,11 +120,11 @@ all() ：如果全不为空，则返回True；否则返回False。
 
 .. image:: ../../_static/python/any.png
     :align: center
-	:width: 300
-	
+    :width: 300
+    
 .. image:: ../../_static/python/all.png
     :align: center
-	:width: 300
+    :width: 300
 
 
     
@@ -229,16 +229,7 @@ Python垃圾回收
 
 还有一些补充机制
 
-feed流
----------------
-https://www.jianshu.com/p/20293026d366
 
-https://www.jianshu.com/p/791817e6f1b0
-
-协同过滤
------------------
-.. image:: ../../_static/python/协同过滤.png
-    :align: center
     
     
 详解可变、不可变数据类型+引用、深|浅拷贝
@@ -333,6 +324,22 @@ linux 操作系统一些命令
 | • wc: 统计指定文件中的字节数、字数、行数，并将统计结果显示输出。 
 | • tail/head -n 1000 -f nohup.out  看文件的后/前 多少行
 
+eg::
+
+    #新建文本
+    touch a.txt  #默认权限-rw-rw-r--
+
+    #预览文本
+    cat a.txt ，从第一行开始
+    tac a.txt #从最后一行开始
+    nl a.txt #带行号
+    more a.txt #分页，从前往后
+    less a.txt #分页，从后往前
+    head a.txt #只看头几行
+    less a.txt #只看最后几行
+
+    echo "hello" > a.txt #覆盖文件
+    echo "hello" >> a.txt #写入文件
 
 
 pytorch，DDP(DistributedDataParallel)
