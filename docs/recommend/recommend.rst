@@ -124,3 +124,121 @@
 基于模型(model based)的协同过滤是目前最主流的协同过滤类型了，我们的一大堆机器学习算法也可以在这里找到用武之地。
 
 
+
+
+论文阅读
+=====================
+
+
+总体
+----------------
+DeepCTR综述：深度学习用于点击率预估
+https://mp.weixin.qq.com/s/atP3uq8GgAQS9rIeQpa64w
+
+互联网大厂CTR预估前沿进展
+https://mp.weixin.qq.com/s/B2GNzNfPqcY2_OxPR2aRng
+
+
+算法大佬看了流泪，为什么这么好的CTR预估总结之前没分享(上篇)
+https://mp.weixin.qq.com/s/7Rer2qC54CbBYkPrNmWZRA
+算法大佬看了流泪，为什么这么好的CTR预估总结之前没分享(下篇)
+https://mp.weixin.qq.com/s/WDvQlLjHrQE4zU3mdBMJfw
+
+推荐系统技术演进趋势：排序篇
+https://mp.weixin.qq.com/s/gd7Y_cMVotnRcsdZSOcRcg
+推荐系统技术演进趋势：重排篇
+https://mp.weixin.qq.com/s/YorzRyK0iplzqutnhEhrvw
+
+万字长文梳理CTR点击预估模型发展过程与关系图谱
+https://mp.weixin.qq.com/s/qXK7EuBGby718OpcPxAaig
+深度学习推荐系统、CTR预估工业界实战论文整理分享
+https://mp.weixin.qq.com/s/AJGX8kDrQkrIXPs2pzgn2A
+机器学习和深度学习在CTR场景中的应用综述
+https://mp.weixin.qq.com/s/yIudTCaGQ8DH1ymlwUfZbQ
+
+CTR点击率预估论文集锦
+https://mp.weixin.qq.com/s/RVFxdCTpsWop3L8tQWaFjA
+顶会中深度学习用于CTR预估的论文及代码集锦 (1)
+https://mp.weixin.qq.com/s/dSKKIjdtdZvU3kI5POzFEg
+五大顶会2019必读的深度推荐系统与CTR预估相关的论文
+https://mp.weixin.qq.com/s/wIMNEXCF_PX1V0fLhNa-Cw
+KDD 2020关于深度推荐系统与CTR预估工业界必读的论文
+https://mp.weixin.qq.com/s/Twjw1N6RAV447BUEr2nUSw
+WSDM 2020关于深度推荐系统与CTR预估工业界必读的论文
+https://mp.weixin.qq.com/s/c0hPqwfbgdSKGvJwN5nX3A
+SIGIR 2020关于深度推荐系统与CTR预估相关的论文
+https://mp.weixin.qq.com/s/yN5_ZiowpCjP1Fg0_NHjfQ
+WWW 2020关于深度推荐系统与CTR预估相关的论文
+https://mp.weixin.qq.com/s/KITQYRFH6SD_2Y-f-2pyJA
+AAAI 2020关于深度推荐系统与CTR预估相关的论文
+https://mp.weixin.qq.com/s/43rv1YL9V0Dgfz_HId9OKw
+https://github.com/imsheridan/DeepRec
+https://github.com/shenweichen/DeepCTR
+
+SENet双塔模型：在推荐领域召回粗排的应用及其它
+https://mp.weixin.qq.com/s/1cvJUwXAsdoGA-lrp9RsFw
+
+相关公众号：
+DataFun
+炼丹笔记
+小小挖掘机
+深度学习
+深度学习与NLP
+深度传送门
+
+
+
+感想
+--------------------------------------------------------
+1.	低阶特征相当重要。DCN里每次都留下低阶特征。
+2.	是不是交叉相乘比mlp的效果好一些？
+3.	点乘，元素积，相加相减，等等的特征交叉有优劣的说法吗
+FFM 
+Embedding分领域有什么好处
+
+使用transformer？
+平均池化可以优化？
+
+
+FiBiNet  微博2019
+-----------------------
+使用Squeeze-Excitation network (Senet) 结构学习动态特征的重要性以及使用用双线性函数来更好的建模交叉特征
+
+
+.. image:: ../../_static/recommend/fibinet_stru.png
+	:align: center
+	:width: 500
+
+两个亮点。
+
+| 1.把embedding后的向量经过了senet，相当于是加了每一维的attention。
+| 2. 不是使用内积或者元素积（Hadamard product），他们提出了一种结合的方式，Bilinear-Interaction Layer
+
+亮点1：senet
+.. image:: ../../_static/recommend/senet.png
+	:align: center
+	:width: 300
+
+| 有squeeze部分和excitation部分。  
+| Squeeze部分相当于是压缩，可以max pooling或者ave pooling（之后adapt pooling？）。这篇文章里说，ave比原文的max效果好。有篇知乎文章说是因为避免被异常值带偏。
+| Excitation部分相当于是权重，这里是两层mlp学习权重。
+
+
+.. image:: ../../_static/recommend/bilinear_inter.png
+	:align: center
+	:width: 400
+
+| 内积是对应相乘
+| 关于元素积
+
+.. image:: ../../_static/recommend/hadamard.png
+	:align: center
+	:width: 400
+
+感觉.....这种乘法和向量内积的区别，在于最后没有把3和8加起来，保留程度更高一些。
+
+.. image:: ../../_static/recommend/inn_product.png
+	:align: center
+	:width: 400
+
+Bilinear-Interaction Layer这个对于我们不太适用?因为相当于是要学n^2个权重。如果维度高了以后增加了很多计算成本。有评论也说这个复杂度有点高，换成内积速度快很多。
