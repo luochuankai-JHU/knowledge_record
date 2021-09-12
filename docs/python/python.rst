@@ -622,6 +622,15 @@ https://zhuanlan.zhihu.com/p/31197209
     :align: center
     :width: 800
 
+
+
+多进程代码示例
+--------------------
+在这个文档里面就有。已脱敏
+
+https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/_static/python/thread.py
+
+
 面试总结
 ==================================
 总结一下教训
