@@ -22,6 +22,10 @@
 
 西瓜书
 
+| 图神经网络
+| 【斯坦福】CS224W：图机器学习( 中英字幕 | 2019秋)
+| https://www.bilibili.com/video/BV1Vg4y1z7Nf?from=search&seid=14592925438368886851&spm_id_from=333.337.0.0
+
 一个做的很好的GitHub网站，里面总结了面试题
 https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese
 
