@@ -207,7 +207,7 @@ FiBiNet  微博2019
 
 .. image:: ../../_static/recommend/fibinet_stru.png
 	:align: center
-	:width: 500
+	:width: 700
 
 两个亮点。
 
@@ -228,14 +228,14 @@ FiBiNet  微博2019
 
 .. image:: ../../_static/recommend/bilinear_inter.png
 	:align: center
-	:width: 400
+	:width: 500
 
 | 内积是对应相乘
 | 关于元素积
 
 .. image:: ../../_static/recommend/hadamard.png
 	:align: center
-	:width: 400
+	:width: 500
 
 感觉.....这种乘法和向量内积的区别，在于最后没有把3和8加起来，保留程度更高一些。
 
@@ -283,6 +283,7 @@ Bilinear-Interaction Layer这个对于我们不太适用?因为相当于是要�
 	:width: 550
 
 Ablation study
+
 .. image:: ../../_static/recommend/fibi_Ablation_study.png
 	:align: center
 	:width: 300
