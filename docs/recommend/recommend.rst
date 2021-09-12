@@ -303,4 +303,4 @@ https://zhuanlan.zhihu.com/p/353223660
 
 .. image:: ../../_static/recommend/DCN_V2.png
 	:align: center
-	:width: 500
+	:width: 900
