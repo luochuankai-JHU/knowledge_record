@@ -16,7 +16,7 @@ github操作
 
 .. image:: ../../_static/tools/git_command.png
     :align: center
-    :width: 800
+    :width: 1300
 
 学习资料
 ---------------------
