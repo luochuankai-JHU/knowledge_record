@@ -214,7 +214,8 @@ FiBiNet  微博2019
 | 1.把embedding后的向量经过了senet，相当于是加了每一维的attention。
 | 2. 不是使用内积或者元素积（Hadamard product），他们提出了一种结合的方式，Bilinear-Interaction Layer
 
-亮点1：senet
+**亮点1：senet**
+
 .. image:: ../../_static/recommend/senet.png
 	:align: center
 	:width: 300
@@ -223,6 +224,7 @@ FiBiNet  微博2019
 | Squeeze部分相当于是压缩，可以max pooling或者ave pooling（之后adapt pooling？）。这篇文章里说，ave比原文的max效果好。有篇知乎文章说是因为避免被异常值带偏。
 | Excitation部分相当于是权重，这里是两层mlp学习权重。
 
+**亮点2：Bilinear-Interaction Layer**
 
 .. image:: ../../_static/recommend/bilinear_inter.png
 	:align: center
@@ -242,3 +244,45 @@ FiBiNet  微博2019
 	:width: 400
 
 Bilinear-Interaction Layer这个对于我们不太适用?因为相当于是要学n^2个权重。如果维度高了以后增加了很多计算成本。有评论也说这个复杂度有点高，换成内积速度快很多。
+
+然后Combination Layer就是简单的拼接
+
+.. image:: ../../_static/recommend/fibi_combination.png
+	:align: center
+	:width: 400
+
+
+**实验结果数据分析**
+
+测评Bilinear-Interaction Layer的效果
+
+.. image:: ../../_static/recommend/fibi_bilinear_result.png
+	:align: center
+	:width: 400
+
+00 01 这种指的是在两个embedding层后面接双线性层（00代表都不接，01代表SE-embedding的后面接，11代表都接以此类推）。
+感觉看起来Bilinear-Interaction Layer的效果并没有提升多少。他自己写说在senet后面用这个效果稍好一些。
+
+
+文章中还提到了Bilinear-Interaction Layer的三种拼接方式，看起来all的方式会好些。提升明显吗？但是计算量会上来。
+
+.. image:: ../../_static/recommend/fibi_bilinear.png
+	:align: center
+	:width: 400
+
+
+.. image:: ../../_static/recommend/fibi_bilinear_3ways_result.png
+	:align: center
+	:width: 300
+
+至于后面DNN层的影响，
+
+
+.. image:: ../../_static/recommend/fibi_dnn_result.png
+	:align: center
+	:width: 550
+
+Ablation study
+.. image:: ../../_static/recommend/fibi_Ablation_study.png
+	:align: center
+	:width: 300
