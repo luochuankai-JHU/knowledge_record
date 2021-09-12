@@ -132,72 +132,72 @@
 
 总体
 ----------------
-DeepCTR综述：深度学习用于点击率预估
-https://mp.weixin.qq.com/s/atP3uq8GgAQS9rIeQpa64w
+| DeepCTR综述：深度学习用于点击率预估
+| https://mp.weixin.qq.com/s/atP3uq8GgAQS9rIeQpa64w
 
-互联网大厂CTR预估前沿进展
-https://mp.weixin.qq.com/s/B2GNzNfPqcY2_OxPR2aRng
+| 互联网大厂CTR预估前沿进展
+| https://mp.weixin.qq.com/s/B2GNzNfPqcY2_OxPR2aRng
 
 
-算法大佬看了流泪，为什么这么好的CTR预估总结之前没分享(上篇)
-https://mp.weixin.qq.com/s/7Rer2qC54CbBYkPrNmWZRA
-算法大佬看了流泪，为什么这么好的CTR预估总结之前没分享(下篇)
-https://mp.weixin.qq.com/s/WDvQlLjHrQE4zU3mdBMJfw
+| 算法大佬看了流泪，为什么这么好的CTR预估总结之前没分享(上篇)
+| https://mp.weixin.qq.com/s/7Rer2qC54CbBYkPrNmWZRA
+| 算法大佬看了流泪，为什么这么好的CTR预估总结之前没分享(下篇)
+| https://mp.weixin.qq.com/s/WDvQlLjHrQE4zU3mdBMJfw
 
-推荐系统技术演进趋势：排序篇
-https://mp.weixin.qq.com/s/gd7Y_cMVotnRcsdZSOcRcg
-推荐系统技术演进趋势：重排篇
-https://mp.weixin.qq.com/s/YorzRyK0iplzqutnhEhrvw
+| 推荐系统技术演进趋势：排序篇
+| https://mp.weixin.qq.com/s/gd7Y_cMVotnRcsdZSOcRcg
+| 推荐系统技术演进趋势：重排篇
+| https://mp.weixin.qq.com/s/YorzRyK0iplzqutnhEhrvw
 
-万字长文梳理CTR点击预估模型发展过程与关系图谱
-https://mp.weixin.qq.com/s/qXK7EuBGby718OpcPxAaig
-深度学习推荐系统、CTR预估工业界实战论文整理分享
-https://mp.weixin.qq.com/s/AJGX8kDrQkrIXPs2pzgn2A
-机器学习和深度学习在CTR场景中的应用综述
-https://mp.weixin.qq.com/s/yIudTCaGQ8DH1ymlwUfZbQ
+| 万字长文梳理CTR点击预估模型发展过程与关系图谱
+| https://mp.weixin.qq.com/s/qXK7EuBGby718OpcPxAaig
+| 深度学习推荐系统、CTR预估工业界实战论文整理分享
+| https://mp.weixin.qq.com/s/AJGX8kDrQkrIXPs2pzgn2A
+| 机器学习和深度学习在CTR场景中的应用综述
+| https://mp.weixin.qq.com/s/yIudTCaGQ8DH1ymlwUfZbQ
 
-CTR点击率预估论文集锦
-https://mp.weixin.qq.com/s/RVFxdCTpsWop3L8tQWaFjA
-顶会中深度学习用于CTR预估的论文及代码集锦 (1)
-https://mp.weixin.qq.com/s/dSKKIjdtdZvU3kI5POzFEg
-五大顶会2019必读的深度推荐系统与CTR预估相关的论文
-https://mp.weixin.qq.com/s/wIMNEXCF_PX1V0fLhNa-Cw
-KDD 2020关于深度推荐系统与CTR预估工业界必读的论文
-https://mp.weixin.qq.com/s/Twjw1N6RAV447BUEr2nUSw
-WSDM 2020关于深度推荐系统与CTR预估工业界必读的论文
-https://mp.weixin.qq.com/s/c0hPqwfbgdSKGvJwN5nX3A
-SIGIR 2020关于深度推荐系统与CTR预估相关的论文
-https://mp.weixin.qq.com/s/yN5_ZiowpCjP1Fg0_NHjfQ
-WWW 2020关于深度推荐系统与CTR预估相关的论文
-https://mp.weixin.qq.com/s/KITQYRFH6SD_2Y-f-2pyJA
-AAAI 2020关于深度推荐系统与CTR预估相关的论文
-https://mp.weixin.qq.com/s/43rv1YL9V0Dgfz_HId9OKw
-https://github.com/imsheridan/DeepRec
-https://github.com/shenweichen/DeepCTR
+| CTR点击率预估论文集锦
+| https://mp.weixin.qq.com/s/RVFxdCTpsWop3L8tQWaFjA
+| 顶会中深度学习用于CTR预估的论文及代码集锦 (1)
+| https://mp.weixin.qq.com/s/dSKKIjdtdZvU3kI5POzFEg
+| 五大顶会2019必读的深度推荐系统与CTR预估相关的论文
+| https://mp.weixin.qq.com/s/wIMNEXCF_PX1V0fLhNa-Cw
+| KDD 2020关于深度推荐系统与CTR预估工业界必读的论文
+| https://mp.weixin.qq.com/s/Twjw1N6RAV447BUEr2nUSw
+| WSDM 2020关于深度推荐系统与CTR预估工业界必读的论文
+| https://mp.weixin.qq.com/s/c0hPqwfbgdSKGvJwN5nX3A
+| SIGIR 2020关于深度推荐系统与CTR预估相关的论文
+| https://mp.weixin.qq.com/s/yN5_ZiowpCjP1Fg0_NHjfQ
+| WWW 2020关于深度推荐系统与CTR预估相关的论文
+| https://mp.weixin.qq.com/s/KITQYRFH6SD_2Y-f-2pyJA
+| AAAI 2020关于深度推荐系统与CTR预估相关的论文
+| https://mp.weixin.qq.com/s/43rv1YL9V0Dgfz_HId9OKw
+| https://github.com/imsheridan/DeepRec
+| https://github.com/shenweichen/DeepCTR
 
-SENet双塔模型：在推荐领域召回粗排的应用及其它
-https://mp.weixin.qq.com/s/1cvJUwXAsdoGA-lrp9RsFw
+| SENet双塔模型：在推荐领域召回粗排的应用及其它
+| https://mp.weixin.qq.com/s/1cvJUwXAsdoGA-lrp9RsFw
 
-相关公众号：
-DataFun
-炼丹笔记
-小小挖掘机
-深度学习
-深度学习与NLP
-深度传送门
+| 相关公众号：
+| DataFun
+| 炼丹笔记
+| 小小挖掘机
+| 深度学习
+| 深度学习与NLP
+| 深度传送门
 
 
 
 感想
 --------------------------------------------------------
-1.	低阶特征相当重要。DCN里每次都留下低阶特征。
-2.	是不是交叉相乘比mlp的效果好一些？
-3.	点乘，元素积，相加相减，等等的特征交叉有优劣的说法吗
-FFM 
-Embedding分领域有什么好处
+| 1.	低阶特征相当重要。DCN里每次都留下低阶特征。
+| 2.	是不是交叉相乘比mlp的效果好一些？
+| 3.	点乘，元素积，相加相减，等等的特征交叉有优劣的说法吗
+| FFM 
+| Embedding分领域有什么好处
 
-使用transformer？
-平均池化可以优化？
+| 使用transformer？
+| 平均池化可以优化？
 
 
 FiBiNet  微博2019
