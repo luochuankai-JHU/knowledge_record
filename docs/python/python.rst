@@ -25,6 +25,23 @@
 一个做的很好的GitHub网站，里面总结了面试题
 https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese
 
+【爆肝上传！清华大佬终于把困扰我大学四年的【计算机操作系统】讲的如此通俗易懂-哔哩哔哩】https://b23.tv/JYbL8G
+
+| 终端、命令行基础
+
+| 苹果电脑： https://www.jianshu.com/p/9d3a72697b5c
+| Windows电脑： https://www.jianshu.com/p/7ce7c8e4e5e9
+| Linux：https://www.jianshu.com/p/836798abe860
+| vim基础
+| https://www.jianshu.com/p/bcbe916f97e1
+
+| CICD的概念
+| 简单的解释，https://www.cnblogs.com/jinjiangongzuoshi/p/13053972.html
+| Martin Fowler的解释，https://www.martinfowler.com/articles/continuousIntegration.html
+
+| AWS的解释，https://aws.amazon.com/cn/devops/continuous-integration/ （持续集成），https://aws.amazon.com/cn/devops/continuous-delivery/ （持续交付）
+
+
 一些易忘的小代码
 ========================
 生成a到z，判断是否是数字，判断是否是字母
@@ -129,6 +146,15 @@ all() ：如果全不为空，则返回True；否则返回False。
 
     
 emmmmmm,  () 和 [] 这里有点奇怪.... 但基本上 any 就是逻辑中or，all就是逻辑中 and    
+
+eval
+--------------------
+本来是list或者其他有类型的数据，但是被string表示了，现在想变成本来的type
+
+.. image:: ../../_static/python_eval.png
+    :align: center
+    :width: 300
+
 
 零碎
 ================
@@ -316,6 +342,10 @@ linux 操作系统一些命令
 | • whereis  --查看文件的位置。
 | • locate   --配合数据库查看文件位置。
 | • find   --实际搜寻硬盘查询文件名称
+
+find / -name  "*.so.2" 找当前目录下后缀是so.2的文件
+grep -r 需要查询的文字 目录  。这个是能看文件内容的，查看哪个文件内容里面有xxx文字。后面还可以--color。-r是递归
+
 | • whatis: whatis cat  --查看命令cat的作用
 
 | • free: 显示内存的使用情况，包括实体内存，虚拟的交换文件内存，共享内存区段，以及系统核心使用的缓冲区等。
@@ -576,6 +606,22 @@ topK 问题
         return arr[n-k]
 
 
+
+python下划线
+-------------------
+https://zhuanlan.zhihu.com/p/36173202
+
+
+
+TF-IDF
+--------------------
+https://zhuanlan.zhihu.com/p/31197209
+
+
+.. image:: ../../_static/python/TFIDF.png
+    :align: center
+    :width: 800
+
 面试总结
 ==================================
 总结一下教训
@@ -629,6 +675,10 @@ topK 问题
 需要strip，因为有时候输入的东西不干净，前后有空格。然后用split不要用list()....吃过一次亏了,之间把“10”给我分成了["1","0"]
 
 7. 既然可以在自己的本地进行调试。那就一定要在本地调试。用完整的代码，大不了复制粘贴输入输出而已。这样避免用他的调试半天不出结果。而且这样能看见报错。
+
+职业发展
+==================
+【职场】技术人如何做好述职汇报- 轩脉刃de刀光剑影 https://www.youtube.com/watch?v=Wis0PUaqXtU
 
 
 

@@ -7,6 +7,11 @@
 推荐系统
 ******************
 
+
+学习资料
+===================
+【推荐系统 python】推荐系统从入门到实战 https://www.youtube.com/watch?v=jNe1X6L1DyY&list=PLCemT-oocgalODXpQ-EP_IfrrD-A--40h
+
 整体概念
 =====================
 
@@ -287,3 +292,15 @@ Ablation study
 .. image:: ../../_static/recommend/fibi_Ablation_study.png
 	:align: center
 	:width: 300
+
+
+
+
+DCN V2 
+-------------------
+https://zhuanlan.zhihu.com/p/353223660
+
+
+.. image:: ../../_static/recommend/DCN_V2.png
+	:align: center
+	:width: 500

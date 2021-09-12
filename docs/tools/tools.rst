@@ -7,6 +7,31 @@
 实用工具
 ******************
 
+
+github操作
+===================
+
+命令
+--------------
+
+.. image:: ../../_static/tools/git_command.png
+    :align: center
+    :width: 800
+
+学习资料
+---------------------
+| Git入门
+| 《猴子都能懂的GIT》
+| http://backlogtool.com/git-guide/cn/intro/intro1_1.html （入门篇）
+| https://backlog.com/git-tutorial/cn/stepup/stepup1_1.html （高级篇）
+| https://backlog.com/git-tutorial/cn/reference/ （常见操作速查）
+
+
+| 可视化工具gitk，https://lostechies.com/joshuaflanagan/2010/09/03/use-gitk-to-understand-git/
+| 图解Git，https://marklodato.github.io/visual-git-guide/index-zh-cn.html
+
+
+
 SQL语法
 =====================
 
