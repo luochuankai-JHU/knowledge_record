@@ -543,21 +543,10 @@ ls命令
 
 对于目录***，列出目录文件（权限 副本数 用户ID 组ID 0（文件）/子目录文件数 修改日期 修改时间 文件名/子目录名）
 
-e.g::
-
-    hadoop fs -ls afs://xingtian.afs.baidu.com:portname/path 列出path目录下所有文件的上述信息
-
-
-
 cat命令
 ----------------------------------------------------
 hadoop fs -cat ***：查看***文件内容（可以搭配grep/wc/count等命令一起使用）
 
-e.g::
-
-    hadoop fs -cat afs://xingtian.afs.baidu.com:portname/path/filename | grep 'index' | head -n 100
-
-    查看文件filename（只显示带有index字符串的前100行）
 
 
 
@@ -565,35 +554,21 @@ mkdir命令
 ----------------------------------------------------
 hadoop fs -mkdir <paths>：创建目录（一般创建目录需要有对应目录的权限）
 
-e.g::
-
-    hadoop fs -mkdir  afs://xingtian.afs.baidu.com:portname/path/test 在path路径下创建新文件夹test
 
 rmr命令
 ------------------------
 hadoop fs -rmr ***：删除文件或目录（可能会需要权限，慎用此命令）
 
-e.g::
-
-    hadoop fs -rmr afs://xingtian.afs.baidu.com:portname/path/test 删除文件test或者文件夹test
 
 get命令
 ------------------------
 hadoop fs -get <afs_paths> <localdst>：复制文件到本地文件系统
 
-e.g::
-
-    hadoop fs -get afs://xingtian.afs.baidu.com:portname/path/test -/example
-
-    从afs复制文件（或目录）test到本地-/example文件夹
 
 put命令
 ------------------------
 hadoop fs -put *** <afs-paths> ：复制本地文件***到afs系统
 
-e.g::
-
-    hadoop fs -put /home/work/20180703/ afs://xingtian.afs.baidu.com:portname/path/test/data
 
 复制本地当前文件夹20180703到集群data目录，如果目标data目录不存在，则会创建data目录并把/home/work/test/下面的文件拷贝到data目录下（不保留20180703文件夹）。
 
@@ -615,11 +590,6 @@ e.g::
 ------------------------
 hadoop job <ugi> <tracker> -kill <job id>：kill tracker集群中正运行的job
 
-e.g::
-
-    hadoop job -Dhadoop.job.ugi=***,***  -Dmapred.job.tracker=szwg-wuge-job.szwg.dmop.baidu.com:54311 -kill job_20190501005919_3804195
-
-杀死集群szwg-wuge-job.szwg.dmop.baidu.com:54311中job job_20190501005919_3804195。
 
 更改任务优先级
 ------------------------
@@ -627,7 +597,7 @@ hadoop job <ugi> <tracker> -set-priority <job id> <priority>
 
 e.g::
 
-    hadoop job -Dhadoop.job.ugi=***,*** -Dmapred.job.tracker=szwg-wuge-job.szwg.dmop.baidu.com:54311 -set-priority job_20190501005919_3789481 VERY_HIGH
+    hadoop job -Dhadoop.job.ugi=***,*** -Dmapred.job.tracker=xxxx.com:54311 -set-priority job_20190501005919_3789481 VERY_HIGH
 
 计算文件夹/文件大小（du/dus命令）
 ------------------------------------------------
@@ -639,11 +609,6 @@ touchz命令
 ------------------------
 hadoop fs -touchz <afs_paths>：创建一个0字节的空文件，成功返回0，失败返回 -1.
 
-e.g::
-
-    hadoop fs -touchz afs://xingtian.afs.baidu.com:9902/user/feed/mlarch/lijunjun/test_file
-
-    在afs://xingtian.afs.baidu.com:9902/user/feed/mlarch/lijunjun目录下创建空文件test_file。
 
 集群间copy数据(distcp)
 ---------------------------
@@ -653,7 +618,6 @@ e.g::
 /home/work/pingo/tool/hmpclient/bin/hadoop distcp -Dfs.default.name=<任务default集群> -Dhadoop.job.ugi=<任务ugi> -D mapred.job.queue.name=<任务队列> -D mapred.job.tracker=<任务集群tracker> -D dfs.replication=3 -D mapred.job.map.capacity=5000 -D mapred.job.priority=HIGH -su src_ugi -du dest_ugi -update src_path dest_path
 用例
 
-hadoop distcp  -Dfs.default.name=afs://xingtian.afs.baidu.com:9902 -Dhadoop.job.ugi=mlarch,****** -D mapred.job.queue.name=feed-mlarch -D mapred.job.tracker=yq01-xingtian-job.dmop.baidu.com:54311  -D dfs.replication=3 -D mapred.job.map.capacity=5000 -D mapred.job.priority=HIGH -su mlarch,****** -du mlarch,****** -update afs://xingtian.afs.baidu.com:9902/user/feed/mlarch/ctr-logmerge/baipai_video_sample/20200521/ afs://shaolin.afs.baidu.com:9902/user/mlarch/ctr-logmerge/baobaozhidao_sample/20200520/13
 
 
 python在hadoop下编写map-reduce示例
