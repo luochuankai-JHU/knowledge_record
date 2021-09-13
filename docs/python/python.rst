@@ -155,7 +155,7 @@ eval
 --------------------
 本来是list或者其他有类型的数据，但是被string表示了，现在想变成本来的type
 
-.. image:: ../../_static/python_eval.png
+.. image:: ../../_static/python/python_eval.png
     :align: center
     :width: 300
 
