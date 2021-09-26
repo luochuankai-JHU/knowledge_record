@@ -198,6 +198,15 @@
 | 1.	低阶特征相当重要。DCN里每次都留下低阶特征。
 | 2.	是不是交叉相乘比mlp的效果好一些？
 | 3.	点乘，元素积，相加相减，等等的特征交叉有优劣的说法吗
+
+关于相加减和乘机，看了 https://zhuanlan.zhihu.com/p/50426292
+
+.. image:: ../../_static/recommend/fm_second_cross.png
+	:align: center
+	:width: 700
+
+也许加减可以避免有一边为零导致相乘为零的情况？不知道是不是这个出发点
+
 | FFM 
 | Embedding分领域有什么好处
 
