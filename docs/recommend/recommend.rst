@@ -336,8 +336,10 @@ https://zhuanlan.zhihu.com/p/353223660
 
 
 
-AFN Adaptive Factorization Network: Learning Adaptive-Order Feature Interactions
+AFN
 ---------------------------------------------------------------------------------
+Adaptive Factorization Network: Learning Adaptive-Order Feature Interactions
+
 一篇AAAI20的论文。主要特色是引入了对数。
 
 **论文摘要**
