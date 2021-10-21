@@ -195,7 +195,7 @@
 
 感想
 --------------------------------------------------------
-| 1.	低阶特征相当重要。DCN里每次都留下低阶特征。
+| 1.	低阶特征相当重要。DCN里每次都留下低阶特征。 很多模型都有类似resnet的结构保留低阶特征
 | 2.	是不是交叉相乘比mlp的效果好一些？
 | 3.	点乘，元素积，相加相减，等等的特征交叉有优劣的说法吗
 
@@ -212,6 +212,26 @@
 
 | 使用transformer？
 | 平均池化可以优化？
+
+senet
+
+在特征上添加attention等权重
+
+选取更多特征  （视频播完率等等）
+
+做一些数据增强，比如一个高活用户，可以随机遮盖一些信息
+
+通过他看了什么作者 继续推荐这个作者
+
+matchnet把模型分开训练？ 分成低活人群的和高活人群的两个模型
+
+dropout？一些特征随机置零  也算数据增强，沈老板关注
+
+学习率warm up
+
+BN 和 layer norm？
+
+获取gr历史，一个月前点击的物料，取最相似  兴趣点返厂
 
 
 FiBiNet  微博2019
@@ -313,3 +333,113 @@ https://zhuanlan.zhihu.com/p/353223660
 .. image:: ../../_static/recommend/DCN_V2.png
 	:align: center
 	:width: 900
+
+
+
+AFN Adaptive Factorization Network: Learning Adaptive-Order Feature Interactions
+---------------------------------------------------------------------------------
+一篇AAAI20的论文。主要特色是引入了对数。
+
+**论文摘要**
+
+| 目前的fm方法是基于二阶交叉或者高阶交叉。这样会有两个问题：
+| 1.他们必须在高阶交叉特征的表达能力和计算成本之间进行权衡，从而导致次优预测。
+| 2.枚举所有交叉特征，包括不相关的特征，可能会引入噪声特征组合，从而降低模型性能。
+
+本文提出的AFN 可以从数据中学习任意阶的特征。核心思想是引入对数mic变换，将特征对数化，再去做交叉运算。这样能将特征组合中每个特征的幂转换为带系数的乘法。
+
+
+**Introduction部分**
+
+| 提出两个问题：
+| 1. 模型该使用多高阶的特征？因为使用上高阶特征是会对结果有益的，但是会带来更多的计算成本。
+| 2.哪些交叉的特征是有用的
+
+**Background部分**
+
+这里先来对论文里出现的符号做个总结：
+xi 是第i个feature field表示的特征向量（没有做embedding）
+
+ei=vi*xi
+ei是做了embedding后的特征向量
+
+这是普通的二阶交叉
+
+.. image:: ../../_static/recommend/afn_second_order.png
+	:align: center
+	:width: 400
+
+这是普通的高阶交叉
+
+.. image:: ../../_static/recommend/afn_high_order.png
+	:align: center
+	:width: 400
+
+目前的交叉都是限定好了阶数。
+
+这里借鉴了Logarithmic Neural Network (LNN)的思想。关于lnn
+
+.. image:: ../../_static/recommend/afn_lnn.png
+	:align: center
+	:width: 550
+ 
+对数化
+LNN 的思想是将输入转换为对数空间，将乘法转换为加法，将除法转换为减法，将幂转换为常数
+
+
+
+**Afn结构**
+
+.. image:: ../../_static/recommend/afn_afn_structor.png
+	:align: center
+	:width: 800
+
+| 输入有两点值得注意：
+| 1.由于对数里面不能有负数，所以embedding层的内容都是正数
+| 2.对数里是0的数字换成了一个小正数
+
+（6）中的公式在对数转换层会变成
+
+.. image:: ../../_static/recommend/afn_7_formular.png
+	:align: center
+	:width: 500
+
+.. image:: ../../_static/recommend/afn_7_formular_explain.png
+	:align: center
+	:width: 600
+
+举例说明的话，如果想看二阶交叉，只保留e1和e2。其他的权重置零。
+
+
+DNN层
+
+在fm后面串接了dnn，激活函数选的relu
+
+
+**实验结果**
+
+.. image:: ../../_static/recommend/afn_exp_result.png
+	:align: center
+	:width: 800
+
+ensemble的方式的确有用
+CIN值得关注
+
+ 
+在使用ensemble的时候，AFN和dnn是分开训练的，embedding空间也没有共享。
+
+.. image:: ../../_static/recommend/afn_ensemble.png
+	:align: center
+	:width: 500
+
+**Ablation study**
+
+.. image:: ../../_static/recommend/afn_ablation.png
+	:align: center
+	:width: 500
+
+A。没看懂这里指的是什么
+
+B。后面接一层dnn能有效提升，再多了意义不大
+
+C。dnn的宽度调节起来有影响。过深或者过浅都不合适。具体数据要结合业务。
