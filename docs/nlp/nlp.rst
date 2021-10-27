@@ -7,6 +7,16 @@
 NLP
 ******************
 
+实用网站备份
+=====================
+THUOCL：清华大学开放中文词库  http://thuocl.thunlp.org/
+
+中文词表 https://github.com/qianzhengyang/AllDataPackages
+
+里面有个知识图谱的 https://github.com/qianzhengyang/AllDataPackages/tree/master/KnowledgeGraph
+
+中文停用词 在我的这个github里面
+
 项目涉及
 =====================
 
