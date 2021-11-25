@@ -234,6 +234,14 @@ BN 和 layer norm？
 获取gr历史，一个月前点击的物料，取最相似  兴趣点返厂
 
 
+| 关于离散值和连续值
+| https://juejin.cn/post/6856021107054903304
+
+.. image:: ../../_static/recommend/id_dense_disti.png
+	:align: center
+	:width: 700
+
+
 FiBiNet  微博2019
 -----------------------
 使用Squeeze-Excitation network (Senet) 结构学习动态特征的重要性以及使用用双线性函数来更好的建模交叉特征
