@@ -236,6 +236,7 @@ BN 和 layer norm？
 
 | 关于离散值和连续值
 | https://juejin.cn/post/6856021107054903304
+| https://www.zhihu.com/question/31989952
 
 .. image:: ../../_static/recommend/id_dense_disti.png
 	:align: center
