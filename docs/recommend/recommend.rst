@@ -267,6 +267,13 @@ FiBiNet  微博2019
 | Squeeze部分相当于是压缩，可以max pooling或者ave pooling（之后adapt pooling？）。这篇文章里说，ave比原文的max效果好。有篇知乎文章说是因为避免被异常值带偏。
 | Excitation部分相当于是权重，这里是两层mlp学习权重。
 
+| 笔记：
+| 关于senet_ratio
+
+.. image:: ../../_static/recommend/senet_ratio.png
+	:align: center
+	:width: 500
+
 **亮点2：Bilinear-Interaction Layer**
 
 .. image:: ../../_static/recommend/bilinear_inter.png
@@ -452,3 +459,249 @@ CIN值得关注
 | A。没看懂这里指的是什么
 | B。后面接一层dnn能有效提升，再多了意义不大
 | C。dnn的宽度调节起来有影响。过深或者过浅都不合适。具体数据要结合业务。
+
+
+
+
+
+
+
+Facebook Que2Search
+---------------------------------------------------------------------------------
+Que2Search: Fast and Accurate Query and Document Understanding for Search at Facebook
+
+一篇Facebook的论文。满满的工业风，真正来说，技术上的创新点不太显眼，但是各种工程落地的细节很详实。
+
+**0.Abstract**
+
+.. image:: ../../_static/recommend/que_abs.png
+	:align: center
+	:width: 500
+
+| 这个部分是介绍了一下他们的query2search已经应用在了facebook marketplace search。这是个类似淘宝的业务，用户搜一个东西，他们展示个性化的商品。
+
+.. image:: ../../_static/recommend/que_hat.png
+	:align: center
+	:width: 400
+
+| 他们这里"明目张胆"的把公司的名字挂上去，我们之后写文章也可以？
+
+
+**1.INTRODUCTION**
+
+介绍各个模块的发展历程
+
+| 值得注意的是，他这里直接写的是Que2Search is trained on weakly-supervised datasets and achieves state-of-theart performance for product representation compared to previous baselines at Facebook
+| 所以他的benchmark就是自己原本的基线......
+| 他这里写的面临的挑战也很..有趣。可能这就是工业界论文的写法吧
+
+.. image:: ../../_static/recommend/que_chanllenge.png
+	:align: center
+	:width: 500
+
+| 一个是数据集的噪声....哪个数据集没噪声啊....特被是工业界的
+| 多语言。这个比我们复杂一些
+| multi-modalities 这有啥好写的
+| 延迟要求。
+
+**2.RELATED WORK**
+
+| 没啥太多亮点。
+| 有个地方提到了Siamese networks
+
+.. image:: ../../_static/recommend/que_siamese.png
+	:align: center
+	:width: 600
+
+还提到了 early fusion。这个也是我们可以尝试的方向
+
+**3.MODELING**
+这里提到了使用更难的负样本，这也是我们尝试的方向。他这里的添加更难负样本的方式还不需要改变训练数据，后文会讲。
+
+3.1 Model architecture
+
+| 这里提到了EmbeddingBag 
+
+.. image:: ../../_static/recommend/que_embbag.png
+	:align: center
+	:width: 500
+
+然后就是大家最关心的整体框架
+
+
+.. image:: ../../_static/recommend/que_framework.png
+	:align: center
+	:width: 700
+
+query侧，query的3-gram做了一个emb，county做了一个emb，query本身通过XLM做了emb，然后是attention fusion，相当于是对三种输入加了attention。
+
+在doc侧，标题和摘要各通过xlm做了emb，title的3-gram做了emb，摘要的3-gram的emb和图片（已经pretrained）。也是有attention fusion。最后query的emb和doc的emb做余弦相似度。
+
+注意，他这里通过XLM获取文字emb的方式也是通过 [CLS] 位置的emb来代替整句的emb
+
+文中提到，simple attention fusion效果比直接拼接要好
+
+然后还使用了dropout (rate = 0.1) ，gradient clipping of 1.0 和 early stopping with a patience of 3 epochs
+
+
+.. image:: ../../_static/recommend/que_multitask1.png
+	:align: center
+	:width: 500
+
+
+这个地方提到了多任务学习，我不了解，可以参考另一篇解读的
+
+
+.. image:: ../../_static/recommend/que_multitask2.png
+	:align: center
+	:width: 600
+
+3.2 Training
+
+本篇的训练是分两个阶段的。
+
+他们是这样定义正样本的（因为人工标注的样本量太少，需要借助海量的用户弱监督行为数据）
+
+.. image:: ../../_static/recommend/que_positive_sample.png
+	:align: center
+	:width: 500
+
+关于正负样本，他们是使用的list-wise。在一个batch中，假设q从1到i，doc从1到i。那么其实只有第j个（query和doc）是匹配上的，所以对于第j个，只有qj和dj才是正样本，qj和其他不为j的d都是负样本。这样会把问题转化为 multi-class classification problem
+
+
+.. image:: ../../_static/recommend/que_sample_matrix.png
+	:align: center
+	:width: 500
+
+他们还使用了scaled multi-class cross-entropy loss
+
+
+.. image:: ../../_static/recommend/que_scale_softmax.png
+	:align: center
+	:width: 500
+
+这样可以拉大正负cos直接的exp，加快收敛
+
+他们还尝试了Symmetrical Scaled Cross Entropy Loss 。本来是q找d，对称就是再加上d找q
+
+.. image:: ../../_static/recommend/que_symmetrical_loss.png
+	:align: center
+	:width: 500
+
+作者表示，该损失函数并没有对query to document的双塔模型有所增益。但是在另外的一个document-to-document检索场景中，有2%的ROC AUC增益
+
+3.3 Curriculum Training
+
+这个是第二阶段的训练。使用的是harder negative examples。获得了absolute over 1% ROC AUC 增益
+
+.. image:: ../../_static/recommend/que_2train_auc.png
+	:align: center
+	:width: 500
+
+关于样本的生成，这个地方说的很清楚
+
+.. image:: ../../_static/recommend/que_hard_sample.png
+	:align: center
+	:width: 500
+
+在阶段一中，qi di是指定的正样本，但是在这一组list中，负样本中会有一个score最大的dnqi。这个可以视为最难的负样本。（
+感觉对应到我们的业务就是 高相关里面再找高点展样本？）然后这样学习的是一个三元组 (qi, di, dnqi)。这边部分的loss是margin rank loss 。
+一开始这个curriculum training并不有效，后来发现要先在一阶段收敛了才行
+
+| 3.4 Evaluation
+| 3.5 Speeding up model inference
+| 这两个部分没有啥好讲的
+
+3.6 Fusion of different modalities
+
+.. image:: ../../_static/recommend/que_modalities1.png
+	:align: center
+	:width: 500
+
+
+.. image:: ../../_static/recommend/que_modalities2.png
+	:align: center
+	:width: 500
+
+多模态融合这个不太了解，详情见另一篇解读
+
+
+.. image:: ../../_static/recommend/que_modalities3.png
+	:align: center
+	:width: 500
+
+3.7 Model Interpretability
+
+3.7.1 Does XLM encoder add value to the query tower?
+
+对于这个问题，作者用attention fusion的时候的权重来诠释的。因为他使用的是softmax激活函数，相当于各权重求和为1。
+这样，计算得到XLM占比达到了0.64。除此之外，随着query的变长，模型会更加关注xlm。当query小于5个字时模型更关注n-gram。当字变多时几乎全部关注XLM
+
+3.7.2 Feature Importance
+
+这里探究特征重要度的方式和我们一样---feature ablation。就是对某特征随机置零或者置一个随机数，看auc下降多少。
+
+.. image:: ../../_static/recommend/que_feature_imp.png
+	:align: center
+	:width: 500
+
+这里document的groknet是预训练好的图片的vec。可以看出，在duc侧他们的图片占比是最高的
+
+
+**4.SYSTEM ARCHITECTURE**
+
+一些工程侧的部署。
+
+也是分离线和在线计算。doc侧是计算好后入库，query侧因为时效性要求实时计算。doc侧计算好后的vec会随着模型更新而更新。
+
+
+**5.ABLATION STUDIES**
+
+.. image:: ../../_static/recommend/que_ablation.png
+	:align: center
+	:width: 500
+
+后面的部分没有太多想说的。这里可以提一下
+
+6.5 Search Ranking 
+
+他们的排序其实也分为粗排和精排两部分。粗排是GBDT，精排是DLRM-like model 。在排序阶段是使用了Que2search的分数的。
+
+6.6 Lessons from failures
+
+这里他们总结了一下经验教训。
+
+Precision matters:
+
+放低阈值会带来不好的效果。他们认为这是由于召回和排序的不一致造成的。放开阈值后，排序模型无法处理更多的噪声数据。
+这个和我们放开召回进粗排的量导致性能下降有类似之处。保持多阶段模型的连续性是另一个较大的话题。
+
+这里有两篇相关的论文
+
+Zhihong Chen, Rong Xiao, Chenliang Li, Gangfeng Ye, Haochuan Sun,and Hongbo Deng. 2020. ESAM: Discriminative Domain Adaptation with Non-Displayed Items to Improve Long-Tail Performance. arXiv preprint arXiv:2005.10545 (2020).
+
+Bowen Yuan, Jui-Yang Hsia, Meng-Yuan Yang, Hong Zhu, Chih-Yao Chang, Zhenhua Dong, and Chih-Jen Lin. 2019. Improving ad click prediction by considering non-displayed events. In KDD.
+
+只保证相关性远远不够。 
+
+提高召排一致性的一种方法是直接将召回的相似性分数用在排序中。期望的结果是，召回引入的相关性差的内容，排序能够将其排在后面。
+实际却不然，相关性的NDCG确实提升的，但是线上指标却下降了。 
+This is possibly because the two-tower model is trained to optimize query-product similarity instead of optimizing engagement, 
+while the GBDT model is more engagement focused.就算将双塔的输出作为排序模型的输入也不能很好的缓解这种现象
+
+
+**7.CONCLUSION**
+
+我们介绍了构建名为 Que2Search 的综合查询和产品理解系统的方法。 我们提出了关于多任务和多模式训练的创新想法，以学习查询和产品表示。 
+通过 Que2Search，我们实现了超过 5% 的绝对离线相关性改进和超过 4% 的在线参与度，超过了最先进的 Facebook 产品底层系统。 
+我们分享了我们在针对搜索用例调整和部署基于 BERT 的查询理解模型方面的经验，并在第 99 个百分位实现了 1.5 毫秒的推理时间。 
+我们分享了我们的部署故事、部署步骤的实用建议，以及如何将 Que2Search 组件集成到搜索语义召回和排序阶段中。
+
+
+**参考**
+
+Que2Search: Fast and Accurate Query and Document Understanding for Search at Facebook
+
+https://blog.csdn.net/chao_1083934282/article/details/120598266
+
+https://zhuanlan.zhihu.com/p/415516966
