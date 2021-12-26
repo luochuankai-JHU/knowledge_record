@@ -566,7 +566,7 @@ query侧，query的3-gram做了一个emb，county做了一个emb，query本身�
 	:align: center
 	:width: 500
 
-关于正负样本，他们是使用的list-wise。在一个batch中，假设q从1到i，doc从1到i。那么其实只有第j个（query和doc）是匹配上的，所以对于第j个，只有qj和dj才是正样本，qj和其他不为j的d都是负样本。这样会把问题转化为 multi-class classification problem
+关于正负样本，他们是使用的list-wise。在一个batch中，假设q从1到i，doc从1到i。那么对于任意的qj，其实只有第j个（query和doc）是匹配上的。所以对于第j个，只有qj和dj才是正样本，qj和其他不为j的d都是负样本。这样会把问题转化为 multi-class classification problem
 
 
 .. image:: ../../_static/recommend/que_sample_matrix.png
