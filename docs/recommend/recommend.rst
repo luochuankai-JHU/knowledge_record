@@ -476,13 +476,13 @@ Que2Search: Fast and Accurate Query and Document Understanding for Search at Fac
 
 .. image:: ../../_static/recommend/que_abs.png
 	:align: center
-	:width: 500
+	:width: 400
 
 | 这个部分是介绍了一下他们的query2search已经应用在了facebook marketplace search。这是个类似淘宝的业务，用户搜一个东西，他们展示个性化的商品。
 
 .. image:: ../../_static/recommend/que_hat.png
 	:align: center
-	:width: 400
+	:width: 300
 
 | 他们这里"明目张胆"的把公司的名字挂上去，我们之后写文章也可以？
 
@@ -524,7 +524,7 @@ Que2Search: Fast and Accurate Query and Document Understanding for Search at Fac
 
 .. image:: ../../_static/recommend/que_embbag.png
 	:align: center
-	:width: 500
+	:width: 600
 
 然后就是大家最关心的整体框架
 
@@ -616,19 +616,19 @@ query侧，query的3-gram做了一个emb，county做了一个emb，query本身�
 
 .. image:: ../../_static/recommend/que_modalities1.png
 	:align: center
-	:width: 500
+	:width: 600
 
 
 .. image:: ../../_static/recommend/que_modalities2.png
 	:align: center
-	:width: 500
+	:width: 600
 
 多模态融合这个不太了解，详情见另一篇解读
 
 
 .. image:: ../../_static/recommend/que_modalities3.png
 	:align: center
-	:width: 500
+	:width: 600
 
 3.7 Model Interpretability
 
@@ -643,7 +643,7 @@ query侧，query的3-gram做了一个emb，county做了一个emb，query本身�
 
 .. image:: ../../_static/recommend/que_feature_imp.png
 	:align: center
-	:width: 500
+	:width: 400
 
 这里document的groknet是预训练好的图片的vec。可以看出，在duc侧他们的图片占比是最高的
 
