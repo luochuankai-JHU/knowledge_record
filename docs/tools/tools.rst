@@ -54,7 +54,7 @@ SQL语法
         push_active_level,
         (case when sid like '%30864_6%' then '30864_6' when sid like '%30864_7%' then '30864_7' end) as exp
     from
-        default.baiduapp_strategy_ads_push_dimension_info
+        default.xxxxxx_ads_push_dimension_info
     where
         event_type in ('ack', 'click')
         and event_day = '20220522'
