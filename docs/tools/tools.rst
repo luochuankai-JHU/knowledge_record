@@ -93,10 +93,64 @@ hadoop常用命令
 
 各命令请看官方文档： Hadoop Shell命令  http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_shell.html
 
+DAG格式
+-----------
+
+::
+
+    $HADOOP_ROOT_HMP/bin/hadoop streaming -conf $HADOOP_CONF \
+        -D abaci.dag.is.dag.job=true \
+        -D abaci.split.remote=true \
+        -D abaci.dag.vertex.num=4  \
+        -D abaci.dag.next.vertex.list.0=1  \
+        -D abaci.dag.next.vertex.list.1=2  \
+        -D abaci.dag.next.vertex.list.3=2  \
+        -D stream.map.streamprocessor.0="${HADOOP_PYTHON_CMD} feed_nid_cuid_mapper_feed_click.py --exp1_ids=$exp1_ids" \
+        -D stream.reduce.streamprocessor.1="${HADOOP_PYTHON_CMD} feed_nid_cuid_reducer_join_uid.py" \
+        -D stream.reduce.streamprocessor.2="${HADOOP_PYTHON_CMD} feed_nid_cuid_reducer_print_final.py --tuwen_dict=feed_clk_tuwen_clear --video_dict=feed_clk_video_clear" \
+        -D stream.map.streamprocessor.3="${HADOOP_PYTHON_CMD} feed_nid_cuid_mapper_nid_json.py" \
+        -D mapred.reduce.slowstart.completed.maps=0.9 \
+        -D mapred.reduce.tasks=100 \
+        -D mapred.job.map.capacity=1800 \
+        -D mapred.job.reduce.capacity=100 \
+        -D mapred.map.memory.limit=1500 \
+        -D mapred.reduce.memory.limit=1500 \
+        -D mapred.job.priority=HIGH \
+        -D abaci.job.base.environment=default \
+        -D stream.num.map.output.key.fields=1 \
+        -D mapred.output.compress=true \
+        -D mapred.output.compression.codec=org.apache.hadoop.io.compress.GzipCodec \
+        -D map.output.key.field.separator='#' \
+        -D reduce.output.key.field.separator='#' \
+        -D num.key.fields.for.partition=1 \
+        -D mapred.job.name="${HADOOP_JOB_NAME}" \
+        -partitioner org.apache.hadoop.mapred.lib.KeyFieldBasedPartitioner \
+        -file ../src/feed_nid_cuid_mapper_feed_click.py \
+        -file ../src/feed_nid_cuid_reducer_join_uid.py \
+        -file ../src/feed_nid_cuid_mapper_nid_json.py \
+        -file ../src/feed_nid_cuid_reducer_print_final.py \
+        -file ../src/libMMHash.so \
+        -file ../src/user_hash.py \
+        -file ../dict/experiment_dict \
+        -file ../dict/feed_clk_tuwen_clear \
+        -file ../dict/feed_clk_video_clear \
+        -cacheArchive "${HADOOP_PYTHON_ARCHIVE_WANGHUAN}#python" \
+        -outputformat org.apache.hadoop.mapred.${output_format} \
+        -mapper "cat" \
+        -reducer "cat" \
+        -input ${INPUT_FEED_PATH}/* \
+        -input ${INPUT_NID_JSON_PATH}/part-* \
+        -input ${HADOOP_INPUT_CUID_INDEX}/* \
+        -output $HADOOP_OUTPUT
 
 
 
+多输出路径
+-------------
 
+.. image:: ../../_static/tools/dag_multioutput.png
+    :align: center
+    :width: 1300
 
 
 C++ 入门
