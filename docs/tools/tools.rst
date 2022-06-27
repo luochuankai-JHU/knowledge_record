@@ -82,6 +82,19 @@ from就是从哪个表里找
 | 比如，select中除了count，还有A,B,C。分别有3，4，5种可能。那么交叉一下，返回的结果表里就会有3*4*5种可能。通过count去计数
 | 所以select中出现的除了count的行，一定要在group by中出现，不然这个D不知道该怎么办
 
+
+再解释一下group by
+
+| CUID  | COIN |
+| ----- | ---- |
+| cuid1 | 1    |
+| cuid2 | 2    |
+| cuid1 | 4    |
+| cuid3 | 3    |
+
+比如这个表。如果select CUID, sum(COIN)的时候，如果不group by cuid。其实算的是所有人的coin的sum。所以有这种加减乘除的，要先group by   
+再在这些小群体里面执行这种加减乘除的操作
+
 还有一些join(inner join), left join的语法。还有一些as(别名)的语法看看菜鸟教程就好。
 
 
