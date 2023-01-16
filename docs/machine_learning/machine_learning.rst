@@ -1116,11 +1116,6 @@ https://www.zhihu.com/question/25532384/answer/1130818664 这个解答说的很�
 	:align: center
 
 
-推荐系统
-=====================
-light GBM, Deepfm,Wide&Deep,YoutubeNet, PNN
-
-稍后学习
 
 用户画像
 ========================

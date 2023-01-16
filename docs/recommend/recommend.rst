@@ -705,3 +705,99 @@ Que2Search: Fast and Accurate Query and Document Understanding for Search at Fac
 https://blog.csdn.net/chao_1083934282/article/details/120598266
 
 https://zhuanlan.zhihu.com/p/415516966
+
+
+
+广义随机森林GRF（Generalized Random Forests）
+---------------------------------------------------------------------------------
+论文阅读：广义随机森林GRF（Generalized Random Forests）论文笔记补充
+https://zhuanlan.zhihu.com/p/599357475
+
+**论文原文**
+
+Generalized random forests （S. Athey, J. Tibshirani, S. Wager. Generalized random forests. Annals of Statistics, 47, no. 2, 1148--1178）
+
+**说明**
+
+这里只是补充一下，在大家看GRF的论文原文前，整理GRF的构建过程和基本思想，方便理解。按照论文顺序进行解读的文章，
+https://zhuanlan.zhihu.com/p/589094281 
+这篇文章已经说的非常好了，我在阅读的时候也是结合这篇解读来理解的。
+
+**先温习一下随机森林**
+
+GRF（Generalized Random Forests）其实是在随机森林的基础上进行了改进。那么我们先非常迅速的回顾一下随机森林，有助于我们对广义随机森林的理解。
+
+.. image:: ../../_static/recommend/grf_rf.png
+	:align: center
+	:width: 500
+
+
+随机森林是由多棵决策树构成。假设有10棵树，每棵树拿到的都是随机采样后的样本和随机采样后的特征（形成差异化，避免过拟合），
+然后按照Gini等方法去分裂。在分类问题中，如果10棵树里面有8棵树预测出来是猫，那么预测结果是猫的概率就是8/10，
+每棵树的投票权重都是一样的。
+
+关于随机森林和决策树的其他知识点可以看我的博客 
+https://knowledge-record.readthedocs.io/zh_CN/latest/machine_learning/machine_learning.html#id10
+
+**广义随机森林总的来说，相对于随机森林有两点不同**
+
+1.每棵树的权重有差异
+
+2.分裂方法不同
+
+我们展开来说
+
+**每棵树权重有差异**
+
+在上面提到的，10棵决策树来预测猫的问题中，我们可以感性的认知到，这10棵树的权重是可以有所不同的：由于在树的生长过程中进行了采样，获取的样本是不同的，获取的特征也是不同的，那么这些树是在预测问题上是有能力上的差异的。通俗的讲，应该是“牛逼”的树权重大，"辣鸡"的树权重小。那么，用什么指标来衡量这个权重呢？这是整个GRF的核心思想。这个问题其实很难。理论上是求解方程（2）的解
+
+.. image:: ../../_static/recommend/grf_2.png
+	:align: center
+	:width: 400
+
+直接求解方程（2）在低维度下是可以实现的，但是在高维度下会遇到计算成本过大的问题，论文是用森林加权的近似方法代替了核函数加权：使用权重 αi(x) 表示训练样本i与测试样本x的相似度，通过加权实现异质性估计。
+
+既：在计算每棵树的权重的时候，计算的其实是测试样本X与这棵树B的相似性，记为αi(x)。
+
+相似性的通俗理解：决策树在分裂的时候，是把所接收的数据逐渐分裂成各个叶子结点，那么如果测试样本能够落入那个叶子节点，则认为有相似性。更进一步，如果那个落入的叶子节点中训练样本很多，说明没划分完全，特异性低，那么权重就低；如果该叶子结点中训练样本少，说明划分的很完全了，精细化程度高，权重就高。具体可见公式（3）
+
+.. image:: ../../_static/recommend/grf_3.png
+	:align: center
+	:width: 400
+
+公式（3）的意思是：对于树的集合 (index b从1....B)，对于任意一棵树B ，分母Lb(x)指的是和测试样本x落入同一叶子节点的训练样本的数量。分子表示如果有落入则取1，没有则取0.
+
+这样可以得到任意一棵树的暂时权重α_bi(x)，表示第i个训练样本和样本x落入同一个叶子节点的频率。之后再做一个归一化，求得每棵树的真正权重αi(x)。
+
+**分裂方法不同**
+
+由于计算相似性是用落入该叶子结点的样本数量来衡量的，所以文章要求局部特征空间内数据是同质的，分裂的时候需要按照最大化异质性的方法去分裂，而不是GINI等方式。具体细节可以看原文。
+
+**总体构建过程**
+
+.. image:: ../../_static/recommend/grf_build.png
+	:align: center
+	:width: 500
+
+我来画个流程图解读一下（符号与上面的伪代码保持一致）
+
+.. image:: ../../_static/recommend/grf_build_me.png
+	:align: center
+	:width: 500
+
+
+
+整体流程已经整理好了，其他部分看论文原文就好
+
+
+
+**参考**
+Generalized random forests （S. Athey, J. Tibshirani, S. Wager. Generalized random forests. Annals of Statistics, 47, no. 2, 1148--1178）
+
+巴拉巴拉：因果推断笔记 | 广义随机森林GRF（Generalized Random Forests） https://zhuanlan.zhihu.com/p/589094281
+
+一般化隨機森林 (Generalized Random Forest)   https://taweihuang.hpd.io/2020/04/27/generalized-random-forest/
+
+阙斌斌：generalized random forests笔记  https://zhuanlan.zhihu.com/p/397546177
+
+论文笔记：Generalized Random Forests   https://blog.csdn.net/zyl_wjl_1413/article/details/125380173
