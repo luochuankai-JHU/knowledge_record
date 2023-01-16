@@ -192,6 +192,8 @@
 | 深度传送门
 
 
+| 
+| 
 
 感想
 --------------------------------------------------------
@@ -241,6 +243,9 @@ BN 和 layer norm？
 .. image:: ../../_static/recommend/id_dense_disti.png
 	:align: center
 	:width: 700
+
+| 
+| 
 
 
 FiBiNet  微博2019
@@ -339,6 +344,8 @@ Ablation study
 	:width: 300
 
 
+| 
+| 
 
 
 DCN V2 
@@ -462,7 +469,8 @@ CIN值得关注
 
 
 
-
+| 
+| 
 
 
 
