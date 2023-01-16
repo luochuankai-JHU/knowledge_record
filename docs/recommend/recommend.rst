@@ -706,7 +706,8 @@ https://blog.csdn.net/chao_1083934282/article/details/120598266
 
 https://zhuanlan.zhihu.com/p/415516966
 
-
+| 
+| 
 
 广义随机森林GRF（Generalized Random Forests）
 ---------------------------------------------------------------------------------
@@ -729,7 +730,7 @@ GRF（Generalized Random Forests）其实是在随机森林的基础上进行了
 
 .. image:: ../../_static/recommend/grf_rf.png
 	:align: center
-	:width: 500
+	:width: 600
 
 
 随机森林是由多棵决策树构成。假设有10棵树，每棵树拿到的都是随机采样后的样本和随机采样后的特征（形成差异化，避免过拟合），
@@ -753,7 +754,7 @@ https://knowledge-record.readthedocs.io/zh_CN/latest/machine_learning/machine_le
 
 .. image:: ../../_static/recommend/grf_2.png
 	:align: center
-	:width: 400
+	:width: 450
 
 直接求解方程（2）在低维度下是可以实现的，但是在高维度下会遇到计算成本过大的问题，论文是用森林加权的近似方法代替了核函数加权：使用权重 αi(x) 表示训练样本i与测试样本x的相似度，通过加权实现异质性估计。
 
@@ -763,7 +764,7 @@ https://knowledge-record.readthedocs.io/zh_CN/latest/machine_learning/machine_le
 
 .. image:: ../../_static/recommend/grf_3.png
 	:align: center
-	:width: 400
+	:width: 450
 
 公式（3）的意思是：对于树的集合 (index b从1....B)，对于任意一棵树B ，分母Lb(x)指的是和测试样本x落入同一叶子节点的训练样本的数量。分子表示如果有落入则取1，没有则取0.
 
@@ -777,13 +778,13 @@ https://knowledge-record.readthedocs.io/zh_CN/latest/machine_learning/machine_le
 
 .. image:: ../../_static/recommend/grf_build.png
 	:align: center
-	:width: 500
+	:width: 600
 
 我来画个流程图解读一下（符号与上面的伪代码保持一致）
 
 .. image:: ../../_static/recommend/grf_build_me.png
 	:align: center
-	:width: 500
+	:width: 600
 
 
 
@@ -792,6 +793,7 @@ https://knowledge-record.readthedocs.io/zh_CN/latest/machine_learning/machine_le
 
 
 **参考**
+
 Generalized random forests （S. Athey, J. Tibshirani, S. Wager. Generalized random forests. Annals of Statistics, 47, no. 2, 1148--1178）
 
 巴拉巴拉：因果推断笔记 | 广义随机森林GRF（Generalized Random Forests） https://zhuanlan.zhihu.com/p/589094281
