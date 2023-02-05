@@ -61,7 +61,14 @@ string.isdigit()
 
 string.isalpha()
 
-    
+
+python的正无穷和负无穷
+----------------------------
+正无穷是 float(inf)    inf 是infinite的缩写。这样便于记忆
+
+负无穷是 -float(inf) 或者  float(-inf) 都行
+ 
+
 lambda
 ------------------
 匿名函数
