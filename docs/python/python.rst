@@ -57,6 +57,10 @@ https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese
     for i in range(26):
         num2char[i] = chr(ord("a")+i)
 
+其中，ord是ordinal(序数)的缩写，chr是character(字符)的缩写
+
+
+
 string.isdigit()
 
 string.isalpha()
