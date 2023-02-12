@@ -71,7 +71,20 @@ python的正无穷和负无穷
 正无穷是 float(inf)    inf 是infinite的缩写。这样便于记忆
 
 负无穷是 -float(inf) 或者  float(-inf) 都行
- 
+
+
+defaultdict
+--------------------------------------
+这个很好用。
+::
+counter = defaultdict(int)
+counter[s[r]] += 1
+
+            
+用来代替 counter = dict()
+
+这里的初始值设置还可以是  int, str, list, set等等---分别对应得到0, "", [], set()
+
 
 lambda
 ------------------
