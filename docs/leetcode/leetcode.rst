@@ -928,7 +928,7 @@ leetcode 106.
 --------------------
 https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
 
-.. image:: ../../_static/leetcode/BinaryTree.png
+.. image:: ../../_static/leetcode/BST.png
     :align: center
     :width: 700
 
