@@ -924,9 +924,15 @@ leetcode 106.
 题解里面很多DFS的....有空再看看
 
 
-二叉搜索树
-------------------
-？？？目前不会，记得学
+二叉搜索树汇总
+--------------------
+https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
+
+.. image:: ../../_static/leetcode/BinaryTree.png
+    :align: center
+    :width: 700
+
+
 
 剑指 Offer 54    
 二叉搜索树的第k大节点  
