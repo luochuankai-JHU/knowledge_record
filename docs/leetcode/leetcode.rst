@@ -439,6 +439,8 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 
 https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/di-gui-he-die-dai-by-powcai-5/
 
+https://leetcode.cn/problems/binary-tree-preorder-traversal/solution/tu-jie-er-cha-shu-de-si-chong-bian-li-by-z1m/
+
 
 前序遍历
 ---------------
