@@ -437,8 +437,6 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 树的遍历：
 ======================
 
-https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/di-gui-he-die-dai-by-powcai-5/
-
 https://leetcode.cn/problems/binary-tree-preorder-traversal/solution/tu-jie-er-cha-shu-de-si-chong-bian-li-by-z1m/
 
 这个题解里面讲的二叉树说的非常好
@@ -450,8 +448,11 @@ https://leetcode.cn/problems/binary-tree-preorder-traversal/solution/tu-jie-er-c
 
 https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
 
+这个题解里面提到的比较通用的模板
 
-
+.. image:: ../../_static/leetcode/BTquestion.png
+    :align: center
+    :width: 700
 
 
 前序遍历
@@ -483,13 +484,13 @@ https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-
             if not root:
                 return res
             stack = [root]
-            while stack:
-                node = stack.pop()
-                res.append(node.val)
-                if node.right:
-                    stack.append(node.right)
-                if node.left:
-                    stack.append(node.left)
+            while stack or cur:
+                while cur:
+                    res.append(cur.val)
+                    stack.append(cur)
+                    cur = cur.left
+                temp = stack.pop()
+                cur = temp.right
             return res
 
 注意点：
