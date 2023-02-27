@@ -184,6 +184,23 @@ eval
     :width: 300
 
 
+path + [cur]
+--------------------------
+这种可以避免在path这个list在append或者 += 的时候，被带着跑
+
+比如这个例子，leetcode113
+
+.. image:: ../../_static/python/lc113.png
+    :align: center
+    :width: 600
+
+这里在解答的时候需要
+
+.. image:: ../../_static/python/pythonlist.png
+    :align: center
+    :width: 600
+
+
 零碎
 ================
 
