@@ -192,13 +192,13 @@ path + [cur]
 
 .. image:: ../../_static/python/lc113.png
     :align: center
-    :width: 600
+    :width: 500
 
 这里在解答的时候需要
 
 .. image:: ../../_static/python/pythonlist.png
     :align: center
-    :width: 600
+    :width: 800
 
 
 用list而不是dict做计数器
