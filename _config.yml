@@ -1,8 +1,0 @@
-theme: jekyll-theme-slate
-
-# URL
-## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://neurodatadesign.github.io/m2g_data_web/
-root: /m2g_data_web/
-permalink: :year/:month/:day/:title/
-permalink_defaults:
