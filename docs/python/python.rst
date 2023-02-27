@@ -118,11 +118,11 @@ re正则
 
 enumerate
 --------------------------
-::
+这样可以同时获取index和内容::
 
 seq = ['one', 'two', 'three']
-for i, element in enumerate(seq):
-    print i, element
+for index, element in enumerate(seq):
+    print index, element
 
 zip
 ----------------
