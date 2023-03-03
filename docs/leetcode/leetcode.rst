@@ -3128,7 +3128,93 @@ leetcode 163 759 986  630
 找规律&斐波拉契
 ===================
 
+旋转数组总结
+---------------------------------
+类似这种题目，一个n x n的二维数组进行旋转。做一个总结。
+
+.. image:: ../../_static/leetcode/rotatematrix.png
+    :align: center
+    :width: 500
+
+无外乎四种旋转进行组合::
+
+    // 上下对称
+    void upDownSymmetry(vector<vector<int>>& matrix) {
+        for (int i = 0; i < n/2; ++i) {
+            for (int j = 0; j < n; ++j) {
+                swap(matrix[i][j], matrix[n-i-1][j]);
+            }
+        }
+    }
+
+    // 左右对称
+    void leftRightSymmetry(vector<vector<int>>& matrix) {
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n/2; ++j) {
+                swap(matrix[i][j], matrix[i][n-j-1]);
+            }
+        }
+    }
+
+    // 主对角线对称
+    void mainDiagSymmetry(vector<vector<int>>& matrix) {
+        for (int i = 0; i < n-1; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                swap(matrix[i][j], matrix[j][i]);
+            }
+        }
+    }
+
+    // 副对角线对称
+    void subdiagSymmetry(vector<vector<int>>& matrix) {
+        for (int i = 0; i < n-1; ++i) {
+            for (int j = 0; j < n-i-1; ++j) {
+                swap(matrix[i][j], matrix[n-j-1][n-i-1]);
+            }
+        }
+    }
+
+注意这里的 交换，和 i,j的范围
+
+例题解答看下面
+
+旋转图像
+-------------------
+| leetcode 48.
+| 给定一个 n × n 的二维矩阵 matrix 表示一个图像。请你将图像顺时针旋转 90 度。
+| 你必须在 原地 旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要 使用另一个矩阵来旋转图像。
+
+::
+
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        def updown(matrix, n):
+            for i in range(n // 2):
+                for j in range(n):
+                    matrix[i][j], matrix[n - i - 1][j] = matrix[n - i - 1][j], matrix[i][j]
+            return matrix
+
+        def diagonal(matrix, n):
+            for i in range(n):
+                for j in range(i, n):
+                    matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+            return matrix
+        n = len(matrix)
+        matrix = updown(matrix, n)
+        matrix = diagonal(matrix, n)
+        return matrix
+
+
+这里上下翻转为何不能使用 matrix = matrix[::-1]?
+因为这里需要in-place。这种方法会开辟一个额外空间。然后题目还是会去检测之前的matrix所在空间的值
+
+
+
 跳台阶---斐波拉契
+-------------------------------
+
 
 剪绳子
 ----------------------
