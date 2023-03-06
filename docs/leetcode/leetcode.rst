@@ -2188,9 +2188,9 @@ leetcode 72
 
 .. image:: ../../_static/leetcode/72.png
     :align: center
-    :width: 450
+    :width: 550
  
-这里 dp = [[0] * (len2 + 1) for _ in range(len1 + 1)]   for i in range(len2 + 1):dp[0][i] = i  这几行要搞清楚到底是 len1还是len2！！！！
+这里 dp = [[0] * (len2 + 1) for _ in range(len1 + 1)]  和 for i in range(len2 + 1):dp[0][i] = i  这几行要搞清楚到底是 len1还是len2！！！！
 
 
 对“dp[i-1][j-1] 表示替换操作，dp[i-1][j] 表示删除操作，dp[i][j-1] 表示插入操作。”的补充理解：

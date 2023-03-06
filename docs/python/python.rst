@@ -75,7 +75,7 @@ python的正无穷和负无穷
 
 defaultdict
 --------------------------------------
-这个很好用::
+defaultdict这个很好用::
 
     counter = defaultdict(int)
     counter[s[r]] += 1
