@@ -2162,24 +2162,36 @@ leetcode 80.
 
 编辑距离
 ------------------
-leetcode 79
+leetcode 72
 
 ::
 
     def minDistance(self, word1: str, word2: str) -> int:
-        store = [[0 for _ in range(len(word2)+1)] for _ in range(len(word1)+1)]
-        store[0] = list(range(len(word2)+1))
-        for i in range(len(word1)+1):
-            store[i][0] = i
-        for i in range(1,len(word1)+1):
-            for j in range(1,len(word2)+1):
-                if word1[i-1]==word2[j-1]:
-                    store[i][j]=store[i-1][j-1]
+        if not word1:
+            return len(word2)
+        if not word2:
+            return len(word1)
+        len1 = len(word1)
+        len2 = len(word2)
+        dp = [[0] * (len2 + 1) for _ in range(len1 + 1)]
+        for i in range(len2 + 1):
+            dp[0][i] = i
+        for i in range(len1 + 1):
+            dp[i][0] = i
+        for i in range(1, len1 + 1):
+            for j in range(1, len2 + 1):
+                if word1[i - 1] == word2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
                 else:
-                    store[i][j]=min(store[i-1][j-1],store[i][j-1],store[i-1][j])+1
-        return store[-1][-1]
+                    dp[i][j] = 1 + min(dp[i - 1][j - 1], dp[i][j - 1], dp[i - 1][j])
+        return dp[-1][-1]
 
-有点像01背包问题的解法。反正就是DP嘛。
+.. image:: ../../_static/leetcode/72.png
+    :align: center
+    :width: 450
+ 
+这里 dp = [[0] * (len2 + 1) for _ in range(len1 + 1)]   for i in range(len2 + 1):dp[0][i] = i  这几行要搞清楚到底是 len1还是len2！！！！
+
 
 对“dp[i-1][j-1] 表示替换操作，dp[i-1][j] 表示删除操作，dp[i][j-1] 表示插入操作。”的补充理解：
 
@@ -3128,7 +3140,7 @@ leetcode 163 759 986  630
 找规律&斐波拉契
 ===================
 
-旋转数组总结
+旋转二维数组总结
 ---------------------------------
 类似这种题目，一个n x n的二维数组进行旋转。做一个总结。
 
