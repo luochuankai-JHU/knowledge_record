@@ -86,6 +86,11 @@ defaultdict这个很好用::
 这里的初始值设置还可以是  int, str, list, set等等---分别对应得到0, "", [], set()
 
 
+dict.get
+--------------------------------
+numdict[num] = numdict.get(num, 0) + 1
+
+
 lambda
 ------------------
 匿名函数
