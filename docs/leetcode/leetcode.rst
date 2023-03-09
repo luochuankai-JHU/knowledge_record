@@ -2616,6 +2616,7 @@ dfs递归解法::
 | ]
 
 | 解释: 注意你可以重复使用字典中的单词。
+
 ::
 
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
@@ -2644,8 +2645,7 @@ dfs递归解法::
 
 递归解法。强调递归中非常重要的一点！！！！！
 
-.. highlight:: python
-   :linenothreshold: 5
+::
 
     def helper(path, i):
         # 以i为开头开始计算
