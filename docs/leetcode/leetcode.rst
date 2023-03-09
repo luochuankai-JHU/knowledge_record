@@ -2541,19 +2541,18 @@ https://leetcode-cn.com/problems/target-sum/solution/python-dfs-xiang-jie-by-jim
 | 解释: 返回 true 因为 "applepenapple" 可以被拆分成 "apple pen apple"。
 | 注意你可以重复使用字典中的单词。
 
-完全背包解法::
+完全背包动态规划解法::
 
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        dp = [1] + [0]*len(s)
-        store = set(wordDict)
+        dp = [False] * (len(s))
+        wordset = set(wordDict)
         for i in range(len(s)):
-            for j in wordDict:
-                if i+1-len(j) >=0 and j == s[i+1-len(j):i+1] and dp[i+1-len(j)]==1:
-                    dp[i+1] = 1
-        if dp[-1] == 1:
-            return True
-        else:
-            return False 
+            for j in range(i + 1, len(s) + 1):
+                if i == 0 and s[i:j] in wordset:
+                    dp[j - 1] = True
+                elif dp[i - 1] and s[i:j] in wordset:
+                    dp[j - 1] = True
+        return dp[-1]
 
 dfs递归解法::
 
@@ -2586,7 +2585,7 @@ dfs递归解法::
 
 请看下一题：
 
-单词拆分 II
+单词拆分 II （递归中非常重要的一点！强调
 -----------------------
 | leetcode 140. 
 | 给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，在字符串中增加空格来构建一个句子，使得句子中所有的单词都在词典中。返回所有这些可能的句子。
@@ -2641,6 +2640,42 @@ dfs递归解法::
             return [x.strip() for x in dp[-1]]
      
 这里的话，跟上一题相比需要保存当前为True的结果。由于输出格式的问题，所以dp里面每个元素用['']保存，第一个多一点空格，最后strip掉就好
+
+
+递归解法。强调递归中非常重要的一点！！！！！
+
+.. highlight:: python
+   :linenothreshold: 5
+
+    def helper(path, i):
+        # 以i为开头开始计算
+        if i >= len(s):
+            ans.append(path)
+            return True
+        if memno[i] == 0:
+            return False
+        flag = False
+        for j in range(i + 1, len(s) + 1):
+            if s[i:j] in wordset:
+                if helper(path + [s[i:j]], j):
+                    flag = True
+        if not flag:
+            memno[i] = 0
+            return False
+        return True
+    memno = [1] * len(s)
+    wordset = set(wordDict)            
+    ans = []
+    helper([], 0)
+    return [" ".join(cont) for cont in ans]
+
+
+这一题相比于上一题，在递归的时候需要把path也保留下来。一开始我没有写递归函数中最下面的return True 和 return False这两行。这会造成在多重递归的时候，最尾巴的递归由于到了s的终点，能够返回
+True，但是中间的递归却没有返回True或false给上一层，所以上一层没有接收到信号，就变成了默认的None
+
+
+**递归的时候，如果确定是返回状态，一定要在结尾处也返回状态！！**
+
 
 黑白棋翻转
 --------------------
