@@ -2540,7 +2540,8 @@ https://leetcode-cn.com/problems/target-sum/solution/python-dfs-xiang-jie-by-jim
 | 输出: true
 | 解释: 返回 true 因为 "applepenapple" 可以被拆分成 "apple pen apple"。
 | 注意你可以重复使用字典中的单词。
-::
+
+完全背包解法::
 
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         dp = [1] + [0]*len(s)
@@ -2553,6 +2554,35 @@ https://leetcode-cn.com/problems/target-sum/solution/python-dfs-xiang-jie-by-jim
             return True
         else:
             return False 
+
+dfs递归解法::
+
+    def helper(i):
+        nonlocal flag
+        if flag or i == len(s):
+            flag = True
+            return True
+        if memory_no[i] == 0:
+            return False
+        for j in range(i + 1, len(s) + 1):
+            if s[i:j] in wordset:
+                if helper(j):
+                    return True
+        memory_no[i] = 0
+        return False
+    wordset = set(wordDict)
+    flag = False
+    memory_no = [1] * len(s)
+    helper(0)
+    return flag
+
+这里本来可以很简单的递归，但是这种情况过不了。
+
+| s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab
+| wordDict = ["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"]
+
+所以需要加上记忆化模块，如果在某个index处是到不了的，则需要记下来。
+
 
 请看下一题：
 
