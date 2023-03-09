@@ -79,5 +79,4 @@ html_static_path = ['_static']
 rst_prolog = '''
 .. highlight:: python
    :linenothreshold: 5
-
 '''
