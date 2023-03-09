@@ -85,9 +85,24 @@
 
 .. Note:: title of notice
 
-   警示语还有 tip, important, warnings等好几种
+   警示语还有 tip, important, warnings 等好几种
 
 
 .. tip:: 啊啊啊啊
+
+   adsf
+
+
+.. important:: 啊啊啊啊
+
+   adsf
+
+
+.. warnings:: 啊啊啊啊
+
+   adsf
+
+
+.. aaaaa:: 啊啊啊啊
 
    adsf
