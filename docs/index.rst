@@ -16,8 +16,9 @@
 
 如有算法岗的内推，欢迎联系我。
 
-洛传凯学习自用，未经本人书面允许不得抄袭。
 
+
+.. warning:: 洛传凯学习自用，未经本人书面允许不得抄袭。
 
 
 .. toctree::
@@ -76,11 +77,16 @@
 声明
 ------------
 
-部分知识来自于我的总结，部分知识来自于网络转载与粘贴，已尽量标明出处。如有侵权请告知我删除。
+.. important:: 
 
-联系方式： luochuankai1997@outlook.com
+   部分知识来自于我的总结，部分知识来自于网络转载与粘贴，已尽量标明出处。如有侵权请告知我删除。
+
+   联系方式： luochuankai1997@outlook.com
+
 
 :Date: |today|
+
+
 
 
 .. Note:: title of notice
@@ -88,31 +94,9 @@
    警示语还有 tip, important, warnings 等好几种
 
 
-
-.. warning:: 啊啊啊啊
-
-   adsf
-
-
-
-.. tip:: 啊啊啊啊
+.. tip:: aaaa
 
    adsf
 
 
 
-.. important:: 啊啊啊啊
-
-   adsf
-
-
-
-.. warnings:: 啊啊啊啊
-
-   adsf
-
-
-
-.. aaaaa:: 啊啊啊啊
-
-   adsf
