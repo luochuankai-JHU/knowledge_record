@@ -81,3 +81,13 @@
 联系方式： luochuankai1997@outlook.com
 
 :Date: |today|
+
+
+.. Note:: title of notice
+
+   警示语还有 tip, important, warnings等好几种
+
+
+.. tip:: 啊啊啊啊
+
+   adsf
