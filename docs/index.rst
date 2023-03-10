@@ -16,9 +16,7 @@
 
 如有算法岗的内推，欢迎联系我。
 
-
-
-.. warning:: 洛传凯学习自用，未经本人书面允许不得抄袭。
+洛传凯学习自用，未经本人书面允许不得抄袭。
 
 
 .. toctree::
@@ -84,19 +82,13 @@
    联系方式： luochuankai1997@outlook.com
 
 
-:Date: |today|
+.. :Date: |today|
 
 
 
+.. .. Note:: title of notice （注解）
 
-.. Note:: title of notice
-
-   警示语还有 tip, important, warnings 等好几种
-
-
-.. tip:: aaaa
-
-   adsf
+..    警示语还有 tip（小技巧）, important（重要）, warning（警告） 等好几种
 
 
 
