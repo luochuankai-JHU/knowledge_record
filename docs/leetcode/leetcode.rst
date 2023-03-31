@@ -440,7 +440,7 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 滑动窗口
 ================================
 
-
+https://leetcode.cn/problems/permutation-in-string/solution/by-flix-ix7f/
 
 
 
