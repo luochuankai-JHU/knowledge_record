@@ -447,6 +447,12 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 
    窗口定长，和窗口不定长度是有两种模板的。
 
+   定长和不定长的前面基本是一样的，**把demand字典给统计好**，**有多少个字符串need统计好**
+   但是在遍历的时候：
+   1. 定长的时候如果big[r]不在demand中，不能直接continue，因为？？？
+   2. 定长的左边index是确定的，记得l = r - lenp    这里要特别注意这里不需要l = r - lenp + 1，因为是右边左边都要动，此时处理的是左边开始滑动时刻的情况
+   ，不定长的时候，while need <= 0: 再对左边滑出的元素做demand和need的判断
+
 
 最小覆盖子串
 ------------------------------
@@ -496,7 +502,7 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 
 | 返回最短子数组的左端点和右端点，如有多个满足条件的子数组，返回左端点最小的一个。若不存在，返回空数组。
 ::
-    
+
     def shortestSeq(self, big: List[int], small: List[int]) -> List[int]:
         lenb = len(big)
         need = len(small)
@@ -560,7 +566,7 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
         return ans
 
 .. important:: 
-    l = r - lenp # 这里要特别注意这里不需要+1，因为是右边左边都要动，此时处理的是左边开始滑动时刻的情况
+    l = r - lenp    这里要特别注意这里不需要+1，因为是右边左边都要动，此时处理的是左边开始滑动时刻的情况
 
 
 树的遍历
