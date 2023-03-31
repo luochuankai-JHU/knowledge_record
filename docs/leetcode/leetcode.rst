@@ -449,7 +449,7 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 
    定长和不定长的前面基本是一样的，**把demand字典给统计好**，**有多少个字符串need统计好**
    但是在遍历的时候：
-   1. 定长的时候如果big[r]不在demand中，不能直接continue，因为？？？
+   1. 定长的时候如果big[r]不在demand中，不能直接continue，因为当窗口是此时这样覆盖的时候，big[l]也有可能在demand里面的，是需要对demand[big[l]] 做加减判断的
    2. 定长的左边index是确定的，记得l = r - lenp    这里要特别注意这里不需要l = r - lenp + 1，因为是右边左边都要动，此时处理的是左边开始滑动时刻的情况
    ，不定长的时候，while need <= 0: 再对左边滑出的元素做demand和need的判断
 
