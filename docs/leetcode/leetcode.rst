@@ -458,7 +458,7 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 | 对于 t 中重复字符，我们寻找的子字符串中该字符数量必须不少于 t 中该字符数量。
 | 如果 s 中存在这样的子串，我们保证它是唯一的答案。
 ::
-    
+
     def minWindow(self, s: str, t: str) -> str:
         lens = len(s)
         lent = len(t)
@@ -486,6 +486,43 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
                     demand[s[l]] += 1
                 l += 1
         return ans if len(ans) <= lens else ""
+
+
+最短超串
+------------------------------
+| 面试题 17.18.
+
+| 假设你有两个数组，一个长一个短，短的元素均不相同。找到长数组中包含短数组所有的元素的最短子数组，其出现顺序无关紧要。
+
+| 返回最短子数组的左端点和右端点，如有多个满足条件的子数组，返回左端点最小的一个。若不存在，返回空数组。
+::
+    def shortestSeq(self, big: List[int], small: List[int]) -> List[int]:
+        lenb = len(big)
+        need = len(small)
+        if lenb < need:
+            return []
+        minlen = lenb + 1
+        left = right = minlen
+        demand = dict()
+        for num in small:
+            demand[num] = 1
+        l = 0
+        for r in range(lenb):
+            if big[r] not in demand:
+                continue
+            if demand[big[r]] == 1:
+                need -= 1
+            demand[big[r]] -= 1
+            while need <= 0:
+                if r - l + 1 < minlen:
+                    left, right = l, r
+                    minlen = r - l + 1
+                if big[l] in demand:
+                    if demand[big[l]] == 0:
+                        need += 1
+                    demand[big[l]] += 1
+                l += 1
+        return [left, right] if minlen <= lenb else []
 
 
 树的遍历
