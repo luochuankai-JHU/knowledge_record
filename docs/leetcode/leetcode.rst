@@ -445,7 +445,7 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
    这篇解析写的很好，总结了滑动窗口的全部题目。
    https://leetcode.cn/problems/permutation-in-string/solution/by-flix-ix7f/
 
-   窗口定长，和窗口不定长度是有两种方法的。
+   窗口定长，和窗口不定长度是有两种模板的。
 
 
 最小覆盖子串
@@ -496,6 +496,7 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 
 | 返回最短子数组的左端点和右端点，如有多个满足条件的子数组，返回左端点最小的一个。若不存在，返回空数组。
 ::
+    
     def shortestSeq(self, big: List[int], small: List[int]) -> List[int]:
         lenb = len(big)
         need = len(small)
@@ -523,6 +524,43 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
                     demand[big[l]] += 1
                 l += 1
         return [left, right] if minlen <= lenb else []
+
+
+找到字符串中所有字母异位词
+----------------------------------------
+| leetcode 438. 
+| 给定两个字符串 s 和 p，找到 s 中所有 p 的 异位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。
+
+| 异位词 指由相同字母重排列形成的字符串（包括相同的字符串）。
+::
+
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        lens = len(s)
+        lenp = len(p)
+        if lens < lenp:
+            return []
+        ans = []
+        demand = defaultdict(int)
+        for num in p:
+            demand[num] += 1
+        need = lenp
+        for r in range(lens):
+            if s[r] in demand:
+                if demand[s[r]] > 0:
+                    need -= 1
+                demand[s[r]] -= 1
+            l = r - lenp # 这里要特别注意这里不需要+1，因为是右边左边都要动，此时处理的是左边开始滑动时刻的情况
+            if l >= 0:
+                if s[l] in demand:
+                    if demand[s[l]] >= 0:
+                        need += 1
+                    demand[s[l]] += 1
+            if need == 0:
+                ans.append(r - lenp + 1)
+        return ans
+
+.. important:: 
+    l = r - lenp # 这里要特别注意这里不需要+1，因为是右边左边都要动，此时处理的是左边开始滑动时刻的情况
 
 
 树的遍历
