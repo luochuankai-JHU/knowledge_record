@@ -440,9 +440,52 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 滑动窗口
 ================================
 
-https://leetcode.cn/problems/permutation-in-string/solution/by-flix-ix7f/
+.. Note:: 
+
+   这篇解析写的很好，总结了滑动窗口的全部题目。
+   https://leetcode.cn/problems/permutation-in-string/solution/by-flix-ix7f/
+
+   窗口定长，和窗口不定长度是有两种方法的。
 
 
+最小覆盖子串
+------------------------------
+| leetcode 76.
+
+| 给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 "" 。
+
+| 注意：
+| 对于 t 中重复字符，我们寻找的子字符串中该字符数量必须不少于 t 中该字符数量。
+| 如果 s 中存在这样的子串，我们保证它是唯一的答案。
+::
+    
+    def minWindow(self, s: str, t: str) -> str:
+        lens = len(s)
+        lent = len(t)
+        if lent > lens:
+            return ""
+        ans = s + "#"
+        l = 0
+        demand = dict()
+        for cha in t:
+            demand[cha] = demand.get(cha, 0) + 1
+        need = lent
+        for r in range(lens):
+            if s[r] not in demand:
+                continue
+            if demand[s[r]] > 0:
+                need -= 1
+            demand[s[r]] -= 1
+            
+            while need <= 0:
+                if len(ans) > r - l + 1:
+                    ans = s[l: r + 1]
+                if s[l] in demand:
+                    if demand[s[l]] >= 0:
+                        need += 1
+                    demand[s[l]] += 1
+                l += 1
+        return ans if len(ans) <= lens else ""
 
 
 树的遍历
