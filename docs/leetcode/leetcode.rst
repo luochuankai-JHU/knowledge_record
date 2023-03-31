@@ -435,7 +435,17 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 
 这个代码和他的思路都是向前看的思想。  他的代码是向后看的思想
 
-树的遍历：
+
+
+滑动窗口
+================================
+
+
+
+
+
+
+树的遍历
 ======================
 
 https://leetcode.cn/problems/binary-tree-preorder-traversal/solution/tu-jie-er-cha-shu-de-si-chong-bian-li-by-z1m/
@@ -4435,6 +4445,41 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
 
 图
 ====================
+课程表
+-----------------
+| leetcode 207. 
+| 你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。
+
+| 在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程 ai 则 必须 先学习课程  bi 。
+
+| 例如，先修课程对 [0, 1] 表示：想要学习课程 0 ，你需要先完成课程 1 。
+| 请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。
+::
+
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        first_second = defaultdict(list)
+        demand = defaultdict(int)
+        qualified = list()
+        for key in prerequisites:
+            first_second[key[1]].append(key[0])
+            demand[key[0]] += 1
+        for course in range(numCourses):
+            if course not in demand:
+                qualified.append(course)
+        
+        while qualified:
+            cur = qualified.pop()
+            numCourses -= 1
+            if cur in first_second:
+                for second in first_second[cur]:
+                    demand[second] -= 1
+                    if demand[second] == 0:
+                        qualified.append(second)
+        return numCourses == 0
+
+
+# 参考了解析https://leetcode.cn/problems/course-schedule/solution/bao-mu-shi-ti-jie-shou-ba-shou-da-tong-tuo-bu-pai-/
+# 使用拓扑的入度与出度
 
 岛屿数量
 -----------------------
