@@ -459,39 +459,30 @@ leetcode 84.
 ::
 
     def largestRectangleArea(self, heights: List[int]) -> int:
-        heights.append(0)
-        stack = [-1]
-        max_area = 0
+        ans = heights[0]
+        queue = []
+        heights = [0] + heights + [0]
         for i in range(len(heights)):
-            while heights[i] < heights[stack[-1]]:
-                h = heights[stack.pop()]
-                w = i - stack[-1] - 1
-				# print(h,w,h * w)
-                max_area = max(max_area, h*w)
-            stack.append(i)
-        return max_area
-		
-| 解法是这样的：
-| 维护一个单调栈。 计算面积的时候是向右走到头（头是指的遇到比栈顶小的时候）。至于heights最后放一个0是为了把heights内所有的元素都pop出来，
-然后stack初始化也是为了栈不为空，不然要判断。
+            while queue and heights[i] < heights[queue[-1]]:
+                h = heights[queue.pop()]
+                w = i - queue[-1] - 1
+                ans = max(ans, h * w)
+            queue.append(i)
+        return ans
 
-| 如果我们以示例为例子，print那里显示的话得到的结果是：
-| 2 1 2
-| 6 1 6
-| 5 2 10
-| 3 1 3
-| 2 4 8
-| 1 6 6
-| 10
+.. tip:: 
 
-.. image:: ../../_static/leetcode/84解法精华.png
+    这里有几点需要注意的地方：
+
+    1. heights = [0] + heights + [0]  相当于前后加了两个“哨兵”
+
+    2. w = i - queue[-1] - 1  而不是刚刚pop出来的。防止[2, 1, 2]的情况发生，不知道左边界是哪里
+
+
+
+.. image:: ../../_static/leetcode/84_2.png
     :align: center
-
-
-Leetcode 84：柱状图中最大的矩形（超详细的解法！！！） https://blog.csdn.net/qq_17550379/article/details/85093224
-
-截图太长，不放上来，保存在 _static/leetcode/84_.png了
-
+    :width: 500
 
 
 滑动窗口最大值
