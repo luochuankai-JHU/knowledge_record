@@ -482,7 +482,7 @@ leetcode 84.
 
 .. image:: ../../_static/leetcode/84_2.png
     :align: center
-    :width: 500
+    :width: 700
 
 
 滑动窗口最大值
