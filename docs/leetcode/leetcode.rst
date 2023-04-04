@@ -437,10 +437,31 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 
 
 
-维护一个堆栈
+需要维护一个队列
 ===============================
-239. Sliding Window Maximum
+滑动窗口最大值
+-----------------------------
+| leetcode 239. 
 
+| 给你一个整数数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。
+
+| 返回 滑动窗口中的最大值 。
+::
+
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        queue = []
+        ans = []
+        for index, num in enumerate(nums):
+            while queue and num >= queue[-1][1]:
+                queue.pop()
+            if queue and queue[0][0] <= index - k:
+                queue.pop(0)
+            queue.append((index, num))
+            if index - k + 1 >= 0:
+                ans.append(queue[0][1])
+        return ans
+
+        
 每日温度
 --------------------------
 | leetcode 739. 
