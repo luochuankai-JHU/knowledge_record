@@ -439,6 +439,61 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 
 需要维护一个队列
 ===============================
+
+柱状图中最大的矩形
+-----------------------------
+leetcode 84. 
+
+给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
+
+求在该柱状图中，能够勾勒出来的矩形的最大面积。
+
+| 示例:
+| 输入: [2,1,5,6,2,3]
+| 输出: 10
+
+.. image:: ../../_static/leetcode/84.png
+    :align: center
+    :width: 400
+
+::
+
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        heights.append(0)
+        stack = [-1]
+        max_area = 0
+        for i in range(len(heights)):
+            while heights[i] < heights[stack[-1]]:
+                h = heights[stack.pop()]
+                w = i - stack[-1] - 1
+				# print(h,w,h * w)
+                max_area = max(max_area, h*w)
+            stack.append(i)
+        return max_area
+		
+| 解法是这样的：
+| 维护一个单调栈。 计算面积的时候是向右走到头（头是指的遇到比栈顶小的时候）。至于heights最后放一个0是为了把heights内所有的元素都pop出来，
+然后stack初始化也是为了栈不为空，不然要判断。
+
+| 如果我们以示例为例子，print那里显示的话得到的结果是：
+| 2 1 2
+| 6 1 6
+| 5 2 10
+| 3 1 3
+| 2 4 8
+| 1 6 6
+| 10
+
+.. image:: ../../_static/leetcode/84解法精华.png
+    :align: center
+
+
+Leetcode 84：柱状图中最大的矩形（超详细的解法！！！） https://blog.csdn.net/qq_17550379/article/details/85093224
+
+截图太长，不放上来，保存在 _static/leetcode/84_.png了
+
+
+
 滑动窗口最大值
 -----------------------------
 | leetcode 239. 
@@ -461,7 +516,8 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
                 ans.append(queue[0][1])
         return ans
 
-        
+
+
 每日温度
 --------------------------
 | leetcode 739. 
@@ -2958,59 +3014,7 @@ True，
 
 注意，第二次遍历的时候需要用这个队列，而不能直接从左上到右下去扫描，不然矩阵靠右的会有点问题。 比如有一行是1000，那么第一个0是看不到最右边的#的
 
-柱状图中最大的矩形
------------------------------
-leetcode 84. 
 
-给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
-
-求在该柱状图中，能够勾勒出来的矩形的最大面积。
-
-| 示例:
-| 输入: [2,1,5,6,2,3]
-| 输出: 10
-
-.. image:: ../../_static/leetcode/84.png
-    :align: center
-    :width: 400
-
-::
-
-    def largestRectangleArea(self, heights: List[int]) -> int:
-        heights.append(0)
-        stack = [-1]
-        max_area = 0
-        for i in range(len(heights)):
-            while heights[i] < heights[stack[-1]]:
-                h = heights[stack.pop()]
-                w = i - stack[-1] - 1
-				# print(h,w,h * w)
-                max_area = max(max_area, h*w)
-            stack.append(i)
-        return max_area
-		
-| 解法是这样的：
-| 维护一个单调栈。 计算面积的时候是向右走到头（头是指的遇到比栈顶小的时候）。至于heights最后放一个0是为了把heights内所有的元素都pop出来，
-然后stack初始化也是为了栈不为空，不然要判断。
-
-| 如果我们以示例为例子，print那里显示的话得到的结果是：
-| 2 1 2
-| 6 1 6
-| 5 2 10
-| 3 1 3
-| 2 4 8
-| 1 6 6
-| 10
-
-.. image:: ../../_static/leetcode/84解法精华.png
-    :align: center
-
-
-Leetcode 84：柱状图中最大的矩形（超详细的解法！！！） https://blog.csdn.net/qq_17550379/article/details/85093224
-
-截图太长，不放上来，保存在 _static/leetcode/84_.png了
-
-请看下一题：
 
 最大矩形
 ----------------------
