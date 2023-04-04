@@ -441,7 +441,26 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
 ===============================
 239. Sliding Window Maximum
 
-739. Daily Temperatures
+每日温度
+--------------------------
+| leetcode 739. 
+
+给定一个整数数组 temperatures ，表示每天的温度，返回一个数组 answer ，其中 answer[i] 是指对于第 i 天，下一个更高温度出现在几天后。如果气温在这之后都不会升高，请在该位置用 0 来代替。
+::
+
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        length = len(temperatures)
+        if length == 1:
+            return [0]
+        stack = []
+        ans = [0] * length
+        for index, temp in enumerate(temperatures):
+            while stack and temp > stack[-1][1]:
+                first = stack.pop()
+                ans[first[0]] = index - first[0]
+            stack.append((index, temp))
+        return ans
+
 
 滑动窗口
 ================================
