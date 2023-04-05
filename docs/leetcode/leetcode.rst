@@ -388,6 +388,13 @@ https://www.cnblogs.com/Jinghe-Zhang/p/8986585.html
     s1 = quicksort(s, left = 0, right = len(s) - 1)
     print("after sort:",s1)
 
+
+另一种解答
+
+https://leetcode.cn/problems/sort-an-array/solution/duo-chong-pai-xu-yi-wang-da-jin-kuai-pai-wgz4/
+
+
+
 数组中的逆序对
 ----------------------
 剑指 Offer 51. 
@@ -1819,6 +1826,34 @@ leetcode 63.
             res = max(res,j-i+1)
         return res
 
+
+丑数
+-------------------
+leetcode 263. 
+
+丑数 就是只包含质因数 2、3 和 5 的正整数。
+
+给你一个整数 n ，请你判断 n 是否为 丑数 。如果是，返回 true ；否则，返回 false 。
+::
+    
+    def isUgly(self, n: int) -> bool:
+        if n <= 0:
+            return False
+        while n:
+            if n % 5 == 0:
+                n /= 5
+                continue
+            elif n % 3 == 0:
+                n /= 3
+                continue
+            elif n % 2 == 0:
+                n /= 2
+                continue
+            
+            if n == 1:
+                return True
+            return False
+ 
 
 丑数
 --------------
