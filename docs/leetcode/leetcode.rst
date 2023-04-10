@@ -1652,7 +1652,7 @@ https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/soluti
 
 股票的最大利润
 ------------------------------
-剑指 Offer 63. 
+leetcode 121. / 剑指 Offer 63. 
 
 .. image:: ../../_static/leetcode/剑指63.png
     :align: center
@@ -1661,19 +1661,14 @@ https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/soluti
 假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？::
 
     def maxProfit(self, prices: List[int]) -> int:
-        if len(prices)<=0:
+        if len(prices) <= 1:
             return 0
-        Max,Min = prices[0],prices[0]
-        res = 0
-        for i in range(len(prices)):
-            if prices[i]>Max:
-                Max = prices[i]
-                temp = Max-Min
-                res = max(temp,res)
-            elif  prices[i]<Min:
-                Min = prices[i]
-                Max = prices[i]                 
-        return res
+        ans = 0
+        temp = float(inf)
+        for num in prices:
+            temp = min(temp, num)
+            ans = max(ans, num - temp)
+        return ans
         
         
 礼物的最大价值
