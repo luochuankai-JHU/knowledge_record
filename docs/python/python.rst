@@ -129,7 +129,16 @@ cmp_to_key 可以自定义排序的比较方式
     :align: center
     :width: 800
 
-比如这里，可以用 cmp_to_key来定义，两个值是通过字符串比大小来判断大小的
+比如这里，可以用 cmp_to_key来定义，两个值是通过字符串比大小来判断大小的::
+
+    def largestNumber(self, nums: List[int]) -> str:
+        def fun(x, y):
+            if x + y > y + x:
+                return 1
+            return -1
+        nums = list(map(str, nums))
+        nums.sort(key=cmp_to_key(fun), reverse=True)
+        return "0" if nums[0] == "0" else "".join(nums)
 
 
 **sort 和 sorted 区别**
