@@ -1742,6 +1742,20 @@ leetcode 123.
 
 这里dp[i][0、1、2、3]分别指的是 在第i天第一次买、第一次卖、第二次买、第二次卖 时的最大利润
 
+
+这里其实还有一种解答，暂时还没理解啥意思？？？???
+::
+
+    def maxProfit(self, prices: List[int]) -> int:
+        ret = [0 for i in range(len(prices))]
+        for i in range(2):
+            currMaxProfit = 0
+            for j in range(1, len(prices)):
+                currMaxProfit = max(ret[j], currMaxProfit + prices[j] - prices[j - 1])
+                ret[j] = max(ret[j - 1], currMaxProfit)
+        return ret[-1]
+
+
 礼物的最大价值
 ----------------------
 剑指 Offer 47. 
