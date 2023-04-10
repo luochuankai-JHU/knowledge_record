@@ -3167,6 +3167,51 @@ True，
 注意，第二次遍历的时候需要用这个队列，而不能直接从左上到右下去扫描，不然矩阵靠右的会有点问题。 比如有一行是1000，那么第一个0是看不到最右边的#的
 
 
+好吧其实遍历两次就行。和下题基本一样
+
+被围绕的区域
+-----------------------
+leetcode 130. 
+
+给你一个 m x n 的矩阵 board ，由若干字符 'X' 和 'O' ，找到所有被 'X' 围绕的区域，并将这些区域里所有的 'O' 用 'X' 填充。
+::
+
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        m, n = len(board), len(board[0])
+        def inedge(i, j):
+            if i == 0 or i == m - 1 or j == 0 or j == n - 1:
+                return True
+            return False
+        def infection(i, j):
+            if i < 0 or i > m - 1 or j < 0 or j > n - 1:
+                return
+            if board[i][j] == "#" or board[i][j] == "X":
+                return
+            board[i][j] = "#"
+            infection(i + 1, j)
+            infection(i - 1, j)
+            infection(i, j + 1)
+            infection(i, j - 1)
+        
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == "O" and inedge(i, j):
+                    infection(i, j)
+        for i in range(m):
+            for j in range(n):        
+                if board[i][j] == "O":
+                    board[i][j] = "X"
+                if board[i][j] == "#":
+                    board[i][j] = "O"
+
+
+从边缘的"O"找起，这些肯定是不能被同化的，标记为"#"。然后开始感染，这些被感染到的也不能被同化，标记为"#"
+
+第二次遍历，判断一下，如果当前是"O"，则被同化为"x"。如果被标记为"#"则还原回"O"。这里注意先后顺序就行
+
 
 最大矩形
 ----------------------
