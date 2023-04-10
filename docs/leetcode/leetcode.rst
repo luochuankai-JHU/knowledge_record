@@ -1650,15 +1650,17 @@ https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/soluti
 
 
 
-股票的最大利润
+
+买卖股票的最佳时机
 ------------------------------
 leetcode 121. / 剑指 Offer 63. 
 
-.. image:: ../../_static/leetcode/剑指63.png
-    :align: center
-    :width: 400
-    
-假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？::
+给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。
+
+你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。
+
+返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 
+::
 
     def maxProfit(self, prices: List[int]) -> int:
         if len(prices) <= 1:
@@ -1670,7 +1672,49 @@ leetcode 121. / 剑指 Offer 63.
             ans = max(ans, num - temp)
         return ans
         
-        
+
+买卖股票的最佳时机 II
+------------------------------
+leetcode 122. 
+
+给你一个整数数组 prices ，其中 prices[i] 表示某支股票第 i 天的价格。
+
+在每一天，你可以决定是否购买和/或出售股票。你在任何时候 最多 只能持有 一股 股票。你也可以先购买，然后在 同一天 出售。
+
+返回 你能获得的 最大 利润 。
+::
+
+    def maxProfit(self, prices: List[int]) -> int:
+        if len(prices) <= 1:
+            return 0
+        dp = [[0, 0] for _ in range(len(prices))]
+        dp[0][1] = -prices[0]
+        for i in range(1, len(prices)):
+            dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i])
+            dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] - prices[i])
+        return dp[-1][0]
+
+
+这一题和上一题的区别在于，可以多次买卖。所以不是一锤子交易了
+
+在动态规划的时候，每一天都存在两种情况---手里有一股，手里清仓了。而当天具体能获得的利润其实取决于昨天的两种状态
+
+因此是一个二维的动态规划。dp[i][0]表示为，第i天手里没有股票了的最大利润；dp[i][1]表示为，第i天手里还有1股的最大利润
+
+| dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i])中括号里的解读为：
+| 前一天就清仓了 和  昨天还留了一手，今天清仓
+
+| dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] - prices[i])
+| 前一天还持有1股，今天继续持有 和 昨天清仓了，今天买入1股
+
+这里可以理解为，每次就买卖1股，单价是prices[i]
+
+.. Note::
+
+    注意这里dp需要是dp = [[0, 0] for _ in range(len(prices))] 而不是 dp = [[0, 0] * (len(prices))] 这样会变成1维数组
+
+
+
 礼物的最大价值
 ----------------------
 剑指 Offer 47. 
