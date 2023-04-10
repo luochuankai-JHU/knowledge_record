@@ -125,7 +125,7 @@ intvs = sorted(intervals, key = lambda x: x[0])  这个老是忘记
 
 cmp_to_key 可以自定义排序的比较方式
 
-.. image:: ../../_static/python/cmp_to_key.png
+.. image:: ../../_static/python/lc179.png
     :align: center
     :width: 800
 
@@ -144,9 +144,10 @@ cmp_to_key 可以自定义排序的比较方式
 **sort 和 sorted 区别**
 ::
     s = [1,2,3,1,4,6]
-    a = sorted(s)
+    如果想进行排序的话
+    a = sorted(s) 需要再找个变量来承接
     或者
-    s.sort()
+    s.sort()  原地排序
 
 sort()属于永久性排列，直接改变该list； sorted属于暂时性排列，会产生一个新的序列。
 
