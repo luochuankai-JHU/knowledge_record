@@ -66,6 +66,12 @@ string.isdigit()
 string.isalpha()
 
 
+大写字母和小写字母的转换
+----------------------------
+string.upper()
+
+string.lower()
+
 python的正无穷和负无穷
 ----------------------------
 正无穷是 float(inf)    inf 是infinite的缩写。这样便于记忆
