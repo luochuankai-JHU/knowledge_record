@@ -1731,7 +1731,7 @@ leetcode 123.
     def maxProfit(self, prices: List[int]) -> int:
         if len(prices) <= 1:
             return 0
-        dp = [[0, -9999, -9999, -9999] for _ in range(len(prices))]
+        dp = [[0, -float(inf), -float(inf), -float(inf)] for _ in range(len(prices))]
         dp[0][0] = -prices[0]
         for i in range(1, len(prices)):
             dp[i][0] = max(dp[i - 1][0], -prices[i])
