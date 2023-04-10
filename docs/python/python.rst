@@ -118,9 +118,28 @@ print(g(2, 3))
 | • reduce函数。此时lambda函数用于指定列表中两两相邻元素的结合条件。
 | 例如reduce(lambda a, b: '{}, {}'.format(a, b), [1, 2, 3, 4, 5, 6, 7, 8, 9])将列表 [1, 2, 3, 4, 5, 6, 7, 8, 9]中的元素从左往右两两以逗号分隔的字符的形式依次结合起来，其结果是'1, 2, 3, 4, 5, 6, 7, 8, 9'。
 
+
 sort
 -------------
 intvs = sorted(intervals, key = lambda x: x[0])  这个老是忘记
+
+cmp_to_key 可以自定义排序的比较方式
+
+.. image:: ../../_static/python/cmp_to_key.png
+    :align: center
+    :width: 800
+
+比如这里，可以用 cmp_to_key来定义，两个值是通过字符串比大小来判断大小的
+
+
+**sort 和 sorted 区别**
+::
+    s = [1,2,3,1,4,6]
+    a = sorted(s)
+    或者
+    s.sort()
+
+sort()属于永久性排列，直接改变该list； sorted属于暂时性排列，会产生一个新的序列。
 
 
 re正则

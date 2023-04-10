@@ -4931,6 +4931,42 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
 |         next_step = [(i+1,j),(i-1,j),(i,j+1),(i,j-1)]
 |         for new_x, new_y in next_step:
 
+python小知识点运用
+============================
+
+最大数
+-----------------------
+leetcode 179. 
+
+给定一组非负整数 nums，重新排列每个数的顺序（每个数不可拆分）使之组成一个最大的整数。
+
+注意：输出结果可能非常大，所以你需要返回一个字符串而不是整数。
+
+示例 1：
+| 输入：nums = [10,2]
+| 输出："210"
+
+| 示例 2：
+| 输入：nums = [3,30,34,5,9]
+| 输出："9534330"
+::
+
+    def largestNumber(self, nums: List[int]) -> str:
+        def fun(x, y):
+            if x + y > y + x:
+                return 1
+            return -1
+        nums = list(map(str, nums))
+        nums.sort(key=cmp_to_key(fun), reverse=True)
+        return "0" if nums[0] == "0" else "".join(nums)
+
+
+这里考察的是sort的key=cmp_to_key写法。这样可以自定义如何来排序，如何比较两个值。
+
+如果只是一个值，比如 nums = [("aa", 1), ("bb", 3), ("cc", 2)]可以
+
+nums.sort(lambda x: x[1])
+
 
 非常规题
 ======================
