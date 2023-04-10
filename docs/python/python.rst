@@ -127,7 +127,7 @@ cmp_to_key 可以自定义排序的比较方式
 
 .. image:: ../../_static/python/lc179.png
     :align: center
-    :width: 800
+    :width: 500
 
 比如这里，可以用 cmp_to_key来定义，两个值是通过字符串比大小来判断大小的::
 
