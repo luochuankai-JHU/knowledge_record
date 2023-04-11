@@ -3914,6 +3914,37 @@ n个骰子的点数
 
 要特别注意边界条件。所以我在第一轮前面加了六个0，前几轮要判断左边界。 然后在这一轮能够新生成的6个数，要判断右边界。
 
+
+
+阶乘后的零
+-----------------
+leetcode 172. 
+
+给定一个整数 n ，返回 n! 结果中尾随零的数量。
+
+提示 n! = n * (n - 1) * (n - 2) * ... * 3 * 2 * 1
+::
+
+    def trailingZeroes(self, n: int) -> int:
+        ans = 0
+        while n >= 1:
+            ans += n // 5
+            n /= 5
+        return int(ans)
+
+参考：https://leetcode.cn/problems/factorial-trailing-zeroes/solution/xiang-xi-tong-su-de-si-lu-fen-xi-by-windliang-3/
+
+注意 这里是末尾的0，所以7!=4020 只有一个0
+
+.. image:: ../../_static/leetcode/172_1.png
+    :align: center
+    :width: 400
+
+.. image:: ../../_static/leetcode/172_2.png
+    :align: center
+    :width: 400
+
+
 链表
 ===================
 
