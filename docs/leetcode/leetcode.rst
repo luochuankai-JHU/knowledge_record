@@ -3660,8 +3660,8 @@ leetcode 435.
 leetcode 163 759 986  630
 
 
-找规律&斐波拉契
-===================
+找规律&斐波拉契&数学
+=============================
 
 旋转二维数组总结
 ---------------------------------
@@ -3938,11 +3938,11 @@ leetcode 172.
 
 .. image:: ../../_static/leetcode/172_1.png
     :align: center
-    :width: 400
+    :width: 600
 
 .. image:: ../../_static/leetcode/172_2.png
     :align: center
-    :width: 400
+    :width: 600
 
 
 链表
@@ -4956,6 +4956,44 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
 
 # 参考了解析https://leetcode.cn/problems/course-schedule/solution/bao-mu-shi-ti-jie-shou-ba-shou-da-tong-tuo-bu-pai-/
 # 使用拓扑的入度与出度
+
+
+课程表 II
+------------------------------
+leetcode 210. 
+
+现在你总共有 numCourses 门课需要选，记为 0 到 numCourses - 1。给你一个数组 prerequisites ，其中 prerequisites[i] = [ai, bi] ，表示在选修课程 ai 前 必须 先选修 bi 。
+
+例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示：[0,1] 。
+
+返回你为了学完所有课程所安排的学习顺序。可能会有多个正确的顺序，你只要返回 任意一种 就可以了。如果不可能完成所有课程，返回 一个空数组 。
+::
+
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        ans = []
+        queue = []
+        demand = defaultdict(int)
+        relation = defaultdict(list)
+        for course in prerequisites:
+            demand[course[0]] += 1
+            relation[course[1]] += [course[0]]
+        for cla in range(numCourses):
+            if cla not in demand:
+                queue.append(cla)
+        while queue:
+            cla = queue.pop()
+            ans.append(cla)
+            numCourses -= 1
+            for after in relation[cla]:
+                demand[after] -= 1
+                if demand[after] == 0:
+                    queue.append(after)
+        for cla in demand:
+            if demand[cla] > 0:
+                return []
+        return ans
+
+
 
 岛屿数量
 -----------------------
