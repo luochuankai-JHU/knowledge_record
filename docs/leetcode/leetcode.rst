@@ -2626,9 +2626,44 @@ leetcode 127.
 | sk == endWord
 
 给你两个单词 beginWord 和 endWord 和一个字典 wordList ，返回 从 beginWord 到 endWord 的 最短转换序列 中的 单词数目 。如果不存在这样的转换序列，返回 0 。
+::
 
-????？？？？
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        wordset = set(wordList)
+        if endWord not in wordset:
+            return 0
+        queue = [beginWord]
+        if beginWord in wordset:
+            wordset.remove(beginWord)
+        step = 1
+        while queue:
+            store = []
+            for word in queue:
+                for i in range(len(word)):
+                    # temp = word
+                    for j in range(26):
+                        temp = word[:i] + chr(j + ord("a")) + word[i + 1:]
+                        if temp == endWord:
+                            return step + 1
+                        if temp in wordset:
+                            wordset.remove(temp)
+                            store.append(temp)
+            step += 1
+            queue = store
+        return 0
 
+
+| 这道题其实有两种思路：
+| 1.对每个单词，都搜索一遍其他单词，然后遍历该单词的每个字母，记录这两个单词的diff是不是1
+| 2.对于每个单词，遍历这个单词的每个字母，从a到z进行替换，看看在不在set里面。
+
+第二种的复杂度是O（N * len Word）。而且可以用BFS来进行优化
+
+bfs：从begin开始，找到所有能替换一个字母就达到的单词，存在queue里面。一层层的来找。最短路径是需要用bfs而不是dfs的
+
+.. image:: ../../_static/leetcode/127.png
+    :align: center
+    :width: 450
 
 最长上升子序列
 ---------------------------
