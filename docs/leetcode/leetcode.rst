@@ -2614,6 +2614,50 @@ leetcode 72
 | (3) dp[i-1][j]，即先将 word1 的前 4 个字符 hors 转换为 word2 的前 3 个字符 ros，然后删除 word1 的第 5 个字符
 
 
+下面这道题和编辑距离的解题方法很像。
+
+
+交错字符串
+-----------------------
+leetcode 97. 
+
+给定三个字符串 s1、s2、s3，请你帮忙验证 s3 是否是由 s1 和 s2 交错 组成的。
+
+两个字符串 s 和 t 交错 的定义与过程如下，其中每个字符串都会被分割成若干 非空 子字符串：
+
+| · s = s1 + s2 + ... + sn
+| · t = t1 + t2 + ... + tm
+
+|n - m| <= 1
+
+| 交错 是 s1 + t1 + s2 + t2 + s3 + t3 + ... 或者 t1 + s1 + t2 + s2 + t3 + s3 + ...
+| 注意：a + b 意味着字符串 a 和 b 连接。
+
+
+.. image:: ../../_static/leetcode/97.png
+    :align: center
+    :width: 550
+
+解法：
+
+.. image:: ../../_static/leetcode/97_2.png
+    :align: center
+    :width: 600
+
+
+.. image:: ../../_static/leetcode/97_3.png
+    :align: center
+    :width: 600
+
+https://leetcode.cn/problems/interleaving-string/solution/dong-tai-gui-hua-zhu-xing-jie-shi-python3-by-zhu-3/
+
+
+**想法：**
+
+1. 其实不需要管题目中的什么s1连着三四个字母拼下去，然后s2连着两个字母拼下去。其实分解成小问题，就是能不能 s1[i−1]==s3[i−1]
+
+2. 以后涉及这种两个字符串一个个去比较，又需要用到动态规划的题目，就把上面那个表格画出来。横纵坐标分别代表什么要搞清楚
+
 
 单词接龙
 -----------------------
