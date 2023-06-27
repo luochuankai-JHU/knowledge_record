@@ -2659,6 +2659,27 @@ https://leetcode.cn/problems/interleaving-string/solution/dong-tai-gui-hua-zhu-x
 2. 以后涉及这种两个字符串一个个去比较，又需要用到动态规划的题目，就把上面那个表格画出来。横纵坐标分别代表什么要搞清楚
 
 
+
+不同的子序列
+-------------------------
+leetcode 115. 
+
+给你两个字符串 s 和 t ，统计并返回在 s 的 子序列 中 t 出现的个数。
+
+题目数据保证答案符合 32 位带符号整数范围。
+
+| 示例 1：
+
+| 输入：s = "rabbbit", t = "rabbit"
+| 输出：3
+| 解释：
+| 如下所示, 有 3 种可以从 s 中得到 "rabbit" 的方案。
+| **ra** b **bbit**
+| **rab** b **bit**
+| **rabb** b **it**
+
+
+
 单词接龙
 -----------------------
 leetcode 127. 
