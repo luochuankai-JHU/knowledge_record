@@ -2678,6 +2678,40 @@ leetcode 115.
 | **rab** b **bit**
 | **rabb** b **it**
 
+::
+
+    def numDistinct(self, s: str, t: str) -> int:
+        m, n = len(t), len(s)
+        dp = [[0] * (n + 1) for _ in range(m + 1)]
+        for j in range(n + 1):
+            dp[0][j] = 1
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                if t[i - 1] != s[j - 1]:
+                    dp[i][j] = dp[i][j - 1]
+                else:
+                    dp[i][j] = dp[i - 1][j - 1] + dp[i][j - 1]
+        return dp[-1][-1]
+
+
+.. image:: ../../_static/leetcode/115.png
+    :align: center
+    :width: 550
+
+
+.. image:: ../../_static/leetcode/115_2.png
+    :align: center
+    :width: 550
+
+一般这种题目都是有套路的，第一行和第一列都是空字符串，做好初始化
+
+在dp的第一行和第一列，想清楚谁是1谁是0，之后遍历的时候就从第二行和第二列开始了！
+
+
+首先，在t[i-1] 不等于 s[j-1] 时，这个很好理解，那就是dp[i][j] = dp[i][j - 1]，相当于没用上这个新出来的字符串
+
+在t[i-1] 等于 s[j-1] 时。这个理解稍微复杂一点。如上面截图红框处的这个位置。如果用上这个新加的b来匹配需要的b，那么相当于不用之前的内容，为左上角的1
+如果不用这个新加的b，那和两个字符不匹配（上面那个一样），为左边的2.所以最后是左上角叠加左边
 
 
 单词接龙
