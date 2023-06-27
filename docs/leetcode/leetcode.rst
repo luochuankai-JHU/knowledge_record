@@ -2701,7 +2701,7 @@ leetcode 115.
 
 .. image:: ../../_static/leetcode/115_2.png
     :align: center
-    :width: 550
+    :width: 700
 
 一般这种题目都是有套路的，第一行和第一列都是空字符串，做好初始化
 
