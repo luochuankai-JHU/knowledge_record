@@ -2614,6 +2614,45 @@ leetcode 72
 | (3) dp[i-1][j]，即先将 word1 的前 4 个字符 hors 转换为 word2 的前 3 个字符 ros，然后删除 word1 的第 5 个字符
 
 
+两个字符串的删除操作
+--------------------------------
+leetcode 583. 
+
+给定两个单词 word1 和 word2 ，返回使得 word1 和  word2 相同所需的最小步数。
+
+每步 可以删除任意一个字符串中的一个字符。
+
+| 示例 1：
+| 输入: word1 = "sea", word2 = "eat"
+| 输出: 2
+| 解释: 第一步将 "sea" 变为 "ea" ，第二步将 "eat "变为 "ea"
+
+::
+
+    def minDistance(self, word1: str, word2: str) -> int:
+        dp = [[0] * (len(word1) + 1) for _ in range(len(word2) + 1)]
+        for i in range(len(word2) + 1):
+            dp[i][0] = i
+        for j in range(len(word1) + 1):
+            dp[0][j] = j
+        
+        for i in range(1, len(word2) + 1):
+            for j in range(1, len(word1) + 1):
+                if word1[j - 1] == word2[i - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = min(dp[i][j - 1], dp[i - 1][j]) + 1
+        return dp[-1][-1]
+
+
+基本类似编辑距离，只不过没有上面的替换功能而已。
+
+.. important:: 
+
+   dp = [[0] * (len(word1) + 1) for _ in range(len(word2) + 1)] 这个地方，第二个len是需要加上range的！！老忘记
+
+
+
 下面这道题和编辑距离的解题方法很像。
 
 
