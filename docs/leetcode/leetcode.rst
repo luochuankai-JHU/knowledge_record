@@ -2651,6 +2651,7 @@ leetcode 583.
 
    dp = [[0] * (len(word1) + 1) for _ in range(len(word2) + 1)] 这个地方，第二个len是需要加上range的！！老忘记
 
+   并且，len(word1) + 1 的 +1 不能忘记。总之就是这句话别写错
 
 
 下面这道题和编辑距离的解题方法很像。
@@ -2751,6 +2752,40 @@ leetcode 115.
 
 在t[i-1] 等于 s[j-1] 时。这个理解稍微复杂一点。如上面截图红框处的这个位置。如果用上这个新加的b来匹配需要的b，那么相当于不用之前的内容，为左上角的1
 如果不用这个新加的b，那和两个字符不匹配（上面那个一样），为左边的2.所以最后是左上角叠加左边
+
+
+最长公共子序列
+----------------------
+leetcode 1143. 
+
+给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0 。
+
+一个字符串的 子序列 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
+
+例如，"ace" 是 "abcde" 的子序列，但 "aec" 不是 "abcde" 的子序列。 两个字符串的 公共子序列 是这两个字符串所共同拥有的子序列。
+
+| 示例 1：
+| 输入：text1 = "abcde", text2 = "ace" 
+| 输出：3  
+| 解释：最长公共子序列是 "ace" ，它的长度为 3 。
+::
+
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        len1 = len(text1)
+        len2 = len(text2)
+        dp = [[0] * (len2 + 1) for _ in range(len1 + 1)]
+        for i in range(1, len1 + 1):
+            for j in range(1, len2 + 1):
+                if text1[i - 1] == text2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                else:
+                    dp[i][j] = max(dp[i][j - 1], dp[i - 1][j])
+        return dp[-1][-1]
+
+
+.. image:: ../../_static/leetcode/1143.png
+    :align: center
+    :width: 650
 
 
 单词接龙
