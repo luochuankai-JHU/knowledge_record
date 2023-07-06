@@ -2788,6 +2788,56 @@ leetcode 1143.
     :width: 650
 
 
+
+
+通配符匹配
+-----------------------
+leetcode 44. 
+
+给你一个输入字符串 (s) 和一个字符模式 (p) ，请你实现一个支持 '?' 和 '*' 匹配规则的通配符匹配：
+
+| '?' 可以匹配任何单个字符。
+| '*' 可以匹配任意字符序列（包括空字符序列）。
+
+判定匹配成功的充要条件是：字符模式必须能够 完全匹配 输入字符串（而不是部分匹配）。
+
+ 
+| 示例 1：
+| 输入：s = "aa", p = "a"
+| 输出：false
+| 解释："a" 无法匹配 "aa" 整个字符串。
+
+| 示例 2：
+| 输入：s = "aa", p = "*"
+| 输出：true
+| 解释：'*' 可以匹配任意字符串。
+
+::
+
+    def isMatch(self, s: str, p: str) -> bool:
+        lens = len(s)
+        lenp = len(p)
+        dp = [[False] * (lenp + 1) for _ in range(lens + 1)]
+        dp[0][0] = True
+        flag = True
+        for j in range(1, lenp + 1):
+            if p[j - 1] == "*" and flag:
+                dp[0][j] = True
+            elif p[j - 1] != "*":
+                flag = False
+        
+        for i in range(1, lens + 1):
+            for j in range(1, lenp + 1):
+                if p[j - 1] == s[i - 1] or p[j - 1] == "?":
+                    dp[i][j] = dp[i - 1][j - 1]
+                elif p[j - 1] == "*":
+                    if dp[i][j - 1] or dp[i - 1][j]:
+                        dp[i][j] = True
+        return dp[-1][-1]
+
+https://leetcode.cn/problems/wildcard-matching/solution/yi-ge-qi-pan-kan-dong-dong-tai-gui-hua-dpsi-lu-by-/
+
+
 单词接龙
 -----------------------
 leetcode 127. 
