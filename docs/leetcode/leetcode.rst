@@ -2473,6 +2473,7 @@ leetcode 50.
 | ]
 
 ::
+    
     def generateMatrix(self, n: int) -> List[List[int]]:
         left, right, up, down = 0, n - 1, 0, n - 1
         i, j = 0, 0
