@@ -2472,8 +2472,33 @@ leetcode 50.
 |  [ 7, 6, 5 ]
 | ]
 
-？？？
-再做下
+::
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        left, right, up, down = 0, n - 1, 0, n - 1
+        i, j = 0, 0
+        dp = [[0] * n for _ in range(n)]
+        num = 1
+        while num <= n ** 2:
+            for j in range(left, right + 1):
+                dp[i][j] = num
+                num += 1
+            up += 1
+            for i in range(up, down + 1):
+                dp[i][j] = num
+                num += 1
+            right -= 1
+            for j in range(right, left - 1, -1):
+                dp[i][j] = num
+                num += 1
+            down -= 1
+            for i in range(down, up - 1, -1):
+                dp[i][j] = num
+                num += 1
+            left += 1                
+        return dp
+
+
+https://leetcode.cn/problems/spiral-matrix-ii/solution/spiral-matrix-ii-mo-ni-fa-she-ding-bian-jie-qing-x/
 
 不同路径
 ------------------------
