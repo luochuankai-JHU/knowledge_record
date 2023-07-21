@@ -5398,6 +5398,19 @@ leetcode 1071.
 这里还使用到了辗转相除法
 
 
+直线上最多的点数
+------------------------
+leetcode 149. 
+
+给你一个数组 points ，其中 points[i] = [xi, yi] 表示 X-Y 平面上的一个点。求最多有多少个点在同一条直线上。
+
+.. image:: ../../_static/leetcode/149.png
+    :align: center
+    :width: 400
+
+
+https://leetcode.cn/problems/max-points-on-a-line/solution/gong-shui-san-xie-liang-chong-mei-ju-zhi-u44s/
+
 非常规题
 ======================
 
