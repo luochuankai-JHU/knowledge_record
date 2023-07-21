@@ -5320,8 +5320,8 @@ leetcode 210.
 python小知识点运用
 ============================
 
-最大数
------------------------
+最大数--sort的key=cmp_to_key写法
+---------------------------------------------
 leetcode 179. 
 
 给定一组非负整数 nums，重新排列每个数的顺序（每个数不可拆分）使之组成一个最大的整数。
@@ -5352,6 +5352,50 @@ leetcode 179.
 如果只是一个值，比如 nums = [("aa", 1), ("bb", 3), ("cc", 2)]可以
 
 nums.sort(key=lambda x: x[1]) 按照括号第二位进行排列
+
+辗转相除法
+------------------------
+::
+
+    def gcd(a, b):
+        while b != 0:
+            a, b = b, a % b
+        return a
+
+看下面两题
+
+字符串的最大公因子---辗转相除法
+-----------------------------------------------------
+leetcode 1071. 
+
+对于字符串 s 和 t，只有在 s = t + ... + t（t 自身连接 1 次或多次）时，我们才认定 “t 能除尽 s”。
+
+给定两个字符串 str1 和 str2 。返回 最长字符串 x，要求满足 x 能除尽 str1 且 x 能除尽 str2 。
+
+| 示例 1：
+| 输入：str1 = "ABCABC", str2 = "ABC"
+| 输出："ABC"
+
+| 示例 2：
+| 输入：str1 = "ABABAB", str2 = "ABAB"
+| 输出："AB"
+::
+
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        if str1 + str2 != str2 + str1:
+            return ""
+        def gcd(a, b):
+            while b != 0:
+                a, b = b, a % b
+            return a
+        k = gcd(len(str1), len(str2))
+        return str1[:k]
+
+
+这里判断两个字符串是否有“最大公约数”是通过str1 + str2 == str2 + str1。这个有些意想不到。直观上符合认知
+假设str1和str2的最大公约数为x，比如分别由 xxx 和 xxxxx 组成，那str1 + str2 == str2 + str1
+
+这里还使用到了辗转相除法
 
 
 非常规题
