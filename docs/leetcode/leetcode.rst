@@ -1742,6 +1742,8 @@ leetcode 122.
 
 这里可以理解为，每次就买卖1股，单价是prices[i]
 
+
+
 .. Note::
 
     注意这里dp需要是dp = [[0, 0] for _ in range(len(prices))] 而不是 dp = [[0, 0] * (len(prices))] 
@@ -1762,7 +1764,10 @@ leetcode 122.
             dp[0], dp[1]= max(dp[0], dp[1] + prices[i]), max(dp[1], dp[0] - prices[i])
         return dp[0]
 
-            
+所以leetcode 714题还要收手续费的话，变化也就是::
+
+    dp[0], dp[1]= max(dp[0], dp[1] + prices[i]), max(dp[1], dp[0] - prices[i] - fee)
+
 
 买卖股票的最佳时机 III
 --------------------------------
