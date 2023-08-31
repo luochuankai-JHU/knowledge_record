@@ -2737,6 +2737,30 @@ leetcode 97.
     :align: center
     :width: 550
 
+::
+
+    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        lens1 = len(s1)
+        lens2 = len(s2)
+        lens3 = len(s3)
+        if lens1 + lens2 != lens3:
+            return False
+        if lens1 == 0 or lens2 == 0:
+            return s1 + s2 == s3
+        
+        dp = [[False] * (lens1 + 1) for _ in range(lens2 + 1)]
+        dp[0][0] = True
+        for i in range(1, lens2 + 1):
+            dp[i][0] = dp[i - 1][0] and s2[i - 1] == s3[i - 1]
+        for j in range(1, lens1 + 1):
+            dp[0][j] = dp[0][j - 1] and s1[j - 1] == s3[j - 1]
+
+        for i in range(1, lens2 + 1):
+            for j in range(1, lens1 + 1):
+                dp[i][j] = (dp[i - 1][j] and s2[i - 1] == s3[i + j - 1]) or (dp[i][j - 1] and s1[j - 1] == s3[i + j - 1])
+        return dp[-1][-1]
+
+        
 解法：
 
 .. image:: ../../_static/leetcode/97_2.png
