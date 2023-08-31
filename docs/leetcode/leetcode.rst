@@ -1749,6 +1749,20 @@ leetcode 122.
     这样会变成1维数组
 
 
+这里其实还可以简化：
+由于第i天的dp之和第i-1天有关系。可以变成一维数组
+
+::
+
+    def maxProfit(self, prices: List[int]) -> int:
+        if len(prices) <= 1:
+            return 0
+        dp = [0, -prices[0]]
+        for i in range(1, len(prices)):
+            dp[0], dp[1]= max(dp[0], dp[1] + prices[i]), max(dp[1], dp[0] - prices[i])
+        return dp[0]
+
+            
 
 买卖股票的最佳时机 III
 --------------------------------
@@ -2760,7 +2774,7 @@ leetcode 97.
                 dp[i][j] = (dp[i - 1][j] and s2[i - 1] == s3[i + j - 1]) or (dp[i][j - 1] and s1[j - 1] == s3[i + j - 1])
         return dp[-1][-1]
 
-        
+
 解法：
 
 .. image:: ../../_static/leetcode/97_2.png
