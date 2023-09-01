@@ -123,6 +123,25 @@ sort
 -------------
 intvs = sorted(intervals, key = lambda x: x[0])  这个老是忘记
 
+[[-100, 100], [-90, -80], [-20, 0], [1, 10]]
+
+如果我想满足：1.把左端点小的放前面 2.左端点相同的情况下右端点小的放前面。
+
+则需要两次sort排序。而且别忘了，这个和excel的很像，我需要先以右端点排一次，再排左端点::
+    
+    inters = sorted(sorted(intervals, key = lambda x: x[1]), key = lambda x: x[0])
+
+或者是::
+
+    inters = sorted(intervals, key = lambda x: (x[0], x[1]))
+
+这样直观一些。重要性 先x[0] 后x[1]
+
+如果想体现reverse甚至可以::
+
+    inters = sorted(intervals, key = lambda x: (x[0], -x[1]))
+
+
 cmp_to_key 可以自定义排序的比较方式
 
 .. image:: ../../_static/python/lc179.png
