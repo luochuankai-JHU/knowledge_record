@@ -448,8 +448,8 @@ https://leetcode.cn/problems/sort-an-array/solution/duo-chong-pai-xu-yi-wang-da-
 
 
 
-需要维护一个队列
-===============================
+需要维护一个队列/单独栈
+==================================
 
 柱状图中最大的矩形
 -----------------------------
@@ -494,6 +494,55 @@ leetcode 84.
 .. image:: ../../_static/leetcode/84_2.png
     :align: center
     :width: 700
+
+
+
+股票价格跨度
+----------------------------
+leetcode 901. 
+
+设计一个算法收集某些股票的每日报价，并返回该股票当日价格的 跨度 。
+
+当日股票价格的 跨度 被定义为股票价格小于或等于今天价格的最大连续日数（从今天开始往回数，包括今天）。
+
+例如，如果未来 7 天股票的价格是 [100,80,60,70,60,75,85]，那么股票跨度将是 [1,1,1,2,1,4,6] 。
+
+| 实现 StockSpanner 类：
+| StockSpanner() 初始化类对象。
+| int next(int price) 给出今天的股价 price ，返回该股票当日价格的 跨度 。
+ 
+| 示例：
+| 输入：
+| ["StockSpanner", "next", "next", "next", "next", "next", "next", "next"]
+| [[], [100], [80], [60], [70], [60], [75], [85]]
+| 输出：
+| [null, 1, 1, 1, 2, 1, 4, 6]
+
+| # Your StockSpanner object will be instantiated and called as such:
+| # obj = StockSpanner()
+| # param_1 = obj.next(price)
+::
+
+    class StockSpanner:
+        def __init__(self):
+            self.stack = [(0, float(inf))]
+            self.day = 0
+
+        def next(self, price: int) -> int:
+            self.day += 1
+            while price >= self.stack[-1][1]:
+                self.stack.pop()
+            day = self.stack[-1][0]
+            self.stack.append((self.day, price))
+            return self.day - day
+
+.. tip:: 
+
+    还是单调栈需要注意的地方！！！其实跟上面一模一样！！！：
+
+    1. self.stack = [(0, float(inf))]  相当于前面加了“哨兵”防止空栈
+    
+    2. 确定左边的日期标杆时要用栈里的最后一个， 而不是刚刚pop出来的。防止[2, 1, 2, 3]的情况发生，处理3时不知道左边界是哪里
 
 
 滑动窗口最大值
@@ -3991,7 +4040,9 @@ leetcode 435.
                 end = points[i][1]
         return count
 
-思路和上一题leetcode 435. 很像。就是一定要按照结束时间排序。什么时候开始不重要，什么时候结束才重要。举例如下
+思路和上一题leetcode 435. 很像。就是一定要按照结束时间排序。什么时候开始不重要，什么时候结束才重要。只要后一个的开始小于前一个的结束，则在结束的那一刻一箭都能洞穿
+
+举例如下
 ::
 
     ```````````````````````````
