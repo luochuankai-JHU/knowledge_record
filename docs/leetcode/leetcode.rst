@@ -41,6 +41,18 @@ Leetcode
         return False
 
 
+::
+
+    def binary(stand, left, right, potions):
+        mid = (left + right) // 2
+        if left >= right:
+            return left
+        if potions[mid] >= stand:
+            return binary(stand, left, mid, potions)
+        else:
+            return binary(stand, mid + 1, right, potions)
+
+
 搜索旋转排序数组
 ------------------------------------
 leetcode 33. 
