@@ -365,6 +365,43 @@ x的平方根
         return r
 
 
+寻找峰值
+--------------------------
+leetcode 162. 
+
+峰值元素是指其值严格大于左右相邻值的元素。
+
+给你一个整数数组 nums，找到峰值元素并返回其索引。数组可能包含多个峰值，在这种情况下，返回 任何一个峰值 所在位置即可。
+
+你可以假设 nums[-1] = nums[n] = -∞ 。
+
+你必须实现时间复杂度为 O(log n) 的算法来解决此问题。
+
+| 示例
+| 输入：nums = [1,2,1,3,5,6,4]
+| 输出：1 或 5 
+| 解释：你的函数可以返回索引 1，其峰值元素为 2；或者返回索引 5， 其峰值元素为 6。
+::
+
+    def findPeakElement(self, nums: List[int]) -> int:
+        def binsearch(left, right):
+            if left >= right:
+                return left
+            mid = (left + right) // 2
+            if nums[mid] < nums[mid + 1]:
+                return binsearch(mid + 1, right)
+            else:
+                return binsearch(left, mid)
+        return binsearch(0, len(nums) - 1)
+
+
+O(log n) 暗示了用二分法。但是为什么可以二分呢？上述做法正确的前提有两个：
+
+| 对于任意数组而言，一定存在峰值（一定有解）；
+| 二分不会错过峰值。
+
+详细解析看：https://leetcode.cn/problems/find-peak-element/solutions/998441/gong-shui-san-xie-noxiang-xin-ke-xue-xi-qva7v/
+
 排序
 ====================
 
