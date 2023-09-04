@@ -995,11 +995,11 @@ https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-
             stack = [root]
             while stack:
                 node = stack.pop()
+                res.append(node.val)
                 if node.left:
                     stack.append(node.left)
                 if node.right:
                     stack.append(node.right)
-                res.append(node.val)
             return res[::-1]
 
 注意点：
