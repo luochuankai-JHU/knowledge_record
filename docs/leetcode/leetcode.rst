@@ -914,20 +914,16 @@ https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-
         
 迭代::
 
-    class Solution:
-        def preorderTraversal(self, root: TreeNode) -> List[int]:
-            res = []
-            if not root:
-                return res
-            stack = [root]
-            while stack or cur:
-                while cur:
-                    res.append(cur.val)
-                    stack.append(cur)
-                    cur = cur.left
-                temp = stack.pop()
-                cur = temp.right
-            return res
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        cur, res, stack = root, [], []
+        while cur or stack:
+            while cur:
+                res.append(cur.val)
+                stack.append(cur)
+                cur = cur.left
+            temp = stack.pop()
+            cur = temp.right
+        return res
 
 注意点：
 
