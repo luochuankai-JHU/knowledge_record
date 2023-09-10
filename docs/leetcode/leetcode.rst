@@ -1435,6 +1435,28 @@ leetcode 437.
 
 .. image:: ../../_static/leetcode/437.png
     :align: center
+    :width: 500
+
+本来还觉得我的解法挺好的::
+
+    def helper(node, sumlist):
+        if not node:
+            return 0
+        sumlist = [i + node.val for i in sumlist] + [node.val]
+        count = sumlist.count(targetSum)
+        return count + helper(node.left, sumlist) + helper(node.right, sumlist)
+    return helper(root, [])
+
+
+后来看了这个，前缀和  https://leetcode.cn/problems/path-sum-iii/solutions/596361/dui-qian-zhui-he-jie-fa-de-yi-dian-jie-s-dey6/
+
+
+所以，其实不用每次遇到一个新的节点，都把所有能得到的组合都列出来。
+
+.. image:: ../../_static/leetcode/437_2.png
+    :align: center
+    :width: 450
+
 
 动态规划
 ===================
