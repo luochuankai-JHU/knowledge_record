@@ -1449,7 +1449,22 @@ leetcode 437.
 
 
 后来看了这个，前缀和  https://leetcode.cn/problems/path-sum-iii/solutions/596361/dui-qian-zhui-he-jie-fa-de-yi-dian-jie-s-dey6/
+::
 
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+        def dfs(node, presum):
+            nonlocal store
+            if not node:
+                return 0
+            presum += node.val
+            cnt = store[presum - targetSum]
+            store[presum] += 1
+            cnt_all = cnt + dfs(node.left, presum) + dfs(node.right, presum)
+            store[presum] -= 1
+            return cnt_all
+        store = defaultdict(int)
+        store[0] = 1
+        return dfs(root, 0)
 
 所以，其实不用每次遇到一个新的节点，都把所有能得到的组合都列出来。
 
@@ -1457,6 +1472,13 @@ leetcode 437.
     :align: center
     :width: 450
 
+其次，可以用一个字典，记录的是本路径上前缀和出现的次数
+
+然后当完成这个节点的计算时，需要恢复原本状态，就是这个前缀和出现次数-1就行
+
+一开始初始化字典的时候需要 store[0] = 1 因为如果没有这个的话，如果某条路径下全部的前缀和刚好是target，则无法被识别
+
+然后
 
 动态规划
 ===================
