@@ -1470,7 +1470,7 @@ leetcode 437.
 
 .. image:: ../../_static/leetcode/437_2.png
     :align: center
-    :width: 450
+    :width: 400
 
 其次，可以用一个字典，记录的是本路径上前缀和出现的次数
 
@@ -1478,7 +1478,7 @@ leetcode 437.
 
 一开始初始化字典的时候需要 store[0] = 1 因为如果没有这个的话，如果某条路径下全部的前缀和刚好是target，则无法被识别
 
-然后
+然后 第八行的 store[presum] += 1 不能放在 cnt = store[presum - targetSum] 前面。  暂时还没想清楚。这个案例过不了  root=[1], tar=0
 
 动态规划
 ===================
