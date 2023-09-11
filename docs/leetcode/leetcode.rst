@@ -3947,6 +3947,29 @@ https://leetcode-cn.com/problems/maximal-rectangle/solution/zhong-die-fa-kuai-su
 
 思路：分治思想，分成两部分。遍历到一个符号的时候，可以递归得到左边的全部结果和右边的全部结果。然后看符号是什么，分别相加相减相乘。
 
+
+和为 K 的子数组
+-----------------------
+leetcode 560. 
+
+给你一个整数数组 nums 和一个整数 k ，请你统计并返回 该数组中和为 k 的连续子数组的个数 。
+
+子数组是数组中元素的连续非空序列。
+::
+
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        ans = 0
+        store = {0:1}
+        temp = 0
+        for num in nums:
+            temp += num
+            if temp - k in store:
+                ans += store[temp - k]
+            store[temp] = store.get(temp, 0) + 1
+        return ans
+        # 这道题看了解析的。前缀和+类似2sum的解法真牛啊！
+
+
 区间问题
 =======================
 
