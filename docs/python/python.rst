@@ -801,6 +801,16 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 
 7. 既然可以在自己的本地进行调试。那就一定要在本地调试。用完整的代码，大不了复制粘贴输入输出而已。这样避免用他的调试半天不出结果。而且这样能看见报错。
 
+
+拿到offer之后需要问的问题
+------------------------------
+
+https://www.1point3acres.com/bbs/thread-806618-1-1.html
+[选组选Offer] [工作信息] 【选组选offer】如何选到理想的公司或team？
+
+
+
+
 职业发展
 ==================
 【职场】技术人如何做好述职汇报- 轩脉刃de刀光剑影 https://www.youtube.com/watch?v=Wis0PUaqXtU
