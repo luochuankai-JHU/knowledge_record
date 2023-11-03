@@ -784,8 +784,9 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 
 10. 当然要去猜面试官到底想问什么，但是不要说出来！！！不要显得自己很聪明的  “啊我猜您想问的呢是XXXX”
 
+
 笔试做题和面试做题
-------------------------
+----------------------------------
 1. 输入输出要搞明白，line那个变量没有定义这种事情不要再发生了（我经常搞出这种变量未定义，超边界的事情）。例题1和例题2多看看
 
 2. 笔试的优点在于：可以用愚蠢的暴力法去得一个基础分数。可以一个个的去尝试。比如某公司的某个跳台阶的题目，题目没描述清楚，那么我们一个个的去尝试前几个值，能把他的分布找出来
@@ -803,10 +804,8 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 
 
 拿到offer之后需要问的问题
-------------------------------
-
-https://www.1point3acres.com/bbs/thread-806618-1-1.html
-[选组选Offer] [工作信息] 【选组选offer】如何选到理想的公司或team？
+-------------------------------------
+[选组选Offer] [工作信息] 【选组选offer】如何选到理想的公司或team？ https://www.1point3acres.com/bbs/thread-806618-1-1.html
 
 
 
