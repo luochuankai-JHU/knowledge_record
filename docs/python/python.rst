@@ -817,6 +817,7 @@ https://www.xiaolincoding.com/os/8_network_system/hash.html
 
 这篇文章说的太好了
 
+consistent_hashing.png
 
 职业发展
 ==================
