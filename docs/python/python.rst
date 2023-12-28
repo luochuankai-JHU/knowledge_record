@@ -808,6 +808,14 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 [选组选Offer] [工作信息] 【选组选offer】如何选到理想的公司或team？ https://www.1point3acres.com/bbs/thread-806618-1-1.html
 
 
+System Design
+==========================
+
+Consistent Hashing 一致性哈希
+--------------------------------------
+https://www.xiaolincoding.com/os/8_network_system/hash.html
+
+这篇文章说的太好了
 
 
 职业发展
