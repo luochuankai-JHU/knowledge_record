@@ -562,7 +562,7 @@ DistributedDataParallel 比DataParallel 快很多，据说能快三倍以上。�
 
 https://zhuanlan.zhihu.com/p/97115875 这篇文章讨论到了shuffle 的结果依赖 g.manual_seed(self.epoch) 中的 self.epoch，跑完后再试试
 
-mp的问题，上次拍过棉洲老哥的照片，代码。传到这个GitHub里了，但是没有贴到这上面来。  
+mp的问题，上次拍过棉洲老哥的照片，代码。传到这个GitHub里了，但是没有贴到这上面来。  knowledge_record/docs/_static/python/
 
 多看看官方文档。 好像pytorch1.4还是多少之后就自带apex了
 
