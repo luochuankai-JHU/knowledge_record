@@ -582,22 +582,32 @@ AUC F1 等评价指标
 .. image:: ../../_static/cv/AUC.png
 	:align: center
 
+.. image:: ../../_static/cv/acc_prec_recall.png
+	:align: center
+
+
 | 精度
 | •	Accuracy
 | 定义：(TP+TN)/(TP+FN+FP+TN)
-| 即所有分类正确的样本占全部样本的比例
+| 即所有分类正确的样本占全部样本的比例（模型预测对了的比例）
 | 精确率
 | •	Precision、查准率
 | 定义：(TP)/(TP+FP)
-| 即预测是正例的结果中，确实是正例的比例
+| 即预测是正例的结果中，确实是正例的比例（模型说是阳性，那真是阳性的概率）
 | 召回率
 | •	Recall、查全率
 | 定义：(TP)/(TP+FN)
-| 即所有正例的样本中，被找出的比例
+| 即所有正例的样本中，被找出的比例（阳性样本找到了多少）
+| •	特异度、Specificity: 
+| TN / (TN + FP)
+| (模型认为是负样本中预测对了多少)
+
+
 
 | F1 score
 | F1 = 2TP / (2TP + FP + FN)
-| 召回率Recall和精确率Precision的几何平均数
+| 召回率Recall和精确率Precision的几何平均数  (就是Precision 和 recall 分子直接相加，分母直接相加)
+
 
 | 链接：https://www.jianshu.com/p/b425f5d9fae0
 
