@@ -73,7 +73,7 @@ Dropout
 | Dropout 包括在训练中每次更新时， 将输入单元的按比率随机设置为 0， 这有助于防止过拟合。
 | BN 和 dropout 的具体实现：
 | BN和Dropout在训练和测试时的差别
-| https://blog.csdn.net/songyunli1111/article/details/89071021
+| https://zhuanlan.zhihu.com/p/61725100
 
 dropout 在训练和测试时候的差异
 ''''''''''''''''''''''''''''''''''
@@ -298,7 +298,7 @@ softmax loss只是交叉熵的一个特例
 
 | L1 loss
 | L2 loss
-| smooth L1 loss(|x|<1 时等于0.5x**2, else:等于|x|-0.5)
+| smooth L1 loss(  \vert x \vert < 1 时等于0.5x**2, else:等于|x|-0.5)
 
 
 pytorch中有哪些损失函数
