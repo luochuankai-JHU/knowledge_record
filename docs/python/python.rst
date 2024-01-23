@@ -722,7 +722,7 @@ https://zhuanlan.zhihu.com/p/36173202
 
 
 
-TF-IDF
+TF-IDF的计算
 --------------------
 https://zhuanlan.zhihu.com/p/31197209
 
@@ -731,6 +731,13 @@ https://zhuanlan.zhihu.com/p/31197209
     :align: center
     :width: 800
 
+
+或者这篇文档更加直接一些   
+https://blog.csdn.net/qq_40177015/article/details/114530113
+
+.. image:: ../../_static/python/tf-idf计算.png
+    :align: center
+    :width: 800
 
 
 多进程代码示例
