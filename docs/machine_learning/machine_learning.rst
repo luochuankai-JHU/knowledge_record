@@ -852,7 +852,6 @@ https://blog.csdn.net/J_Boom/article/details/86763024
 
 
 .. image:: ../../_static/machine_learning/circle_encode3.png
-	:align: left
 	:width: 300
 
 
