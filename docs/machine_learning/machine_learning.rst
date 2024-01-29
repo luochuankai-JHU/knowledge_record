@@ -843,11 +843,13 @@ https://blog.csdn.net/J_Boom/article/details/86763024
 
 .. image:: ../../_static/machine_learning/circle_encode1.png
 	:align: left
-	:width: 400
+	:width: 300
 
 .. image:: ../../_static/machine_learning/circle_encode2.png
 	:align: right
-	:width: 400
+	:width: 300
+
+
 
 单独的一维sin/cos并不能限制取值的唯一性，而sin,cos组合便可以达到这个目的
 
