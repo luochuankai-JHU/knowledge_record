@@ -818,6 +818,40 @@ https://blog.csdn.net/J_Boom/article/details/86763024
 .. image:: ../../_static/machine_learning/相关距离.png
 	:align: center
 
+
+周期性特征的编码问题
+----------------------------------
+对于周期性的变量，如日期，月，日，时，分，单纯用数值表示或者简单按数值可取数量编码是欠妥的，如23时和凌晨1h，二者相差只有2h，但是如果只是将时按简单的数字做特征，23与1，二者相差22h，将严重误导模型学习的结果。所以有必要对诸如小时，分钟这样的周期性特征做合适的编码工作。最典型的编码方式是将一维数值变量扩展为二维的（正弦值，余弦值）来编码。步骤如下：
+
+  1.某特征X，计算其最大取值max_value，如小时的最大取值是23时，max_value = 23
+
+  2.计算正弦值余弦值：
+
+    正弦：Xsin = sin(2*pi*\frac{x}{maxValue})
+
+    余弦：Xcos = cos(2*pi*\frac{x}{maxValue})
+
+	3.将扩充后的特征Xsin，Xcos加入到特征集合中，去除其对应的原特征X（不用单独的“时”数值特征，用“时”的sin，cos值代替）
+
+具体说一下
+
+计算sin，cos的方式，就是普通的数值转弧度制，计算正弦余弦值。
+
+而单单把一维变量转化为同样是一维的sin/cos的话，由于sin/cos的周期性，会带来同一取值对应多个不同时刻的问题，如下图
+
+第一张sin，第二张cos，数据X：0,1,2,3,...,23，Y：对应的sin(x),cos(x)
+
+.. image:: ../../_static/machine_learning/circle_encode1.png
+	:align: left
+
+.. image:: ../../_static/machine_learning/circle_encode2.png
+	:align: right
+
+单独的一维sin/cos并不能限制取值的唯一性，而sin,cos组合便可以达到这个目的
+
+.. image:: ../../_static/machine_learning/circle_encode3.png
+	:align: center
+
 启发式算法
 -----------------------------
 通俗的解释就是利用类似仿生学的原理，将自然、动物中的一些现象抽象成为算法处理相应问题。当一个问题是NP难问题时，是无法求解到最优解的，
