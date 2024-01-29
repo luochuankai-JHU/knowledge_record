@@ -827,11 +827,11 @@ https://blog.csdn.net/J_Boom/article/details/86763024
 
   2.计算正弦值余弦值：
 
-    正弦：Xsin = sin(2*pi*\frac{x}{maxValue})
+	.. image:: ../../_static/machine_learning/circle_encode4.png
+		:align: left
 
-    余弦：Xcos = cos(2*pi*\frac{x}{maxValue})
 
-	3.将扩充后的特征Xsin，Xcos加入到特征集合中，去除其对应的原特征X（不用单独的“时”数值特征，用“时”的sin，cos值代替）
+  3.将扩充后的特征Xsin，Xcos加入到特征集合中，去除其对应的原特征X（不用单独的“时”数值特征，用“时”的sin，cos值代替）
 
 具体说一下
 
@@ -843,14 +843,17 @@ https://blog.csdn.net/J_Boom/article/details/86763024
 
 .. image:: ../../_static/machine_learning/circle_encode1.png
 	:align: left
+	:width: 400
 
 .. image:: ../../_static/machine_learning/circle_encode2.png
 	:align: right
+	:width: 400
 
 单独的一维sin/cos并不能限制取值的唯一性，而sin,cos组合便可以达到这个目的
 
 .. image:: ../../_static/machine_learning/circle_encode3.png
 	:align: center
+	:width: 400
 
 启发式算法
 -----------------------------
