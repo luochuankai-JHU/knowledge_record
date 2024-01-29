@@ -906,6 +906,14 @@ L1正则化会让权重向量在最优化的过程中变得稀疏（即非常接
 而根据次梯度的定义，这个时候 x=0 即为最小值。
 
 
+Normalization & Standardization
+------------------------------------------------------
+Normalization typically means rescaling the values into a range of [0,1].
+
+Standardization typically means rescaling values to have a mean of 0 and a standard deviation of 1.
+
+记忆： Standardization 就是 **standard deviation** of 1 and mean of 0
+
 PCA
 ---------------
 单层线性神经网络的降维=PCA ？？
