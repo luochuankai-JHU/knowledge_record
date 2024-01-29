@@ -842,20 +842,21 @@ https://blog.csdn.net/J_Boom/article/details/86763024
 第一张sin，第二张cos，数据X：0,1,2,3,...,23，Y：对应的sin(x),cos(x)
 
 .. image:: ../../_static/machine_learning/circle_encode1.png
-	:align: left
 	:width: 300
 
 .. image:: ../../_static/machine_learning/circle_encode2.png
-	:align: right
 	:width: 300
+
+
 
 
 
 单独的一维sin/cos并不能限制取值的唯一性，而sin,cos组合便可以达到这个目的
 
+
 .. image:: ../../_static/machine_learning/circle_encode3.png
 	:align: center
-	:width: 400
+	:width: 300
 
 启发式算法
 -----------------------------
