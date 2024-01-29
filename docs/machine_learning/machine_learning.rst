@@ -848,14 +848,11 @@ https://blog.csdn.net/J_Boom/article/details/86763024
 	:width: 300
 
 
-
-
-
 单独的一维sin/cos并不能限制取值的唯一性，而sin,cos组合便可以达到这个目的
 
 
 .. image:: ../../_static/machine_learning/circle_encode3.png
-	:align: center
+	:align: left
 	:width: 300
 
 启发式算法
