@@ -1056,7 +1056,7 @@ https://www.zhihu.com/question/25532384/answer/1130818664 这个解答说的很�
 
 3.t-Distributed Stochastic Neighbor Embedding  （t-SNE）
 
-| 是一种非线性降维方法，可以在可视化和特征提取中使用。
+| 是一种非线性降维方法，可以在可视化和特征提取中使用。主要用于可视化，特别是高维数据降维到2维或者3维
 
 4.递归特征消除 (Recursive Feature Elimination, RFE):
 
