@@ -1248,7 +1248,7 @@ https://www.zhihu.com/question/25532384/answer/1130818664 这个解答说的很�
 	:width: 300
 
 .. image:: ../../_static/machine_learning/exponential_distribution2.png
-	:width: 400
+	:width: 300
 
 
 中心极限定理
