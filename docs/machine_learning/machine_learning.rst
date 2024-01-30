@@ -1187,6 +1187,70 @@ https://www.zhihu.com/question/25532384/answer/1130818664 这个解答说的很�
 
 概率论
 ======================
+
+
+概率论中的常见分布类型
+------------------------------------
+**三种离散型分布：Bernoulli Distribution伯努利分布、Binomial Distribution二项分布、poisson distribution**
+
+**1. Bernoulli Distribution伯努利分布**
+
+伯努利分布(两点分布/0-1分布)：伯努利试验指的是只有两种可能结果的单次随机试验。若随机变量X的取值为0和1两种情况，且满足概率分布P(X=1)=p, P(X=0)=1-p，则X服从参数为p的伯努利分布。
+
+举例：假设有产品100件，其中正品90件，次品10件。现在随机从这100件中挑选1件，那么他挑选出正品的概率为0.9，即P(X=正品)=p = 0.9
+
+**2.Binomial Distribution二项分布**
+
+二项分布是将一个『只有两种可能结果的实验』重复n次，得到n+1种『最终实验结果』。伯努利分布分布是二项分布的特例，二项分布是0-1分布的n次重复
+
+.. image:: ../../_static/machine_learning/Binomial_distribution_pmf.png
+	:width: 400
+
+
+**3.poisson distribution**
+
+一个单位内(时间、面积、空间)某稀有事件发生K次的概率。  P(X=0),P(X=1),P(X=3),….所有可能的概率共同组成了一个分布，即泊松分布。
+
+.. image:: ../../_static/machine_learning/Poisson_pmf.png
+	:width: 400
+
+应用举例：
+
+| 某时间段内，来到某商场的顾客数
+| 单位时间内，某网站的点击量
+| 一平方米内玻璃上的气泡数
+
+
+**三种连续型分布Normal distribution正态分布、Uniform distribution均匀分布、Exponential distribution指数分布**
+
+**4.Normal distribution正态分布**
+
+.. image:: ../../_static/machine_learning/normal_distribution.png
+	:width: 300
+
+.. image:: ../../_static/machine_learning/1280px-Normal_Distribution_PDF.png
+	:width: 500
+
+
+**5.Uniform distribution均匀分布**
+
+.. image:: ../../_static/machine_learning/uniform_distribution.png
+	:width: 400
+
+.. image:: ../../_static/machine_learning/uniform_distribution2.png
+	:width: 400
+
+
+
+**6.Exponential distribution指数分布**
+
+.. image:: ../../_static/machine_learning/exponential_distribution.png
+	:width: 300
+
+.. image:: ../../_static/machine_learning/exponential_distribution2.png
+	:width: 400
+
+
 中心极限定理
 ----------------------------
 中心极限定理的准定义是：
