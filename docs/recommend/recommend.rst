@@ -7,6 +7,10 @@
 推荐系统
 ******************
 
+工作总结
+======================
+
+`内部链接 <https://github.com/luochuankai-JHU/work_summary/blob/main/work_exp_v20240216.md>`_ 
 
 学习资料
 ===================

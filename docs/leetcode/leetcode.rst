@@ -4570,7 +4570,7 @@ leetcode 2.
 
 反转链表
 ------------------
-剑指 Offer 24. 
+leetcode 206./ 剑指 Offer 24.
 
 定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。
 
@@ -4579,6 +4579,9 @@ leetcode 2.
 输入: 1->2->3->4->5->NULL
 
 输出: 5->4->3->2->1->NULL
+
+
+双指针方法一
 
 ::
 
@@ -4606,6 +4609,14 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 .. image:: ../../_static/leetcode/剑指24.png
     :align: center
     :width: 200
+
+
+双指针方法2
+
+
+递归
+
+
 
 请看下一题
 
