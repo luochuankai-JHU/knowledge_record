@@ -4611,12 +4611,23 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
     :width: 200
 
 
-双指针方法2
-
 
 递归
+::
+
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head:
+            return
+        def helper(cur, pre):
+            if not cur:
+                return pre
+            res = helper(cur.next, cur)
+            cur.next = pre
+            return res
+        return helper(head, None)
 
 
+这个递归比较难理解。但其实我们应该从后往前看。 假设是12345。这里的res通过层层往下，最后会固定在5这里。我们本身想返回的也就是5这个头。  然后在每一层里面，做的事情就是把后面指向前面
 
 请看下一题
 
