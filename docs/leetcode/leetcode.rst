@@ -4612,7 +4612,7 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 
 
 
-递归
+递归recursion
 ::
 
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
@@ -4627,7 +4627,9 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
         return helper(head, None)
 
 
-这个递归比较难理解。但其实我们应该从后往前看。 假设是12345。这里的res通过层层往下，最后会固定在5这里。我们本身想返回的也就是5这个头。  然后在每一层里面，做的事情就是把后面指向前面
+这个递归比较难理解。但其实我们应该从后往前看。 假设是12345。这里的res通过层层往下，最后会固定在5这里。我们本身想返回的也就是5这个头。  然后在每一层里面，做的事情就是把后面指向前面.第7行的这个代码其实是阻止我们先反转顺序，而是让我们先找到头。然后再一层层的反转顺序
+
+
 
 请看下一题
 
