@@ -4691,6 +4691,28 @@ dummy = ListNode(0, head) 虚拟头节点是真的好用, 凡是需要考虑左�
 | 题目还是有点难度的，做了挺久。从上一题反转链表引申而来。值得再看看    
 
 
+141. Linked List Cycle
+-----------------------------------
+Given head, the head of a linked list, determine if the linked list has a cycle in it.
+
+There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
+
+Return true if there is a cycle in the linked list. Otherwise, return false.
+
+::
+
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        p = ListNode(0, head)
+        q = head
+        while q and q.next:
+            if p != q:
+                p = p.next
+                q = q.next.next
+            else:
+                return True
+        return False
+
+简单的快慢指针。注意一开始不要让p q 都是head。不然 [1, 2] 这种情况就直接判定 p == q 然后就true了
 
 
 两数相加
