@@ -4711,6 +4711,7 @@ dummy = ListNode(0, head) 虚拟头节点是真的好用, 凡是需要考虑左�
         temp2 = pre.next
         cur.next, pre.next, temp1.next = temp1.next, temp1, temp2
         cnt += 1
+
 | 
 | 
 
