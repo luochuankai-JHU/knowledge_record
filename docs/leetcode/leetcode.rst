@@ -4642,6 +4642,33 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 | 示例:
 | 输入: 1->2->3->4->5->NULL, m = 2, n = 4
 | 输出: 1->4->3->2->5->NULL
+
+
+递归(先得看懂上一题)::
+    class Solution:
+        def __init__(self):
+            self.successor = None
+
+        def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+            def reverseN(node, n):    
+                if n == right:
+                    self.successor = node.next
+                    return node
+                new_head = reverseN(node.next, n + 1)
+                node.next.next = node
+                node.next = self.successor
+                return new_head
+            if not head.next:
+                return head
+            if left == 1:
+                return reverseN(head, 1)
+            head.next = self.reverseBetween(head.next, left - 1, right - 1)
+            return head
+
+
+参考了这个解析 `<https://leetcode.cn/problems/reverse-linked-list-ii/solutions/37247/bu-bu-chai-jie-ru-he-di-gui-di-fan-zhuan-lian-biao>`
+
+
 ::
 
     def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
