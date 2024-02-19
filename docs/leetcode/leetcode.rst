@@ -4667,9 +4667,24 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
             return head
 
 
-参考了 `这个解析 <https://leetcode.cn/problems/reverse-linked-list-ii/solutions/37247/bu-bu-chai-jie-ru-he-di-gui-di-fan-zhuan-lian-biao>`
+参考了 `这个解析 <https://leetcode.cn/problems/reverse-linked-list-ii/solutions/37247/bu-bu-chai-jie-ru-he-di-gui-di-fan-zhuan-lian-biao>`_
+
+如果我们明白了上一个简单题目的递归，那么我们知道，其实递归最后得到的是 "new_head". 
+
+在此基础上，可以将题目稍微升级成 **“反转链表前 N 个节点”**。解决思路差不多，但是需要额外保存一个后续节点successor。因为之前是直接把最后的尾巴指向None了，现在需要指向后续节点successor.
+
+这里的写法就很有灵性,避免到处定义局部变量全局变量::
+    
+        def __init__(self):
+            self.successor = None
+
+明白这个 **“反转链表前 N 个节点”** 之后，那么问题只需要变成，从哪个节点开始进行这个操作。这个也可以递归解决！
+
+| 
+| 
 
 
+这个是自己很早之前写的代码
 ::
 
     def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
