@@ -4644,27 +4644,23 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 | 输出: 1->4->3->2->5->NULL
 
 
-递归(先得看懂上一题)::
+方法一：递归(先得看懂上一题)::
 
-    class Solution:
-        def __init__(self):
-            self.successor = None
-
-        def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
-            def reverseN(node, n):    
-                if n == right:
-                    self.successor = node.next
-                    return node
-                new_head = reverseN(node.next, n + 1)
-                node.next.next = node
-                node.next = self.successor
-                return new_head
-            if not head.next:
-                return head
-            if left == 1:
-                return reverseN(head, 1)
-            head.next = self.reverseBetween(head.next, left - 1, right - 1)
+    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        def reverseN(node, n):    
+            if n == right:
+                self.successor = node.next
+                return node
+            new_head = reverseN(node.next, n + 1)
+            node.next.next = node
+            node.next = self.successor
+            return new_head
+        if not head.next:
             return head
+        if left == 1:
+            return reverseN(head, 1)
+        head.next = self.reverseBetween(head.next, left - 1, right - 1)
+        return head
 
 
 参考了 `这个解析 <https://leetcode.cn/problems/reverse-linked-list-ii/solutions/37247/bu-bu-chai-jie-ru-he-di-gui-di-fan-zhuan-lian-biao>`_
@@ -4673,12 +4669,19 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 
 在此基础上，可以将题目稍微升级成 **“反转链表前 N 个节点”**。解决思路差不多，但是需要额外保存一个后续节点successor。因为之前是直接把最后的尾巴指向None了，现在需要指向后续节点successor.
 
-这里的写法就很有灵性,避免到处定义局部变量全局变量::
-    
-        def __init__(self):
-            self.successor = None
+这里 **self.successor** 的写法就很有灵性,把successor当作一个属性，这样整个类中都可以调用。避免到处定义局部变量全局变量
 
-明白这个 **“反转链表前 N 个节点”** 之后，那么问题只需要变成，从哪个节点开始进行这个操作。这个也可以递归解决！
+明白这个 **“反转链表前 N 个节点”** 之后，那么问题只需要变成，从哪个节点开始进行这个操作。这个也可以递归解决！本来假设left, right是3，6. 那么挪一挪 以left为1 就会变成1,4
+
+| 
+
+方法二：双指针-头插法::
+
+
+
+参考了 `这个解析 <https://leetcode.cn/problems/reverse-linked-list-ii/solutions/138910/java-shuang-zhi-zhen-tou-cha-fa-by-mu-yi-cheng-zho>`_
+
+
 
 | 
 | 
