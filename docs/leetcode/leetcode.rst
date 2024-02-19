@@ -4645,6 +4645,7 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 
 
 递归(先得看懂上一题)::
+
     class Solution:
         def __init__(self):
             self.successor = None
@@ -4666,7 +4667,7 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
             return head
 
 
-参考了这个解析 `<https://leetcode.cn/problems/reverse-linked-list-ii/solutions/37247/bu-bu-chai-jie-ru-he-di-gui-di-fan-zhuan-lian-biao>`
+参考了这个解析 `<https://leetcode.cn/problems/reverse-linked-list-ii/solutions/37247/bu-bu-chai-jie-ru-he-di-gui-di-fan-zhuan-lian-biao>`_
 
 
 ::
