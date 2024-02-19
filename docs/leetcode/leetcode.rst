@@ -4686,20 +4686,31 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
             cnt += 1
         cur = pre.next
         while cnt < right - 1:
-            temp1 = cur.next
-            temp2 = pre.next
-            cur.next, pre.next, temp1.next = temp1.next, temp1, temp2
+            temp = cur.next
+            cur.next, pre.next, temp.next = temp.next, temp, pre.next
             cnt += 1
-        return dummy.next 
+        return dummy.next
 
 参考了 `这个解析 <https://leetcode.cn/problems/reverse-linked-list-ii/solutions/138910/java-shuang-zhi-zhen-tou-cha-fa-by-mu-yi-cheng-zho>`_
 
 .. image:: ../../_static/leetcode/92.png
-    :width: 400
+    :width: 600
 
-主要是对着这个图来进行操作。  不懂的地方就设置一个变量，然后充分利用python的同时交换的特性，大力出奇迹
+.. image:: ../../_static/leetcode/92_2.png
+    :width: 600
+
+
+主要是对着这个图来进行操作。要先画图出来  
 
 dummy = ListNode(0, head) 虚拟头节点是真的好用, 凡是需要考虑左右边界的问题, 加个虚拟头节点准没错.
+
+实在不行就需要保存的地方就设置一个变量，然后充分利用python的同时交换的特性，大力出奇迹::
+
+    while cnt < right - 1:
+        temp1 = cur.next
+        temp2 = pre.next
+        cur.next, pre.next, temp1.next = temp1.next, temp1, temp2
+        cnt += 1
 | 
 | 
 
