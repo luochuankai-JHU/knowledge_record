@@ -4755,7 +4755,6 @@ leetcode 2.
 
 链表中倒数第k个节点
 ------------------------
-
 剑指 Offer 22. 
 
 输入一个链表，输出该链表中倒数第k个节点。
@@ -4784,8 +4783,7 @@ leetcode 2.
         
 合并两个排序的链表
 -------------------------
-    
-剑指 Offer 25. 
+leetcode 21 / 剑指 Offer 25. 
 
 输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。
 
@@ -4821,6 +4819,26 @@ leetcode 2.
 
 
 注意： temp = temp.next 这句话千万不能忘，然后开头的res = temp = ListNode(0) 也很关键！
+
+
+递归::
+
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        def helper(l1, l2):
+            if not l1 and not l2:
+                return None
+            elif not l1:
+                return l2
+            elif not l2:
+                return l1
+            elif l1.val <= l2.val:
+                node = ListNode(l1.val)
+                node.next = helper(l1.next, l2)
+            else:
+                node = ListNode(l2.val)
+                node.next = helper(l1, l2.next)
+            return node
+        return helper(l1, l2)
 
 
 另外：不用额外空间合并两个排序的list
