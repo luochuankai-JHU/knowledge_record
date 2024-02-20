@@ -4794,28 +4794,22 @@ leetcode 21 / 剑指 Offer 25.
 输出：1->1->2->3->4->4
 
 ::
-
-    # class ListNode:
-    #     def __init__(self, x):
-    #         self.val = x
-    #         self.next = None
-
-    class Solution:
-        def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
-            res = temp = ListNode(0)
-            while l1 and l2:
-                if l1.val>=l2.val:
-                    temp.next = l2
-                    l2 = l2.next
-                else:
-                    temp.next = l1
-                    l1 = l1.next
-                temp = temp.next
-            if l1:
-                temp.next = l1
-            if l2:
+    
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        res = temp = ListNode(0)
+        while l1 and l2:
+            if l1.val>=l2.val:
                 temp.next = l2
-            return res.next
+                l2 = l2.next
+            else:
+                temp.next = l1
+                l1 = l1.next
+            temp = temp.next
+        if l1:
+            temp.next = l1
+        if l2:
+            temp.next = l2
+        return res.next
 
 
 注意： temp = temp.next 这句话千万不能忘，然后开头的res = temp = ListNode(0) 也很关键！
