@@ -4758,15 +4758,17 @@ leetcode 2.
 -----------------------------------------
 leetcode 25. 
 
-.. image:: ../../_static/leetcode/25.png
-    :width: 400
-
 Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.
 
 k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes, in the end, should remain as it is.
 
-You may not alter the values in the list's nodes, only nodes themselves may be changed.::
+You may not alter the values in the list's nodes, only nodes themselves may be changed.
 
+.. image:: ../../_static/leetcode/25.png
+    :width: 400
+
+::
+    
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
         def reverse(a, b):  # 翻转从a到b的节点，左闭右开
             pre, cur = None, a
