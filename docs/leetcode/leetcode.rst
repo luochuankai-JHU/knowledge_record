@@ -4753,12 +4753,12 @@ leetcode 2.
             return res.next
 
 
-Reverse Nodes in k-Group
+
+25. Reverse Nodes in k-Group
 -----------------------------------------
 leetcode 25. 
 
 .. image:: ../../_static/leetcode/25.png
-    :align: center
     :width: 400
 
 Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.
@@ -4768,15 +4768,16 @@ k is a positive integer and is less than or equal to the length of the linked li
 You may not alter the values in the list's nodes, only nodes themselves may be changed.::
 
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
-        def reverse(a, b): # 翻转从a到b的节点，左闭右开
-            pre, cur, nex = None, a, a
+        def reverse(a, b):  # 翻转从a到b的节点，左闭右开
+            pre, cur = None, a
             while cur != b:
-                nex = cur.next  #移动nex到下一个位置
-                cur.next = pre # 翻转cur的指针
-                pre = cur   # 
-                cur = nex
+                temp = cur.next  
+                cur.next = pre
+                pre, cur = cur, temp
             return pre
-        if not head: return 
+
+        if not head:
+            return None
         a = b = head 
         # b往前k步
         for i in range(k):
@@ -4784,12 +4785,12 @@ You may not alter the values in the list's nodes, only nodes themselves may be c
             b = b.next
         # 翻转从a到b的节点，左闭右开
         new_head = reverse(a, b)
-        a.next = self.reverseKGroup(b, k)
+        a.next = self.reverseKGroup(b, k)  # 这里要是a.next 而不是b.next 因为已经翻转过了，现在尾巴是a
         return new_head
 
 参考思路： https://leetcode.cn/problems/reverse-nodes-in-k-group/solutions/41713/di-gui-si-wei-ru-he-tiao-chu-xi-jie-by-labuladong/
 
-写的真的太好了，要多自习研究
+写的真的太好了，要多仔细研究
 
 
 
