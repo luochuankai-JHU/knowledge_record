@@ -4768,7 +4768,7 @@ You may not alter the values in the list's nodes, only nodes themselves may be c
     :width: 400
 
 ::
-    
+
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
         def reverse(a, b):  # 翻转从a到b的节点，左闭右开
             pre, cur = None, a
@@ -4789,6 +4789,7 @@ You may not alter the values in the list's nodes, only nodes themselves may be c
         new_head = reverse(a, b)
         a.next = self.reverseKGroup(b, k)  # 这里要是a.next而不是b.next 因为已经翻转过，现在尾巴是a
         return new_head
+
 
 参考思路： https://leetcode.cn/problems/reverse-nodes-in-k-group/solutions/41713/di-gui-si-wei-ru-he-tiao-chu-xi-jie-by-labuladong/
 
@@ -4821,9 +4822,35 @@ You may not alter the values in the list's nodes, only nodes themselves may be c
             
         return l
 
-明显的双指针题目
+明显的双指针题目。请看下一题
 
-        
+
+19. Remove Nth Node From End of List
+---------------------------------------------------
+leetcode 19. 
+
+Given the head of a linked list, remove the nth node from the end of the list and return its head.
+
+Example 1:
+
+| Input: head = [1,2,3,4,5], n = 2
+| Output: [1,2,3,5]
+
+::
+
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        pre = cur = head
+        for i in range(n):
+            cur = cur.next
+        if not cur:
+            return head.next
+        while cur.next:
+            pre = pre.next
+            cur = cur.next
+        pre.next = pre.next.next
+        return head
+
+
 合并两个排序的链表
 -------------------------
 leetcode 21 / 剑指 Offer 25. 
