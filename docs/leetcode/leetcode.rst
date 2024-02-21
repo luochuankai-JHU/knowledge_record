@@ -4505,7 +4505,7 @@ leetcode 172.
 -------------------------
 https://www.youtube.com/watch?v=0czlvlqg5xw
 
-这个视频说的很好。链表的题目其实不复杂。基本上就是双指针(快慢指针or前后指针)或者递归
+这个视频说的很好。链表的题目其实不复杂。基本上就是双指针(快慢指针or前后指针)或者递归. 而且链表只能前进不能后退，是缺点也是优点，简化了很多思路，导致基本上都需要用双指针来解决
 
 有这样一些小技巧：
 
@@ -5105,17 +5105,43 @@ leetcode 61.
 
 ::
 
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if not head or not head.next or k == 0:
+            return head
+        p = head
+        cnt = 1
+        while p.next:
+            cnt += 1
+            p = p.next
+        index = k % cnt
+
+        if index == 0:
+            return head
+        pre, cur = head, head
+        for i in range(index):
+            cur = cur.next
+        while cur and cur.next:
+            cur = cur.next
+            pre = pre.next
+        new_head = pre.next
+        pre.next = None
+        cur.next = head
+        return new_head
+
+
+第一次遍历获得深度，取余。然后第二次遍历就是双指针了。记得处理一下特殊情况
+
+方法二：首尾相接::
+
     def rotateRight(self, head: ListNode, k: int) -> ListNode:
         if not head:
             return None
         pre = head
         count = 0
-        while head:
+        while head and head.next:
             count += 1
-            if head.next:
-                head = head.next
-            else:
-                break
+            head = head.next
+
         k = k % count
         move = count - k
         head.next = pre
@@ -5125,11 +5151,6 @@ leetcode 61.
             move -= 1
         head.next = None
         return pre
-        
-做的多漂亮啊！先遍历一遍得到深度，然后取余数，得到指针该走多少步。
-
-这也是个双指针的问题。仔细想想，如果成环了以后，那个头节点所在的位置，上一步就是尾结点。 所以在计算深度的地方，break就用的很巧妙了，
-相当于是停留在最后，然后正好和头部差了1，形成双指针。
 
 
 删除排序链表中的重复元素 II
