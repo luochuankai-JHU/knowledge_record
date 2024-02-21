@@ -4526,7 +4526,7 @@ leetcode 206./ 剑指 Offer 24.
 输出: 5->4->3->2->1->NULL
 
 
-双指针方法一
+双指针方法一，这个需要当成模板背下来！！！
 
 ::
 
@@ -4751,6 +4751,46 @@ leetcode 2.
                     l2 = l2.next
                 head = head.next
             return res.next
+
+
+Reverse Nodes in k-Group
+-----------------------------------------
+leetcode 25. 
+
+.. image:: ../../_static/leetcode/25.png
+    :align: center
+    :width: 400
+
+Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.
+
+k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes, in the end, should remain as it is.
+
+You may not alter the values in the list's nodes, only nodes themselves may be changed.::
+
+    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+        def reverse(a, b): # 翻转从a到b的节点，左闭右开
+            pre, cur, nex = None, a, a
+            while cur != b:
+                nex = cur.next  #移动nex到下一个位置
+                cur.next = pre # 翻转cur的指针
+                pre = cur   # 
+                cur = nex
+            return pre
+        if not head: return 
+        a = b = head 
+        # b往前k步
+        for i in range(k):
+            if not b: return head # 不足k个的话说明翻转完成，直接返回head
+            b = b.next
+        # 翻转从a到b的节点，左闭右开
+        new_head = reverse(a, b)
+        a.next = self.reverseKGroup(b, k)
+        return new_head
+
+参考思路： https://leetcode.cn/problems/reverse-nodes-in-k-group/solutions/41713/di-gui-si-wei-ru-he-tiao-chu-xi-jie-by-labuladong/
+
+写的真的太好了，要多自习研究
+
 
 
 链表中倒数第k个节点
