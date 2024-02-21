@@ -4785,7 +4785,7 @@ You may not alter the values in the list's nodes, only nodes themselves may be c
             b = b.next
         # 翻转从a到b的节点，左闭右开
         new_head = reverse(a, b)
-        a.next = self.reverseKGroup(b, k)  # 这里要是a.next 而不是b.next 因为已经翻转过了，现在尾巴是a
+        a.next = self.reverseKGroup(b, k)  # 这里要是a.next而不是b.next 因为已经翻转过，现在尾巴是a
         return new_head
 
 参考思路： https://leetcode.cn/problems/reverse-nodes-in-k-group/solutions/41713/di-gui-si-wei-ru-he-tiao-chu-xi-jie-by-labuladong/
