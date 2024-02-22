@@ -5226,7 +5226,8 @@ leetcode 82.
 | 示例:
 | 输入: head = 1->4->3->2->5->2, x = 3
 | 输出: 1->2->2->4->3->5
-::
+
+方法一：搞两个listnode队列，分别填充大的和小的::
 
     def partition(self, head: ListNode, x: int) -> ListNode:
         res1 = small = ListNode(-1)
@@ -5244,6 +5245,35 @@ leetcode 82.
         return res1.next
 
 big.next = None这个不要忘了，不然没有尾结点
+
+方法二：在原本的队列里面使用双指针::
+
+    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
+        dummy = ListNode(-1, head)
+        pre = dummy  # 在这之前的都小于x，队列的尾巴
+        cur = dummy    # 用来判断下一个
+        while cur.next:
+            if cur.next.val < x:
+                if pre == cur:  # 如果一直没遇到比x大的节点 就不需要交换节点 更新指针往后就行了
+                    cur = cur.next
+                    pre = pre.next
+                else:
+                    temp = cur.next       # 先暂存判断的节点
+                    cur.next = temp.next  # cur跳过下一个
+                    temp.next = pre.next  # 把temp插入 pre和下一个的中间
+                    pre.next = temp       # 把temp插入 pre和下一个的中间
+                    pre = temp            # 更新小队列的尾巴pre。
+                                          # 但是不能更新cur，因为cur的下一个已经换人了，还未判断过
+            else:  # 只需要更新cur
+                cur = cur.next
+        return dummy.next
+
+
+这个相对有技术含量。需要认真学习！！！
+
+大致的意思是，pre,cur这俩双指针。pre是小队列的尾巴，那么在pre以及之前的都要小于x, cur永远是用来判断处理下一个的指针。需要注意的是，如果一直没遇到比x大的节点 就不需要交换节点 更新指针往后就行了，这段很重要，我之前没写导致内部循环
+然后什么时候该更新pre和cur都要注意，不是每次两个指针都要更新。至于交换，那就是判断的下一个小的节点需要插入到pre的后面。然后原先的cur跳过这个节点就行。
+
 
 排序链表
 -------------------
