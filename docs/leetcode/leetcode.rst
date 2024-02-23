@@ -3970,6 +3970,45 @@ leetcode 560.
         # 这道题看了解析的。前缀和+类似2sum的解法真牛啊！
 
 
+遍历（Traversal）
+=======================
+125. Valid Palindrome
+-------------------------------------
+leetcode 125.
+
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+Given a string s, return true if it is a palindrome, or false otherwise.
+
+| Example 1:
+| Input: s = "A man, a plan, a canal: Panama"
+| Output: true
+| Explanation: "amanaplanacanalpanama" is a palindrome.
+
+::
+
+    def isPalindrome(self, s: str) -> bool:
+        i, j = 0, len(s) - 1
+        while i <= j:
+            if not s[i].isalnum():
+                i += 1
+            elif not s[j].isalnum():
+                j -= 1
+            elif s[i].lower() == s[j].lower():
+                # 这里要特别注意，为什么这里可以直接用s[i].lower() != s[j].lower() 而不用担心数字
+                # 是因为这里s[i] s[j] 永远都是字符串。哪怕s[i] 是 9，那也是string 9 而不是int 9
+                i += 1
+                j -= 1                    
+            else:              
+                return False
+        return True
+
+
+.. important:: 
+| 这里要特别注意，为什么这里可以直接用s[i].lower() != s[j].lower() 而不用担心数字。是因为这里s[i] s[j] 永远都是字符串。哪怕s[i] 是 9，那也是string 9 而不是int 9
+
+
+
 区间问题
 =======================
 
