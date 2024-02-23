@@ -61,9 +61,11 @@ https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese
 
 
 
-string.isdigit()
+string.isdigit() 判断是否是数字
 
-string.isalpha()
+string.isalpha() 判断是否是字母
+
+string..isalnum() 判断是否是数字或字母
 
 
 大写字母和小写字母的转换
