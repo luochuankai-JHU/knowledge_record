@@ -3996,7 +3996,7 @@ Given a string s, return true if it is a palindrome, or false otherwise.
                 j -= 1
             elif s[i].lower() == s[j].lower():
                 # 这里要特别注意，为什么这里可以直接用s[i].lower() != s[j].lower() 而不用担心数字
-                # 是因为这里s[i] s[j] 永远都是字符串。哪怕s[i] 是 9，那也是string 9 而不是int 9
+                # 是因为这里s[i] s[j] 永远都是字符串。哪怕s[i]是9，那也是string 9 而不是int 9
                 i += 1
                 j -= 1                    
             else:              
@@ -4005,7 +4005,7 @@ Given a string s, return true if it is a palindrome, or false otherwise.
 
 
 .. important:: 
-| 这里要特别注意，为什么这里可以直接用s[i].lower() != s[j].lower() 而不用担心数字。是因为这里s[i] s[j] 永远都是字符串。哪怕s[i] 是 9，那也是string 9 而不是int 9
+| 这里要特别注意，为什么这里可以直接用s[i].lower() != s[j].lower() 而不用担心数字。是因为这里s[i] s[j] 永远都是字符串。哪怕s[i]是9，那也是string 9 而不是int 9
 
 
 
