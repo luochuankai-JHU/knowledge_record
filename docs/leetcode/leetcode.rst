@@ -870,6 +870,38 @@ https://leetcode.cn/problems/132-pattern/solution/xiang-xin-ke-xue-xi-lie-xiang-
         return False
 
 
+209. Minimum Size Subarray Sum
+-----------------------------------------
+leetcode 209.
+
+Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.
+
+| Example 1:
+| Input: target = 7, nums = [2,3,1,2,4,3]
+| Output: 2
+| Explanation: The subarray [4,3] has the minimal length under the problem constraint.
+
+::
+
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        length = len(nums)
+        res = length + 1
+        i, j = 0, 0
+        summ = 0
+        while j <= length - 1:
+            summ += nums[j]
+            while summ >= target:
+                res = min(res, j - i + 1)
+                if res == 1:
+                    return 1
+                summ -= nums[i]
+                i += 1
+            if j <= length - 1 and summ < target:
+                j += 1
+        return res if res != length + 1 else 0
+
+
+
 树的遍历
 ======================
 
