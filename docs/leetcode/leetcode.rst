@@ -1485,102 +1485,6 @@ leetcode 437.
 动态规划
 ===================
 
-最长回文子串
--------------------
-
-leetcode 5. 
-
-给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。::
-
-    def longestPalindrome(self, s: str) -> str:
-        def check(string,index):
-            i=0
-            while index-i>=0 and index+i<=len(string)-1:
-                if string[index-i]==string[index+i]:
-                    i+=1
-                else:
-                    return i-1
-            return i-1
-        res = []
-        if len(s)<=1:
-            return s
-        for i in range(len(s)):
-            temp = check(s,i)
-            if 2*temp +1>len(res):
-                res = s[i-temp:i]+s[i:i+temp+1]
-            temp = check(s[:i]+'#'+s[i:],i)
-            if 2*temp +1>len(res):
-                res = s[i-temp:i]+s[i:i+temp]
-        return res
-
-
-顺时针打印矩阵
-------------------------
-剑指 Offer 29. 
-
-输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。
-
-示例 1：
-
-| 输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
-| 输出：[1,2,3,6,9,8,7,4,5]
-
-示例 2：
-
-| 输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
-| 输出：[1,2,3,4,8,12,11,10,9,5,6,7]
-
-一种很憨憨的解法，一板一眼的去做::
-
-    class Solution:
-        def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-            res = []
-            def turn_right(matrix,res):
-                res+=matrix[0]
-                matrix = matrix[1:]
-                return matrix, res
-
-            def turn_down(matrix,res):
-                new_matrix = []
-                for line in matrix:
-                    res.append(line[-1])
-                    line = line[:-1]
-                    new_matrix.append(line)
-                return new_matrix,res
-
-            def turn_left(matrix,res):
-                res+=matrix[-1][::-1]
-                matrix = matrix[:-1]
-                return matrix, res
-            
-            def turn_up(matrix,res):
-                new_matrix = []
-                temp = []
-                for line in matrix:
-                    temp.append(line[0])
-                    line = line[1:]
-                    new_matrix.append(line)
-                res += temp[::-1]
-                return new_matrix,res
-            i = 0
-            while len(matrix)>0 and len(matrix[0])>0:
-                if i%4==0:
-                    matrix,res = turn_right(matrix,res)
-                    i+=1
-                    continue
-                if i%4==1:
-                    matrix,res = turn_down(matrix,res)
-                    i+=1
-                    continue
-                if i%4==2:
-                    matrix,res = turn_left(matrix,res)
-                    i+=1
-                    continue
-                if i%4==3:
-                    matrix,res = turn_up(matrix,res)
-                    i+=1
-                    continue
-            return res
 
 
 字符串的排列
@@ -2284,34 +2188,7 @@ leetcode 6.
 以前很怕这种圆圈的题目....因为不知道循环要怎么做。这道题解法不美妙，纯暴力，纯还原仿真，但是提供了一个很好的思路。
 
 圆圈的题目就用取余 %，判断条件就是 while 
-        
-盛最多水的容器
-------------------------
-leetcode 11. 
 
-| 给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。
-| 在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
-
-.. image:: ../../_static/leetcode/11.png
-    :align: center
-    :width: 400
-    
-::
-
-    def maxArea(self, height: List[int]) -> int:
-        if len(height)<=1:
-            return 0
-        l, r = 0, len(height)-1
-        res = 0
-        while l<r:
-            res = max(res,(r-l)*min(height[l],height[r]))
-            if height[l]<=height[r]:
-                l += 1
-            else:
-                r -= 1
-        return res
-
-典型的双指针
 
 整数转罗马数字
 --------------------
@@ -3081,8 +2958,6 @@ leetcode 1143.
 .. image:: ../../_static/leetcode/1143.png
     :align: center
     :width: 650
-
-
 
 
 通配符匹配
@@ -4007,6 +3882,133 @@ Given a string s, return true if it is a palindrome, or false otherwise.
 .. important:: 
 | 这里要特别注意，为什么这里可以直接用s[i].lower() != s[j].lower() 而不用担心数字。是因为这里s[i] s[j] 永远都是字符串。哪怕s[i]是9，那也是string 9 而不是int 9
 
+
+
+最长回文子串
+-------------------
+
+leetcode 5. 
+
+给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。::
+
+    def longestPalindrome(self, s: str) -> str:
+        def check(string,index):
+            i=0
+            while index-i>=0 and index+i<=len(string)-1:
+                if string[index-i]==string[index+i]:
+                    i+=1
+                else:
+                    return i-1
+            return i-1
+        res = []
+        if len(s)<=1:
+            return s
+        for i in range(len(s)):
+            temp = check(s,i)
+            if 2*temp +1>len(res):
+                res = s[i-temp:i]+s[i:i+temp+1]
+            temp = check(s[:i]+'#'+s[i:],i)
+            if 2*temp +1>len(res):
+                res = s[i-temp:i]+s[i:i+temp]
+        return res
+
+
+顺时针打印矩阵
+------------------------
+剑指 Offer 29. 
+
+输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。
+
+示例 1：
+
+| 输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
+| 输出：[1,2,3,6,9,8,7,4,5]
+
+示例 2：
+
+| 输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+| 输出：[1,2,3,4,8,12,11,10,9,5,6,7]
+
+一种很憨憨的解法，一板一眼的去做::
+
+    class Solution:
+        def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+            res = []
+            def turn_right(matrix,res):
+                res+=matrix[0]
+                matrix = matrix[1:]
+                return matrix, res
+
+            def turn_down(matrix,res):
+                new_matrix = []
+                for line in matrix:
+                    res.append(line[-1])
+                    line = line[:-1]
+                    new_matrix.append(line)
+                return new_matrix,res
+
+            def turn_left(matrix,res):
+                res+=matrix[-1][::-1]
+                matrix = matrix[:-1]
+                return matrix, res
+            
+            def turn_up(matrix,res):
+                new_matrix = []
+                temp = []
+                for line in matrix:
+                    temp.append(line[0])
+                    line = line[1:]
+                    new_matrix.append(line)
+                res += temp[::-1]
+                return new_matrix,res
+            i = 0
+            while len(matrix)>0 and len(matrix[0])>0:
+                if i%4==0:
+                    matrix,res = turn_right(matrix,res)
+                    i+=1
+                    continue
+                if i%4==1:
+                    matrix,res = turn_down(matrix,res)
+                    i+=1
+                    continue
+                if i%4==2:
+                    matrix,res = turn_left(matrix,res)
+                    i+=1
+                    continue
+                if i%4==3:
+                    matrix,res = turn_up(matrix,res)
+                    i+=1
+                    continue
+            return res
+
+
+盛最多水的容器
+------------------------
+leetcode 11. 
+
+| 给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。
+| 在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+
+.. image:: ../../_static/leetcode/11.png
+    :align: center
+    :width: 400
+    
+::
+
+    def maxArea(self, height: List[int]) -> int:
+        if len(height)<=1:
+            return 0
+        l, r = 0, len(height)-1
+        res = 0
+        while l<r:
+            res = max(res,(r-l)*min(height[l],height[r]))
+            if height[l]<=height[r]:
+                l += 1
+            else:
+                r -= 1
+        return res
+
+典型的双指针
 
 
 区间问题
