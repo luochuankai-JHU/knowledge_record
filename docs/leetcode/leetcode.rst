@@ -901,6 +901,44 @@ Given an array of positive integers nums and a positive integer target, return t
         return res if res != length + 1 else 0
 
 
+3. Longest Substring Without Repeating Characters
+------------------------------------------------------------------
+leetcode 3. 
+
+Given a string s, find the length of the longest substring without repeating characters.
+
+| Example 1:
+| Input: s = "abcabcbb"
+| Output: 3
+| Explanation: The answer is "abc", with the length of 3.
+
+::
+
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if not s:
+            return 0
+        length = len(s)
+        store = dict()
+        i, j = 0, 0
+        store[s[0]] = 0
+        ans = 1
+        while j <= length - 1:
+            if s[j] not in store:
+                store[s[j]] = j
+                ans = max(ans, j - i + 1)
+                j += 1
+            else:
+                if i == j:
+                    j += 1
+                    continue
+                index = store[s[j]]
+                while i <= index:
+                    del store[s[i]]
+                    i += 1
+                store[s[j]] = j
+                j += 1
+        return ans
+
 
 树的遍历
 ======================
