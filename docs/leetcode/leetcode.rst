@@ -940,6 +940,58 @@ Given a string s, find the length of the longest substring without repeating cha
         return ans
 
 
+
+30. Substring with Concatenation of All Words
+-----------------------------------------------------------------
+leetcode 30.
+
+You are given a string s and an array of strings words. All the strings of words are of the same length.
+
+A concatenated substring in s is a substring that contains all the strings of any permutation of words concatenated.
+
+For example, if words = ["ab","cd","ef"], then "abcdef", "abefcd", "cdabef", "cdefab", "efabcd", and "efcdab" are all concatenated strings. "acdbef" is not a concatenated substring because it is not the concatenation of any permutation of words.
+Return the starting indices of all the concatenated substrings in s. You can return the answer in any order.
+
+| Example 1:
+| Input: s = "barfoothefoobarman", words = ["foo","bar"]
+| Output: [0,9]
+| Explanation: Since words.length == 2 and words[i].length == 3, the concatenated substring has to be of length 6.
+| The substring starting at 0 is "barfoo". It is the concatenation of ["bar","foo"] which is a permutation of words.
+| The substring starting at 9 is "foobar". It is the concatenation of ["foo","bar"] which is a permutation of words.
+| The output order does not matter. Returning [9,0] is fine too.
+
+简单方法::
+
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        store = defaultdict(int)
+        all_words_len = len(words) * len(words[0])
+        for word in words:
+            store[word] += 1
+        def check_substrings(substrings):
+            temp_store = defaultdict(int)
+            for i in range(len(words)):
+                word = substrings[i * len(words[0]): (i + 1) * len(words[0])]
+                if word in store and temp_store[word] < store[word]:
+                    temp_store[word] += 1
+                else:
+                    return False
+            return True
+        ans = []
+        if len(s) - all_words_len < 0:
+            return []
+        for i in range(len(s) - all_words_len + 1):
+            if check_substrings(s[i:i + all_words_len]):
+                ans.append(i)
+        return ans
+
+这里有个条件简化，就是所有单词都是一样的长度。这个真是帮大忙了。那么其实就很简单了。先开始统计一下words里面出现的单词及次数，然后在s里面滑动窗口，每个窗口判断是否与words里面出现的单词及次数相同。
+
+
+优化::
+
+    
+
+
 树的遍历
 ======================
 
