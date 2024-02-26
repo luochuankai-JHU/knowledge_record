@@ -989,7 +989,85 @@ Return the starting indices of all the concatenated substrings in s. You can ret
 
 优化::
 
-    
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        if not words or not s:
+            return []
+
+        word_length = len(words[0])
+        total_length = word_length * len(words)
+        word_count = {}
+
+        # Create a frequency map for words
+        for word in words:
+            if word in word_count:
+                word_count[word] += 1
+            else:
+                word_count[word] = 1
+
+        result = []
+
+        # Check each possible window in the string
+        for i in range(word_length):
+            left = i
+            count = 0
+            temp_word_count = {}
+
+            for j in range(i, len(s) - word_length + 1, word_length):
+                word = s[j:j + word_length]
+                if word in word_count:
+                    temp_word_count[word] = temp_word_count.get(word, 0) + 1
+                    count += 1
+
+                    while temp_word_count[word] > word_count[word]:
+                        left_word = s[left:left + word_length]
+                        temp_word_count[left_word] -= 1
+                        left += word_length
+                        count -= 1
+
+                    if count == len(words):
+                        result.append(left)
+                else:
+                    temp_word_count.clear()
+                    count = 0
+                    left = j + word_length
+
+        return result
+        
+
+为啥就比我写的快这么多呢.......::
+
+    # 我的方法
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        store = defaultdict(int)
+        word_len = len(words[0])
+        all_words_len = len(words) * word_len
+        for word in words:
+            store[word] += 1
+        def check_substrings(i, j):
+            index = i + j * word_len
+            temp_store = defaultdict(list)
+            for i in range(len(words)):
+                word = s[index + i * word_len: index + (i + 1) * word_len]
+                if word not in store:
+                    return False, i + 1
+                elif word in store and len(temp_store[word]) < store[word]:
+                    temp_store[word].append(i)
+                else:
+                    return False, temp_store[word][0] + 1
+            return True, 1
+        ans = []
+        if len(s) - all_words_len < 0:
+            return []
+        for i in range(word_len):
+            times = (len(s) - i) // word_len
+            j = 0
+            while j <= times:
+                flag, steps = check_substrings(i, j)
+                if flag:
+                    ans.append(i + j * word_len)
+                j += steps
+        return ans
+
 
 
 树的遍历
