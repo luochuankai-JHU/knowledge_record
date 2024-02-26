@@ -615,6 +615,7 @@ leetcode 901.
             if index - k + 1 >= 0:
                 ans.append(queue[0][1])
         return ans
+        # 这道题看了解析。https://leetcode.cn/problems/sliding-window-maximum/solution/shuang-xiang-dui-lie-jie-jue-hua-dong-chuang-kou-2/ 维护一个递减队列。里面存index
 
 
 
