@@ -3715,246 +3715,7 @@ True，
 **递归的时候，如果确定是返回状态，一定要在结尾处也返回状态！！**
 
 
-黑白棋翻转
---------------------
-| BD笔试题
-| 小明最近学会了一种棋，这种棋的玩法和围棋有点类似，最后通过比较黑子和白子所占区域的大小来决定胜负。
-| 在下棋过程中，如果白子或者黑子将对方全部围住，则所围区域中的棋子将更换颜色。
-| 如果用1表示黑子，0表示白子，给出如下实例：
-| 1111
-| 0101
-| 1101
-| 0010
-| 因为第2行第3列的白子(0)和第3行第3列的白子(0)完全被黑子(1)围住，因此需要这两个0将变为1.
-| 结果变为：
-| 1111
-| 0111
-| 1111
-| 0010
-| 为了简化问题的求解只需要大家找出所有被黑子围住的白子，并将这些白子变为黑子后输出。
-::
 
-    def solution(arr):
-        if not arr:
-            return []
-        queue = []
-        m = len(arr)
-        for i in range(m):
-            if arr[i][0] == 0:
-                queue.append((i, 0))
-            if arr[i][m - 1] == 0:
-                queue.append((i, m - 1))
-            if arr[0][i] == 0:
-                queue.append((0, i))
-            if arr[m - 1][i] == 0:
-                queue.append((m - 1, i))
-
-        while queue:
-            r, c = queue.pop()
-            if 0 <= r < m and 0 <= c < m and arr[r][c] == 0:
-                arr[r][c] = "#"
-                for (i,j) in [(r + 1, c),(r - 1, c),(r, c + 1),(r, c - 1)]:
-                    if 0 <= i < m and 0 <= j < m and arr[i][j]==0:
-                        queue.append((i,j))
-
-        for i in range(m):
-            for j in range(m):
-                if arr[i][j] == 0:
-                    arr[i][j] = 1
-                elif arr[i][j] == "#":
-                    arr[i][j] = 0
-
-        return arr
-
-扫描三次就好了。第一次把四条边上的0计入队列，准备变成'#'
-
-第二次把这些#的四周以及能够蔓延到的地方全部变#
-
-第三次把剩下的0变1，然后把#再变回0.
-
-注意，第二次遍历的时候需要用这个队列，而不能直接从左上到右下去扫描，不然矩阵靠右的会有点问题。 比如有一行是1000，那么第一个0是看不到最右边的#的
-
-
-好吧其实遍历两次就行。和下题基本一样
-
-被围绕的区域
------------------------
-leetcode 130. 
-
-给你一个 m x n 的矩阵 board ，由若干字符 'X' 和 'O' ，找到所有被 'X' 围绕的区域，并将这些区域里所有的 'O' 用 'X' 填充。
-::
-
-    def solve(self, board: List[List[str]]) -> None:
-        """
-        Do not return anything, modify board in-place instead.
-        """
-        m, n = len(board), len(board[0])
-        def inedge(i, j):
-            if i == 0 or i == m - 1 or j == 0 or j == n - 1:
-                return True
-            return False
-        def infection(i, j):
-            if i < 0 or i > m - 1 or j < 0 or j > n - 1:
-                return
-            if board[i][j] == "#" or board[i][j] == "X":
-                return
-            board[i][j] = "#"
-            infection(i + 1, j)
-            infection(i - 1, j)
-            infection(i, j + 1)
-            infection(i, j - 1)
-        
-        for i in range(m):
-            for j in range(n):
-                if board[i][j] == "O" and inedge(i, j):
-                    infection(i, j)
-        for i in range(m):
-            for j in range(n):        
-                if board[i][j] == "O":
-                    board[i][j] = "X"
-                if board[i][j] == "#":
-                    board[i][j] = "O"
-
-
-从边缘的"O"找起，这些肯定是不能被同化的，标记为"#"。然后开始感染，这些被感染到的也不能被同化，标记为"#"
-
-第二次遍历，判断一下，如果当前是"O"，则被同化为"x"。如果被标记为"#"则还原回"O"。这里注意先后顺序就行
-
-
-最大矩形
-----------------------
-| leetcode 85. 
-| 给定一个仅包含 0 和 1 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。
-
-| 示例:
-| 输入:
-| [
-|   ["1","0","1","0","0"],
-|   ["1","0","1","1","1"],
-|   ["1","1","1","1","1"],
-|   ["1","0","0","1","0"]
-| ]
-| 输出: 6
-::
-
-    def maximalRectangle(self, matrix: List[List[str]]) -> int:
-        if not matrix:
-            return 0
-
-        def largestRectangleArea(heights):
-            heights.append(0)
-            stack = [-1]
-            max_area = 0
-            for i in range(len(heights)):
-                while heights[i] < heights[stack[-1]]:
-                    h = heights[stack.pop()]
-                    w = i - stack[-1] - 1
-                    max_area = max(max_area, h*w)
-                stack.append(i)
-            return max_area
-
-        cur = [0] * len(matrix[0])
-        ans = 0
-        for i in range(len(matrix)):
-            for j in range(len(matrix[0])):
-                if matrix[i][j] == "0":
-                    cur[j] = 0
-                else:
-                    cur[j] += 1
-            ans = max(ans, largestRectangleArea(cur))
-        return ans
-
-这个题需要结合上一题（leetcode 84）
-
-基本思路是这样：以行为单位，遍历到某行的时候，向上看，形成类似上一题的一个个矩形。如果当前是1，那么就一直到上一个0为止，如果本身是0，那么当前位置的矩形也是0。
-然后再调用上一题的代码求面积。
-
-https://leetcode-cn.com/problems/maximal-rectangle/solution/zhong-die-fa-kuai-su-jie-ti-by-my10yuan/ 这个老哥的思路不错，摘抄如下：
-
-| 以题例来解释
-| [
-| ["1","0","1","0","0"],
-| ["1","0","1","1","1"],
-| ["1","1","1","1","1"],
-| ["1","0","0","1","0"]
-| ]
-| 那么可以按行或者按列去重叠，下面以按行来实现思路:
-| 设置一个数组tag，用来记录不同行连续的1的个数
-
-| **首先获得第一行数据：10100**
-| 那么记录数组tag = 10100
-| --> 此时通过记录数组，可以得到只考虑这一行时，最大的矩阵面积：1*1=1
-| --> 因为不同行的连续1最多为1个，不同列的连续1的个数，也是1
-| **再获得第二行数据：10111**
-| 那么记录数组tag = 20211
-| --> 这里的更新方式是，如果row[i]==1,则tag[i]+=1;如果row[i]==0,则tag[i]=0;
-| -->因此，只考虑前两行时，最大的矩阵面积：1*3=3
-| **再获得第三行数据：11111**
-| 那么记录数组tag = 31322
-| -->此时只考虑前三行时，最大的矩阵面积：2*3=6
-| **再获得第四行数据：10010**
-| 那么记录数组tag = 40030
-| -->此时只考虑前四行时，最大的矩阵面积：4*1=4
-| 所以结果就是 6
-
-
-最大子矩阵
------------------------
-| 面试题 17.24.    也是某次考试的笔试题，滴滴的面试题
-| 给定一个正整数和负整数组成的 N × M 矩阵，编写代码找出元素总和最大的子矩阵。
-
-| 返回一个数组 [r1, c1, r2, c2]，其中 r1, c1 分别代表子矩阵左上角的行号和列号，r2, c2 分别代表右下角的行号和列号。若有多个满足条件的子矩阵，返回任意一个均可。
-
-| 0 -2 -7 0
-| 9 2 -6 2
-| -4 1 -4 1
-| -1 8 0 -2
-
-| 最大子矩阵和为
-| 9 2
-| -4 1
-| -1 8 
-::
-
-    def getMaxMatrix(self, matrix: List[List[int]]) -> List[int]:
-        def max_1d(array):
-            if not array:
-                return float('-inf')
-            ans = temp = float('-inf')
-            start_temp, start_final, end_final = 0, 0, 0
-            for i in range(len(array)):
-                if temp + array[i] > array[i]:
-                    temp = temp + array[i]
-                else:
-                    start_temp = i
-                    temp = array[i]
-
-                if temp > ans:
-                    start_final, end_final = start_temp, i
-                    ans = temp
-            return start_final, end_final, ans
-
-        row = len(matrix)
-        col = len(matrix[0])
-        maxArea = float('-inf')                     #最大面积
-        res = [0, 0, 0, 0]
-
-        for left in range(col):                     #从左到右，从上到下，滚动遍历
-            colSum = [0] * row                      #以left为左边界，每行的总和
-            for right in range(left, col):          #这一列每一位为右边界
-                for i in range(row):                #遍历列中每一位，计算前缀和
-                    colSum[i] += matrix[i][right]
-
-                startX, endX, maxAreaCur= max_1d(colSum)#在left，right为边界下的矩阵中，前缀和colSum的最大值
-                if maxAreaCur > maxArea:
-                    res = [startX, left, endX, right]        #left是起点y轴坐标，right是终点y轴坐标
-                    maxArea = maxAreaCur
-        return res
-
-.. image:: ../../_static/leetcode/1724.png
-    :align: center
-
-为什么是以列来两个指针遍历？ 因为按照行的话不好求和
 
 为运算表达式设计优先级/ 对表达式添加括号并求值
 -----------------------------------------------------------------
@@ -4382,7 +4143,7 @@ leetcode 163 759 986  630
 
 
 
-矩阵-旋转翻转顺时针打印
+矩阵/二维数组
 ==================================
 
 旋转二维数组总结
@@ -4614,6 +4375,355 @@ leetcode 54. / 剑指 Offer 29.
 
 
 https://leetcode.cn/problems/spiral-matrix-ii/solution/spiral-matrix-ii-mo-ni-fa-she-ding-bian-jie-qing-x/
+
+
+
+289. Game of Life
+-----------------------------------------------
+According to Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970."
+
+The board is made up of an m x n grid of cells, where each cell has an initial state: live (represented by a 1) or dead (represented by a 0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):
+
+Any live cell with fewer than two live neighbors dies as if caused by under-population.
+Any live cell with two or three live neighbors lives on to the next generation.
+Any live cell with more than three live neighbors dies, as if by over-population.
+Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+The next state is created by applying the above rules simultaneously to every cell in the current state, where births and deaths occur simultaneously. Given the current state of the m x n grid board, return the next state.
+
+.. image:: ../../_static/leetcode/289.png
+    :width: 400
+
+::
+
+    def gameOfLife(self, board: List[List[int]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        m = len(board)
+        n = len(board[0])
+        def check(i, j):
+            count = 0
+            for (a, b) in [(i + 1, j), (i + 1, j + 1), (i + 1, j - 1), (i, j - 1), (i, j + 1), (i - 1, j), (i - 1, j + 1), (i - 1, j - 1)]:
+                if 0 <= a <= m - 1 and 0 <= b <= n - 1 and (board[a][b] == 1 or board[a][b] == 2):
+                    count += 1
+            return count
+
+        for i in range(m):
+            for j in range(n):
+                live = check(i, j)
+                if board[i][j] == 1 and live < 2:
+                    board[i][j] = 2
+                if board[i][j] == 1 and live > 3:
+                    board[i][j] = 2
+                if board[i][j] == 0 and live == 3:
+                    board[i][j] = 3
+        
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == 2:
+                    board[i][j] = 0
+                if board[i][j] == 3:
+                    board[i][j] = 1
+
+
+73. Set Matrix Zeroes
+-----------------------------------
+Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.
+
+You must do it in place.
+
+.. image:: ../../_static/leetcode/73.png
+    :width: 400
+
+
+如果要用O(1)的空间复杂度::
+
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        row = len(matrix)
+        col = len(matrix[0])
+        row0_flag = 0
+        col0_flag = 0
+        for j in range(col):
+            if matrix[0][j] == 0:
+                row0_flag = 1
+                break
+        for i in range(row):
+            if matrix[i][0] == 0:
+                col0_flag = 1
+                break
+
+        for i in range(1, row):
+            for j in range(1, col):
+                if matrix[i][j] == 0:
+                    matrix[i][0] = matrix[0][j] = 0
+        
+        for i in range(1, row):
+            for j in range(1, col):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
+        if row0_flag == 1:
+            for j in range(col):
+                matrix[0][j] = 0
+        if col0_flag == 1:
+            for i in range(row):
+                matrix[i][0] = 0
+        
+        return matrix
+
+
+        """
+        参考了https://leetcode.cn/problems/set-matrix-zeroes/solution/o1kong-jian-by-powcai/
+        为什么要从第二行(1)和第二列(1)开始遍历，这个很重要！！
+
+
+        因为[0][0]这个位置太重要了，如果只是第一行中间有0，会把第一列也变零
+        """
+
+
+
+黑白棋翻转
+--------------------
+| BD笔试题
+| 小明最近学会了一种棋，这种棋的玩法和围棋有点类似，最后通过比较黑子和白子所占区域的大小来决定胜负。
+| 在下棋过程中，如果白子或者黑子将对方全部围住，则所围区域中的棋子将更换颜色。
+| 如果用1表示黑子，0表示白子，给出如下实例：
+| 1111
+| 0101
+| 1101
+| 0010
+| 因为第2行第3列的白子(0)和第3行第3列的白子(0)完全被黑子(1)围住，因此需要这两个0将变为1.
+| 结果变为：
+| 1111
+| 0111
+| 1111
+| 0010
+| 为了简化问题的求解只需要大家找出所有被黑子围住的白子，并将这些白子变为黑子后输出。
+::
+
+    def solution(arr):
+        if not arr:
+            return []
+        queue = []
+        m = len(arr)
+        for i in range(m):
+            if arr[i][0] == 0:
+                queue.append((i, 0))
+            if arr[i][m - 1] == 0:
+                queue.append((i, m - 1))
+            if arr[0][i] == 0:
+                queue.append((0, i))
+            if arr[m - 1][i] == 0:
+                queue.append((m - 1, i))
+
+        while queue:
+            r, c = queue.pop()
+            if 0 <= r < m and 0 <= c < m and arr[r][c] == 0:
+                arr[r][c] = "#"
+                for (i,j) in [(r + 1, c),(r - 1, c),(r, c + 1),(r, c - 1)]:
+                    if 0 <= i < m and 0 <= j < m and arr[i][j]==0:
+                        queue.append((i,j))
+
+        for i in range(m):
+            for j in range(m):
+                if arr[i][j] == 0:
+                    arr[i][j] = 1
+                elif arr[i][j] == "#":
+                    arr[i][j] = 0
+
+        return arr
+
+扫描三次就好了。第一次把四条边上的0计入队列，准备变成'#'
+
+第二次把这些#的四周以及能够蔓延到的地方全部变#
+
+第三次把剩下的0变1，然后把#再变回0.
+
+注意，第二次遍历的时候需要用这个队列，而不能直接从左上到右下去扫描，不然矩阵靠右的会有点问题。 比如有一行是1000，那么第一个0是看不到最右边的#的
+
+
+好吧其实遍历两次就行。和下题基本一样
+
+被围绕的区域
+-----------------------
+leetcode 130. 
+
+给你一个 m x n 的矩阵 board ，由若干字符 'X' 和 'O' ，找到所有被 'X' 围绕的区域，并将这些区域里所有的 'O' 用 'X' 填充。
+::
+
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        m, n = len(board), len(board[0])
+        def inedge(i, j):
+            if i == 0 or i == m - 1 or j == 0 or j == n - 1:
+                return True
+            return False
+        def infection(i, j):
+            if i < 0 or i > m - 1 or j < 0 or j > n - 1:
+                return
+            if board[i][j] == "#" or board[i][j] == "X":
+                return
+            board[i][j] = "#"
+            infection(i + 1, j)
+            infection(i - 1, j)
+            infection(i, j + 1)
+            infection(i, j - 1)
+        
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == "O" and inedge(i, j):
+                    infection(i, j)
+        for i in range(m):
+            for j in range(n):        
+                if board[i][j] == "O":
+                    board[i][j] = "X"
+                if board[i][j] == "#":
+                    board[i][j] = "O"
+
+
+从边缘的"O"找起，这些肯定是不能被同化的，标记为"#"。然后开始感染，这些被感染到的也不能被同化，标记为"#"
+
+第二次遍历，判断一下，如果当前是"O"，则被同化为"x"。如果被标记为"#"则还原回"O"。这里注意先后顺序就行
+
+
+最大矩形
+----------------------
+| leetcode 85. 
+| 给定一个仅包含 0 和 1 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。
+
+| 示例:
+| 输入:
+| [
+|   ["1","0","1","0","0"],
+|   ["1","0","1","1","1"],
+|   ["1","1","1","1","1"],
+|   ["1","0","0","1","0"]
+| ]
+| 输出: 6
+::
+
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        if not matrix:
+            return 0
+
+        def largestRectangleArea(heights):
+            heights.append(0)
+            stack = [-1]
+            max_area = 0
+            for i in range(len(heights)):
+                while heights[i] < heights[stack[-1]]:
+                    h = heights[stack.pop()]
+                    w = i - stack[-1] - 1
+                    max_area = max(max_area, h*w)
+                stack.append(i)
+            return max_area
+
+        cur = [0] * len(matrix[0])
+        ans = 0
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if matrix[i][j] == "0":
+                    cur[j] = 0
+                else:
+                    cur[j] += 1
+            ans = max(ans, largestRectangleArea(cur))
+        return ans
+
+这个题需要结合上一题（leetcode 84）
+
+基本思路是这样：以行为单位，遍历到某行的时候，向上看，形成类似上一题的一个个矩形。如果当前是1，那么就一直到上一个0为止，如果本身是0，那么当前位置的矩形也是0。
+然后再调用上一题的代码求面积。
+
+https://leetcode-cn.com/problems/maximal-rectangle/solution/zhong-die-fa-kuai-su-jie-ti-by-my10yuan/ 这个老哥的思路不错，摘抄如下：
+
+| 以题例来解释
+| [
+| ["1","0","1","0","0"],
+| ["1","0","1","1","1"],
+| ["1","1","1","1","1"],
+| ["1","0","0","1","0"]
+| ]
+| 那么可以按行或者按列去重叠，下面以按行来实现思路:
+| 设置一个数组tag，用来记录不同行连续的1的个数
+
+| **首先获得第一行数据：10100**
+| 那么记录数组tag = 10100
+| --> 此时通过记录数组，可以得到只考虑这一行时，最大的矩阵面积：1*1=1
+| --> 因为不同行的连续1最多为1个，不同列的连续1的个数，也是1
+| **再获得第二行数据：10111**
+| 那么记录数组tag = 20211
+| --> 这里的更新方式是，如果row[i]==1,则tag[i]+=1;如果row[i]==0,则tag[i]=0;
+| -->因此，只考虑前两行时，最大的矩阵面积：1*3=3
+| **再获得第三行数据：11111**
+| 那么记录数组tag = 31322
+| -->此时只考虑前三行时，最大的矩阵面积：2*3=6
+| **再获得第四行数据：10010**
+| 那么记录数组tag = 40030
+| -->此时只考虑前四行时，最大的矩阵面积：4*1=4
+| 所以结果就是 6
+
+
+最大子矩阵
+-----------------------
+| 面试题 17.24.    也是某次考试的笔试题，滴滴的面试题
+| 给定一个正整数和负整数组成的 N × M 矩阵，编写代码找出元素总和最大的子矩阵。
+
+| 返回一个数组 [r1, c1, r2, c2]，其中 r1, c1 分别代表子矩阵左上角的行号和列号，r2, c2 分别代表右下角的行号和列号。若有多个满足条件的子矩阵，返回任意一个均可。
+
+| 0 -2 -7 0
+| 9 2 -6 2
+| -4 1 -4 1
+| -1 8 0 -2
+
+| 最大子矩阵和为
+| 9 2
+| -4 1
+| -1 8 
+::
+
+    def getMaxMatrix(self, matrix: List[List[int]]) -> List[int]:
+        def max_1d(array):
+            if not array:
+                return float('-inf')
+            ans = temp = float('-inf')
+            start_temp, start_final, end_final = 0, 0, 0
+            for i in range(len(array)):
+                if temp + array[i] > array[i]:
+                    temp = temp + array[i]
+                else:
+                    start_temp = i
+                    temp = array[i]
+
+                if temp > ans:
+                    start_final, end_final = start_temp, i
+                    ans = temp
+            return start_final, end_final, ans
+
+        row = len(matrix)
+        col = len(matrix[0])
+        maxArea = float('-inf')                     #最大面积
+        res = [0, 0, 0, 0]
+
+        for left in range(col):                     #从左到右，从上到下，滚动遍历
+            colSum = [0] * row                      #以left为左边界，每行的总和
+            for right in range(left, col):          #这一列每一位为右边界
+                for i in range(row):                #遍历列中每一位，计算前缀和
+                    colSum[i] += matrix[i][right]
+
+                startX, endX, maxAreaCur= max_1d(colSum)#在left，right为边界下的矩阵中，前缀和colSum的最大值
+                if maxAreaCur > maxArea:
+                    res = [startX, left, endX, right]        #left是起点y轴坐标，right是终点y轴坐标
+                    maxArea = maxAreaCur
+        return res
+
+.. image:: ../../_static/leetcode/1724.png
+    :align: center
+
+为什么是以列来两个指针遍历？ 因为按照行的话不好求和
 
 
 找规律&斐波拉契&数学
