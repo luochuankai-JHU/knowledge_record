@@ -837,6 +837,37 @@ https://leetcode.cn/problems/132-pattern/solution/xiang-xin-ke-xue-xi-lie-xiang-
     l = r - lenp    这里要特别注意这里不需要+1，因为是右边左边都要动，此时处理的是左边开始滑动时刻的情况
 
 
+或者::
+
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        i, j = 0, 0
+        demand = defaultdict(int)
+        for cha in p:
+            demand[cha] += 1
+        lens = len(s)
+        lenp = len(p)
+        needs = len(demand)
+        ans = []
+        while j <= lens - 1:
+            if s[j] in demand:
+                demand[s[j]] -= 1
+                if demand[s[j]] == 0:
+                    needs -= 1
+            if j >= lenp:
+                if s[i] in demand:
+                    demand[s[i]] += 1
+                    if demand[s[i]] == 1:
+                        needs += 1
+                i += 1
+            if needs == 0:
+                ans.append(i)
+            j += 1
+        return ans
+
+不要忘记，只要if j >= lenp的时候，i 每次也要+1 ，与是否s[j] in demand没关系
+
+
+
 字符串的排列
 ----------------------------------------
 | leetcode 567. 
