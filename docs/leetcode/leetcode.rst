@@ -2691,40 +2691,6 @@ leetcode 31.
         return level[-1]
 
 
-旋转图像
-----------------
-| leetcode 48. 
-| 给定一个 n × n 的二维矩阵表示一个图像。
-| 将图像顺时针旋转 90 度。
-| 说明：
-| 你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。
-| 示例 1:
-| 给定 matrix = 
-| [
-|   [1,2,3],
-|   [4,5,6],
-|   [7,8,9]
-| ],
-
-| 原地旋转输入矩阵，使其变为:
-| [
-|   [7,4,1],
-|   [8,5,2],
-|   [9,6,3]
-| ]
-
-::
-
-    def rotate(self, matrix: List[List[int]]) -> None:
-        """
-        Do not return anything, modify matrix in-place instead.
-        """
-        for i in range(len(matrix)):
-            for j in range(i,len(matrix[0])):
-                matrix[i][j],matrix[j][i] = matrix[j][i], matrix[i][j]
-        for i in range(len(matrix)):
-            matrix[i] = matrix[i][::-1]
-
 Pow(x, n)
 ---------------
 leetcode 50. 
@@ -2802,47 +2768,7 @@ leetcode 50.
 从第k步（最远距离）到第k+1步（最远距离）。属于贪心算法的思想
 
 
-螺旋矩阵 II
-------------------------------
-| leetcode 59.  
-| 给定一个正整数 n，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。
-| 示例:
-| 输入: 3
-| 输出:
-| [
-|  [ 1, 2, 3 ],
-|  [ 8, 9, 4 ],
-|  [ 7, 6, 5 ]
-| ]
 
-::
-    
-    def generateMatrix(self, n: int) -> List[List[int]]:
-        left, right, up, down = 0, n - 1, 0, n - 1
-        i, j = 0, 0
-        dp = [[0] * n for _ in range(n)]
-        num = 1
-        while num <= n ** 2:
-            for j in range(left, right + 1):
-                dp[i][j] = num
-                num += 1
-            up += 1
-            for i in range(up, down + 1):
-                dp[i][j] = num
-                num += 1
-            right -= 1
-            for j in range(right, left - 1, -1):
-                dp[i][j] = num
-                num += 1
-            down -= 1
-            for i in range(down, up - 1, -1):
-                dp[i][j] = num
-                num += 1
-            left += 1                
-        return dp
-
-
-https://leetcode.cn/problems/spiral-matrix-ii/solution/spiral-matrix-ii-mo-ni-fa-she-ding-bian-jie-qing-x/
 
 不同路径
 ------------------------
@@ -4167,73 +4093,6 @@ leetcode 5.
         return res
 
 
-顺时针打印矩阵
-------------------------
-剑指 Offer 29. 
-
-输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。
-
-示例 1：
-
-| 输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
-| 输出：[1,2,3,6,9,8,7,4,5]
-
-示例 2：
-
-| 输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
-| 输出：[1,2,3,4,8,12,11,10,9,5,6,7]
-
-一种很憨憨的解法，一板一眼的去做::
-
-    class Solution:
-        def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-            res = []
-            def turn_right(matrix,res):
-                res+=matrix[0]
-                matrix = matrix[1:]
-                return matrix, res
-
-            def turn_down(matrix,res):
-                new_matrix = []
-                for line in matrix:
-                    res.append(line[-1])
-                    line = line[:-1]
-                    new_matrix.append(line)
-                return new_matrix,res
-
-            def turn_left(matrix,res):
-                res+=matrix[-1][::-1]
-                matrix = matrix[:-1]
-                return matrix, res
-            
-            def turn_up(matrix,res):
-                new_matrix = []
-                temp = []
-                for line in matrix:
-                    temp.append(line[0])
-                    line = line[1:]
-                    new_matrix.append(line)
-                res += temp[::-1]
-                return new_matrix,res
-            i = 0
-            while len(matrix)>0 and len(matrix[0])>0:
-                if i%4==0:
-                    matrix,res = turn_right(matrix,res)
-                    i+=1
-                    continue
-                if i%4==1:
-                    matrix,res = turn_down(matrix,res)
-                    i+=1
-                    continue
-                if i%4==2:
-                    matrix,res = turn_left(matrix,res)
-                    i+=1
-                    continue
-                if i%4==3:
-                    matrix,res = turn_up(matrix,res)
-                    i+=1
-                    continue
-            return res
 
 
 盛最多水的容器
@@ -4522,8 +4381,9 @@ leetcode 435.
 leetcode 163 759 986  630
 
 
-找规律&斐波拉契&数学
-=============================
+
+矩阵/旋转打印二维数组
+==================================
 
 旋转二维数组总结
 ---------------------------------
@@ -4576,10 +4436,26 @@ leetcode 163 759 986  630
 例题解答看下面
 
 旋转图像
--------------------
-| leetcode 48.
-| 给定一个 n × n 的二维矩阵 matrix 表示一个图像。请你将图像顺时针旋转 90 度。
-| 你必须在 原地 旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要 使用另一个矩阵来旋转图像。
+----------------
+| leetcode 48. 
+| 给定一个 n × n 的二维矩阵表示一个图像。
+| 将图像顺时针旋转 90 度。
+| 说明：
+| 你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。
+| 示例 1:
+| 给定 matrix = 
+| [
+|   [1,2,3],
+|   [4,5,6],
+|   [7,8,9]
+| ],
+
+| 原地旋转输入矩阵，使其变为:
+| [
+|   [7,4,1],
+|   [8,5,2],
+|   [9,6,3]
+| ]
 
 ::
 
@@ -4587,25 +4463,161 @@ leetcode 163 759 986  630
         """
         Do not return anything, modify matrix in-place instead.
         """
-        def updown(matrix, n):
-            for i in range(n // 2):
-                for j in range(n):
-                    matrix[i][j], matrix[n - i - 1][j] = matrix[n - i - 1][j], matrix[i][j]
-            return matrix
-
-        def diagonal(matrix, n):
-            for i in range(n):
-                for j in range(i, n):
-                    matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
-            return matrix
-        n = len(matrix)
-        matrix = updown(matrix, n)
-        matrix = diagonal(matrix, n)
-        return matrix
+        for i in range(len(matrix)):
+            for j in range(i,len(matrix[0])):
+                matrix[i][j],matrix[j][i] = matrix[j][i], matrix[i][j]
+        for i in range(len(matrix)):
+            matrix[i] = matrix[i][::-1]
 
 
 这里上下翻转为何不能使用 matrix = matrix[::-1]?
 因为这里需要in-place。这种方法会开辟一个额外空间。然后题目还是会去检测之前的matrix所在空间的值
+
+
+
+螺旋矩阵/顺时针打印矩阵
+------------------------------
+leetcode 54. / 剑指 Offer 29. 
+
+输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。
+
+示例 1：
+
+| 输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
+| 输出：[1,2,3,6,9,8,7,4,5]
+
+示例 2：
+
+| 输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+| 输出：[1,2,3,4,8,12,11,10,9,5,6,7]
+
+这种方式更加科学::
+
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        up, down, left, right = 0, len(matrix) - 1, 0, len(matrix[0]) - 1
+        ans = []
+        while True:
+            for i in range(left, right + 1):
+                ans.append(matrix[up][i])
+            up += 1
+            if up > down:
+                break
+            for i in range(up, down + 1):
+                ans.append(matrix[i][right])
+            right -= 1
+            if right < left:
+                break
+            for i in range(right, left - 1, -1):
+                ans.append(matrix[down][i])
+            down -= 1
+            if up > down:
+                break
+            for i in range(down, up - 1, -1):
+                ans.append(matrix[i][left])
+            left += 1
+            if left > right:
+                break
+        return ans
+
+
+另一种很憨憨的解法，一板一眼的去做::
+
+    class Solution:
+        def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+            res = []
+            def turn_right(matrix,res):
+                res+=matrix[0]
+                matrix = matrix[1:]
+                return matrix, res
+
+            def turn_down(matrix,res):
+                new_matrix = []
+                for line in matrix:
+                    res.append(line[-1])
+                    line = line[:-1]
+                    new_matrix.append(line)
+                return new_matrix,res
+
+            def turn_left(matrix,res):
+                res+=matrix[-1][::-1]
+                matrix = matrix[:-1]
+                return matrix, res
+            
+            def turn_up(matrix,res):
+                new_matrix = []
+                temp = []
+                for line in matrix:
+                    temp.append(line[0])
+                    line = line[1:]
+                    new_matrix.append(line)
+                res += temp[::-1]
+                return new_matrix,res
+            i = 0
+            while len(matrix)>0 and len(matrix[0])>0:
+                if i%4==0:
+                    matrix,res = turn_right(matrix,res)
+                    i+=1
+                    continue
+                if i%4==1:
+                    matrix,res = turn_down(matrix,res)
+                    i+=1
+                    continue
+                if i%4==2:
+                    matrix,res = turn_left(matrix,res)
+                    i+=1
+                    continue
+                if i%4==3:
+                    matrix,res = turn_up(matrix,res)
+                    i+=1
+                    continue
+            return res
+
+
+螺旋矩阵 II
+------------------------------
+| leetcode 59.  
+| 给定一个正整数 n，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。
+| 示例:
+| 输入: 3
+| 输出:
+| [
+|  [ 1, 2, 3 ],
+|  [ 8, 9, 4 ],
+|  [ 7, 6, 5 ]
+| ]
+
+::
+    
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        left, right, up, down = 0, n - 1, 0, n - 1
+        i, j = 0, 0
+        dp = [[0] * n for _ in range(n)]
+        num = 1
+        while num <= n ** 2:
+            for j in range(left, right + 1):
+                dp[i][j] = num
+                num += 1
+            up += 1
+            for i in range(up, down + 1):
+                dp[i][j] = num
+                num += 1
+            right -= 1
+            for j in range(right, left - 1, -1):
+                dp[i][j] = num
+                num += 1
+            down -= 1
+            for i in range(down, up - 1, -1):
+                dp[i][j] = num
+                num += 1
+            left += 1                
+        return dp
+
+
+https://leetcode.cn/problems/spiral-matrix-ii/solution/spiral-matrix-ii-mo-ni-fa-she-ding-bian-jie-qing-x/
+
+
+找规律&斐波拉契&数学
+=============================
 
 
 
