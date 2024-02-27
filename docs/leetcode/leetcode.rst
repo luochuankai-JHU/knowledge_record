@@ -901,6 +901,7 @@ https://leetcode.cn/problems/132-pattern/solution/xiang-xin-ke-xue-xi-lie-xiang-
                 return True
         return False
 
+这和上一题没区别，是简化版，只需要判断True False。代码不改都能过
 
 209. Minimum Size Subarray Sum
 -----------------------------------------
