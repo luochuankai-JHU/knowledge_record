@@ -799,7 +799,38 @@ https://leetcode.cn/problems/132-pattern/solution/xiang-xin-ke-xue-xi-lie-xiang-
                 l += 1
         return [left, right] if minlen <= lenb else []
 
+或者::
 
+    def shortestSeq(self, big: List[int], small: List[int]) -> List[int]:
+        i, j = 0, 0
+        store = defaultdict(int)
+        nums = len(small)
+        cnt = 0
+        set_small = set(small)
+        length = len(big)
+        ans = [0, length]
+        while j <= length - 1:
+            if big[j] in set_small:
+                store[big[j]] += 1
+                if store[big[j]] == 1:
+                    cnt += 1
+                while i <= j and cnt == nums:
+                    if cnt == nums and j - i < ans[1] - ans[0]:
+                        ans = [i, j]
+                    if big[i] not in set_small:
+                        i += 1
+                    else:
+                        if store[big[i]] >= 2:
+                            store[big[i]] -= 1
+                            i += 1
+                        else:
+                            break
+            j += 1
+        if ans[1] == length:
+            return []
+        return ans
+
+    
 找到字符串中所有字母异位词
 ----------------------------------------
 | leetcode 438. 
