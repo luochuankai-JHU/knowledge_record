@@ -4218,6 +4218,28 @@ leetcode 163 759 986  630
 |   [9,6,3]
 | ]
 
+建议使用::
+
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        def updown(matrix, n):
+            for i in range(n // 2):
+                for j in range(n):
+                    matrix[i][j], matrix[n - i - 1][j] = matrix[n - i - 1][j], matrix[i][j]
+            return matrix
+
+        def diagonal(matrix, n):
+            for i in range(n):
+                for j in range(i, n):
+                    matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+            return matrix
+        n = len(matrix)
+        matrix = updown(matrix, n)
+        matrix = diagonal(matrix, n)
+        return matrix
+
 ::
 
     def rotate(self, matrix: List[List[int]]) -> None:
