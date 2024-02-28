@@ -3786,6 +3786,31 @@ leetcode 560.
         # 这道题看了解析的。前缀和+类似2sum的解法真牛啊！
 
 
+49. Group Anagrams
+-------------------------------
+leetcode 49.
+
+.. image:: ../../_static/leetcode/49.png
+    :width: 600
+
+::
+
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        store = defaultdict(list)
+        for word in strs:
+            count = [0] * 26
+            for cha in word:
+                count[ord(cha) - ord("a")] += 1
+            # str_count = ""
+            # for i in range(26):
+            #     if count[i] != 0:
+            #         str_count += chr(i + ord("a")) + str(count[i])
+            store[tuple(count)].append(word) # 直接使用tuple
+        return list(store.values())    
+
+list不能当字典里的key的时候,使用tuple当字典的key 
+
+
 遍历（Traversal）
 =======================
 125. Valid Palindrome

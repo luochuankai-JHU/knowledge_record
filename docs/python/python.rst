@@ -209,6 +209,29 @@ list(map(int, xxx )) 就能把之前的  ['1','3',234] 或者 '11213' 变成 int
 
 
 
+tuple: list不能当字典里的key的时候
+-----------------------------------------------
+比如这一题
+
+.. image:: ../../_static/leetcode/49.png
+    :width: 600
+
+::
+
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        store = defaultdict(list)
+        for word in strs:
+            count = [0] * 26
+            for cha in word:
+                count[ord(cha) - ord("a")] += 1
+            # str_count = ""
+            # for i in range(26):
+            #     if count[i] != 0:
+            #         str_count += chr(i + ord("a")) + str(count[i])
+            store[tuple(count)].append(word) # 直接使用tuple
+        return list(store.values())    
+
+
 *arg与**kwargs参数的用法
 ----------------------------------------------
 https://www.cnblogs.com/xujiu/p/8352635.html
