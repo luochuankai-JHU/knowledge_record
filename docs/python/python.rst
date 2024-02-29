@@ -209,7 +209,7 @@ list(map(int, xxx )) 就能把之前的  ['1','3',234] 或者 '11213' 变成 int
 
 
 
-tuple: list不能当字典里的key的时候
+tuple元组: list不能当字典里的key的时候
 -----------------------------------------------
 比如这一题
 
@@ -230,6 +230,56 @@ tuple: list不能当字典里的key的时候
             #         str_count += chr(i + ord("a")) + str(count[i])
             store[tuple(count)].append(word) # 直接使用tuple
         return list(store.values())    
+
+**关于tuple元组的一些小知识点**
+
+• 元组内部的元素不能修改
+
+• 但我们可以对元组进行连接组合，如下实例:
+
+::
+
+    tup1 = (12, 34.56)
+    tup2 = ('abc', 'xyz')
+    
+    # 以下修改元组元素操作是非法的。
+    # tup1[0] = 100
+    
+    # 创建一个新的元组
+    tup3 = tup1 + tup2
+
+• 元组中的元素值是不允许删除的，但我们可以使用del语句来删除整个元组
+
+• 元组生成
+::
+
+    tup1 = ('physics', 'chemistry', 1997, 2000)
+    tup2 = (1, 2, 3, 4, 5, 6, 7 )
+    aa = (1, "222", "bbbb")
+    aa = 1, "222", "bbbb"
+    tup1 = (50,)    # 元组中只包含一个元素时，需要在元素后面添加逗号
+    aa = tuple([1, "222", "aaa"])   # list可以转化为元组，这样就能用在字典的key中
+
+
+• 元组可以使用下标索引来访问元组中的值
+
+• tuple元组、set、list可以互相转换.这样set和list变成tuple后就能放到字典里面做key
+::
+
+    bb = set()
+    bb.add(1)
+    bb.add(222)
+    print(bb)
+    aa = tuple(bb)
+    print(aa)
+    print(list(aa))
+    cc = set(aa)
+    print(cc)
+
+
+
+
+
 
 
 *arg与**kwargs参数的用法
