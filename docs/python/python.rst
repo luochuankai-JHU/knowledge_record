@@ -458,7 +458,7 @@ https://leetcode-cn.com/problems/recover-a-tree-from-preorder-traversal/solution
 可变类型——list, dict, set
 
 不可变类型——int, str, tuple
-    
+
 tuple元组、set、list可以互相转换.这样set和list变成tuple后就能放到字典里面做key
 
 python 常用的 string format 形式

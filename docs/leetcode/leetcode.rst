@@ -536,13 +536,16 @@ leetcode 84.
 
     1. heights = [0] + heights + [0]  相当于前后加了两个“哨兵”
 
-    2. w = i - queue[-1] - 1  而不是刚刚pop出来的。防止[2, 1, 2]的情况发生，不知道左边界是哪里
-
+    2. w = i - queue[-1] - 1  而不是刚刚pop出来的。防止[2, 1, 2]的情况发生，不知道左边界是哪里，因为1会把第一个2给pop掉
 
 
 .. image:: ../../_static/leetcode/84_2.png
     :align: center
     :width: 700
+
+至于为什么这里是维护一个递增队列，是为了找到以当前这个柱子的高度为最高高度的矩形面积：
+
+.. image:: ../../_static/leetcode/84_3.png
 
 
 
