@@ -3831,7 +3831,43 @@ You must write an algorithm that runs in O(n) time.
 | Input: nums = [0,3,7,2,5,8,4,6,0,1]
 | Output: 9
 
+::
 
+    def longestConsecutive(self, nums: List[int]) -> int:
+        max_length = 0
+        temp = {}
+        for num in nums:
+            if num not in temp:
+                left = temp.get(num - 1, 0)
+                right = temp.get(num + 1, 0)
+                length = left + right + 1
+                max_length = max(max_length, length)
+
+                temp[num - left] = length
+                temp[num + right] = length
+                temp[num] = length  # 这里也要更新一下，免得有重复数字
+        return max_length
+
+思路是：利用了必须要求连续整数这一特点。当来一个新数时，看看他的左边-1 和右边+1.获得左右的翅膀长度。计算整个的长度，然后要更新左边和右边代表的长度。同时也要更新自己，以免有重复数字，进行重复计算
+为什么只需要更新左右端点呢？因为这里判断新数的时候，只会从他的左边-1 和右边+1.获得左右的翅膀长度，不需要从中间找了
+
+这样写是不行的::
+
+    def longestConsecutive(self, nums: List[int]) -> int:
+        store = defaultdict(int)
+        ans = 0
+        for num in nums:
+            if num not in store:
+                left = store[num - 1]
+                right = store[num + 1]
+                length = right + left + 1
+                store[num - left] = length
+                store[num + right] = length
+                store[num] = length
+                ans = max(ans, length)
+        return ans
+
+原因是，这里使用了defaultdict(int)，那么在 left = store[num - 1]的时候，尽管之前left没出现过，但是也会被生成一个0存在字典里面。所以下次要判断left的时候，会被if num not in store拒绝
 
 遍历（Traversal）
 =======================
