@@ -3791,7 +3791,7 @@ leetcode 560.
 leetcode 49.
 
 .. image:: ../../_static/leetcode/49.png
-    :width: 600
+    :width: 450
 
 ::
 

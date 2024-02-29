@@ -214,7 +214,7 @@ tuple元组: list不能当字典里的key的时候
 比如这一题
 
 .. image:: ../../_static/leetcode/49.png
-    :width: 600
+    :width: 450
 
 ::
 
