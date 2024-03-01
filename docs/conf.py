@@ -81,3 +81,6 @@ rst_prolog = '''
 .. highlight:: python
    :linenothreshold: 5
 '''
+
+html4_writer = True
+field_name_limit = 5
