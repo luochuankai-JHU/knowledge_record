@@ -963,14 +963,13 @@ Behavior Question
 a)Tell me about yourself
 -----------------------------------
 
-### b)Why this company
+b)Why this company
 
 
 c)Why this position / this team
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 d)Why leave your last position
-:::::::::::::::::::::::::::::::::::::::::::::
 111
 
 e)Walk me through your typical day at work.
