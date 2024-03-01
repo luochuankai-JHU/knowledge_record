@@ -37,7 +37,7 @@ author = u'Chuankai Luo'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.githubpages', 'sphinx.ext.mathjax', 'recommonmark', 'sphinx_markdown_tables']
-
+source_suffix = ['.rst', '.md']
 html_copy_source = True
 
 markdown_search = True
