@@ -61,7 +61,7 @@
    
 .. toctree::
    :caption: 一些零散记录
-   :maxdepth: 4
+   :maxdepth: 2
 
    python/python
  
