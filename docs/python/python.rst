@@ -941,7 +941,7 @@ https://www.xiaolincoding.com/os/8_network_system/hash.html
 如果网页打不开，我有截屏保存在 docs/_static/python/consistent_hashing.png
 
 
-***********************
+
 Behavior Question
 ***********************
 
@@ -967,7 +967,7 @@ a)Tell me about yourself
 
 
 c)Why this position / this team
-333
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 d)Why leave your last position
 :::::::::::::::::::::::::::::::::::::::::::::
