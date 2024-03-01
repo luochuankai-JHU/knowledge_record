@@ -941,8 +941,9 @@ https://www.xiaolincoding.com/os/8_network_system/hash.html
 如果网页打不开，我有截屏保存在 docs/_static/python/consistent_hashing.png
 
 
+***********************
 Behavior Question
-******************
+***********************
 
 
 资料来源
@@ -963,13 +964,13 @@ a)Tell me about yourself
 -----------------------------------
 
 ### b)Why this company
-:::::::::::::::::::::::::::::::::::::::::::::
+
 
 c)Why this position / this team
 333
 
 d)Why leave your last position
-
+:::::::::::::::::::::::::::::::::::::::::::::
 111
 
 e)Walk me through your typical day at work.
