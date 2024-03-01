@@ -381,13 +381,13 @@ path + [cur]
 零碎
 ================
 
-ReadtheDocs、Sphinx
+ReadtheDocs、Sphinx、rst文件
 --------------------------------------
 【文档】使用Sphinx + reST编写文档  https://www.cnblogs.com/zzqcn/p/5096876.html#_label7
 
 如何用ReadtheDocs、Sphinx快速搭建写书环境  https://www.jianshu.com/p/78e9e1b8553a
 
-
+.rst文件规则！！！！   这个是rst文件的语法！！！  https://golden-note.readthedocs.io/zh/latest/sphinx/rst.html
 
 tmux的使用
 ------------------
