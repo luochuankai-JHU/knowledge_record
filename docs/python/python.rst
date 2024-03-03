@@ -946,7 +946,7 @@ https://www.xiaolincoding.com/os/8_network_system/hash.html
 ***********************
 Behavior Question
 ***********************
-Behavior Question
+
 
 资料来源
 ====================
@@ -957,26 +957,66 @@ Behavior Question
 
 `[找工就业] [工作信息] 一些准备BQ (behavioral questions)的资源,附samples <https://www.1point3acres.com/bbs/thread-736162-1-1.html>`_    2021-3-22 23:12:02
 
+注意事项/前人经验
+=====================
+因为每个故事可以靠很多题，所以大家在准备的时候也无需每道题都进行编排，大概写上10-20个小故事，将各大类全覆盖，最后抽检几道小题假设如果被问到一定要有相应的故事往这边靠。
+比如说被问到Tell me a time when you overcame a challenge，然后你没有确切的准备这道题，就拿一个Tell me a time when you succeed / a project you proud of，
+先blablabla说个大概，然后在STAR的T和A加上一个该项目的难点以及怎么克服的，就ok了。
 
+"STAR" 代表 Situation（情境）、Task（任务）、Action（行动）和Result（结果）
+
+然后在回答BQ的时候，尽量先模糊地（但是不能过于模糊）说一下，然后故意挑一两个可能会引起Interviewer来提follow-ups的点保留。比如说被问到Tell me about a time where you thought of a 
+new way to save money for the company。就可以先大概把STAR讲出来，但这个new way可以先说的模糊一些，然后result也稍微模糊一些，等着他来深入提问。之后你就可以把所有data-driven的数据，
+你用的这个new way是怎么构思的，save了多少money，有什么impact再逐一回答。不然你准备了这个小故事，一下全盘拖出，面试官follow up的问题只回答几秒钟而且模棱两可，这个我觉得就不太好了。
+
+作为recruiter想讲几句，基本上BQ 问的就是这个人好不好在团队里相处（上下级都有），对我们公司是不是真的很有兴趣（这个很重要）
+
+在回答BQ问题的时候，要先把故事背景给描绘出来，而不是直接开始讲 我如何解决这个问题。
+
+面试前得看下别人公司是做什么的，然后这个岗位主要工作内容是什么，要求是什么
+
+避免紧张，可以想想自己的优势是什么
 
 1.Basics
 ===========================
 
 a)Tell me about yourself
 ------------------------------------------------------------------------------------------------------------------------
+Hi, my name is Chuankai, you can call me CK for short.
+
+I have a 2 years work exprience as Machine learning Engineer at Baidu, which is a top 3 tech company in China.
+
+| Here are some key highlights of my exprience:
+| •	During my 2 years at Baidu, I utilized machine learning methods to bring significant improvements to the company and leading to significant user growth of over 220k/day.
+| •	Expertise in Python and Pytorch.
+| •	Expertise in machine learning, deep learning, big data analysis, and AB testing.
+| •	Proficient in recommendation systems, Natural language processing (NLP), user growth and advertising.
+| •	Skilled in MapReducer, Golang, MATLAB, SQL, Tableau and AWS, with an AWS Certified Machine Learning - Specialty certification.
+| •	Master's degrees from Tsinghua University and Johns Hopkins University.
+
+I am excited about the opportunity to contribute to your team.
 
 b)Why this company
 ------------------------------------------------------------------------------------------------------------------------
+提前上网搜搜这个公司是干嘛的
+
 
 c)Why this position / this team
 ------------------------------------------------------------------------------------------------------------------------
+也是需要提前了解
 
 d)Why leave your last position
 ------------------------------------------------------------------------------------------------------------------------
+Because my girlfriend is Canadian citizen, and we decided to move to Canada to start a new life.
+
 
 e)Walk me through your typical day at work.
 ------------------------------------------------------------------------------------------------------------------------
+I go to the company at 9AM, we will have a standup meeting from 9:30 to 10:30. After meeting, i will look for the result of last night, analysis it, whatever it success or not and write a summary or report. 
 
+At afternoon, i will base on my analysis to revise my considered. And then, we will have a meeting with the product manager, to keep us in the same page and see if we have a good idea.
+
+and then, still coding. make some preparation for tomorrow's meeting. we will go back to home at 9pm
 
 2.Failure
 ===========================
