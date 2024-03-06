@@ -4200,27 +4200,24 @@ leetcode 435.
 ::
 
     def summaryRanges(self, nums: List[int]) -> List[str]:
-        if nums == []:
-            return []
-        if len(nums) == 1:
-            return [str(nums[0])]
-        res = []
-        temp = [str(nums[0])]
-        for i in range(1, len(nums)):
-            if nums[i] == int(temp[-1]) + 1:
-                if len(temp)==1:
-                    temp.append("->")
-                    temp.append(str(nums[i]))
+        nums += [float(inf)]
+        length = len(nums)
+        ans = []
+        for i in range(length):
+            if i == 0:
+                start = nums[i]
+                end = nums[i]
+            elif nums[i] - nums[i - 1] == 1:
+                end = nums[i]
+            elif nums[i] - nums[i - 1] > 1:
+                if end == start:
+                    interval = str(start)
                 else:
-                    temp[-1] = str(nums[i])
-            else:
-                res.append("".join(temp))
-                temp = [str(nums[i])]
-        if temp:
-            res.append("".join(temp))
-        return res
-        
-这种题连easy都不配好吗.....
+                    interval = str(start) + "->" + str(end)
+                start = nums[i]
+                end = nums[i]
+                ans.append(interval)
+        return ans
 
 leetcode 163 759 986  630
 
