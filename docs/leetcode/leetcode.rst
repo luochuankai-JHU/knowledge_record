@@ -4054,6 +4054,42 @@ leetcode 57.
 
 同时，del的话是可以越界的。比如the_list只有3长度，可以del(the_list[7:9])
 
+::
+
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        if not intervals:
+            return [newInterval]
+        start, end = newInterval[0], newInterval[1]
+        if start > intervals[-1][1]:
+            return intervals + [newInterval]
+        if end < intervals[0][0]:
+            return [newInterval] + intervals
+        length = len(intervals)
+        ans = []
+        flag = 0
+        for i in range(length):
+            s, e = intervals[i][0], intervals[i][1]
+            if e < start:
+                # not in process
+                ans.append([s, e])
+            elif s > end:
+                # finish
+                # record the temp
+                if flag == 1:
+                    ans.append([start, end])
+                    flag = 2
+                elif flag == 0:
+                    ans.append([start, end])
+                    flag = 2
+                ans.append([s, e])
+            else:
+                start = min(s, start)
+                end = max(e, end)
+                flag = 1
+        if flag == 1:
+            ans.append([start, end])
+        return ans
+
 
 会议室
 -------------------
