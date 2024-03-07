@@ -4013,7 +4013,24 @@ leetcode 15. 和 leetcode 16
             else:
                 res[-1][-1] = max(res[-1][-1],intervals[i][-1])
         return res
-        
+
+或者::
+
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intvs = sorted(intervals, key = lambda x: x[0])
+        ans = []
+        start, end = intvs[0][0], intvs[0][1]
+        for i in range(1, len(intvs)):
+            s, e = intvs[i][0], intvs[i][1]
+            if s > end:
+                ans.append([start, end])
+                start, end = s, e
+            else:
+                end = max(end, e)
+        ans.append([start, end])
+        return ans
+
+
 只要明白一件事就好了，先排序（sort以后先按第一个排序，再按第二个排序）。排序后的列表，如果说新判断的区间，左边的区间都比上一个的右区间大，那么一定不重合
 
 请看下一题：
