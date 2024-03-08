@@ -4180,25 +4180,74 @@ lintcode上倒是有一道同名题目, 数据结构略有点小坑
 
 | 输入：[[0, 30],[5, 10],[15, 20]]
 | 输出：2
+
 ::
+    
+    def min_meeting_rooms(self, intervals: List[Interval]) -> int:
+        start_times = sorted(Interval.start for Interval in intervals)
+        end_times = sorted(Interval.end for Interval in intervals)
+        rooms = 0
+        length = len(intervals)
+        i, j = 0, 0
+        while i < length:
+            if start_times[i] >= end_times[j]:
+                i += 1
+                j += 1
+            else:
+                # start_times[i] < end_times[j]
+                rooms += 1
+                i += 1
+        return rooms
 
+这种解析的思路是这样的：
+| 假设三段会议安排是：
+| [0,                 10]
+| [1,   5]    [6,  9]
+
+| start_timings[0, 1,  6]
+| end_timings  [5, 9, 10]
+
+当我们遇到“会议结束”事件时，意味着一些较早开始的会议已经结束。我们并不关心到底是哪个会议结束。我们所需要的只是 一些 会议结束,从而提供一个空房间。
+
+这里有点像从开始到结束遍历时间，然后看这个时间点上到底需要几个会议室。那么这里遍历时间是以会议开始为标志的，就是这个会议开始的时候，到底需要几个会议室
+
+
+或者这么看是不是更直观::
+
+    def min_meeting_rooms(self, intervals: List[Interval]) -> int:
+        rooms = []
+        for x in intervals:
+            rooms.append([x.start, 1])
+            rooms.append([x.end, -1])
+        rooms.sort()
+        cnt = 0
+        tmp = 0
+        for _, delta in rooms:
+            tmp += delta
+            cnt = max(cnt, tmp)
+        return cnt
+
+直接就是 按照时间线扫描过去 开会议室就+1  结束一个就-1。推荐这种思路写法
+
+还有一种方法::
+
+    import heapq
     def minMeetingRooms(self, intervals):
-            intervals.sort(key = lambda x: x.start)
-            heap = []
-            for interval in intervals:
-                if heap and interval.start >= heap[0]:
-                    heapq.heapreplace(heap, interval.end)                    
-                else:
-                    heapq.heappush(heap, interval.end)
-            return len(heap)
+        intervals.sort(key = lambda x: x.start)
+        heap = []
+        for interval in intervals:
+            if heap and interval.start >= heap[0]:
+                heapq.heapreplace(heap, interval.end)                    
+            else:
+                heapq.heappush(heap, interval.end)
+        return len(heap)
         
-这个题也是被锁住了所以就自己写写。原题好像是要用inter.start, inter.end        
-
-跟leetcode 56 一个思路嘛....只不过是 如果重叠就开个新会议室，不重合就能用同一个会议室
+这个需要import heapq  堆
 
 无重叠区间
 ---------------------
 leetcode 435. 
+
 给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。
 
 注意:
@@ -4229,7 +4278,7 @@ leetcode 435.
 可以自己拿示例试试。排完序后是[[1, 11], [2, 12], [11, 22], [1, 100]]。那么很明显，第二个[2, 12]是没有用的
 
 
-如果是以左端点来排序的话，那么情况会复杂一些。需要在有重叠的时候选择右端点最小的那个。
+如果是以左端点来排序的话，那么情况会复杂一些。需要在有重叠的时候 end选择右端点最小的那个(相当于是丢弃了右端点大的那个)
 ::
 
     # 这样是错的
@@ -4237,7 +4286,20 @@ leetcode 435.
 
 这样肯定不行。这样的意思其实是我最开始的意思，先排左边，左边相同的情况下右边小的为准。例子：[[-100, 100], [-90, -80], [-20, 0], [1, 10]] 其实是需要移除第一个
 
+::
 
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        cnt = 0
+        intervals.sort()
+        end = intervals[0][1]
+        length = len(intervals)
+        for i in range(1, length):
+            if intervals[i][0] < end:
+                cnt += 1
+                end = min(end, intervals[i][1])
+            else:
+                end = intervals[i][1]
+        return cnt
 
 
 用最少数量的箭引爆气球
@@ -4280,6 +4342,22 @@ leetcode 435.
             `````
 
 这种的是可以一箭洞穿的
+
+::
+
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        intvs = sorted(points)
+        length = len(intvs)
+        start, end = intvs[0][0], intvs[0][1]
+        cnt = 1
+        for i in range(1, length):
+            s, e = intvs[i][0], intvs[i][1]
+            if s > end:
+                cnt += 1
+                end = e
+            else:
+                end = min(end, e)
+        return cnt
 
 汇总区间
 -------------------
