@@ -4132,6 +4132,36 @@ leetcode 57.
 
 仿照leetcode56 写的。 没在leetcode上测过....因为这是锁定题目，要收费...
 
+lintcode上倒是有一道同名题目, 数据结构略有点小坑
+
+**920 · 会议室**
+
+给定一系列的会议时间间隔，包括起始和结束时间[[s1,e1]，[s2,e2]，…(si < ei)，确定一个人是否可以参加所有会议。 (0,8),(8,10)在8这一时刻不冲突
+
+::
+
+    """
+    Definition of Interval:
+    class Interval(object):
+        def __init__(self, start, end):
+            self.start = start
+            self.end = end
+    """
+    class Solution:
+        """
+        @param intervals: an array of meeting time intervals
+        @return: if a person could attend all meetings
+        """
+        def can_attend_meetings(self, intervals: List[Interval]) -> bool:        
+            end_time = -1
+            for interval in sorted(intervals, key = lambda interval: interval.start):
+                if interval.start < end_time:
+                    return False
+                end_time = interval.end 
+            return True
+
+这里的Interval是interval.start和interval.end
+
 请看下一题
 
 会议室II
