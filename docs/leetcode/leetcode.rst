@@ -4162,6 +4162,15 @@ lintcode上倒是有一道同名题目, 数据结构略有点小坑
 
 这里的Interval是interval.start和interval.end
 
+.. admonition:: 疑惑
+    :class: note
+
+    我发现这里在排序的时候,下面这两种方式都行？？？???为啥呢
+    intvs = sorted(intervals, key = lambda x:x.end)
+    intvs = sorted(intervals, key = lambda x:x.start)
+    
+
+
 请看下一题
 
 会议室II
