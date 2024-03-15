@@ -189,6 +189,10 @@ RoBERTa
 
 静态Masking vs 动态Masking
 
+动态masking：Dynamic Masking
+
+静态masking：Static Masking
+
 原来Bert对每一个序列随机选择15%的Tokens替换成[MASK]，为了消除与下游任务的不匹配，还对这15%的Tokens进行
 （1）80%的时间替换成[MASK]；（2）10%的时间不变；（3）10%的时间替换成其他词。
 但整个训练过程，这15%的Tokens一旦被选择就不再改变，也就是说从一开始随机选择了这15%的Tokens，之后的N个epoch里都不再改变了。这就叫做静态Masking。
