@@ -99,6 +99,9 @@ https://blog.csdn.net/RuiKe1400360107/article/details/103864216
 
 里面用到的算法是TF-IDF算法，详细见本文档 https://knowledge-record.readthedocs.io/zh-cn/latest/python/python.html#tf-idf
 
+
+
+
 召回
 ------------
 协同过滤，聚类
