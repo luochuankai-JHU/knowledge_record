@@ -778,6 +778,27 @@ BERT 的输入可以包含一个句子对 (句子 A 和句子 B)，也可以是�
 [MASK] 标志用于遮盖句子中的一些单词，将单词用 [MASK] 遮盖之后，再利用 BERT 输出的 [MASK] 向量预测单词是什么。
 
 
+BERT模型的预训练任务
+--------------------------------------------
+BERT模型的预训练任务主要包含两个， 一个是MLM（Masked Language Model），一个是NSP（Next Sentence Prediction），BERT 预训练阶段实际上是将上述两个任务结合起来，
+同时进行，然后将所有的 Loss 相加。
+
+Masked Language Model 可以理解为完形填空，随机mask每一个句子中15%的词，用其上下文来做预测。
+
+而这样会导致预训练阶段与下游任务阶段之间的不一致性（下游任务中没有【MASK】），为了缓解这个问题，会按概率选择以下三种操作：
+
+例如：my dog is hairy → my dog is [MASK]
+
+80%的是采用[mask]，my dog is hairy → my dog is [MASK]
+
+10%的是随机取一个词来代替mask的词，my dog is hairy -> my dog is apple
+
+10%的保持不变，my dog is hairy -> my dog is hairy
+
+Next Sentence Prediction可以理解为预测两段文本的蕴含关系（分类任务），选择一些句子对A与B，其中50%的数据B是A的下一条句子（正样本），剩余50%的数据B是语料库中随机选择的（负样本），学习其中的相关性。
+
+前面提到序列的头部会填充一个[CLS]标识符，该符号对应的bert输出值通常用来直接表示句向量。
+
 为什么Bert的三个Embedding可以进行相加？
 ---------------------------------------------
 知乎的一些解释：
