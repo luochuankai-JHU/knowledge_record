@@ -140,7 +140,7 @@ A/B testing
 =====================
 学习资料
 ---------------
-https://www.youtube.com/watch?v=DUNk4GPZ9bw  A/B Testing in Data Science Interviews by a Google Data Scientist | DataInterview
+https://www.youtube.com/watch?v=DUNk4GPZ9bw  A/B Testing in Data Science Interviews by a Google Data Scientist | DataInterview    这个说的挺好的。是一个基本的入门介绍
 
 https://www.1point3acres.com/bbs/thread-643203-1-1.html
 
@@ -209,7 +209,8 @@ AB 测试的其他变式考法
 
 
 
-
+面试设计AB test的时候，一定要先明确 商业目标是什么
+--------------------------------------------------------
 
 
 
