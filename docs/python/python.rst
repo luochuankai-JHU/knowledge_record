@@ -892,8 +892,8 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 | 能否对我今天的面试或者之后的学习提出一些建议？
 |  **要让面试官介绍一下他们的业务啊！！！！**  面试官谈业务的时候，那支笔拿张纸记一下。然后根据自己的情况去对应着匹配。
 |  **记得问部门剩余多少HC，我多久能收到通知**  这个他肯定不会正面回复你，但是你可以看看他的态度
-|  **能提前来实习，有稍微差一点的地方或者业务可以提前熟悉**
-|  **问什么时候需要入职！！！**
+|  **能提前来实习，有稍微差一点的地方或者业务可以提前熟悉 I am very interested in this position, and I am very confident in my ability to learn. So, if the company generally approves of my skills but feels I lack in some areas, I am willing to take on some learning tasks in advance.**
+|  **问什么时候需要入职！！！ When does the company expect the candidate to be able to start working**
 
 5.多面，多练手，才不会那么紧张
 
