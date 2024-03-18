@@ -196,6 +196,7 @@ udacity a/b testing 笔记
 弄清楚 funnel 漏斗
 
 .. image:: ../../_static/recommend/abtest3.png
+	:width: 400
 
 从用户进来网页，到搜索，到点击，到购买这节课
 
