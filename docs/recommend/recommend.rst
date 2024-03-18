@@ -254,6 +254,7 @@ Pooled Standard Error
 四种情况
 
 .. image:: ../../_static/recommend/abtest1.png
+	:width: 400
 
 第一类错误（Type I error），用α表示。就是Significance Level。
 
