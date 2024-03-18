@@ -150,6 +150,123 @@ https://www.1point3acres.com/bbs/thread-945516-1-1.html
 
 
 
+一些经验，需要消化
+--------------------------------------------
+主要看了udacity这个，但是只能说这个是入门级的AB test，很基础但是也很重要，一定要看明白，不明白重复看直到明白了，然后就可以进入第二重境界啦，看高深的AB test。onsite面试过程中AB test环节会问的很深入，基本不会出现udaciy那么简单的问题。
+AB test 一般的套路就是 
+
+understand business goal -> define metrics -> hypothesis -> design test plans, sample size? Duration? Regions for AB testing? -> 
+launch experiment -> sanity check and analyze result -> conclusion/suggestion
+
+.. image:: ../../_static/recommend/abtest2.png
+
+
+[url=https://classroom.udacity.com/courses/ud257]https://classroom.udacity.com/courses/ud257[/url]
+Notes：[url=http://rpubs.com/superseer/ab_testing]http://rpubs.com/superseer/ab_testing[/url]
+
+AB test & hypo testing：也是看博客了，你会发现AB test真的是水很深，比如control和test的samples size是90% 和10% 分布，同时测10个metric而不是一个，又要改什么？AB 测试需要注意的事项和assumption是什么？ novelty effect是隐藏在这部分很重要的考点，怎么消除？违反了什么assumption？等等。加几个我平时看AB test的网站：
+[url=https://towardsdatascience.com]https://towardsdatascience.com[/url]
+[url=https://medium.com]https://medium.com[/url]
+[url=https://www.optimizely.com]https://www.optimizely.com[/url]
+这个帖子不错~
+[url=https://towardsdatascience.com/a-summary-of-udacity-a-b-testing-course-9ecc32dedbb1]https://towardsdatascience.com/a-summary-of-udacity-a-b-testing-course-9ecc32dedbb1[/url]
+machine learning
+主要就是看面经了。自己也总结了些问题，希望能帮到大家，都无偿分享给大家了，攒人品。
+[url=https://rpubs.com/JDAHAN/172473]https://rpubs.com/JDAHAN/172473[/url]
+
+
+https://zhuanlan.zhihu.com/p/40919260  非统计专业？5分钟搞懂如何计算A/B测试样本量
+
+https://zhuanlan.zhihu.com/p/565539453?utm_id=0  数据分析/数据科学 AB test常考题及答案
+
+udacity a/b testing 笔记
+-------------------------------------
+不是所有的事情都适合于ab testing。比如 1：在测试一个新版本的时候，有的老用户可能就是会讨厌任何改变，但是有的用户就是会很喜欢体验新东西  2. 有的改变要很久才能有体现，比如房屋租赁推荐，人们可能要好几年才会回到这个网站来再次租赁
+
+当A/B测试无效时，我们可以：
+
+| 分析用户活动日志
+| 进行回顾性分析
+| 进行用户体验研究
+| 焦点小组和调查
+| 用户打分
+
+以这个教学网站 Audacity为例
+
+弄清楚 funnel 漏斗
+
+.. image:: ../../_static/recommend/abtest3.png
+
+从用户进来网页，到搜索，到点击，到购买这节课
+
+hypothesis: changing the buttom from orange to pink will increase user willing to buy courses and engagement
+
+which metrics to choose(如何衡量？)
+
+如果选择用户完成课程的比例，这个不好，因为太久了
+
+所以，根据funnel, 选择用户看见这个页面后的点击率是合适的，特别是unique person的点击率
+
+so, updated-hypothesis: changing the buttom from orange to pink will increase user's click-though probility
+
+如果把点击率看成一个二项分布
+
+m- mean 均值很好计算
+
+σ - standard deviation 标准差 就是 sqrt (p(1-p) / N)
+
+所以，离mean 举例 2σ之外的就是超出95%的置信区间了
+
+null hypothesis and alternative hypothesis
+零假设和对立假设
+
+第一种简称Ho，意思是实验完全没带来任何变化
+
+第二种是Ha，意思是实验有变化（好or坏）
+
+这里插入那个截图！！！如何计算的
+
+
+
+size V.S. power trade-off
+
+Statistical power helps us find how many samples do we need to have statistical significance.  这里需要再看看！！
+
+
+.. image:: ../../_static/recommend/abtest4.png
+
+Pooled Standard Error
+
+.. image:: ../../_static/recommend/abtest5.png
+
+.. image:: ../../_static/recommend/abtest6.png
+
+梳理Statistical Power和Significance Level  
+----------------------------------------------------------------
+
+首先，A/B测试包含两个假设：
+
+原假设（Null hypothesis, 也叫H0）：我们希望通过实验结果推翻的假设。在我们的例子里面，原假设可以表述为“红色按钮和绿色按钮的点击率一样”。
+
+备择假设（Alternative hypothesis, 也叫H1）：我们希望通过实验结果验证的假设。在我们的例子里面，可以表述为“红色按钮和绿色按钮的点击率不同”。
+
+四种情况
+
+.. image:: ../../_static/recommend/abtest1.png
+
+第一类错误（Type I error），用α表示。就是Significance Level。
+
+第二类错误（Type II error），用β表示 β = 1 - power。
+
+
+一般来说，第一类错误α不超过5%，第二类错误β不超过20%。也就是说，Significance Level = 5%。Statistical Power = 1 -β = 80%。
+
+
+Minimum Detectable Effect  顾名思义，这个参数衡量了我们对实验的判断精确度的最低要求。
+
+在工作中，这个参数的选定往往需要和业务方一起拍板。在我们的实验中，我们选定Minimum Detectable Effect=5%。这意味着，如果绿色按钮真的提高了点击率5个百分点以上，我们希望实验能够有足够把握检测出这个差别。
+如果低于5个百分点，我们会觉得这个差别对产品的改进意义不大（可能是因为点击率不是核心指标），能不能检测出来也就无所谓了。
+
 常考问题
 ---------------------
 
@@ -191,16 +308,6 @@ AB 测试效果统计上不显着？
 同时对于收益和损失来做一个评估，才能确认这个优化可以最终上线。
 
 
-AB 测试是必须的么？
------------------------------------------
-面试官问：AB 测试成本很高，每个调整都需要 AB 测试么？
-
-但是比如说面试官问到每一个关于我们现在想要上线一个小改动，或者说要上线一个小调整，你会如何去验证这个调整的收益？你都用 AB 测试去进行回答的话，他可能会反问，AB 测试是需要成本的，
-你不觉得每一次我们如果都需要通过一个 AB 测试去验证的话，成本过高吗？
-对于这种情况，你可以说如果只是验证一个小按钮或者一个小改动，我们可以在界面上去设置一个开关，用户可以通过开关的形式自行决定我采用哪一种方式。
-那么我们最后就可以通过这个开关的相关指标去判断用户对于哪一种形式又有更大的倾向性。或者有的时候我们可以去做一些用户调研，
-比如说通过访谈或者说是设计问卷的形式，去收集一些用户的反馈。或者他们关于这些小变动的体验，所以并不是绝对的。
-
 
 AB 测试的其他变式考法
 -----------------------------------------------
@@ -211,6 +318,7 @@ AB 测试的其他变式考法
 
 面试设计AB test的时候，一定要先明确 商业目标是什么
 --------------------------------------------------------
+
 
 
 
