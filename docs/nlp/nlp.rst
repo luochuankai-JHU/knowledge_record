@@ -1450,3 +1450,71 @@ https://zhuanlan.zhihu.com/p/100248426
 
 .. image:: ../../_static/nlp/entity_linking.png
     :align: center
+
+
+
+Learning to Rank
+====================
+
+参考资料：
+
+https://jiayi797.github.io/2017/08/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95-%E5%88%9D%E8%AF%86Learning-to-Rank/ 机器学习算法-初识Learning to Rank
+
+https://www.youtube.com/watch?v=yKwTAcsV8K8&t=605s   Ranking Methods : Data Science Concepts
+
+https://zhuanlan.zhihu.com/p/318300682 pairwise建模入门--排序算法
+
+基本介绍
+------------------
+L2R算法主要包括三种类别：PointWise，PairWise，ListWise。
+
+PointWise
+-----------------
+PointWise缺点：
+
+这种方法没有考虑到排序的一些特征，比如文档之间的排序结果针对的是给定查询下的文档集合，而Pointwise方法仅仅考虑单个文档的绝对相关度；
+比如说，假设用户搜cat，d1=0.9，d2=0.6，d3=0.1  但是当只有d2和d3的时候，d2就应该是最相关的
+
+另外，在排序中，排在最前的几个文档对排序效果的影响非常重要，Pointwise没有考虑这方面的影响。
+
+PairWise
+---------------------
+pairwise存在的问题
+
+尽管文档对方法相对单文档方法做出了改进，但是这种方法也存在两个明显的问题：
+
+一个问题是：文档对方法只考虑了两个文档对的相对先后顺序，却没有考虑文档出现在搜索列表中的位置，排在搜索站果前列的文档更为重要，如果前列文档出现判断错误，代价明显高于排在后面的文档。
+针对这个问题的改进思路是引入代价敏感因素，即每个文档对根据其在列表中的顺序具有不同的权重，越是排在前列的权重越大，即在搜索列表前列如 果排错顺序的话其付出的代价更高?
+
+另外一个问题是：不同的査询，其相关文档数量差异很大，所以转换为文档对之后， 有的查询对能有几百个对应的文档对，而有的查询只有十几个对应的文档对，这对机器学习系统的效果评价造成困难 ?
+我们设想有两个查询，査询Q1对应500个文文档对，查询Q2 对应10个文档对，假设学习系统对于査询Ql的文档对能够判断正确480个，对于査询 Q2的义格对能够判新正确2个，如果从总的文档对数量来看，
+这个学习系统的准确率是 (480+2)/（500+10）=0.95.即95%的准确率，但是从査询的角度，两个査询对应的准确率 分别为：96%和20%,两者平均为58%,与纯粹从文档对判断的准确率相差甚远，
+
+
+结构
+
+我们首先从pairwise模型结构来看一下：如下图，对于pairwise模型来说，可以看出其训练结构和与预测时有比较大的区别。实际上，训练时，基于pair对来进行输出，而预测时与pointwise模型基本一致，并不需要基于pair来输入。
+
+
+.. image:: ../../_static/nlp/pointwise.png
+	:width: 500
+
+.. image:: ../../_static/nlp/pointwise2.png
+	:width: 300
+
+实际上可以看出，预测时就是把训练时的模型砍了一半来使用。需要注意的是， 虽然训练时一般为双塔结构，但实际上这两个塔可以理解为share的，实际上就是一个塔，只不过对Xi 和Xj分别forward了两次。后面看代码就会理解。
+
+损失函数
+
+一般来说，pairwise的损失函数有这么几种可选的(hinge loss, 交叉熵, 交叉熵+lambda)。最常用的是hinge loss, 没错！就是svm用的那个hinge loss。 如果使用交叉熵损失函数，那就是ranknet算法, 如果使用交叉熵+lambda那就是lambdarank算法。实际上lambdarank已经属于listwise的范畴。
+
+这里有个简单构造的demo  https://mp.weixin.qq.com/s/2VcBwv-oj6ofOyyGViWxfA
+
+输入还是成对输入的::
+
+	train_data = train[['x','y']]
+	train_label = train[['label']]
+	......
+	dataset1 = xgb.DMatrix(train_data,label=train_label) # used in train
+	......
+	model = xgb.train(params,dataset1,num_boost_round=100)
