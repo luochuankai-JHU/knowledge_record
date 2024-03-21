@@ -870,11 +870,28 @@ SE-net
 https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/SEnet.py
 
 
-面试总结
-==================================
-总结一下教训
---------------------
+职业发展
+==================
+【职场】技术人如何做好述职汇报- 轩脉刃de刀光剑影 https://www.youtube.com/watch?v=Wis0PUaqXtU
 
+
+
+个税申报
+==========================================
+
+
+投资理财
+==========================================
+
+
+*************
+面试总结
+*************
+
+总结一下面试教训
+=======================
+总结一下面试教训
+-----------------------
 之前什么都不懂....把该犯的错都犯了一遍，这里记录一下深刻的血泪教训....
 
 这哪里像是个正常人做的事啊.......愚蠢到家了
@@ -893,8 +910,9 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 |  **要让面试官介绍一下他们的业务啊！！！！**  面试官谈业务的时候，那支笔拿张纸记一下。然后根据自己的情况去对应着匹配。
 |  **记得问部门剩余多少HC，我多久能收到通知**  这个他肯定不会正面回复你，但是你可以看看他的态度
 |  **能提前来实习，有稍微差一点的地方或者业务可以提前熟悉 I am very interested in this position, and I am very confident in my ability to learn. So, if the company generally approves of my skills but feels I lack in some areas, I am willing to take on some learning tasks in advance.**
+
 |  **问什么时候需要入职！！！ When does the company expect the candidate to be able to start working**
-|  **是否能帮忙办理工签**
+|  **是否能帮忙办理工签 Is the company willing to assist employees with obtaining work permit? **
 |  **是否onsite or remote**
 
 5.多面，多练手，才不会那么紧张
@@ -947,17 +965,74 @@ https://www.xiaolincoding.com/os/8_network_system/hash.html
 
 Behavior Questions
 ==============================
-详见内部文档
-
-职业发展
-==================
-【职场】技术人如何做好述职汇报- 轩脉刃de刀光剑影 https://www.youtube.com/watch?v=Wis0PUaqXtU
+`内部链接 <https://github.com/luochuankai-JHU/work_summary/blob/main/Behavior_questions.md>`_ 
 
 
 
-个税申报
-==========================================
+MLE/AS 面试
+============================
+参考资料
+----------------
+https://www.1point3acres.com/bbs/thread-901595-1-1.html [找工就业] [工作信息] 个人经验教你如何准备MLE/AS的面试 -- Part 1
 
 
-投资理财
-==========================================
+coding
+------------
+前辈的经验说的都很好！
+
+| • 像clarification questions比如有没有内存限制；input的range/format之类的
+| • 先跟面试官交流你大致的想法/data structure再开始coding。
+| • 写代码时有比较清晰的轮廓知道每个部分在做什么。
+| • 如果想不到最优的方法也可以start wtih一个可以跑的solution再优化。
+
+
+有的公司会有专门的ML coding或者出的coding题会更数学一点，比如怎么设计一个sparse matrix (包括加减乘等运算)。这需要你懂得这些矩阵的运算大概是怎么work的。
+有的公司甚至可能会要求你implement一个具体的算法像kNN/k-means之类的 或者用DL framework简单写一些model implementation像transformer的矩阵运算(这种面试一般不是非常common)。
+所以建议的准备是对于最常用的算法你需要至少能达到写伪代码的程度。
+
+
+ML design
+------------------------
+这个是MLE面试和SDE面试最不一样的地方，基本上所有公司都会有一两轮考察这个。大概的面试题都是要求你按照一个实际的use case设计一个solution。比如最常见的怎么设计Youtube recommendation/doordash search box/auto suggestion/etc. 
+这种问题由于high ambiguity/很依赖经验，使得并不容易回答好。
+
+看相关的准备材料。<a> 如果你实在经验很少，可以看看educative的ML system design/Grokking the Machine Learning Interview入门至少知道一个大致框架。比如search的问题需要分成information retrival和ranking两个步骤。如果你没有search的经验可能会一脸懵逼。。。如果你自己有不少CV/NLP/search/recommendation的经验这些课程意义不大。<b> 然后还是跟第一点一样，可以看看相应公司的blog来了解他们主要解决的是什么样子的问题以及解决的方法。<c> 
+可以去youtube里面搜索一些相关的视频。我个人发现好的比较少，但也可以找到一些好的。比如我觉得这个talk就挺不错的：🔗 https://youtu.be/lh9CNRDqKBk
+
+
+而在回答这个问题的时候，我自己的prefer的框架是：
+ask clarification questions: 1) 比如像 what's the stage of the project。如果是早期可能需要考虑cold start的问题。2）traffic。这个会影响你engineering wise的robustness和latency的考虑之类的。3）assume常用的数据都log了。一般这个assumption都是成立的。不过依然建议double confirm。
+. ----
+整一个大的八股文的结构。roughly的描述主要的几个component：对于online的部分包括像 数据 (有online user data的 和 直接database fetch的)，ML service, ML model artifact, logging and monitoring 对于offline的部分包括feature processing, modeling, evaluation。你应该很容易找到这个标准的design图像前面提到的那些课程里面。建议直接跟面试官画图。比如我自己很喜欢remote面试的时候准备ipad在上面直接画。这个一方面面试官会觉得你很有条理；另一方面当你讲details的时候会知道你在讲哪个方面。
+..
+具体的实现。这个包括:    <a> features。你会需要什么样的数据，这个需要自己多开脑洞。比如recommendation大致分成三块 document related features 
+(like # of watches, text, video embedding), user related features (gender, geographic info **super important for location related search** , 
+previous watches, previous searches), interaction features (distance, watched/clicked before or not, matched words), etc. 而往往你会需要了解最常用的text embedding/
+image embedding/id embedding的方法从而能够知道怎么处理这些非numerical的数据。<b> 模型。这个就是整个design的meat了。你首先需要把问题建模成regression/classification/ranking/etc
+中的哪个问题。你对于input是怎么encode，你模型的框架什么样子(对于ranking bi-encoder vs cross-encoder vs poly-encoder，对于recommendation最常见的two-tower)，
+然后模型的主体是一个什么模型 (往往会考察不同模型选择的优劣势logistic regression vs. random forest; LSTM vs. Transformer)，然后模型的loss function怎么选择。<c> evaluation。
+你需要知道最常用的evaluation metrics像 accuracy/AUC/F1/precision/recall/MSE， 对于NLP像 perplexity/BLEU/ROGUE/BertScore, etc. <c> 
+其它的部分基本不大可能聊出花来。简单的延伸像是对于不同的数据用什么方式存储，data pipeline怎么设计之类的。
+
+
+
+ML knowledge
+--------------------------------
+
+我的感觉是绝大多数公司MLE面试对ML Knowledge并不深，相对来说如果你面试的title是Scientist的情况会更加注重一些。这也非常好理解，MLE本质更在乎engineering所以对hands-on的要求更高一些。当时实际上不同title做的东西不会有很大差异。.
+
+.. image:: ../../_static/python/mlinterview_bagu.png
+
+
+
+欠缺需补
+---------------------
+Grokking the Machine Learning Interview！！！https://youtu.be/lh9CNRDqKBk
+
+怎么设计Youtube recommendation/doordash search box/auto suggestion
+
+对于NLP的应用可能会问你如果文本非常长怎么处理；推荐的应用上可能会问你怎么做counterfactual evaluation。
+
+有的公司会有专门的ML coding或者出的coding题会更数学一点，比如怎么设计一个sparse matrix (包括加减乘等运算)。这需要你懂得这些矩阵的运算大概是怎么work的。
+有的公司甚至可能会要求你implement一个具体的算法像kNN/k-means之类的 或者用DL framework简单写一些model implementation像transformer的矩阵运算(这种面试一般不是非常common)。
+所以建议的准备是对于最常用的算法你需要至少能达到写伪代码的程度。
