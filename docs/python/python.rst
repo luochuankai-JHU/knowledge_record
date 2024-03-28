@@ -63,7 +63,7 @@ https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese
 
 
 
-string.isdigit() 判断是否是数字 # 但是"-10"这个会是False  str.isdigit() 可以判断正数，但是无法判断负数。
+string.isdigit() 判断是否是数字 # 但是"-10"这个会是False  str.isdigit() 可以判断正数，但是无法判断负数。也没有什么好方法，除非 try int except
 
 string.isalpha() 判断是否是字母
 
