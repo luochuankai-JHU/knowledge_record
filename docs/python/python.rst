@@ -63,7 +63,7 @@ https://github.com/DarLiner/Algorithm_Interview_Notes-Chinese
 
 
 
-string.isdigit() 判断是否是数字
+string.isdigit() 判断是否是数字 # 但是"-10"这个会是False  str.isdigit() 可以判断正数，但是无法判断负数。
 
 string.isalpha() 判断是否是字母
 
@@ -888,7 +888,7 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 面试总结
 *************
 
-总结一下面试教训
+面试-基础
 =======================
 总结一下面试教训
 -----------------------
@@ -912,7 +912,7 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 |  **能提前来实习，有稍微差一点的地方或者业务可以提前熟悉 I am very interested in this position, and I am very confident in my ability to learn. So, if the company generally approves of my skills but feels I lack in some areas, I am willing to take on some learning tasks in advance.**
 
 |  **问什么时候需要入职！！！ When does the company expect the candidate to be able to start working**
-|  **是否能帮忙办理工签 Is the company willing to assist employees with obtaining work permit? **
+|  **是否能帮忙办理工签 Is the company willing to assist employees with obtaining work permit?**
 |  **是否onsite or remote**
 
 5.多面，多练手，才不会那么紧张
@@ -974,6 +974,8 @@ MLE/AS 面试
 参考资料
 ----------------
 https://www.1point3acres.com/bbs/thread-901595-1-1.html [找工就业] [工作信息] 个人经验教你如何准备MLE/AS的面试 -- Part 1
+
+https://github.com/khangich/machine-learning-interview
 
 
 coding
