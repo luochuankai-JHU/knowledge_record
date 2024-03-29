@@ -310,6 +310,9 @@ queue队列可以想象成一个排队的队伍。队列队列，后来的得排
 
 ·堆总是一棵完全二叉树。（从上到下，从左到右都是满的。除了最后一层有空的，而且还得是右边空）
 
+.. image:: ../../_static/python/heap.png
+
+
 | 常用的几个名词
 | 插入insert: 向堆中插入一个新元素
 | 删除(取顶)delete: 删除堆顶元素	
@@ -320,9 +323,6 @@ queue队列可以想象成一个排队的队伍。队列队列，后来的得排
 .. image:: ../../_static/python/heap_1.png
 
 .. image:: ../../_static/python/heap_2.png
-
-| 
-| 
 
 
 

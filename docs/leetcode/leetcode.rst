@@ -6023,7 +6023,16 @@ big.next = None这个不要忘了，不然没有尾结点
                 cur = cur.next
         return dummy.next
 
-        
+Heap堆
+========================
+Heap堆解题套路  https://www.youtube.com/watch?v=vIXf2M37e0k
+
+datastream、online等 类似dp的输入特别适合堆而不是快排，因为是动态的
+
+
+https://leetcode.cn/problems/kth-largest-element-in-an-array/solutions/733041/215-shu-zu-zhong-de-di-kge-zui-da-yuan-s-rfvg/
+
+
 位运算
 ==============
 我菜狗，暂时不会
