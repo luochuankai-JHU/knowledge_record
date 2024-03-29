@@ -6029,8 +6029,74 @@ Heap堆解题套路  https://www.youtube.com/watch?v=vIXf2M37e0k
 
 datastream、online等 类似dp的输入特别适合堆而不是快排，因为是动态的
 
+我查了一下，基本上面试的时候是能够import heapq的
 
-https://leetcode.cn/problems/kth-largest-element-in-an-array/solutions/733041/215-shu-zu-zhong-de-di-kge-zui-da-yuan-s-rfvg/
+python heapq用法
+-------------------------
+https://docs.python.org/zh-cn/3/library/heapq.html
+
+我放几个常用的：
+
+要创建一个堆，可以新建一个空列表 []，或者用函数 heapify() 把一个非空列表变为堆。
+
+**heapq.heappush(heap, item)**
+
+将 item 的值加入 heap 中，保持堆的不变性。
+
+**heapq.heappop(heap)**
+
+弹出并返回 heap 的最小的元素，保持堆的不变性。如果堆为空，抛出 IndexError 。 **使用 heap[0]可以只访问最小的元素而不弹出它**
+
+**heapq.heappushpop(heap, item)**
+
+将 item 放入堆中，然后弹出并返回 heap 的最小元素。该组合操作比先调用 heappush() 再调用 heappop() 运行起来更有效率。
+
+**heapq.heapify(x)**
+
+将list x 转换成堆，原地，线性时间内。**注意，这里直接 store = [1,2,4,5,5]  heapq.heapify(store) 就行，不需要找个变量来接住**
+
+如果是最大堆的话，取个负号就行。但是记得最后输出的时候也要再负回来
+
+215. Kth Largest Element in an Array
+------------------------------------------------
+leetcode 215. 
+
+Given an integer array nums and an integer k, return the kth largest element in the array.
+
+Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+| Example 1:
+| Input: nums = [3,2,1,5,6,4], k = 2
+| Output: 5
+
+构建最小堆::
+
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        import heapq
+        store = []
+        for num in nums:
+            if len(store) < k:
+                heapq.heappush(store, num)
+            elif num > store[0]:
+                heapq.heappushpop(store, num)
+        return store[0]
+
+构建一个k大小的最小堆。如果堆不满或者来的数比堆顶还大，那么就push。如果超出了k个就pop。这样堆顶总是保持在第k个最大的数。相当于比这个数大的都在堆里面，比他小的都没入堆。
+时间复杂度为O(nlogk)
+
+差一点的方法，构建最大堆::
+
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        import heapq
+        store = [-num for num in nums]
+        heapq.heapify(store)
+        while k > 0:
+            ans = heapq.heappop(store)
+            k -= 1
+        return -ans
+
+这个就是先构建一个最大堆，然后往外pop k-1 次
+
 
 
 位运算
