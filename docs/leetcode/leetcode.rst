@@ -6162,7 +6162,7 @@ The median is the middle value in an ordered integer list. If the size of the li
 
 
 
-.. notice:: 
+.. tip:: 
 
     一开始的时候可以构造一些例子::
 
@@ -6171,7 +6171,7 @@ The median is the middle value in an ordered integer list. If the size of the li
         [1] max smaller
 
 
-.. notice:: 
+.. tip:: 
 
     这里不能写成这样::
 
