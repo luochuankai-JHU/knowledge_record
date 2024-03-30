@@ -6099,6 +6099,107 @@ Note that it is the kth largest element in the sorted order, not the kth distinc
 
 
 
+295. Find Median from Data Stream
+--------------------------------------------------
+The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.
+
+| For example, for arr = [2,3,4], the median is 3.
+| For example, for arr = [2,3], the median is (2 + 3) / 2 = 2.5.
+| Implement the MedianFinder class:
+
+| MedianFinder() initializes the MedianFinder object.
+| void addNum(int num) adds the integer num from the data stream to the data structure.
+| double findMedian() returns the median of all elements so far. Answers within 10-5 of the actual answer will be accepted.
+ 
+
+| Example 1:
+| Input
+| ["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
+| [[], [1], [2], [], [3], []]
+| Output
+| [null, null, null, 1.5, null, 2.0]
+
+| Explanation
+| MedianFinder medianFinder = new MedianFinder();
+| medianFinder.addNum(1);    // arr = [1]
+| medianFinder.addNum(2);    // arr = [1, 2]
+| medianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
+| medianFinder.addNum(3);    // arr[1, 2, 3]
+| medianFinder.findMedian(); // return 2.0
+
+
+::
+
+    class MedianFinder:
+        def __init__(self):
+            import heapq
+            self.lager = []
+            self.smaller = []
+            
+        def addNum(self, num: int) -> None:
+            if not self.smaller or num < -self.smaller[0]:
+                heapq.heappush(self.smaller, -num)
+            else:
+                heapq.heappush(self.lager, num)
+            
+            if len(self.lager) - len(self.smaller) > 1:
+                temp = heapq.heappop(self.lager)
+                heapq.heappush(self.smaller, -temp)
+            elif len(self.smaller) - len(self.lager) > 1:
+                temp = -heapq.heappop(self.smaller)
+                heapq.heappush(self.lager, temp)
+            
+        def findMedian(self) -> float:
+            if (len(self.lager) + len(self.smaller)) % 2 == 0:
+                return (self.lager[0] - self.smaller[0]) / 2
+            else:
+                if len(self.smaller) > len(self.lager):
+                    return -self.smaller[0]
+                else:
+                    return self.lager[0]
+
+一句话题解：左边大顶堆，右边小顶堆，小的加左边，大的加右边，平衡俩堆数，新加就弹出，堆顶给对家，奇数取多的，偶数取除2.
+
+
+
+.. notice:: 
+
+    一开始的时候可以构造一些例子::
+
+        [1,1,3,4,5,2,3,8]
+        [1,3,4] min lager
+        [1] max smaller
+
+
+.. notice:: 
+
+    这里不能写成这样::
+
+        def addNum(self, num: int) -> None:
+            self.cnt += 1
+            if not self.smaller:
+                heapq.heappush(self.smaller, -num)
+                self.cnt_sm += 1
+            elif not self.lager:
+                heapq.heappush(self.lager, num)
+                self.cnt_lag += 1
+            elif num > self.lager[0]:
+                heapq.heappush(self.lager, num)
+                self.cnt_lag += 1
+            else:
+                heapq.heappush(self.smaller, -num)
+                self.cnt_sm += 1
+    
+    因为还是需要使得 lager里面的内容大于smaller。所以lager的初始化应该是由smaller弹出去的
+
+**Follow up:**
+
+If all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
+
+If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
+
+
+
 位运算
 ==============
 我菜狗，暂时不会
