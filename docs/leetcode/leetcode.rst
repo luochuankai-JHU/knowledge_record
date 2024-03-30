@@ -6198,7 +6198,11 @@ If all integer numbers from the stream are in the range [0, 100], how would you 
 
 If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
 
+答案：
 
+1. 构造一个[0, 100]的计数筒
+
+2. 构造一个[0, 100]的计数筒。超出的部分单独排序和计数
 
 位运算
 ==============
