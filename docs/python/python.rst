@@ -915,6 +915,10 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 |  **是否能帮忙办理工签 Is the company willing to assist employees with obtaining work permit?**
 |  **是否onsite or remote**
 
+新入职的员工，有什么期待
+
+下一次面试是什么内容和形式
+
 5.多面，多练手，才不会那么紧张
 
 6.自我介绍和项目介绍一定要准备好。之前的一分钟自我介绍太短了，导致后面很被动。
