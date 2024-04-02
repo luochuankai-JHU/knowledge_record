@@ -6204,6 +6204,16 @@ If 99% of all integer numbers from the stream are in the range [0, 100], how wou
 
 2. 构造一个[0, 100]的计数筒。超出的部分单独排序和计数
 
+
+
+264. 丑数 II
+-----------------
+堆的方法  优先队列（小根堆）
+
+https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&mid=2247490029&idx=1&sn=bba9ddff88d247db310406ee418d5a15&chksm=fd9cb2f2caeb3be4b1f84962677337dcb5884374e5b6b80340834eaff79298d11151da2dd5f7&token=252055586&lang=zh_CN#rd
+
+
+
 位运算
 ==============
 我菜狗，暂时不会
