@@ -6205,6 +6205,75 @@ If 99% of all integer numbers from the stream are in the range [0, 100], how wou
 2. 构造一个[0, 100]的计数筒。超出的部分单独排序和计数
 
 
+373. Find K Pairs with Smallest Sums
+---------------------------------------------
+You are given two integer arrays nums1 and nums2 sorted in non-decreasing order and an integer k.
+
+Define a pair (u, v) which consists of one element from the first array and one element from the second array.
+
+Return the k pairs (u1, v1), (u2, v2), ..., (uk, vk) with the smallest sums.
+
+| Example 1:
+| Input: nums1 = [1,7,11], nums2 = [2,4,6], k = 3
+| Output: [[1,2],[1,4],[1,6]]
+| Explanation: The first 3 pairs are returned from the sequence: [1,2],[1,4],[1,6],[7,2],[7,4],[11,2],[7,6],[11,4],[11,6]
+::
+
+    def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
+        import heapq
+        store = defaultdict(list)
+        compare = []
+        for i in range(len(nums1)):
+            for j in range(len(nums2)):
+                summ = nums1[i] + nums2[j]
+                if len(compare) <= k or summ < -compare[0]:
+                    heapq.heappush(compare, -summ)
+                    store[summ].append([nums1[i], nums2[j]])
+                if len(compare) > k:
+                    num = -heapq.heappop(compare)
+        ans = []
+        used = set()
+        while compare:
+            num = -heapq.heappop(compare)
+            if num in used:
+                continue
+            else:
+                used.add(num)
+            combine = store[num]
+            for pair in combine:
+                ans.append(pair)
+        return ans[::-1][:k]
+
+这种做法会导致Memory Limit Exceeded。当nums1和nums2都是很长一串list的时候。因为这个做法其实忽略了一件事，就是入栈的顺序，不应是i,j横扫过来进行遍历的。是需要选择的
+
+::
+
+    def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
+        import heapq
+        ans = []
+        temp = [[nums1[0] + nums2[0], 0, 0]]
+        while len(ans) < k:
+            value, i, j = heapq.heappop(temp)
+            ans.append([nums1[i], nums2[j]])
+            if i <= len(nums1) - 2 and j == 0:
+                heapq.heappush(temp, [nums1[i + 1] + nums2[0], i + 1, 0])
+            if j <= len(nums2) - 2:
+                heapq.heappush(temp, [nums1[i] + nums2[j + 1], i, j + 1])
+        return ans
+
+参考了题解 https://leetcode.cn/problems/find-k-pairs-with-smallest-sums/solutions/2286318/jiang-qing-chu-wei-shi-yao-yi-kai-shi-ya-i0dj/
+
+但其实我有个更好的解释。如果当前最小值是nums1[i] + nums2[j]的时候，下一个要考虑的应该是nums1[i + 1] + nums2[j] 或者 nums1[i] + nums2[j + 1]
+
+为了避免nums1[i + 1] + nums2[j + 1] 这个数被两次录入(i+1之后录入或者j+1之后录入)，干脆舍弃一边
+
+每次一定会向右走(j+=1)，但是不一定会向下走(i+=1)，除非是处理第一列的时候。
+
+.. image:: ../../_static/leetcode/373.png
+    :align: center
+
+举例，当处于步骤三的时候，[0,2]这个点不用考虑[1,2]，因为此时[1,0]都还在，意味着下方的左边还有待确定的点。这些点一定比当前这个下方的点要小
+
 
 264. 丑数 II
 -----------------
