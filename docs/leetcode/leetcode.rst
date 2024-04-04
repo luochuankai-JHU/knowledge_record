@@ -6307,7 +6307,20 @@ You must find a solution with a memory complexity better than O(n2).
 | Output: 13
 | Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
 
+::
 
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        cnt = 0
+        temp = [[matrix[0][0], 0, 0]]
+        while cnt < k:
+            value, i, j = heapq.heappop(temp)
+            cnt += 1
+            if i <= len(matrix) - 2 and j == 0:
+                heapq.heappush(temp, [matrix[i + 1][0], i + 1, 0])
+            if j <= len(matrix[0]) - 2:
+                heapq.heappush(temp, [matrix[i][j + 1], i, j + 1])
+            if cnt == k:
+                return value
 
 或者是这种思路也行。https://leetcode.cn/problems/kth-smallest-element-in-a-sorted-matrix/solutions/312485/shi-yong-dui-heapde-si-lu-xiang-jie-ling-fu-python/
 
