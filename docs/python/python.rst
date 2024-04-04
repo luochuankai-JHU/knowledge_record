@@ -914,6 +914,7 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 |  **问什么时候需要入职！！！ When does the company expect the candidate to be able to start working**
 |  **是否能帮忙办理工签 Is the company willing to assist employees with obtaining work permit?**
 |  **是否onsite or remote**
+| 你目前在做的工作是什么
 
 新入职的员工，有什么期待
 

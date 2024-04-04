@@ -6307,7 +6307,7 @@ You must find a solution with a memory complexity better than O(n2).
 | Output: 13
 | Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
 
-::
+用heapq的做法::
 
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
         cnt = 0
@@ -6329,6 +6329,12 @@ You must find a solution with a memory complexity better than O(n2).
 .. image:: ../../_static/leetcode/378.png
 
 这种方法解答上一题也是可以的。
+
+
+
+统计结果上来看，效果更好的是二分搜索法
+
+原理：某个m*n的二维矩阵，如果行是递增，列也是递增，那么左上角一定最小，右下角一定最大。所以如果
 
 
 位运算
