@@ -6308,15 +6308,6 @@ You must find a solution with a memory complexity better than O(n2).
 | Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
 
 
-
-264. 丑数 II
------------------
-堆的方法  优先队列（小根堆）
-
-https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&mid=2247490029&idx=1&sn=bba9ddff88d247db310406ee418d5a15&chksm=fd9cb2f2caeb3be4b1f84962677337dcb5884374e5b6b80340834eaff79298d11151da2dd5f7&token=252055586&lang=zh_CN#rd
-
-
-
 位运算
 ==============
 我菜狗，暂时不会
