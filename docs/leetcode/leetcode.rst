@@ -6271,8 +6271,42 @@ Return the k pairs (u1, v1), (u2, v2), ..., (uk, vk) with the smallest sums.
 
 .. image:: ../../_static/leetcode/373.png
 
-
 举例，当处于步骤三的时候，[0,2]这个点不用考虑[1,2]，因为此时[1,0]都还在，意味着下方的左边还有待确定的点。这些点一定比当前这个下方的点要小
+
+相似题目（第 k 小/大）
+
+373. 查找和最小的 K 对数字
+
+378. 有序矩阵中第 K 小的元素
+
+719. 找出第 K 小的数对距离
+
+786. 第 K 个最小的素数分数
+
+2040. 两个有序数组的第 K 小乘积
+
+2386. 找出数组的第 K 大和
+
+
+
+
+
+378. Kth Smallest Element in a Sorted Matrix
+--------------------------------------------------------
+
+这个是上一题的简化版。再做做？？？???
+
+Given an n x n matrix where each of the rows and columns is sorted in ascending order, return the kth smallest element in the matrix.
+
+Note that it is the kth smallest element in the sorted order, not the kth distinct element.
+
+You must find a solution with a memory complexity better than O(n2).
+
+| Example 1:
+| Input: matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8
+| Output: 13
+| Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
+
 
 
 264. 丑数 II
