@@ -6294,7 +6294,7 @@ Return the k pairs (u1, v1), (u2, v2), ..., (uk, vk) with the smallest sums.
 378. Kth Smallest Element in a Sorted Matrix
 --------------------------------------------------------
 
-这个是上一题的简化版。再做做？？？???
+这个是上一题的简化版。
 
 Given an n x n matrix where each of the rows and columns is sorted in ascending order, return the kth smallest element in the matrix.
 
@@ -6306,6 +6306,16 @@ You must find a solution with a memory complexity better than O(n2).
 | Input: matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8
 | Output: 13
 | Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
+
+
+
+或者是这种思路也行。https://leetcode.cn/problems/kth-smallest-element-in-a-sorted-matrix/solutions/312485/shi-yong-dui-heapde-si-lu-xiang-jie-ling-fu-python/
+
+先把第一列全部放进去，然后从左向右找，pop出来一个，这个数的右边就push进去一个
+
+.. image:: ../../_static/leetcode/378.png
+
+这种方法解答上一题也是可以的。
 
 
 位运算
