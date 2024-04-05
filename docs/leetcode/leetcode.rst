@@ -418,6 +418,9 @@ You must find a solution with a memory complexity better than O(n2).
 | Output: 13
 | Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
 
+解答看 https://knowledge-record.readthedocs.io/zh-cn/latest/leetcode/leetcode.html#id140
+
+之前都是根据index进行二分查找，这题是对值的二分查找
 
 排序
 ====================
@@ -6349,7 +6352,7 @@ You must find a solution with a memory complexity better than O(n2).
 
 
 
-统计结果上来看，效果更好的是二分搜索法
+统计结果上来看，效果更好的是 **二分搜索法**
 
 原理：某个m*n的二维矩阵，如果行是递增，列也是递增，那么左上角一定最小，右下角一定最大。 **这里的二分不是对index二分，而是对值进行二分**
 
@@ -6378,6 +6381,12 @@ You must find a solution with a memory complexity better than O(n2).
             else:
                 right = mid
         return right
+
+.. tip:: 
+
+    j = n - 1 这句话写在第7行比第10行要好。因为这里运用到了每列也是递增的这个规律，所以避免了重复运算
+
+
 
 位运算
 ==============
@@ -6926,10 +6935,14 @@ leetcode 210.
                     self.dfs(grid,i,j)
         return ans
         
-| 思想就是：遍历，然后DFS。注意DFS的时候不要越界-------0<=new_x<=row-1 and 0<=new_y<=col-1
-| 这个写法很不错：
-|         next_step = [(i+1,j),(i-1,j),(i,j+1),(i,j-1)]
-|         for new_x, new_y in next_step:
+思想就是：遍历，然后DFS。注意DFS的时候不要越界::
+    
+    0<=new_x<=row-1 and 0<=new_y<=col-1
+
+这个写法很不错::
+
+    next_step = [(i+1,j),(i-1,j),(i,j+1),(i,j-1)]
+    for new_x, new_y in next_step:
 
 python小知识点运用
 ============================
