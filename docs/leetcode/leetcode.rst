@@ -402,6 +402,23 @@ O(log n) 暗示了用二分法。但是为什么可以二分呢？上述做法�
 
 详细解析看：https://leetcode.cn/problems/find-peak-element/solutions/998441/gong-shui-san-xie-noxiang-xin-ke-xue-xi-qva7v/
 
+
+
+
+378. Kth Smallest Element in a Sorted Matrix
+--------------------------------------------------------
+Given an n x n matrix where each of the rows and columns is sorted in ascending order, return the kth smallest element in the matrix.
+
+Note that it is the kth smallest element in the sorted order, not the kth distinct element.
+
+You must find a solution with a memory complexity better than O(n2).
+
+| Example 1:
+| Input: matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8
+| Output: 13
+| Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
+
+
 排序
 ====================
 
@@ -6334,8 +6351,33 @@ You must find a solution with a memory complexity better than O(n2).
 
 统计结果上来看，效果更好的是二分搜索法
 
-原理：某个m*n的二维矩阵，如果行是递增，列也是递增，那么左上角一定最小，右下角一定最大。所以如果
+原理：某个m*n的二维矩阵，如果行是递增，列也是递增，那么左上角一定最小，右下角一定最大。 **这里的二分不是对index二分，而是对值进行二分**
 
+相当于这里是通过left right的区间去逼近一个数，然后一行行的统计小于这个数的cnt。如果cnt < k 意味着这个mid小了，要找更大的数。
+
+因为每次循环中都保证了第 k 小的数在 left ~ right 之间，当left==right 时，第 k 小的数即被找出，等于 right
+
+::
+
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        n = len(matrix)
+        left, right = matrix[0][0], matrix[-1][-1]
+        while left < right:
+            mid = (left + right) // 2
+            count = 0
+            j = n - 1
+            # Count the number of elements less than or equal to mid
+            for i in range(n):
+                # j = n - 1
+                while j >= 0 and matrix[i][j] > mid:
+                    j -= 1
+                count += (j + 1)
+            # Adjust left or right boundary based on count
+            if count < k:
+                left = mid + 1
+            else:
+                right = mid
+        return right
 
 位运算
 ==============
