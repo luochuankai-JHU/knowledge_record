@@ -418,9 +418,43 @@ You must find a solution with a memory complexity better than O(n2).
 | Output: 13
 | Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
 
-解答看 https://knowledge-record.readthedocs.io/zh-cn/latest/leetcode/leetcode.html#id140
 
 之前都是根据index进行二分查找，这题是对值的二分查找
+
+原理：某个m*n的二维矩阵，如果行是递增，列也是递增，那么左上角一定最小，右下角一定最大。 **这里的二分不是对index二分，而是对值进行二分**
+
+相当于这里是通过left right的区间去逼近一个数，然后一行行的统计小于这个数的cnt。如果cnt < k 意味着这个mid小了，要找更大的数。
+
+因为每次循环中都保证了第 k 小的数在 left ~ right 之间，当left==right 时，第 k 小的数即被找出，等于 right
+
+::
+
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        n = len(matrix)
+        left, right = matrix[0][0], matrix[-1][-1]
+        while left < right:
+            mid = (left + right) // 2
+            count = 0
+            j = n - 1
+            # Count the number of elements less than or equal to mid
+            for i in range(n):
+                # j = n - 1
+                while j >= 0 and matrix[i][j] > mid:
+                    j -= 1
+                count += (j + 1)
+            # Adjust left or right boundary based on count
+            if count < k:
+                left = mid + 1
+            else:
+                right = mid
+        return right
+
+.. tip:: 
+
+    j = n - 1 这句话写在第7行比第10行要好。因为这里运用到了每列也是递增的这个规律，所以避免了重复运算
+
+用heap堆的方法的解答看 https://knowledge-record.readthedocs.io/zh-cn/latest/leetcode/leetcode.html#id140
+
 
 排序
 ====================
