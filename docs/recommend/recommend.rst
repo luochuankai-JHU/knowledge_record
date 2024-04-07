@@ -1095,3 +1095,9 @@ candidate generation model 会将million级别的corpus降低到百级别
 计算 watch wt at time t 的时候，观看videos i (classes) from a corpus V based on a user U and context C的概率
 
 u ∈ RN represents a high-dimensional “embedding” of the user :durole:`superscript
+
+vj ∈ RN represent embeddings of each candidate video
+
+ 都是dense vector R\ :sup:`N`
+
+模型的任务是学习 user embeddings u
