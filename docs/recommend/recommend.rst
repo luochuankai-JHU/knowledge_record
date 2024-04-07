@@ -1013,10 +1013,7 @@ https://knowledge-record.readthedocs.io/zh_CN/latest/machine_learning/machine_le
 	:align: center
 	:width: 600
 
-
-
 整体流程已经整理好了，其他部分看论文原文就好
-
 
 
 **参考**
@@ -1030,3 +1027,71 @@ Generalized random forests （S. Athey, J. Tibshirani, S. Wager. Generalized ran
 阙斌斌：generalized random forests笔记  https://zhuanlan.zhihu.com/p/397546177
 
 论文笔记：Generalized Random Forests   https://blog.csdn.net/zyl_wjl_1413/article/details/125380173
+
+
+
+
+
+
+
+
+
+
+Deep Neural Networks for YouTube Recommendations
+----------------------------------------------------------------
+没完全看明白 先放这里
+
+
+**ABSTRACT**
+
+youtube将推荐系统分成了两个部分：deep candidate generation model 和 deep ranking model.
+
+然后文章还分享了一些经验
+
+**1. INTRODUCTION**
+
+YouTube面临的三大问题：
+
+• Scale 
+
+• Freshness
+
+• Noise:由于稀疏性和各种不可观察的外部因素，YouTube 上的历史用户行为本质上很难预测。 我们很少获得用户满意度的基本事实，而是对噪声隐式反馈信号进行建模。
+
+The paper is organized as follows: 
+
+Section 2: a brief system overview
+
+Section 3 describes the **candidate generation model** in more detail, including how it is trained and used to serve recommendations. Experimental results
+will show how the model benefits from **deep layers of hidden units** and **additional heterogeneous signals**. 
+
+Section 4 details the **ranking model**, including how classic **logistic regression** is modified to train a model predicting **expected watch time**
+(rather than click probability). Experimental results will show that **hidden layer depth** is helpful as well in this situation. 
+
+Section 5 presents our conclusions and lessons learned.
+
+
+**2. SYSTEM OVERVIEW**
+
+.. image:: ../../_static/recommend/YTB_framework.png
+
+
+他们的物料称之为 video corpus
+
+candidate generation model 会将million级别的corpus降低到百级别
+
+然而，为了最终确定算法或模型的有效性，我们依靠通过现场实验进行 A/B 测试。 在现场实验中，我们可以测量点击率、观看时间以及许多其他衡量用户参与度的指标的细微变化。 
+这很重要，因为实时 A/B 结果并不总是与离线实验相关。
+
+
+**3. CANDIDATE GENERATION**
+
+3.1 Recommendation as Classification
+
+这里将推荐系统问题看成是 extreme multiclass classification
+
+.. image:: ../../_static/recommend/YTB_problem.png
+
+计算 watch wt at time t 的时候，观看videos i (classes) from a corpus V based on a user U and context C的概率
+
+u ∈ RN represents a high-dimensional “embedding” of the user :durole:`superscript
