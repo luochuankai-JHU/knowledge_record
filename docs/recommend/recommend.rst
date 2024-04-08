@@ -1101,4 +1101,4 @@ v\ :sub:`j` ∈ R\ :sup:`N` represent embeddings of each candidate video
 
 R\ :sup:`N` 都是dense vector 
 
-模型的任务是学习 user embeddings u as a function of the user’s history and context that are useful for discriminating among videos with a softmax classifier
+模型的任务是  学习 user embeddings u as a function of the user’s history and context that are useful for discriminating among videos with a softmax classifier
