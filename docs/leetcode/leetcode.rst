@@ -1190,7 +1190,7 @@ Return the starting indices of all the concatenated substrings in s. You can ret
 
 
 
-树的遍历
+二叉树
 ======================
 
 https://leetcode.cn/problems/binary-tree-preorder-traversal/solution/tu-jie-er-cha-shu-de-si-chong-bian-li-by-z1m/
@@ -1801,6 +1801,15 @@ leetcode 437.
 然后 第八行的 store[presum] += 1 不能放在 cnt = store[presum - targetSum] 前面。  暂时还没想清楚。这个案例过不了  root=[1], tar=0
 
 ????？？？？
+
+
+二叉搜索树 Binary Search Tree
+===================================================
+
+Binary Search Tree的性质
+------------------------------------
+
+
 
 动态规划
 ===================
