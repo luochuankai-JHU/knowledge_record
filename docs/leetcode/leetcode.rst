@@ -1676,46 +1676,7 @@ leetcode 106.
 题解里面很多DFS的....有空再看看
 
 
-二叉搜索树汇总
---------------------
-https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
 
-.. image:: ../../_static/leetcode/BST.png
-    :align: center
-    :width: 700
-
-
-
-剑指 Offer 54    
-二叉搜索树的第k大节点  
-
-剑指 Offer 36    
-二叉搜索树与双向链表  
-
-剑指 Offer 33    
-二叉搜索树的后序遍历序列  
-
-leetcode 95--99
-
-二叉搜索树的最近公共祖先
-----------------------------------------
-| leetcode 235. 
-| 给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。::
-
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        a = min(p.val,q.val)
-        b = max(p.val,q.val)
-        def helper(root,a,b):
-            if a<= root.val <= b:
-                return root
-            elif root.val <a:
-                return helper(root.right,a,b)
-            else:
-                return helper(root.left,a,b)
-        if not root:
-            return None
-        r = helper(root,a,b)
-        return r
 
 二叉树的最近公共祖先
 ------------------------------
@@ -1814,6 +1775,79 @@ Binary Search Tree的性质
 2、对于 BST 的每一个节点 node，它的左侧子树和右侧子树都是 BST。
 
 因此二叉搜索树的中序遍历，是一个递增的序列
+
+230. Kth Smallest Element in a BST
+-----------------------------------------------
+Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree.
+
+::
+
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        cur, stack, path = root, [], []
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            cur = stack.pop()
+            path.append(cur.val)
+            cur = cur.right
+        return path[k - 1]
+
+.. image:: ../../_static/leetcode/230.png
+
+
+
+
+
+二叉搜索树汇总
+--------------------
+https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
+
+.. image:: ../../_static/leetcode/BST.png
+    :align: center
+    :width: 700
+
+
+
+剑指 Offer 54    
+二叉搜索树的第k大节点  
+
+剑指 Offer 36    
+二叉搜索树与双向链表  
+
+剑指 Offer 33    
+二叉搜索树的后序遍历序列  
+
+leetcode 95--99
+
+二叉搜索树的最近公共祖先
+----------------------------------------
+| leetcode 235. 
+| 给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。::
+
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        a = min(p.val,q.val)
+        b = max(p.val,q.val)
+        def helper(root,a,b):
+            if a<= root.val <= b:
+                return root
+            elif root.val <a:
+                return helper(root.right,a,b)
+            else:
+                return helper(root.left,a,b)
+        if not root:
+            return None
+        r = helper(root,a,b)
+        return r
+
+
+
+
+
+
+
+
+
 
 
 动态规划
