@@ -1804,7 +1804,6 @@ Given the root of a binary search tree, and an integer k, return the kth smalles
 https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
 
 .. image:: ../../_static/leetcode/BST.png
-    :align: center
     :width: 700
 
 
@@ -1822,8 +1821,9 @@ leetcode 95--99
 
 二叉搜索树的最近公共祖先
 ----------------------------------------
-| leetcode 235. 
-| 给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。::
+leetcode 235. 
+
+给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先::
 
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         a = min(p.val,q.val)
