@@ -1092,7 +1092,7 @@ candidate generation model 会将million级别的corpus降低到百级别
 
 .. image:: ../../_static/recommend/YTB_problem.png
 
-计算 watch wt at time t 的时候，观看**videos i** (classes) from a **corpus V** based on a **user U** and **context C**的概率
+计算 watch wt at time t 的时候，观看 **videos i** (classes) from a **corpus V** based on a **user U** and **context C** 的概率
 
 u ∈ R\ :sup:`N`
 represents a high-dimensional “embedding” of the user :durole:`superscript
