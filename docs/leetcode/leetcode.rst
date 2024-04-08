@@ -1247,10 +1247,10 @@ https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-
 
 注意点：
 
-1.为什么这里要用stack 而不是 queue：
+| 1.为什么这里要用stack 而不是 queue：
 | 因为这是深度优先，DFS。stack的话就是先处理子节点，深入到底然后再往上的根。
 
-2. 特别注意由于这里是stack，所以前序遍历的时候先stack.append(node.right)
+| 2. 特别注意由于这里是stack，所以前序遍历的时候先stack.append(node.right)
 
 中序遍历
 ---------------------
@@ -1809,6 +1809,11 @@ leetcode 437.
 Binary Search Tree的性质
 ------------------------------------
 
+1、对于 BST 的每一个节点 node，左子树节点的值都比 node 的值要小，右子树节点的值都比 node 的值大。
+
+2、对于 BST 的每一个节点 node，它的左侧子树和右侧子树都是 BST。
+
+因此二叉搜索树的中序遍历，是一个递增的序列
 
 
 动态规划
