@@ -1097,7 +1097,7 @@ candidate generation model 会将million级别的corpus降低到百级别
 u ∈ R\ :sup:`N`
 represents a high-dimensional “embedding” of the user :durole:`superscript
 
-vj ∈ R\ :sup:`N` represent embeddings of each candidate video
+v\ :sub:`j` ∈ R\ :sup:`N` represent embeddings of each candidate video
 
 R\ :sup:`N` 都是dense vector 
 
