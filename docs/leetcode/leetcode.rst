@@ -1793,6 +1793,10 @@ Given the root of a binary search tree, and an integer k, return the kth smalles
             cur = cur.right
         return path[k - 1]
 
+
+follow up: 进阶：如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 k 小的值，你将如何优化算法？
+
+
 .. image:: ../../_static/leetcode/230.png
     :width: 700
 
