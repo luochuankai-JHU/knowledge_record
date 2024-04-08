@@ -1794,7 +1794,7 @@ Given the root of a binary search tree, and an integer k, return the kth smalles
         return path[k - 1]
 
 .. image:: ../../_static/leetcode/230.png
-
+    :width: 700
 
 
 
