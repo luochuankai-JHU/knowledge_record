@@ -1841,7 +1841,7 @@ Given the root of a Binary Search Tree (BST), convert it to a Greater Tree such 
 
 解答：
 
-1.::
+1、::
 
     def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         def helper(root, summ):
@@ -1858,7 +1858,7 @@ Given the root of a Binary Search Tree (BST), convert it to a Greater Tree such 
 
 那么这里的 第4行，第9行都记得要return summ
 
-2.::
+2、::
 
     def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         def helper(root):
