@@ -1860,6 +1860,23 @@ Given the root of a Binary Search Tree (BST), convert it to a Greater Tree such 
         summ = helper(root, summ)
         return root
 
+那么这里的 第4行，第9行都记得要return summ
+
+2.::
+
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        def helper(root):
+            if not root:
+                return
+            helper(root.right)
+            root.val += summ[0]
+            summ[0] = root.val
+            helper(root.left)
+        summ = [0]
+        helper(root)
+        return root
+
+这样就可以了。其实正规的写法应该还是需要nonlocal的。中序遍历那里为什么可以不nonlocal：是因为list是可变类型变量，而int是不可变类型变量。所以在小函数里面改变了这个值，会造成混淆，不知道是局部变量还是全局变量
 
 二叉搜索树汇总
 --------------------
