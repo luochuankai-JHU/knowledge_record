@@ -1843,6 +1843,24 @@ Given the root of a Binary Search Tree (BST), convert it to a Greater Tree such 
 ???？？？
 
 
+解答：
+
+1.::
+
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        def helper(root, summ):
+            if not root:
+                return summ
+            summ = helper(root.right, summ)
+            summ += root.val
+            root.val = summ
+            summ = helper(root.left, summ)
+            return summ
+        summ = 0
+        summ = helper(root, summ)
+        return root
+
+
 二叉搜索树汇总
 --------------------
 https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
