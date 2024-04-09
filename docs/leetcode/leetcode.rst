@@ -1796,11 +1796,51 @@ Given the root of a binary search tree, and an integer k, return the kth smalles
 
 follow up: 进阶：如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 k 小的值，你将如何优化算法？
 
-
 .. image:: ../../_static/leetcode/230.png
     :width: 700
 
 
+538. Convert BST to Greater Tree
+----------------------------------------------
+Given the root of a Binary Search Tree (BST), convert it to a Greater Tree such that every key of the original BST is changed to the original key plus the sum of all keys greater than the original key in BST.
+
+.. image:: ../../_static/leetcode/538.png
+
+::
+
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        def helper(root):
+            nonlocal summ
+            if not root:
+                return
+            helper(root.right)
+            summ += root.val
+            root.val = summ
+            helper(root.left)
+        summ = 0
+        helper(root)
+        return root
+
+    
+不过：
+
+1、helper(root)能否把summ 也变成参数传进去？
+
+2、为什么这里需要nonlocal summ。但是中序遍历的时候不需要::
+
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        def helper(root):
+            if not root:
+                return
+            helper(root.left)
+            res.append(root.val)
+            helper(root.right)
+        res = []
+        helper(root)
+        return res
+
+
+???？？？
 
 
 二叉搜索树汇总
