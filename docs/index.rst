@@ -91,4 +91,7 @@
 ..    警示语还有 tip（小技巧）, important（重要）, warning（警告） 等好几种
 
 
+.. .. admonition:: 疑惑
+..     :class: note
 
+..     我发现这里在排序的时候,下面这两种方式都行？？？???为啥呢
