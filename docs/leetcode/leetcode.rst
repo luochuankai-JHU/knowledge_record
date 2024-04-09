@@ -1874,6 +1874,31 @@ Given the root of a Binary Search Tree (BST), convert it to a Greater Tree such 
 
 这样就可以了。其实正规的写法应该还是需要nonlocal的。中序遍历那里为什么可以不nonlocal：是因为list是可变类型变量，而int是不可变类型变量。所以在小函数里面改变了这个值，会造成混淆，不知道是局部变量还是全局变量
 
+
+
+530. Minimum Absolute Difference in BST
+-----------------------------------------------------------
+Given the root of a Binary Search Tree (BST), return the minimum absolute difference between the values of any two different nodes in the tree.
+::
+
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        def helper(root):
+            nonlocal pre
+            nonlocal ans
+            if not root:
+                return
+            helper(root.left)
+            ans = min(ans, root.val - pre)
+            pre = root.val
+            helper(root.right)
+        pre = -float(inf)
+        ans = float(inf)
+        helper(root)
+        return ans
+
+这里还是中序遍历。但是不需要用个list保持。只需要储存前一个值就行
+
+
 二叉搜索树汇总
 --------------------
 https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
