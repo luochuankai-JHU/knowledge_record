@@ -1839,10 +1839,6 @@ Given the root of a Binary Search Tree (BST), convert it to a Greater Tree such 
         helper(root)
         return res
 
-
-???？？？
-
-
 解答：
 
 1.::
