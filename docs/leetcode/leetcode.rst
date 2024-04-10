@@ -1969,6 +1969,29 @@ https://leetcode.cn/problems/binary-search-tree-iterator/solutions/684560/fu-xue
             return len(self.stack) > 0
 
 
+
+98. Validate Binary Search Tree
+---------------------------------------------
+Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+
+有一种迭代的思想。如果从下到上，其实不太好总结，但是从上到下可以很好理解。
+
+.. image:: ../../_static/leetcode/98.png
+
+::
+
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        def helper(root, mini, maxi):
+            if not root:
+                return True
+            if not mini < root.val < maxi:
+                return False
+            return helper(root.left, mini, root.val) and helper(root.right, root.val, maxi)
+        return helper(root, -float(inf), float(inf))
+
+当然，中序遍历一下也是可以的
+
+
 二叉搜索树汇总
 --------------------
 https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
