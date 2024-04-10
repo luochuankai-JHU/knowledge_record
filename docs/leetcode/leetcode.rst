@@ -1935,7 +1935,33 @@ You may assume that next() calls will always be valid. That is, there will be at
         def hasNext(self) -> bool:
             return len(self.queue) > 0
 
+还有一种做法是使用单调栈。就是在中序遍历的时候 不实用递归，而是迭代。而且是分步骤进行的。这个对于中序遍历迭代的代码理解比较高。之后再看看 
 
+？？？???
+
+.. image:: ../../_static/leetcode/173_1.png
+
+https://leetcode.cn/problems/binary-search-tree-iterator/solutions/684560/fu-xue-ming-zhu-dan-diao-zhan-die-dai-la-dkrm/
+
+::
+
+    class BSTIterator:
+        def __init__(self, root: Optional[TreeNode]):
+            self.stack = []
+            while root:
+                self.stack.append(root)
+                root = root.left
+
+        def next(self) -> int:
+            cur = self.stack.pop()
+            node = cur.right
+            while node:
+                self.stack.append(node)
+                node = node.left
+            return cur.val
+
+        def hasNext(self) -> bool:
+            return len(self.stack) > 0
 
 
 二叉搜索树汇总
