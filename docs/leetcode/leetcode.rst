@@ -1780,18 +1780,20 @@ Binary Search Tree的性质
 -----------------------------------------------
 Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree.
 
-::
+这里是中序遍历就行。但是这里不需要用list保存全部的值::
 
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        cur, stack, path = root, [], []
+        cur, stack = root, []
         while cur or stack:
             while cur:
                 stack.append(cur)
                 cur = cur.left
             cur = stack.pop()
-            path.append(cur.val)
+            ans = cur.val
+            k -= 1
+            if k == 0:
+                return ans
             cur = cur.right
-        return path[k - 1]
 
 
 follow up: 进阶：如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 k 小的值，你将如何优化算法？
@@ -1896,7 +1898,7 @@ Given the root of a Binary Search Tree (BST), return the minimum absolute differ
         helper(root)
         return ans
 
-这里还是中序遍历。但是不需要用个list保持。只需要储存前一个值就行
+这里还是中序遍历。但是不需要用个list保存。只需要储存前一个值就行
 
 
 
@@ -1974,7 +1976,7 @@ https://leetcode.cn/problems/binary-search-tree-iterator/solutions/684560/fu-xue
 ---------------------------------------------
 Given the root of a binary tree, determine if it is a valid binary search tree (BST).
 
-有一种迭代的思想。如果从下到上，其实不太好总结，但是从上到下可以很好理解。
+有一种迭代的思想。从上到下可以很好理解。
 
 .. image:: ../../_static/leetcode/98.png
 
@@ -1989,7 +1991,27 @@ Given the root of a binary tree, determine if it is a valid binary search tree (
             return helper(root.left, mini, root.val) and helper(root.right, root.val, maxi)
         return helper(root, -float(inf), float(inf))
 
-当然，中序遍历一下也是可以的
+
+如果从下到上，其实不太好写。因为当总结好一个中间节点的范围的时候，他是别人的左子树或者右子树的情况下，需要返回的范围是不一样的。而我们从下到上的时候，其实是不知道他所处是左还是右的。
+
+
+当然，中序遍历一下也是可以的。同样的，这里也不需要用list保存全部，只需要一个pre就行::
+
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        def helper(root):
+            nonlocal pre
+            nonlocal flag
+            if not root or not flag:
+                return
+            helper(root.left)
+            if pre >= root.val:
+                flag = False
+            pre = root.val
+            helper(root.right)
+        pre = -float(inf)
+        flag = True
+        helper(root)
+        return flag
 
 
 二叉搜索树汇总
