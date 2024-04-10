@@ -1937,6 +1937,11 @@ You may assume that next() calls will always be valid. That is, there will be at
 
 还有一种做法是使用单调栈。就是在中序遍历的时候 不实用递归，而是迭代。而且是分步骤进行的。这个对于中序遍历迭代的代码理解比较高。之后再看看 
 
+| 构造方法：一路到底，把根节点和它的所有左节点放到栈中；
+| 调用 next() 方法：弹出栈顶的节点；
+| 如果它有右子树，则对右子树一路到底，把它和它的所有左节点放到栈中。
+
+
 ？？？???
 
 .. image:: ../../_static/leetcode/173_1.png
