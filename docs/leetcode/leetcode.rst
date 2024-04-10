@@ -1991,7 +1991,25 @@ Given the root of a binary tree, determine if it is a valid binary search tree (
         return helper(root, -float(inf), float(inf))
 
 
-如果从下到上，其实不太好写。因为当总结好一个中间节点的范围的时候，他是别人的左子树或者右子树的情况下，需要返回的范围是不一样的。而我们从下到上的时候，其实是不知道他所处是左还是右的。
+如果从下到上，则是需要判断： (右子树的最小值 < 当前节点) 且 (左子树最大值 > 当前节点)::
+
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        def helper(root):
+            nonlocal flag
+            if not flag:
+                return [root.val, root.val]
+            l1, r2 = root.val, root.val
+            l2, r1 = -float(inf), float(inf)
+            if root.left:
+                l1, l2 = helper(root.left)
+            if root.right:
+                r1, r2 = helper(root.right)
+            if not l2 < root.val < r1:
+                flag = False
+            return [l1, r2]
+        flag = True
+        helper(root)
+        return flag
 
 
 当然，中序遍历一下也是可以的。同样的，这里也不需要用list保存全部，只需要一个pre就行::
