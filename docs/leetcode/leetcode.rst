@@ -2136,17 +2136,8 @@ https://leetcode.cn/problems/delete-node-in-a-bst/solutions/582561/miao-dong-jiu
 
 ???？？？
 
-二叉搜索树汇总
---------------------
-https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
-
-.. image:: ../../_static/leetcode/BST.png
-    :width: 700
-
-
-
-剑指 Offer 54    
-二叉搜索树的第k大节点  
+其他题目
+---------------------
 
 剑指 Offer 36    
 二叉搜索树与双向链表  
