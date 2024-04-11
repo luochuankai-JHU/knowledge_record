@@ -2139,13 +2139,18 @@ https://leetcode.cn/problems/delete-node-in-a-bst/solutions/582561/miao-dong-jiu
 其他题目
 ---------------------
 
-剑指 Offer 36    
+剑指 Offer 36  
 二叉搜索树与双向链表  
+*（收费）https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/ -> 
+（牛客网）https://www.nowcoder.com/practice/947f6eb80d944a84850b0538bf0ec3a5?tpId=13&tqId=11179&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking
 
-剑指 Offer 33    
+剑指 Offer 33  
 二叉搜索树的后序遍历序列  
+（收费）https://leetcode.com/problems/verify-preorder-sequence-in-binary-search-tree/ -> 
+（先序遍历）https://leetcode.com/problems/verify-preorder-serialization-of-a-binary-tree/
 
-leetcode 95--99
+leetcode 95--99  
+
 
 二叉搜索树的最近公共祖先
 ----------------------------------------
