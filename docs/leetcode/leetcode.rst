@@ -2031,6 +2031,111 @@ Given the root of a binary tree, determine if it is a valid binary search tree (
         return flag
 
 
+701. Insert into a Binary Search Tree
+--------------------------------------------------------
+You are given the root node of a binary search tree (BST) and a value to insert into the tree. Return the root node of the BST after the insertion. It is guaranteed that the new value does not exist in the original BST.
+
+Notice that there may exist multiple valid ways for the insertion, as long as the tree remains a BST after insertion. You can return any of them.
+
+
+之间按照左小右大的性质去找::
+
+    def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        node = root
+        if not root:
+            return TreeNode(val)
+        while node:
+            if node.val > val:
+                if node.left:
+                    node = node.left
+                else:
+                    node.left = TreeNode(val)
+                    return root
+            else:
+                if node.right:
+                    node = node.right
+                else:
+                    node.right = TreeNode(val)
+                    return root
+
+如果利用中序遍历::
+
+    def insertIntoBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        cur, stack, pre = root, [], TreeNode(float(inf))
+        if not root:
+            return TreeNode(val)
+        while stack or cur:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            cur = stack.pop()
+            if cur.val > val:
+                break
+            pre = cur
+            cur = cur.right
+        if pre.val == float(inf):
+            cur.left = TreeNode(val)
+        if not pre.right:
+            pre.right = TreeNode(val)
+        else:
+            pre = pre.right
+            while pre.left:
+                pre = pre.left
+            pre.left = TreeNode(val)
+        return root
+                
+中序遍历的特性： 1. 是递增的  2.如果节点在pre和cur之间，那么插入以后，遍历的时候也应该先遍历pre，再val，再cur。所以，cur的“虚空”上一个节点是pre.right(如果没有),如果有的话，那就是pre.right再一路往left下走
+
+
+450. Delete Node in a BST
+---------------------------------------------------
+Given a root node reference of a BST and a key, delete the node with the given key in the BST. Return the root node reference (possibly updated) of the BST.
+
+Basically, the deletion can be divided into two stages:
+
+Search for a node to remove.
+
+If the node is found, delete the node.::
+
+    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+        if not root:
+            return None
+        if root.val > key:
+            root.left = self.deleteNode(root.left, key)
+        elif root.val < key:
+            root.right = self.deleteNode(root.right, key)
+        else:
+            if not root.left and not root.right:
+                return None
+            elif not root.left:
+                return root.right
+            elif not root.right:
+                return root.left
+            else:
+                temp = root.right
+                while temp.left:
+                    temp = temp.left
+                temp.left = root.left
+                root = root.right
+                return root
+        return root    
+
+https://leetcode.cn/problems/delete-node-in-a-bst/solutions/582561/miao-dong-jiu-wan-shi-liao-by-terry2020-tc0o/
+
+| 如果目标节点大于当前节点值，则去右子树中删除；
+| 如果目标节点小于当前节点值，则去左子树中删除；
+
+| 如果目标节点就是当前节点，分为以下三种情况：
+| 其无左子：其右子顶替其位置，删除了该节点；
+| 其无右子：其左子顶替其位置，删除了该节点；
+| 其左右子节点都有：其左子树转移到其右子树的最左节点的左子树上，然后右子树顶替其位置，由此删除了该节点。
+
+.. image:: ../../_static/leetcode/450.png
+
+这种自己调用自己的方法我掌握的不好   多看多练
+
+???？？？
+
 二叉搜索树汇总
 --------------------
 https://leetcode.cn/problems/same-tree/solution/xie-shu-suan-fa-de-tao-lu-kuang-jia-by-wei-lai-bu-/
