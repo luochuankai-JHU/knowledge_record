@@ -919,14 +919,14 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 | 是否onsite or remote （提前查查，如果地点不合适
 | 你目前在做的工作是什么
 | 如果我能够入职，我的角色将会是什么
+| 下一次面试是什么内容和形式
 
-对面试官：
+**对面试官的问题：**
 
 | what do you like most about your positon?
 
-新入职的员工，有什么期待
 
-下一次面试是什么内容和形式
+
 
 5.多面，多练手，才不会那么紧张
 
