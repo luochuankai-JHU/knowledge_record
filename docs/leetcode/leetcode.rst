@@ -2136,6 +2136,47 @@ https://leetcode.cn/problems/delete-node-in-a-bst/solutions/582561/miao-dong-jiu
 
 ???？？？
 
+
+99. Recover Binary Search Tree
+----------------------------------------------
+You are given the root of a binary search tree (BST), where the values of exactly two nodes of the tree were swapped by mistake. Recover the tree without changing its structure.
+
+::
+
+    def recoverTree(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        x, y = None, None
+        stack, cur, pre = [], root, TreeNode(-float(inf))
+        while stack or cur:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            cur = stack.pop()
+            if cur.val < pre.val:
+                if not x:
+                    x = pre
+                y = cur
+            pre = cur
+            cur = cur.right
+        x.val, y.val = y.val, x.val
+
+
+这道题也是用中序遍历的方法。因为两个交换了顺序之后，肯定不满足中序递增的情况了。可以设置x  y 来记录
+
+多举几个例子方便理解::
+
+    1 2 3 4 5 6
+    5 2 3 4 1 6
+    1 2 3 5 4 6
+
+有时候是会有两个值都反常，比如第二行。那么需要交换5和1.分别是之前的pre 和 之后的 cur
+
+但是有时候只有一个值反常，比如第三行，那么也是需要交换pre和cur。所以不管怎样，只要发生了反常，就要记录cur
+
+
+
 其他题目
 ---------------------
 

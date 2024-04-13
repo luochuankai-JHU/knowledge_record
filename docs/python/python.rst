@@ -913,8 +913,16 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 
 |  **问什么时候需要入职！！！ When does the company expect the candidate to be able to start working**
 |  **是否能帮忙办理工签 Is the company willing to assist employees with obtaining work permit?**
-|  **是否onsite or remote**
+
+**现在这个阶段的面试可以问的问题：**
+
+| 是否onsite or remote （提前查查，如果地点不合适
 | 你目前在做的工作是什么
+| 如果我能够入职，我的角色将会是什么
+
+对面试官：
+
+| what do you like most about your positon?
 
 新入职的员工，有什么期待
 
