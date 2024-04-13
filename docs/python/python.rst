@@ -920,6 +920,7 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 | 你目前在做的工作是什么
 | 如果我能够入职，我的角色将会是什么
 | 下一次面试是什么内容和形式
+| can you give me some advices or suggestions?
 
 **对面试官的问题：**
 
