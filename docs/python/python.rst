@@ -903,16 +903,15 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 
 3.一定要看自己和这个岗位是不是匹配，不用冲着因为是内推所以投个擦边的
 
-| 4.最后面试结束的时候面试官问你，还有没有什么想问的？ 
+4.最后面试结束的时候面试官问你，还有没有什么想问的？
+
 | 这个职位最紧要任务是什么？如果我有幸入职，您希望我三个月完成哪些工作？
 | 这个位的工作业绩如何评估
 | 能否对我今天的面试或者之后的学习提出一些建议？
-|  **要让面试官介绍一下他们的业务啊！！！！**  面试官谈业务的时候，那支笔拿张纸记一下。然后根据自己的情况去对应着匹配。
-|  **记得问部门剩余多少HC，我多久能收到通知**  这个他肯定不会正面回复你，但是你可以看看他的态度
-|  **能提前来实习，有稍微差一点的地方或者业务可以提前熟悉 I am very interested in this position, and I am very confident in my ability to learn. So, if the company generally approves of my skills but feels I lack in some areas, I am willing to take on some learning tasks in advance.**
-
-|  **问什么时候需要入职！！！ When does the company expect the candidate to be able to start working**
-|  **是否能帮忙办理工签 Is the company willing to assist employees with obtaining work permit?**
+| 要让面试官介绍一下他们的业务啊！！！！  面试官谈业务的时候，那支笔拿张纸记一下。然后根据自己的情况去对应着匹配。
+| 记得问部门剩余多少HC，我多久能收到通知  这个他肯定不会正面回复你，但是你可以看看他的态度
+| 能提前来实习，有稍微差一点的地方或者业务可以提前熟悉 I am very interested in this position, and I am very confident in my ability to learn. So, if the company generally approves of my skills but feels I lack in some areas, I am willing to take on some learning tasks in advance.
+| 问什么时候需要入职！！！ When does the company expect the candidate to be able to start working
 
 **现在这个阶段的面试可以问的问题：**
 
