@@ -728,7 +728,7 @@ R2（R-Square）决定系数
 
 .. image:: ../../_static/cv/R2.png
 
-（上：y预测-y真，our model，下：y真平均-y真，baseline model）
+（上：y预测-y真，our model，下：y真平均-y真，baseline model）.意思是，上面是我们的方法，下面是就用均值这种最拉的方法，两者来对比测评
 
 .. image:: ../../_static/cv/R2_2.png
 
