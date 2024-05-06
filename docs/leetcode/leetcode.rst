@@ -7440,6 +7440,15 @@ leetcode 210.
     next_step = [(i+1,j),(i-1,j),(i,j+1),(i,j-1)]
     for new_x, new_y in next_step:
 
+
+Trie
+============================
+208. Implement Trie (Prefix Tree)
+---------------------------------------------
+
+
+
+
 python小知识点运用
 ============================
 
