@@ -941,7 +941,7 @@ https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/S
 
 10.当然要去猜面试官到底想问什么，但是不要说出来！！！不要显得自己很聪明的  “啊我猜您想问的呢是XXXX”
 
-
+今后的职业规划是什么！！！！！！！！！
 
 这次北美找工作的经验
 -------------------------------
@@ -965,6 +965,7 @@ BQ问题多准备一下
 
 面试之前看看别人的JD，然后把关键词找出来，技术栈什么的。自我介绍的时候提一下。很多HR不懂技术，但是会捕捉关键词
 
+收到面试邀请后可以网上搜搜面经  比如https://www.glassdoor.ca/Interview/Cresta-CA-Interview-Questions-E3180909.htm
 
 笔试做题和面试做题
 ----------------------------------
