@@ -7443,6 +7443,10 @@ leetcode 210.
 
 Trie
 ============================
+前缀树
+
+字典嵌套字典。然后记得在插入的时候，到单词的结尾需要添加一个结束的标志
+
 208. Implement Trie (Prefix Tree)
 ---------------------------------------------
 
@@ -7490,6 +7494,46 @@ Implement the Trie class:
             return True
 
 
+211. Design Add and Search Words Data Structure
+-----------------------------------------------------------------
+Design a data structure that supports adding new words and finding if a string matches any previously added string.
+
+Implement the WordDictionary class:
+
+| WordDictionary() Initializes the object.
+| void addWord(word) Adds word to the data structure, it can be matched later.
+| bool search(word) Returns true if there is any string in the data structure that matches word or false otherwise. word may contain dots '.' where dots can be matched with any letter.
+::
+
+    class WordDictionary:
+
+        def __init__(self):
+            self.root = dict()
+
+        def addWord(self, word: str) -> None:
+            store = self.root
+            for cha in word:
+                if cha not in store:
+                    store[cha] = dict()
+                store = store[cha]
+            store['#'] = []
+
+        def search(self, word: str) -> bool:
+            temp = [self.root]
+            for cha in word:
+                next_level = []
+                for store in temp:
+                    if cha == ".":
+                        for content in store:
+                            next_level.append(store[content])
+                    else:
+                        if cha in store:
+                            next_level.append(store[cha])
+                    temp = next_level
+            for store in temp:
+                if '#' in store:
+                    return True
+            return False
 
 
 python小知识点运用
