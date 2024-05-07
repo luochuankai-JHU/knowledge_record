@@ -5304,28 +5304,29 @@ leetcode 130.
         """
         Do not return anything, modify board in-place instead.
         """
+        direct = [(0, 1), (0, -1), (1, 0), (-1, 0)]
         m, n = len(board), len(board[0])
-        def inedge(i, j):
-            if i == 0 or i == m - 1 or j == 0 or j == n - 1:
-                return True
-            return False
-        def infection(i, j):
-            if i < 0 or i > m - 1 or j < 0 or j > n - 1:
-                return
-            if board[i][j] == "#" or board[i][j] == "X":
-                return
-            board[i][j] = "#"
-            infection(i + 1, j)
-            infection(i - 1, j)
-            infection(i, j + 1)
-            infection(i, j - 1)
-        
+        def expand(i, j):
+            for x, y in direct:
+                if 0 <= i + x <= m - 1 and 0 <= j + y <= n - 1 and board[i + x][j + y] == "O":
+                    board[i + x][j + y] = "#"
+                    expand(i + x, j + y)
+        for i in range(m):
+            if board[i][0] == "O":
+                board[i][0] = "#"
+                expand(i, 0)
+            if board[i][n-1] == "O":
+                board[i][n-1] = "#"
+                expand(i, n-1)
+        for j in range(n):
+            if board[0][j] == "O":
+                board[0][j] = "#"
+                expand(0, j)
+            if board[m-1][j] == "O":
+                board[m-1][j] = "#"
+                expand(m-1, j)
         for i in range(m):
             for j in range(n):
-                if board[i][j] == "O" and inedge(i, j):
-                    infection(i, j)
-        for i in range(m):
-            for j in range(n):        
                 if board[i][j] == "O":
                     board[i][j] = "X"
                 if board[i][j] == "#":
@@ -5336,6 +5337,49 @@ leetcode 130.
 
 第二次遍历，判断一下，如果当前是"O"，则被同化为"x"。如果被标记为"#"则还原回"O"。这里注意先后顺序就行
 
+.. admonition:: 注意！！！
+    :class: note
+
+    这里不能图省事，写成expand(i, -1)，不然传进去的index在做+1 -1操作的时候是不对的::
+        
+        if board[i][n-1] == "O":
+            board[i][n-1] = "#"
+            expand(i, n-1)
+    
+    
+
+如果不用递归，这种方式也很好，找一个数组存起来，然后一个个的pop出来::
+
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        m, n = len(board), len(board[0])
+        queue = deque([])
+        # 将边缘上的 'O' 入队
+        for i in range(m):
+            if board[i][0] == "O":
+                queue.append((i, 0))
+            if board[i][n-1] == "O":
+                queue.append((i, n-1))
+        for j in range(n):
+            if board[0][j] == "O":
+                queue.append((0, j))
+            if board[m-1][j] == "O":
+                queue.append((m-1, j))
+        # BFS 遍历边缘上的 'O'，将其标记
+        while queue:
+            i, j = queue.popleft()
+            if 0 <= i < m and 0 <= j < n and board[i][j] == "O":
+                board[i][j] = "#"
+                queue.extend([(i-1, j), (i+1, j), (i, j-1), (i, j+1)])
+        # 最终遍历，对标记过的 'O' 进行修改
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == "O":
+                    board[i][j] = "X"
+                if board[i][j] == "#":
+                    board[i][j] = "O"
 
 最大矩形
 ----------------------
