@@ -7473,9 +7473,8 @@ Note: The variables that do not occur in the list of equations are undefined, so
     for m, v in graph[b]:
     if m not in used:
         temp.append((m, v * val))
-    # 可以加上
+    # 可以加上  及时剪枝
     if m == back:
-    及时剪枝
 
 temp = [(front, 1)] 这里也很重要，因为要加一个自己和自己的。或者在生成图的时候加上也行
 
