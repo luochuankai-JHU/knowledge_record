@@ -7366,6 +7366,119 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
 
 图
 ====================
+133. Clone Graph
+--------------------------------------------
+Given a reference of a node in a connected undirected graph.
+
+Return a deep copy (clone) of the graph.
+
+Each node in the graph contains a value (int) and a list (List[Node]) of its neighbors.::
+
+    class Node {
+        public int val;
+        public List<Node> neighbors;
+    }
+
+Test case format:
+
+For simplicity, each node's value is the same as the node's index (1-indexed). For example, the first node with val == 1, the second node with val == 2, and so on. The graph is represented in the test case using an adjacency list.
+
+An adjacency list is a collection of unordered lists used to represent a finite graph. Each list describes the set of neighbors of a node in the graph.
+
+The given node will always be the first node with val = 1. You must return the copy of the given node as a reference to the cloned graph.
+::
+
+    class Solution:
+        def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+            if not node:
+                return node
+            store = dict()
+            pending = [node]
+            while pending:
+                n = pending.pop(0)
+                if n not in store:
+                    store[n] = Node(n.val, [])
+                for neb in n.neighbors:
+                    if neb not in store:
+                        store[neb] = Node(neb.val, [])
+                        pending.append(neb)
+                    store[n].neighbors.append(store[neb])
+            return store[node]
+
+其实没有搞得太明白，看了解析的。BFS DFS都可以。 我觉得这里是利用了字典的内容可变性
+
+399. Evaluate Division
+---------------------------------------
+You are given an array of variable pairs equations and an array of real numbers values, where equations[i] = [Ai, Bi] and values[i] represent the equation Ai / Bi = values[i]. Each Ai or Bi is a string that represents a single variable.
+
+You are also given some queries, where queries[j] = [Cj, Dj] represents the jth query where you must find the answer for Cj / Dj = ?.
+
+Return the answers to all queries. If a single answer cannot be determined, return -1.0.
+
+Note: The input is always valid. You may assume that evaluating the queries will not result in division by zero and that there is no contradiction.
+
+Note: The variables that do not occur in the list of equations are undefined, so the answer cannot be determined for them.
+
+
+| Example 1:
+| Input: equations = [["a","b"],["b","c"]], values = [2.0,3.0], queries = [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]
+| Output: [6.00000,0.50000,-1.00000,1.00000,-1.00000]
+| Explanation: 
+| Given: a / b = 2.0, b / c = 3.0
+| queries are: a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ? 
+| return: [6.0, 0.5, -1.0, 1.0, -1.0 ]
+| note: x is undefined => -1.0
+
+| Example 2:
+| Input: equations = [["a","b"],["b","c"],["bc","cd"]], values = [1.5,2.5,5.0], queries = [["a","c"],["c","b"],["bc","cd"],["cd","bc"]]
+| Output: [3.75000,0.40000,5.00000,0.20000]
+
+::
+
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        graph = defaultdict(list)
+        # build graph
+        for i in range(len(values)):
+            front, back, val = equations[i][0], equations[i][1], values[i]
+            graph[front].append((back, val))
+            graph[back].append((front, 1/val))
+
+        # cal queries
+        ans = []
+        for front, back in queries:
+            if front not in graph or back not in graph:
+                ans.append(-1)
+                continue
+            temp = [(front, 1)]
+            used = set()
+            res = -1
+            while temp:
+                b, val = temp.pop(0)
+                if b == back:
+                    res = val
+                    break
+                if b in used:
+                    continue
+                used.add(b)
+                for m, v in graph[b]:
+                    if m not in used:
+                        temp.append((m, v * val))
+            ans.append(res)
+        return ans
+
+这道题很有意思。建议还是BFS更加直观一些。参考了解析https://leetcode.com/problems/evaluate-division/solutions/88275/python-fast-bfs-solution-with-detailed-explantion/
+
+这里build graph和cal queries可以写成两个函数。这样::
+
+    for m, v in graph[b]:
+    if m not in used:
+        temp.append((m, v * val))
+    # 可以加上
+    if m == back:
+    及时剪枝
+
+temp = [(front, 1)] 这里也很重要，因为要加一个自己和自己的。或者在生成图的时候加上也行
+
 课程表
 -----------------
 | leetcode 207. 

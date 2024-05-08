@@ -870,6 +870,10 @@ SE-net
 https://github.com/luochuankai-JHU/knowledge_record/blob/master/docs/recommend/SEnet.py
 
 
+
+pandas和numpy
+==========================
+
 职业发展
 ==================
 【职场】技术人如何做好述职汇报- 轩脉刃de刀光剑影 https://www.youtube.com/watch?v=Wis0PUaqXtU
