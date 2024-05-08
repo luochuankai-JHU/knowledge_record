@@ -7490,25 +7490,20 @@ temp = [(front, 1)] 这里也很重要，因为要加一个自己和自己的。
 ::
 
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        first_second = defaultdict(list)
-        demand = defaultdict(int)
-        qualified = list()
-        for key in prerequisites:
-            first_second[key[1]].append(key[0])
-            demand[key[0]] += 1
-        for course in range(numCourses):
-            if course not in demand:
-                qualified.append(course)
-        
-        while qualified:
-            cur = qualified.pop()
-            numCourses -= 1
-            if cur in first_second:
-                for second in first_second[cur]:
-                    demand[second] -= 1
-                    if demand[second] == 0:
-                        qualified.append(second)
-        return numCourses == 0
+        graph = defaultdict(list)
+        degree = defaultdict(int)
+        for f, s in prerequisites:
+            graph[s].append(f) # second to first
+            degree[f] += 1
+        qualified = [i for i in range(numCourses) if i not in degree]
+        for course in qualified:
+            if course not in graph:
+                continue
+            for c in graph[course]:
+                degree[c] -= 1
+                if degree[c] == 0:
+                    qualified.append(c)
+        return len(qualified) == numCourses
 
 
 # 参考了解析https://leetcode.cn/problems/course-schedule/solution/bao-mu-shi-ti-jie-shou-ba-shou-da-tong-tuo-bu-pai-/
@@ -7527,30 +7522,24 @@ leetcode 210.
 ::
 
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        ans = []
-        queue = []
-        demand = defaultdict(int)
-        relation = defaultdict(list)
-        for course in prerequisites:
-            demand[course[0]] += 1
-            relation[course[1]] += [course[0]]
-        for cla in range(numCourses):
-            if cla not in demand:
-                queue.append(cla)
-        while queue:
-            cla = queue.pop()
-            ans.append(cla)
-            numCourses -= 1
-            for after in relation[cla]:
-                demand[after] -= 1
-                if demand[after] == 0:
-                    queue.append(after)
-        for cla in demand:
-            if demand[cla] > 0:
-                return []
-        return ans
+        graph = defaultdict(list)
+        degree = defaultdict(int)
+        for f, s in prerequisites:
+            graph[s].append(f)
+            degree[f] += 1
+        verified = [i for i in range(numCourses) if i not in degree]
+        for i in verified:
+            if i not in graph:
+                continue
+            for c in graph[i]:
+                degree[c] -= 1
+                if degree[c] == 0:
+                    verified.append(c)
+        if len(verified) == numCourses:
+            return verified
+        return []
 
-
+跟上面那题一模一样，最后改一下下
 
 岛屿数量
 -----------------------
