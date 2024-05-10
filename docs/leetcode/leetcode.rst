@@ -3454,8 +3454,8 @@ leetcode 72
 
     特别注意，第21行这里，必须是 dp[i][j] = min(dp[i][j], dp[i - 2][j - 2] + 1)。因为会出现 dp[i][j] < dp[i - 2][j - 2] + 1 的时候。举例：
 
-    word1 = "aba"
-    word2 = "ab"
+    word1 = "aba"   word2 = "ab"
+    
 
 
 两个字符串的删除操作
