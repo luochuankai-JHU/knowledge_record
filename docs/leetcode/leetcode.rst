@@ -3419,7 +3419,7 @@ leetcode 72
 | (2) dp[i][j-1]，即先将 word1 的前 5 个字符 horse 转换为 word2 的前 2 个字符 ro，然后在末尾补充一个 s，即插入操作
 | (3) dp[i-1][j]，即先将 word1 的前 4 个字符 hors 转换为 word2 的前 3 个字符 ros，然后删除 word1 的第 5 个字符
 
-follow up:
+**follow up:**
 
 面试 cresta时候的题目:
 
@@ -3450,6 +3450,12 @@ follow up:
                         dp[i][j] = min(dp[i][j], dp[i - 2][j - 2] + 1)
         return dp[-1][-1]
 
+.. Note:: 
+
+    特别注意，第21行这里，必须是 dp[i][j] = min(dp[i][j], dp[i - 2][j - 2] + 1)。因为会出现 dp[i][j] < dp[i - 2][j - 2] + 1 的时候。举例：
+
+    word1 = "aba"
+    word2 = "ab"
 
 
 两个字符串的删除操作
