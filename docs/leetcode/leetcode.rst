@@ -3419,6 +3419,38 @@ leetcode 72
 | (2) dp[i][j-1]，即先将 word1 的前 5 个字符 horse 转换为 word2 的前 2 个字符 ro，然后在末尾补充一个 s，即插入操作
 | (3) dp[i-1][j]，即先将 word1 的前 4 个字符 hors 转换为 word2 的前 3 个字符 ros，然后删除 word1 的第 5 个字符
 
+follow up:
+
+面试 cresta时候的题目:
+
+在此基础上，如果 Transposition: cat --> act 也算作1呢？
+
+::
+
+    def edit_distance(word1, word2):
+        if not word1:
+            return len(word2)
+        if not word2:
+            return len(word1)
+        len1, len2 = len(word1), len(word2)
+        # initial dp matrix
+        dp = [[0] * (len2 + 1) for _ in range(len1 + 1)]
+        for i in range(len1 + 1):
+            dp[i][0] = i
+        for i in range(len2 + 1):
+            dp[0][i] = i
+        # calculate distance
+        for i in range(1, len1 + 1):
+            for j in range(1, len2 + 1):
+                if word1[i - 1] == word2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])
+                    if i >= 2 and j >= 2 and word1[i - 2] == word2[j - 1] and word1[i - 1] == word2[j - 2]:
+                        dp[i][j] = min(dp[i][j], dp[i - 2][j - 2] + 1)
+        return dp[-1][-1]
+
+
 
 两个字符串的删除操作
 --------------------------------

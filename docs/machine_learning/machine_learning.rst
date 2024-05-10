@@ -267,7 +267,7 @@ Logistics regression
 | （5）可以特征交叉，M + N 个特征变为 M * N 个特征，进一步引入非线性，提升表达能力。 
 | （6）特征离散化以后，起到了简化了逻辑回归模型的作用，降低了模型过拟合的风险。
 
-用pytorch手写逻辑回归请见 leetcode那一页的非常规题
+用pytorch手写逻辑回归请见 leetcode那一页的非常规题 https://knowledge-record.readthedocs.io/zh-cn/latest/leetcode/leetcode.html#pytorch
 
 逻辑回归的假设
 ''''''''''''''''''''''''''''''''''
@@ -349,6 +349,12 @@ SVM中的常考点以及手推SVM
 为什么hinge loss在SVM时代大放异彩，但在神经网络时代就不好用了呢？主要就是因为svm时代我们用的是二分类，通过使用一些小技巧比如1 vs 1、1 vs n
 等方式来做多分类问题。而如论文[3]这样直接把hinge loss应用在多分类上的话，当类别数特别大时，会有大量的非目标分数得到优化，
 这样每次优化时的梯度幅度不等且非常巨大，极易梯度爆炸。
+
+KNN
+-------------------
+.. image:: ../../_static/machine_learning/knn.png
+
+样本的lable取决于与他最相近的k个样本的多数lable
 
 
 朴素贝叶斯（Naive Bayes）
