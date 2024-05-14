@@ -7579,6 +7579,51 @@ leetcode 210.
 
 跟上面那题一模一样，最后改一下下
 
+
+909. Snakes and Ladders
+------------------------------------
+.. image:: ../../_static/leetcode/909.png
+
+.. image:: ../../_static/leetcode/909_2.png
+
+::
+
+    def snakesAndLadders(self, board: List[List[int]]) -> int:
+        n = len(board)
+        def d2ij(d):
+            i = n - 1 - ((d - 1) // n)
+            j = (d - 1) % n if ((d - 1) // n) % 2 == 0 else n - 1 - (d - 1) % n
+            return i, j
+        visit = set()
+        bfs = [(1, 0)]
+        for d, step in bfs:
+            for gap in range(1, 7):
+                new_d = d + gap
+                i, j = d2ij(new_d)
+                if board[i][j] != -1:
+                    new_d = board[i][j]
+                if new_d == n ** 2:
+                    return step + 1
+                if new_d > n ** 2:
+                    break
+                if new_d not in visit:
+                    visit.add(new_d)
+                    bfs.append((new_d, step + 1))
+        return -1
+
+.. admonition:: 注意
+    :class: note
+
+    ::
+
+        if new_d == n ** 2:
+            return step + 1
+        if new_d > n ** 2:
+            break
+    这一段一定要写到完全判断完new_d之后
+
+    def d2ij(d) 这个函数不好写呢....可以先想想如果是0,0在开头会是怎样，那么现在上下颠倒会是怎样？从1开始会是怎样？
+
 岛屿数量
 -----------------------
 | leetcode 200. 
