@@ -7448,6 +7448,11 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
         
 这个还真有点难....回溯法的集成
 
+
+51. N-Queens
+----------------------------
+.. image:: ../../_static/leetcode/51.png
+
 图
 ====================
 133. Clone Graph
