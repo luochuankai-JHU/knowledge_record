@@ -7453,6 +7453,13 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
 ----------------------------
 .. image:: ../../_static/leetcode/51.png
 
+
+卧槽这个解析说的太清楚了！！！
+
+https://leetcode.cn/problems/n-queens/solutions/2079586/hui-su-tao-lu-miao-sha-nhuang-hou-shi-pi-mljv/
+
+https://www.bilibili.com/video/BV1mY411D7f6/?vd_source=52a05014b8db18f0a2de12bb0c25da9b
+
 图
 ====================
 133. Clone Graph
