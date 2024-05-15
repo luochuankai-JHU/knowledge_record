@@ -7115,6 +7115,20 @@ leetcode 60. 第k个排列
         calculate(res,path,start)
         return res
 
+::
+
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        ans = []
+        def dfs(path, i, summ):
+            if summ == target:
+                ans.append(path[:])
+                return
+            for j in range(i, len(candidates)):
+                new_summ = summ + candidates[j]
+                if new_summ <= target:
+                    dfs(path + [candidates[j]], j, new_summ)
+        dfs([], 0, 0)
+        return ans
 
 组合总和 II
 -------------------------
@@ -7210,8 +7224,40 @@ if i>start and candidates[i]==candidates[i-1]:这里要仔细思考
                     path.pop()
         all_sort(res, path)
         return res
-        
-        
+
+或者::
+
+    def permute(nums):
+        ans = []
+        def dfs(path, store):
+            nonlocal ans
+            print(path, store)
+            if len(path) == len(nums):
+                ans.append(path[:])
+                return
+            for i in range(len(store)):
+                dfs(path + [store[i]], store[:i] + store[i + 1:])
+                # dfs(path.append(store[i]), store[:i] + store[i + 1:])
+        dfs([], nums)
+        return ans
+
+为什么这里要  dfs(path + [store[i]], store[:i] + store[i + 1:]) 而不是 dfs(path.append(store[i]), store[:i] + store[i + 1:])
+
+因为path.append() 会改变append, 那在本次for循环里，后面的path都会带上前面append的内容了。甚至这样写都不行，::
+
+    for i in range(len(store)):
+        dfs(path.append(store[i]), store[:i] + store[i + 1:])
+        path.pop()
+
+The bug in the code dfs(path.append(store[i]), store[:i] + store[i + 1:]) is because the append method returns None, and you're passing that None value as the first argument to the dfs function.
+
+In Python, the append method modifies the list in-place and returns None. So, when you call path.append(store[i]), it appends store[i] to the path list, but the expression itself evaluates to None.
+
+.. important:: 
+
+    所以，append 操作只能单独做，不能在传参时候做，不然就是None!!!
+
+
 全排列 II
 -----------------
 | leetcode 47. 
@@ -7580,49 +7626,6 @@ leetcode 210.
 跟上面那题一模一样，最后改一下下
 
 
-909. Snakes and Ladders
-------------------------------------
-.. image:: ../../_static/leetcode/909.png
-
-.. image:: ../../_static/leetcode/909_2.png
-
-::
-
-    def snakesAndLadders(self, board: List[List[int]]) -> int:
-        n = len(board)
-        def d2ij(d):
-            i = n - 1 - ((d - 1) // n)
-            j = (d - 1) % n if ((d - 1) // n) % 2 == 0 else n - 1 - (d - 1) % n
-            return i, j
-        visit = set()
-        bfs = [(1, 0)]
-        for d, step in bfs:
-            for gap in range(1, 7):
-                new_d = d + gap
-                i, j = d2ij(new_d)
-                if board[i][j] != -1:
-                    new_d = board[i][j]
-                if new_d == n ** 2:
-                    return step + 1
-                if new_d > n ** 2:
-                    break
-                if new_d not in visit:
-                    visit.add(new_d)
-                    bfs.append((new_d, step + 1))
-        return -1
-
-.. admonition:: 注意
-    :class: note
-
-    ::
-
-        if new_d == n ** 2:
-            return step + 1
-        if new_d > n ** 2:
-            break
-    这一段一定要写到完全判断完new_d之后
-
-    def d2ij(d) 这个函数不好写呢....可以先想想如果是0,0在开头会是怎样，那么现在上下颠倒会是怎样？从1开始会是怎样？
 
 岛屿数量
 -----------------------
@@ -7668,6 +7671,154 @@ leetcode 210.
     next_step = [(i+1,j),(i-1,j),(i,j+1),(i,j-1)]
     for new_x, new_y in next_step:
 
+
+
+909. Snakes and Ladders
+------------------------------------
+.. image:: ../../_static/leetcode/909.png
+
+.. image:: ../../_static/leetcode/909_2.png
+
+::
+
+    def snakesAndLadders(self, board: List[List[int]]) -> int:
+        n = len(board)
+        def d2ij(d):
+            i = n - 1 - ((d - 1) // n)
+            j = (d - 1) % n if ((d - 1) // n) % 2 == 0 else n - 1 - (d - 1) % n
+            return i, j
+        visit = set()
+        bfs = [(1, 0)]
+        for d, step in bfs:
+            for gap in range(1, 7):
+                new_d = d + gap
+                i, j = d2ij(new_d)
+                if board[i][j] != -1:
+                    new_d = board[i][j]
+                if new_d == n ** 2:
+                    return step + 1
+                if new_d > n ** 2:
+                    break
+                if new_d not in visit:
+                    visit.add(new_d)
+                    bfs.append((new_d, step + 1))
+        return -1
+
+.. admonition:: 注意
+    :class: note
+
+    ::
+
+        if new_d == n ** 2:
+            return step + 1
+        if new_d > n ** 2:
+            break
+    这一段一定要写到完全判断完new_d之后
+
+    def d2ij(d) 这个函数不好写呢....可以先想想如果是0,0在开头会是怎样，那么现在上下颠倒会是怎样？从1开始会是怎样？
+
+
+433. Minimum Genetic Mutation
+--------------------------------------------
+A gene string can be represented by an 8-character long string, with choices from 'A', 'C', 'G', and 'T'.
+
+Suppose we need to investigate a mutation from a gene string startGene to a gene string endGene where one mutation is defined as one single character changed in the gene string.
+
+For example, "AACCGGTT" --> "AACCGGTA" is one mutation.
+There is also a gene bank bank that records all the valid gene mutations. A gene must be in bank to make it a valid gene string.
+
+Given the two gene strings startGene and endGene and the gene bank bank, return the minimum number of mutations needed to mutate from startGene to endGene. If there is no such a mutation, return -1.
+
+Note that the starting point is assumed to be valid, so it might not be included in the bank.
+
+| Input: startGene = "AACCGGTT", endGene = "AACCGGTA", bank = ["AACCGGTA"]
+| Output: 1
+::
+
+    def minMutation(self, startGene: str, endGene: str, bank: List[str]) -> int:
+        if startGene == endGene:
+            return 0
+        sub_list = ["A", "C", "G", "T"]
+        bank = set(bank)
+        if startGene in bank:
+            bank.remove(startGene)
+        if endGene not in bank:
+            return -1
+        bfs = [(startGene, 0)]
+        for gene, step in bfs:
+            for i in range(8):
+                for sub in sub_list:
+                    temp = gene[:i] + sub + gene[i + 1:]
+                    if temp == endGene:
+                        return step + 1
+                    if temp in bank:
+                        bfs.append((temp, step + 1))
+                        bank.remove(temp)
+        return -1    
+
+
+127. Word Ladder
+----------------------------------------------
+A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such that:
+
+| Every adjacent pair of words differs by a single letter.
+| Every si for 1 <= i <= k is in wordList. Note that beginWord does not need to be in wordList.
+| sk == endWord
+| Given two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, or 0 if no such sequence exists.
+
+| Example 1:
+| Input: beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
+| Output: 5
+| Explanation: One shortest transformation sequence is "hit" -> "hot" -> "dot" -> "dog" -> cog", which is 5 words long.
+::
+
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        wordList = set(wordList)
+        if beginWord in wordList:
+            wordList.remove(beginWord)
+        if endWord not in wordList:
+            return 0
+        bfs = [(beginWord, 1)]
+        length = len(beginWord)
+        for word, step in bfs:
+            for i in range(length):
+                for j in range(26):
+                    temp = word[:i] + chr(ord("a") + j) + word[i + 1:]
+                    if temp == endWord:
+                        return step + 1
+                    if temp in wordList:
+                        bfs.append((temp, step + 1))
+                        wordList.remove(temp)
+        return 0
+
+或者也可以两头都出发的来找::
+
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        wordSet = set(wordList)
+        if endWord not in wordSet:
+            return 0
+        beginSet = {beginWord}
+        endSet = {endWord}
+        distance = 1
+        while beginSet and endSet:
+            wordSet -= beginSet
+            distance += 1
+            newSet = set()
+            for word in beginSet:
+                for i in range(len(word)):
+                    left = word[:i]
+                    right = word[i + 1:]
+                    for c in string.ascii_lowercase:
+                        new_word = left + c + right
+                        if new_word in wordSet:
+                            if new_word in endSet:
+                                return distance
+                            newSet.add(new_word)
+            if len(beginSet) > len(endSet): #swap to lowest set
+                beginSet = endSet
+                endSet = newSet
+            else: beginSet = newSet
+        return 0
 
 Trie
 ============================
