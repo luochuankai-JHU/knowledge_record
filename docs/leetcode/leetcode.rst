@@ -2316,16 +2316,13 @@ leetcode 235.
 ::
 
     def maxSubArray(self, nums: List[int]) -> int:
-        if not nums:
-            return -999e999
-        ans = temp = -99e99
-        for i in range(len(nums)):
-            temp = max(temp+nums[i], nums[i])
-            ans = max(ans, temp)
+        ans = nums[0]
+        for i in range(1, len(nums)):
+            nums[i] = max(0, nums[i - 1]) + nums[i]
+            ans = max(ans, nums[i])
         return ans
 
-值得再去好好想想
-
+如果前面的累加和已经小于0了，就不要了
 
 更进一步，请看下一题：
 
@@ -2385,6 +2382,12 @@ leetcode 152.
             nums[i] *= nums[i - 1] or 1
             reverse_nums[i] *= reverse_nums[i - 1] or 1
         return max(nums + reverse_nums)
+
+再看一题
+
+1186. Maximum Subarray Sum with One Deletion
+--------------------------------------------------
+！！！??!!？？？
 
 把数组排成最小的数
 ------------------------
@@ -3066,23 +3069,17 @@ https://leetcode-cn.com/problems/longest-common-prefix/solution/zui-chang-gong-g
 ::
 
     def generateParenthesis(self, n: int) -> List[str]:
-        if n<=0:
-            return []
-        res = ["()"]
-        if n==1:
-            return res
-        count = 1
-        while count<n:
-            temp = []
-            for i in range(len(res)):
-                for j in range(len(res[i])):
-                    cur = res[i][:j]+"()"+res[i][j:]
-                    temp.append(cur)
-            res = list(set(temp))
-            count += 1
-        return res
-
-我这个解法是动态规划做的。类似剑指 Offer 38. 字符串的排列。其他题解里面很多DFS BFS没太理解
+        ans = []
+        def dfs(path, inp, oup):
+            if len(path) == n * 2:
+                ans.append(path)
+                return
+            if inp < n:
+                dfs(path + "(", inp + 1, oup)
+            if oup < inp:
+                dfs(path + ")", inp, oup + 1)
+        dfs('', 0, 0)
+        return ans
 
 
 下一个排列
@@ -7446,7 +7443,65 @@ if i>0 and nums[i]==nums[i-1] and used[i-1]:
                     return True
         return False
         
-这个还真有点难....回溯法的集成
+都是模板和套路....::
+
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        ans = False
+        n, m = len(board), len(board[0])
+        def dfs(i, j, index):
+            nonlocal ans
+            if 0 <= i <= n - 1 and 0 <= j <= m - 1 and board[i][j] == word[index]:
+                index += 1
+                if index == len(word):
+                    ans = True
+                    return
+                for delta_i, delta_j in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                    board[i][j] = "#"
+                    new_i, new_j = i + delta_i, j + delta_j
+                    dfs(new_i, new_j, index)
+                    board[i][j] = word[index - 1]
+        for i in range(n):
+            for j in range(m):
+                dfs(i, j, 0)
+                if ans is True:
+                    return True
+        return False
+
+或者用个set保存一下遍历过的路径::
+
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        ROWS, COLS = len(board), len(board[0])
+        path =set()
+        def dfs(r, c, i):
+            if i == len(word):
+                return True
+            if ( r<0 or c <0 or r>= ROWS or c>= COLS 
+            or word[i] != board[r][c] or (r,c) in path ):
+                 return False
+            path.add((r,c))
+            res = (dfs(r+1,c,i+1) or
+                    dfs(r-1,c,i+1) or
+                    dfs(r,c+1,i+1) or
+                    dfs(r,c-1,i+1)) 
+            path.remove((r,c))
+            return res
+        for r in range(ROWS):
+            for c in range(COLS):
+                if dfs(r,c,0): return True
+        return False
+
+对于此类问题，可以在前面加上一个次数检查，速度快很多。如果某个字符在word中出现次数大于board中的次数,则说明无法构成word,直接返回False::
+
+    # check if the board even has the correct count of each character in word
+    count = defaultdict(int)
+    for row in board:
+        for c in row:
+            count[c] += 1
+    
+    for c in word:
+        count[c] -= 1
+        if count[c] < 0:
+            return False
 
 
 51. N-Queens
