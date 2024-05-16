@@ -7488,6 +7488,19 @@ https://www.bilibili.com/video/BV1mY411D7f6/?vd_source=52a05014b8db18f0a2de12bb0
         dfs(0, set([i for i in range(n)]))
         return ans
 
+这一段::
+
+    if i == n:
+        temp = []
+        for num in rows:
+            temp.append("." * num + "Q" + "." * (n - 1 - num))
+        ans.append(temp)
+    
+还能写成::
+
+    if i == n:
+        ans.append(["." * num + "Q" + "." * (n - 1 - num) for num in rows])
+
 图
 ====================
 133. Clone Graph
