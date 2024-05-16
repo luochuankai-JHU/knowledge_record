@@ -7460,6 +7460,34 @@ https://leetcode.cn/problems/n-queens/solutions/2079586/hui-su-tao-lu-miao-sha-n
 
 https://www.bilibili.com/video/BV1mY411D7f6/?vd_source=52a05014b8db18f0a2de12bb0c25da9b
 
+::
+
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        ans = []
+        rows = [0] * n
+        def vaild(i, j):
+            for index in range(i):
+                col = rows[index]
+                if j - i == col - index:
+                    return False
+                if j + i == col + index:
+                    return False
+            return True
+                
+        def dfs(i, choose):
+            if i == n:
+                temp = []
+                for num in rows:
+                    temp.append("." * num + "Q" + "." * (n - 1 - num))
+                ans.append(temp)
+                return
+            for j in choose:
+                if vaild(i, j):
+                    rows[i] = j
+                    dfs(i + 1, choose - {j})
+        dfs(0, set([i for i in range(n)]))
+        return ans
+
 图
 ====================
 133. Clone Graph
