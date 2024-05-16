@@ -7501,6 +7501,21 @@ https://www.bilibili.com/video/BV1mY411D7f6/?vd_source=52a05014b8db18f0a2de12bb0
     if i == n:
         ans.append(["." * num + "Q" + "." * (n - 1 - num) for num in rows])
 
+
+为什么def dfs(i, choose)里面不需要nonlocal ans:
+
+由于ans是一个列表(list),它是可变类型,因此在dfs函数内部可以直接修改它的值,不需要使用nonlocal。
+
+对于不可变类型(如int、str、tuple等)的变量,在内部函数中无法直接修改其值,因为每次为它重新赋值时,实际上是创建了一个新的对象,而不是修改原有对象的值。
+
+而对于可变类型(如list、dict、set等)的变量,在内部函数中是可以直接修改其值的,因为它们指向的是同一个对象的引用。
+
+复习： 可变类型和不可变类型： https://knowledge-record.readthedocs.io/zh-cn/latest/python/python.html#id15
+
+可变类型——list, dict, set
+
+不可变类型——int, str, tuple
+
 图
 ====================
 133. Clone Graph
