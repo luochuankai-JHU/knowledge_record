@@ -97,6 +97,7 @@ from就是从哪个表里找
 
 还有一些join(inner join), left join的语法。还有一些as(别名)的语法看看菜鸟教程就好。
 
+.. image:: ../../_static/tools/sql-join.png
 
 
 hadoop常用命令
