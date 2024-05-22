@@ -1045,6 +1045,55 @@ Rank Averaging
 .. image:: ../../_static/machine_learning/Rank_Averaging.png
 	:align: center
 
+
+
+有哪些常见的 Feature engineering特征工程
+----------------------------------------------------
+常见的特征工程包括：
+
+异常值处理 Outlier Handling
+''''''''''''''''''''''''''''''''''
+删除异常值 Outlier Removal，长尾截断 Long-tail Truncation，缺失值处理 Missing Value Handling
+
+对于缺失值，首先要做数据统计，看看是不是上游数据出现了问题，缺失值多不多，占比多少，和过去相比怎么样
+
+| 如果正常，可以用
+| 删除缺失值：删除包含缺失值的样本或特征。
+| 填补缺失值：用均值、中位数、众数或其他值填补缺失值。
+| 插值法：利用插值方法填补缺失值，如线性插值或多项式插值。
+
+数值特征处理、类别特征处理 Numerical and Categorical Feature Engineering
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+数值特征处理：
+
+| 归一化（Normalization）：将数值特征缩放到一个特定的范围（如[0, 1]）。
+| 标准化（Standardization）：将数值特征调整为均值为0，标准差为1的分布。
+| 分桶（Binning）：将连续型变量分成多个区间（如将年龄分为“青年”、“中年”、“老年”）。
+| 多项式特征（Polynomial Features）：生成特征的多项式组合（如x, x², x³）。
+
+
+类别特征处理：
+
+| 独热编码（One-Hot Encoding）：将类别特征转换为二进制向量。
+| 标签编码（Label Encoding）：将类别特征转换为整数值。
+| 目标编码（Target Encoding）：用目标变量的统计值（如平均值）来替换类别特征。
+
+
+特征构造 Feature Construction
+''''''''''''''''''''''''''''''''''
+组合特征：比如相加，相乘等等 Feature Combination (e.g., addition, multiplication, etc.)
+
+
+降维 Dimensionality Reduction
+''''''''''''''''''''''''''''''''''
+PCA LDA SVD Autoencoder
+
+特征过多/维度灾难/解决方案 https://knowledge-record.readthedocs.io/zh-cn/latest/machine_learning/machine_learning.html#id46
+
+维度过高会导致样本在特征空间中分布稀疏
+
+
+
 数据清洗
 -----------------------
 数据清洗一是为了解决数据质量问题，二是让数据更适合做挖掘。
@@ -1071,7 +1120,7 @@ Rank Averaging
 ----------------------------------------
 维度灾难：https://zhuanlan.zhihu.com/p/26945814
 
-样本再在特征空间中分布稀疏
+样本在特征空间中分布稀疏
 
 使用太多特征导致过拟合。分类器学习了过多样本数据的异常特征(噪声)，而对新数据的泛化能力不好。
 
