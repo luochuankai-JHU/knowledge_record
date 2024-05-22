@@ -1047,7 +1047,7 @@ Rank Averaging
 
 
 
-有哪些常见的 Feature engineering特征工程
+有哪些常见的 Feature engineering 特征工程的方法
 ----------------------------------------------------
 常见的特征工程包括：
 
