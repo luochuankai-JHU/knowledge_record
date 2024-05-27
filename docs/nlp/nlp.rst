@@ -1030,8 +1030,74 @@ https://zhuanlan.zhihu.com/p/148656446
 
 史上最全Transformer面试题
 
+
+为什么在进行多头注意力的时候需要对每个head进行降维？（可以参考上面一个问题）
+--------------------------------------------------------------------------------------------
+额。。。这里顺便把QKV也讲一下
+
+.. image:: ../../_static/nlp/QKV.png
+	:align: center
+	:width: 500
+
+
+ei是 position vectors (not learned from data)
+
+.. image:: ../../_static/nlp/QKVSMALL.png
+	:align: center
+	:width: 150
+	
+一个 max_seq_len=210的句子，如上图中的x，通过word embedding，得到一个210*256的矩阵，如上图a。
+
+但实际a还是a1 a2 a3等单词组成的
+
+a 通过线性层（但还是210*256------210*256）,得到 QKV 三个矩阵，其实基本可以看成a'。然后通过上面的公式 Q和K(T)做点乘，除以dimensionK，然后softmax，然后乘V
+
+q是query，用于match其他人
+
+k:key  to be matched
+
+v: information to be extracted
+
+拿每个q去对每个k做attention
+
+scaled dot-product attention   α1,i = q1 * ki / 更号d  (d is the dim of q and k)
+
+α之间做个softmax 然后与vi做相乘
+
+b1 = Σα1,i * vi
+
+.. image:: ../../_static/nlp/self-att-wq.png
+
+Wq Wk Wv是参数共享的
+
+上面通过的这个线性层，我们的实际经验是，去掉线性层这个步骤效果没区别，而且参数量小很多。
+
+当多头的时候，比如8头，处理方法是210*256的矩阵变成  8个 210*32 的矩阵，然后multi-head attention的计算完成后再拼接起来。
+
+.. image:: ../../_static/nlp/multi-head-self-attention.png
+
+多头的时候，相当于是多了一组 Wq Wk Wv
+
+多头的用途相当于是CNN多个filter的作用，分别提取不同的特征
+
+作者的目的应该是怕头多了以后，在高维空间中参数量大，学习效果不好。
+
+https://www.cnblogs.com/rosyYY/p/10115424.html
+这篇文章讲的multihead不错，截图在下方：
+
+.. image:: ../../_static/nlp/multihead.png
+	:align: center
+
+记得多头之间参数不共享
+
+
+
+
 Transformer为何使用多头注意力机制？（为什么不使用一个头）
 ---------------------------------------------------------------
+
+
+
 
 这个目前还没有公认的解释，本质上是论文原作者发现这样效果确实好。但是普遍的说法是，使用多个头可以提供多个角度的信息。从多个角度提取特征。
 
@@ -1075,55 +1141,7 @@ Transformer计算attention的时候为何选择点乘而不是加法？两者计
 -------------------------------------------------------------------
 padding位置置为负无穷(一般来说-1000就可以)
 
-为什么在进行多头注意力的时候需要对每个head进行降维？（可以参考上面一个问题）
---------------------------------------------------------------------------------------------
-额。。。这里顺便把QKV也讲一下
 
-.. image:: ../../_static/nlp/QKV.png
-	:align: center
-	:width: 500
-
-.. image:: ../../_static/nlp/QKVSMALL.png
-	:align: center
-	:width: 150
-	
-一个 max_seq_len=210的句子，如上图中的x，通过word embedding，得到一个210*256的矩阵，如上图a。
-
-但实际a还是a1 a2 a3等单词组成的
-
-a 通过线性层（但还是210*256------210*256）,得到 QKV 三个矩阵，其实基本可以看成a'。然后通过上面的公式 Q和K(T)做点乘，除以dimensionK，然后softmax，然后乘V
-
-q是query，用于match其他人
-
-k:key  to be matched
-
-v: information to be extracted
-
-拿每个q去对每个k做attention
-
-scaled dot-product attention   α1,i = q1 * ki / 更号d  (d is the dim of q and k)
-
-α之间做个softmax 然后与vi做相乘
-
-b1 = Σα1,i * vi
-
-.. image:: ../../_static/nlp/self-att-wq.png
-
-Wq Wk Wv是参数共享的
-
-上面通过的这个线性层，我们的实际经验是，去掉线性层这个步骤效果没区别，而且参数量小很多。
-
-当多头的时候，比如8头，处理方法是210*256的矩阵变成  8个 210*32 的矩阵，然后multi-head attention的计算完成后再拼接起来。
-
-作者的目的应该是怕头多了以后，在高维空间中参数量大，学习效果不好。
-
-https://www.cnblogs.com/rosyYY/p/10115424.html
-这篇文章讲的multihead不错，截图在下方：
-
-.. image:: ../../_static/nlp/multihead.png
-	:align: center
-
-记得多头之间参数不共享
 
 Transformer的Encoder模块
 -----------------------------------
