@@ -579,7 +579,9 @@ seq2seq属于encoder-decoder结构的一种
 .. image:: ../../_static/nlp/seq2seq2.png
 	:width: 300
 
+.. image:: ../../_static/nlp/seq2seq3.png
 
+	
 一维卷积CNN和RNN
 ---------------------
 另外一种处理sequence或者timeseries问题的方法就是使用1维的卷积网络，并且跟上1维度的池化层。卷积或者池化的维度就是timestep的维度。它可以学习到一些local pattern，视它window大小而定。
