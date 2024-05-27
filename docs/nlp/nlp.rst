@@ -442,6 +442,19 @@ skip-thought
 	:align: center
 
 
+TextCNN
+--------------------------------
+.. image:: ../../_static/nlp/textcnn.png
+
+把文本通过向量表示之后，一行一行的组成一个二维向量矩阵
+
+将一个设计好的convolutional kernel扫过去得到中间向量
+
+中间向量进行max-pooling降维
+
+接softmax分类器
+
+
 
 句子的向量表示方法 / sentence2vec
 ----------------------------------------------------
@@ -581,6 +594,7 @@ CNN和RNN中梯度消失的区别
 --------------------------------------
 CNN因为网络层数太多导致，RNN因为时间迭代次数导致，都是因为链式求导次数太多。
 
+求导 derivative   de ri va tive 
 
 GRU LSTM BRNN
 --------------------------------
