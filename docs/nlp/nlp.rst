@@ -565,11 +565,20 @@ RNN及其变体LSTM等
 
 生成输出y1的时候，y1 = Softmax(Vh1 + c) 。剩下的输出类似进行 **（使用和y1同样的参数V和c）**
 
-为了输入输出不等长，所以出现了seq2seq （encoder decoder）
+为了输入输出不等长，所以出现了 seq2seq （encoder decoder）
 
 .. image:: ../../_static/nlp/seq2seq.png
 	:align: center
 	:width: 300
+
+
+seq2seq
+-----------------------
+seq2seq属于encoder-decoder结构的一种
+
+.. image:: ../../_static/nlp/seq2seq2.png
+	:width: 300
+
 
 一维卷积CNN和RNN
 ---------------------
