@@ -617,6 +617,43 @@ LSTM的梯度爆炸可通过梯度裁剪解决。
 .. image:: ../../_static/nlp/LSTM复杂度.png
 	:align: center
 
+
+
+LSTM简要介绍
+-----------------------------------
+建议之间看这个.. https://zhuanlan.zhihu.com/p/564057405
+
+后面的内容只是节选自这个文章
+
+.. image:: ../../_static/nlp/rnn_simple.png
+
+先看下RNN。会产生Gradient Vanishing 梯度消失的问题 because there are too many chain rule derivatives
+
+LSTM的全称是Long Short Term Memory。LSTM的提出正是为了解决长期依赖问题。
+
+LSTM增加了一个细胞状态(cell state)
+
+.. image:: ../../_static/nlp/LSTM-cell-state.png
+
+.. image:: ../../_static/nlp/LSTM-cell-state2.png
+
+LSTM网络能通过一种被称为门的结构对细胞状态进行删除或者添加信息。门能够有选择性的决定让哪些信息通过。其实门的结构很简单，就是一个sigmoid层和一个点乘操作的组合。
+
+遗忘门
+
+.. image:: ../../_static/nlp/LSTM-forget.png
+
+输入门
+
+.. image:: ../../_static/nlp/LSTM-input-gate.png
+
+输出门
+
+.. image:: ../../_static/nlp/LSTM-outputgate.png
+
+
+
+
 RNN LSTM  参数量
 --------------------------------------------
 RNN。U是输入，W是隐藏层，V是输出。那么参数量应该是dim(W)+dim(U)+dim(V)。
