@@ -1242,6 +1242,35 @@ https://zhuanlan.zhihu.com/p/54530247
 
 由于文本的长度不一致，例如这几句话，当句长大于4的时候，就只有一个样本了（剩下的全是padding）。做batch norm的话size太小，不能反映样本的整体分布。
 
+transformers 中的 tokenizers是什么
+----------------------------------------------------
+在Transformer模型中，tokenizer 是一个用于将文本数据转换为模型可处理的数值形式的工具。具体来说，tokenizer负责将文本字符串分割成单词、子词或字符（称为tokens），并将这些tokens映射到相应的整数索引。这个过程包括以下几个步骤：
+
+分词（Tokenization）:
+
+将输入的文本字符串分割成一系列tokens。根据不同的分词方法，可以是单词级别、子词级别（如BPE或WordPiece）或字符级别的tokens。
+例如，对于句子 "Transformers are powerful," 分词器可能将其分割为 ["Transformers", "are", "powerful", "."] 或 ["Transform", "ers", "are", "power", "ful", "."]。
+
+将tokens映射到索引（Token-to-Index Mapping）:
+
+将分割后的tokens转换为整数索引。这通常通过一个预定义的词汇表（vocabulary）来实现。词汇表是token到索引的映射。
+例如，假设词汇表中 "Transformers" 的索引是 1234, "are" 的索引是 567, "powerful" 的索引是 890，那么句子 ["Transformers", "are", "powerful", "."] 将被映射为 [1234, 567, 890, 999]（其中 999 可能是词汇表中句点的索引）。
+
+处理特殊tokens:
+
+Tokenizer 还会添加一些特殊的tokens，比如句子的起始（<s>）和结束（</s>）标记、填充（<pad>）标记、未知（<unk>）标记等，这些在模型的训练和推理过程中有特定的用途。
+例如，一个句子可能被处理为 ["<s>", "Transformers", "are", "powerful", ".", "</s>"] 并映射为相应的索引。
+
+句子对的处理:
+
+对于一些任务，如自然语言推理或问答，tokenizer 需要处理句子对。在这种情况下，tokenizer 会将两个句子连接起来，并插入分隔符token来区分它们。
+
+常见的分词算法包括：
+
+| WordPiece：用于BERT等模型，通过最小化词汇表大小和覆盖率来选择子词分割。
+| Byte Pair Encoding (BPE)：用于GPT等模型，通过合并最频繁的子词对来构建词汇表。
+| SentencePiece：一个独立于语言的分词器，常用于处理多语言文本。
+
 
 warmup
 -------------
