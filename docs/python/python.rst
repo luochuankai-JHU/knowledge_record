@@ -935,6 +935,8 @@ pandas和numpy
 
 看下别人是招SDE 还是MLE，要对应好了说，如果别人不是做ML model的，就不要一直在巴拉巴拉的说model
 
+介绍任何一个项目的时候都要说结果！！！ 不管是技术介绍还是BQ，biggest challenge，tight deadline
+
 **对面试官的问题：**
 
 | what do you like most about your positon?
