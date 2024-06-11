@@ -509,7 +509,7 @@ FiBiNet  微博2019
 	:width: 500
 
 | 内积是对应相乘
-| 关于元素积
+| 关于元素积(哈达玛积)
 
 .. image:: ../../_static/recommend/hadamard.png
 	:align: center
@@ -582,6 +582,7 @@ https://zhuanlan.zhihu.com/p/353223660
 DCN-V2(也称DCN-M  matrix)是在之前DCN-V1(也称DCN-V  vector)的基础上做了升级
 
 先复习一下DCN-V1
+````````````````````````
 
 .. image:: ../../_static/recommend/DCNV1.png
 
@@ -596,11 +597,36 @@ DCN-V2(也称DCN-M  matrix)是在之前DCN-V1(也称DCN-V  vector)的基础上�
 .. image:: ../../_static/recommend/dcn-v1-cross-frame.png
 
 
-x\ :sub:`0`,  x\ :sub:`l`,  w\ :sub:`l`, b\ :sub:`l` 都是d维的列向量，形状是(d,1)。x\ :sub:`0` x\ :sub:`l` w\ :sub:`l`  的形状是(d,1) * (1,d) * (d,1)=(d,1)，与  ,  一致。cross网络每一层仅增加2d个参数（ 
- 和 
- ），整体参数量为 
- （ 
- 为网络层数），参数量相比DNN是少得多的。
+x\ :sub:`0`,  x\ :sub:`l`,  w\ :sub:`l`, b\ :sub:`l` 都是d维的列向量，形状是(d,1)。x\ :sub:`0` x\ :sub:`l`T w\ :sub:`l`  的形状是(d,1) * (1,d) * (d,1)=(d,1)，
+与 x\ :sub:`l` 一致。cross网络每一层仅增加2d个参数（ w\ :sub:`l`, b\ :sub:`l`），整体参数量相比DNN是少得多的。
+
+这是一个字母同时有上标和下标的例子：A<sub>1</sub><sup>2</sup>
+
+
+
+DCN-V2的改进
+````````````````````````
+DCN中cross网络的参数是向量，DCN-M中换成了矩阵来提高表达能力、方便落地。DCN-M是指“DCN-matrix” ，原来的DCN在这里称为DCN-V（“DCN-vector”）。
+
+.. image:: ../../_static/recommend/dcnv2.png
+
+x\ :sub:`l+1` = x\ :sub:`0` ⊙ (W\ :sub:`l` * x\ :sub:`l`+ b\ :sub:`l`) + x\ :sub:`l`
+
+⊙是哈达玛积（Hadamard product），就是对应元素相乘，这个博客页面多次介绍过
+
+
+一句话介绍：
+
+to get next layer, element-wise multip the initial input x0 with the linear transformation (wx+b) of current layer xl, and then adding xl itself.
+
+.. image:: ../../_static/recommend/dcn-v2.png
+
+结构上有并行和串行两种，论文中说效果各有优劣。我们经过实验得出适合我们的是串行
+
+
+
+
+
 
 
 
