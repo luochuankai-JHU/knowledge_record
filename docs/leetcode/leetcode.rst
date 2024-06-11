@@ -553,6 +553,16 @@ https://leetcode.cn/problems/sort-an-array/solution/duo-chong-pai-xu-yi-wang-da-
 需要维护一个队列/单独栈
 ==================================
 
+好像有一个规律
+------------------------
+如果是要找递增，那么就维护一个递减的栈
+
+如果是找递减，那么就维护一个递增的栈。
+
+然后栈中被pop完后最后一个符合规则的，计算和这次的跨度
+
+
+
 柱状图中最大的矩形
 -----------------------------
 leetcode 84. 
@@ -3776,6 +3786,23 @@ bfs：从begin开始，找到所有能替换一个字母就达到的单词，存
     :align: center
     :width: 400
 
+
+还有一种解法::
+
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        sub = [nums[0]]
+        for num in nums[1:]:
+            if num > sub[-1]:
+                sub.append(num)
+            else:
+                i = bisect_left(sub, num)
+                sub[i] = num
+        return len(sub)
+
+这里bisect_left 的作用是，如果想插入一个数到list中，找到他的位置
+
+之前有种维护一个stack的做法，是需要pop或者push的。 0,1,0,3 这个例子就不对了. 因为不要求相邻，所以不需要pop干净，这里的替换就行
+
 打家劫舍
 -------------------
 | leetcode 198. 
@@ -4491,6 +4518,38 @@ leetcode 15. 和 leetcode 16
 都是先排序，再做双指针。第一个for循环是遍历，然后在他后面的元素里面，左指针是左边第一个，右指针是最右边。
 
 
+2340 - Minimum Adjacent Swaps to Make a Valid Array
+-------------------------------------------------------------
+You are given a 0-indexed integer array nums.
+
+Swaps of adjacent elements are able to be performed on nums.
+
+| A valid array meets the following conditions:
+| The largest element (any of the largest elements if there are multiple) is at the rightmost position in the array.
+| The smallest element (any of the smallest elements if there are multiple) is at the leftmost position in the array.
+| Return the minimum swaps required to make nums a valid array.
+::
+
+    def minimumSwaps(nums):
+        # 找到最小元素及其索引
+        min_val = min(nums)
+        min_index = nums.index(min_val)
+        
+        # 找到最大元素及其最后一个索引（从右侧开始）
+        max_val = max(nums)
+        max_index = len(nums) - 1 - nums[::-1].index(max_val)
+        
+        # 如果最小元素已经在最左边且最大元素已经在最右边
+        if min_index == 0 and max_index == len(nums) - 1:
+            return 0
+        
+        # 计算最小的交换次数
+        if min_index < max_index:
+            return min_index + (len(nums) - 1 - max_index)
+        else:
+            return min_index + (len(nums) - 1 - max_index) - 1
+
+amazon面经题目
 
 区间问题
 =======================
