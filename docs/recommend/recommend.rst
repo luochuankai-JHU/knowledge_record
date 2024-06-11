@@ -17,6 +17,9 @@
 ===================
 【推荐系统 python】推荐系统从入门到实战 https://www.youtube.com/watch?v=jNe1X6L1DyY&list=PLCemT-oocgalODXpQ-EP_IfrrD-A--40h
 
+！很多经典网络结构的代码实现  https://github.com/shenweichen/DeepCTR-Torch/tree/master
+
+
 整体概念
 =====================
 
@@ -572,10 +575,36 @@ DCN V2
 -------------------
 https://zhuanlan.zhihu.com/p/353223660
 
+还发现一个好东西！很多经典网络结构的代码实现  https://github.com/shenweichen/DeepCTR-Torch/tree/master
 
-.. image:: ../../_static/recommend/DCN_V2.png
-	:align: center
-	:width: 900
+我这里拾人牙慧一下。直接复制粘贴
+
+DCN-V2(也称DCN-M  matrix)是在之前DCN-V1(也称DCN-V  vector)的基础上做了升级
+
+先复习一下DCN-V1
+
+.. image:: ../../_static/recommend/DCNV1.png
+
+原始数据进来后，sparse features先embedding然后和dense features拼接在一起，作为输入
+
+右边的 deep network 就是简单的DNN
+
+左边的cross network的核心思想是更高效地实现显式特征交叉，每一层的计算如下： 
+
+.. image:: ../../_static/recommend/dcn-v1-cross.png
+
+.. image:: ../../_static/recommend/dcn-v1-cross-frame.png
+
+
+x\ :sub:`0`,  x\ :sub:`l`,  w\ :sub:`l`, b\ :sub:`l` 都是d维的列向量，形状是(d,1)。x\ :sub:`0` x\ :sub:`l` w\ :sub:`l`  的形状是(d,1) * (1,d) * (d,1)=(d,1)，与  ,  一致。cross网络每一层仅增加2d个参数（ 
+ 和 
+ ），整体参数量为 
+ （ 
+ 为网络层数），参数量相比DNN是少得多的。
+
+
+
+
 
 
 
