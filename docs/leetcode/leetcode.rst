@@ -8141,13 +8141,60 @@ A transformation sequence from word beginWord to word endWord using a dictionary
 
 310. Minimum Height Trees
 ----------------------------------------------------------
-A tree is an undirected graph in which any two vertices are connected by exactly one path. In other words, any connected graph without simple cycles is a tree.
+A tree is an undirected graph in which any two vertices are connected by exactly one path. In other words, any connected graph 
+without simple cycles is a tree.
 
-Given a tree of n nodes labelled from 0 to n - 1, and an array of n - 1 edges where edges[i] = [ai, bi] indicates that there is an undirected edge between the two nodes ai and bi in the tree, you can choose any node of the tree as the root. When you select a node x as the root, the result tree has height h. Among all possible rooted trees, those with minimum height (i.e. min(h))  are called minimum height trees (MHTs).
+Given a tree of n nodes labelled from 0 to n - 1, and an array of n - 1 edges where edges[i] = [ai, bi] indicates that there is 
+an undirected edge between the two nodes ai and bi in the tree, you can choose any node of the tree as the root. When you select a 
+node x as the root, the result tree has height h. Among all possible rooted trees, those with minimum height (i.e. min(h))  are 
+called minimum height trees (MHTs).
 
 Return a list of all MHTs' root labels. You can return the answer in any order.
 
 The height of a rooted tree is the number of edges on the longest downward path between the root and a leaf.
+
+::
+
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        store = []
+        if n == 1:
+            return [0]
+        for _ in range(n):
+            store.append(set())
+        for i, j in edges:
+            store[i].add(j)
+            store[j].add(i)
+        leaves = [i for i in range(n) if len(store[i]) == 1]
+        while n > 2:
+            n -= len(leaves)
+            next_level = []
+            for i in leaves:
+                j = store[i].pop()
+                store[j].remove(i)
+                if len(store[j]) == 1:
+                    next_level.append(j)
+            leaves = next_level
+        return leaves
+
+这个参考了https://leetcode.com/problems/minimum-height-trees/solutions/76055/share-some-thoughts/
+
+从叶子节点开始，一步步的缩减。最后的中心只能是1-2个节点。因为如果3个，那么需要排除边上两个找中间的。
+有点类似于物体的质心一定在一个点上，可以恰好是那个点，也可以两点在一条直线上，但一定不会是三个点
+
+下面这道是类似的题
+
+834. Sum of Distances in Tree
+-------------------------------------------
+There is an undirected connected tree with n nodes labeled from 0 to n - 1 and n - 1 edges.
+
+You are given the integer n and the array edges where edges[i] = [ai, bi] indicates that there is an edge between nodes ai and bi in the tree.
+
+Return an array answer of length n where answer[i] is the sum of the distances between the ith node in the tree and all other nodes.
+
+我还不会
+
+？？？???
+
 
 
 Trie
