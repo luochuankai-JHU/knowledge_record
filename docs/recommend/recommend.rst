@@ -158,9 +158,9 @@ https://zhuanlan.zhihu.com/p/371432647
 相当于乘上 1/log(i + 1)
 
 .. figure:: ../../_static/recommend/dcg.png
-	:alt: DCG计算举例
 	:width: 500
-
+	
+	DCG计算举例
 
 
 **NDCG(Normalized DCG): 归一化折损累计增益**
