@@ -144,7 +144,7 @@ NDCG : Normalized Discounted Cumulative Gain(归一化折损累计增益)
 ---------------------------------------------------------------------------
 https://zhuanlan.zhihu.com/p/371432647
 
-G-CG-DCG-NDCG
+演变过程： G -> CG -> DCG -> NDCG
 
 **Cumulative Gain: Gain的累加**
 
@@ -159,7 +159,7 @@ G-CG-DCG-NDCG
 
 .. image:: ../../_static/recommend/dcg.png
 	:alt: DCG计算举例
-	:scale: 70%
+	:scale: 50%
 
 
 
