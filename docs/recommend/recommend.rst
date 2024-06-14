@@ -148,7 +148,7 @@ https://zhuanlan.zhihu.com/p/371432647
 
 **Cumulative Gain: Gain的累加**
 
-.. image:: ../../_static/recommend/cg.png
+.. figure:: ../../_static/recommend/cg.png
 	:scale: 70%
 
 **Discounted Cumulative Gain**: 考虑排序顺序的因素，使得排名靠前的item增益更高，对排名靠后的item进行折损。
@@ -157,7 +157,7 @@ https://zhuanlan.zhihu.com/p/371432647
 
 相当于乘上 1/log(i + 1)
 
-.. image:: ../../_static/recommend/dcg.png
+.. figure:: ../../_static/recommend/dcg.png
 	:alt: DCG计算举例
 	:scale: 50%
 
