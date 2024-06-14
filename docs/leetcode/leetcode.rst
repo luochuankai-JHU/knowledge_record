@@ -52,6 +52,9 @@ Leetcode
         else:
             return binary(stand, mid + 1, right, potions)
 
+我发现由于//2操作是向下取整，所以涉及谁+1的时候，
+
+都是不包括mid=target的情况下left = mid+1，另一边是 **right = mid,保留mid==target的可能性**
 
 搜索旋转排序数组
 ------------------------------------
@@ -67,36 +70,25 @@ leetcode 33.
 
 你的算法时间复杂度必须是 O(log n) 级别。::
 
-    class Solution:
-        def search(self, nums: List[int], target: int) -> int:
-            def binary_search(List, target):
-                l, r = 0, len(List) - 1
-                while l <= r:
-                    mid = (l + r) // 2
-                    if List[mid] == target:
-                        return mid
-                    elif List[mid] > target:
-                        r = mid - 1
-                    elif List[mid] < target:
-                        l = mid + 1
-                return -1
+    def search(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            mid = (left + right) // 2
+            if left == right:
+                return left if nums[left] == target else -1
             
-            l,r = 0,len(nums)-1
-            while l<=r:
-                mid = (l+r)//2
-                if nums[mid]>=nums[l]:
-                    # 左边有序
-                    if nums[l]<=target<=nums[mid]:
-                        return binary_search(nums[l:mid+1], target)+l if binary_search(nums[l:mid+1], target)!=-1 else -1
-                    else:
-                        l = mid+1
-                elif nums[mid]<=nums[r]:
-                    # 右边有序
-                    if nums[mid]<=target<=nums[r]:
-                        return binary_search(nums[mid:r+1], target)+mid if binary_search(nums[mid:r+1], target)!=-1 else -1
-                    else:
-                        r = mid-1
-            return -1
+            if nums[mid] > nums[right]:
+                # rotate in right
+                if nums[left] <= target <= nums[mid]:
+                    right = mid
+                else:
+                    left = mid + 1
+            else:
+                # rotate in left
+                if nums[mid] < target <= nums[right]:
+                    left = mid + 1
+                else:
+                    right = mid
 
 
 在排序数组中查找元素的第一个和最后一个位置
@@ -121,7 +113,7 @@ leetcode 34.
                         r = mid - 1
                         if mid==0:
                             return res
-                    elif  nums[mid]<target:
+                    elif nums[mid]<target:
                         l = mid + 1
                     elif nums[mid]>target:
                         r = mid - 1
@@ -4097,211 +4089,7 @@ https://leetcode-cn.com/problems/target-sum/solution/python-dfs-xiang-jie-by-jim
 
 所以从 i-j+1 变成了 i- j的上一个
 
-单词拆分
-----------------------
-| leetocde 139. 
-| 给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。
 
-| 说明：
-| 拆分时可以重复使用字典中的单词。
-| 你可以假设字典中没有重复的单词。
-
-| 示例 1：
-| 输入: s = "leetcode", wordDict = ["leet", "code"]
-| 输出: true
-| 解释: 返回 true 因为 "leetcode" 可以被拆分成 "leet code"。
-
-| 示例 2：
-| 输入: s = "applepenapple", wordDict = ["apple", "pen"]
-| 输出: true
-| 解释: 返回 true 因为 "applepenapple" 可以被拆分成 "apple pen apple"。
-| 注意你可以重复使用字典中的单词。
-
-完全背包动态规划解法::
-
-    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        dp = [False] * (len(s))
-        wordset = set(wordDict)
-        for i in range(len(s)):
-            for j in range(i + 1, len(s) + 1):
-                if i == 0 and s[i:j] in wordset:
-                    dp[j - 1] = True
-                elif dp[i - 1] and s[i:j] in wordset:
-                    dp[j - 1] = True
-        return dp[-1]
-
-dfs递归解法::
-
-    def helper(i):
-        nonlocal flag
-        if flag or i == len(s):
-            flag = True
-            return True
-        if memory_no[i] == 0:
-            return False
-        for j in range(i + 1, len(s) + 1):
-            if s[i:j] in wordset:
-                if helper(j):
-                    return True
-        memory_no[i] = 0
-        return False
-    wordset = set(wordDict)
-    flag = False
-    memory_no = [1] * len(s)
-    helper(0)
-    return flag
-
-这里本来可以很简单的递归，但是这种情况过不了。
-
-| s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab
-| wordDict = ["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"]
-
-所以需要加上记忆化模块，如果在某个index处是到不了的，则需要记下来。
-
-
-请看下一题：
-
-单词拆分 II （递归中非常重要的一点！强调
------------------------
-| leetcode 140. 
-| 给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，在字符串中增加空格来构建一个句子，使得句子中所有的单词都在词典中。返回所有这些可能的句子。
-
-| 说明：
-| 分隔时可以重复使用字典中的单词。
-| 你可以假设字典中没有重复的单词。
-
-| 示例 1：
-| 输入:
-| s = "catsanddog"
-| wordDict = ["cat", "cats", "and", "sand", "dog"]
-| 输出:
-| [
-|   "cats and dog",
-|   "cat sand dog"
-| ]
-
-| 示例 2：
-| 输入:
-| s = "pineapplepenapple"
-| wordDict = ["apple", "pen", "applepen", "pine", "pineapple"]
-| 输出:
-| [
-|   "pine apple pen apple",
-|   "pineapple pen apple",
-|   "pine applepen apple"
-| ]
-
-| 解释: 注意你可以重复使用字典中的单词。
-
-::
-
-    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
-    
-        # 前几行处理特殊情况，但是除了lc上面的测试案例，一般不会这么无聊
-        # tmp = set("".join(wordDict))
-        # if any([i not in tmp for i in s]):
-        #     return []
-
-        dp = [['   ']] + [['']] * len(s)
-        store = set(wordDict)
-        for i in range(len(s)):
-            for j in wordDict:
-                if i+1-len(j) >= 0 and j == s[i+1-len(j):i+1] and dp[i+1-len(j)] !=['']:
-                    if dp[i + 1] == ['']:
-                        dp[i + 1] = [x +' '+ j for x in dp[i + 1 - len(j)]]
-                    else:
-                        dp[i + 1] += [x +' '+ j for x in dp[i + 1 - len(j)]]
-        if dp[-1]==['']:
-            return []
-        else:
-            return [x.strip() for x in dp[-1]]
-     
-这里的话，跟上一题相比需要保存当前为True的结果。由于输出格式的问题，所以dp里面每个元素用['']保存，第一个多一点空格，最后strip掉就好
-
-
-递归解法。强调递归中非常重要的一点！！！！！
-
-::
-
-    def helper(path, i):
-        # 以i为开头开始计算
-        if i >= len(s):
-            ans.append(path)
-            return True
-        if memno[i] == 0:
-            return False
-        flag = False
-        for j in range(i + 1, len(s) + 1):
-            if s[i:j] in wordset:
-                if helper(path + [s[i:j]], j):
-                    flag = True
-        if not flag:
-            memno[i] = 0
-            return False
-        return True
-    memno = [1] * len(s)
-    wordset = set(wordDict)            
-    ans = []
-    helper([], 0)
-    return [" ".join(cont) for cont in ans]
-
-
-这一题相比于上一题，在递归的时候需要把path也保留下来。一开始我没有写递归函数中最下面的15、16行（return True 和 return False）。这会造成在多重递归的时候，最尾巴的递归由于到了s的终点，能够返回
-True，
-**但是中间的递归却没有返回True或false给上一层**
-，所以上一层没有接收到信号，就变成了默认的None
-
-
-**递归的时候，如果确定是返回状态，一定要在结尾处也返回状态！！**
-
-
-
-
-为运算表达式设计优先级/ 对表达式添加括号并求值
------------------------------------------------------------------
-| leetcode 241. 
-| 给定一个含有数字和运算符的字符串，为表达式添加括号，改变其运算优先级以求出不同的结果。你需要给出所有可能的组合的结果。有效的运算符号包含 +, - 以及 * 。
-
-| 示例 1:
-| 输入: "2-1-1"
-| 输出: [0, 2]
-| 解释: 
-| ((2-1)-1) = 0 
-| (2-(1-1)) = 2
-
-| 示例 2:
-| 输入: "2*3-4*5"
-| 输出: [-34, -14, -10, -10, 10]
-| 解释: 
-| (2*(3-(4*5))) = -34 
-| ((2*3)-(4*5)) = -14 
-| ((2*(3-4))*5) = -10 
-| (2*((3-4)*5)) = -10 
-| (((2*3)-4)*5) = 10
-::
-
-    def diffWaysToCompute(self, input: str) -> List[int]:
-        def helper(arr):
-            if arr.isdigit():
-                return [int(arr)]
-            ans = []
-            for i in range(len(arr)):
-                if arr[i] in ["+","-","*"]:
-                    left = helper(arr[:i])
-                    right = helper(arr[i+1:])
-                    for x in left:
-                        for y in right:
-                            if arr[i] == "+":
-                                ans.append(x + y)
-                            elif arr[i] == "-":
-                                ans.append(x - y)
-                            else:
-                                ans.append(x * y)
-            return ans
-        return helper(input)
-
-
-思路：分治思想，分成两部分。遍历到一个符号的时候，可以递归得到左边的全部结果和右边的全部结果。然后看符号是什么，分别相加相减相乘。
 
 
 和为 K 的子数组
@@ -5814,6 +5602,96 @@ leetcode 172.
     :width: 600
 
 
+小于n的最大整数
+--------------------------
+字节面试题  https://leetcode.cn/circle/discuss/BlvA0l/
+
+通过给定的数字列表A和整数n，生成一个小于n的最大整数，其中每一位数字都属于列表A。例如A={1, 2, 4, 9}，n=2533，返回2499
+
+::
+
+    def solve(A, n):
+        A.sort()
+        nums = list(map(int, str(n)))  # 拆分位数
+        length = len(nums)
+        i = 0
+        while i < length - 1:
+            if nums[i] not in A or nums[i + 1] <= A[0]:
+                break
+            i += 1
+        
+        # 找到一个小的,然后再找大的
+
+        ## 如果出现最小的可选数都比当前位数的要大，则缺一位
+        if nums[i] <= A[0]:
+            return [A[-1]] * (length - 1)
+        
+        ## 正常返回 前面能匹配上的 + 小一点的 + 后面全选最大的
+        for j in range(len(A) - 1, -1 , -1):
+            if A[j] < nums[i]:
+                break
+        return nums[:i] + [A[j]] + [A[-1]] * (length - i - 1)
+
+**总体思路：**
+
+小于n的最大整数可以这样构造：前x位数相等，第 x+1 位数更小，剩下的数字尽可能大。因此可以枚举 x（0 <= x < n的位数），如果
+
+n的前x位数字都在数组A中；
+
+数组A中存在比 n的第x+1位数字 更小的数字，
+
+
+**注意：**
+::
+
+    while i < length - 1:
+    if nums[i] not in A or nums[i + 1] <= A[0]:
+        break
+    i += 1
+
+关于while和for
+
+这里还只能用while不能用for。 因为假设 solve([4, 5, 6, 9], 4956) == [4, 9, 5, 5] 这种情况。如果是for,到了倒数第二位会停下来，但此时并不知道这一位也是可以的。
+只有用while，才能做到已经遍历过的i都是符合条件的。
+
+备：测试案例::
+
+    assert solve([1, 2, 4, 9], 2533) == [2, 4, 9, 9]
+    assert solve([4, 2, 5, 9], 2451) == [2, 4, 4, 9]
+    assert solve([2], 1111) == [2, 2, 2]
+    assert solve([2], 33333) == [2, 2, 2, 2, 2]
+    assert solve([1,2,3], 321) == [3, 1, 3]
+    assert solve([1,2,3], 3) == [2]
+    assert solve([4,3,9], 44321) == [4, 3, 9, 9, 9]
+    assert solve([2,4,5], 24131) == [2, 2, 5, 5, 5]
+    assert solve([1, 2, 4, 9], 2409) == [2, 2, 9, 9]
+    assert solve([1, 2, 4, 9], 4921) == [4, 9, 1, 9]
+    assert solve([1, 2, 4, 9], 2100) == [1, 9, 9, 9]
+    assert solve([1, 2, 4, 9], 1) == []
+    assert solve([4, 5, 6, 9], 4956) == [4, 9, 5, 5]
+    assert solve([0, 4, 9], 4956) == [4, 9, 4, 9]
+    assert solve([6, 9], 589) == [9, 9]
+    assert solve([1], 4956) == [1, 1, 1, 1]
+    assert solve([6,7,8], 1200) == [8, 8, 8]
+    assert solve([2,3,5], 3211) == [2,5,5,5]
+    assert solve([1,2,9], 1201) == [1,1,9,9]
+    assert solve([1,2,4,9],999) == [9,9,4]
+    assert solve([1,2,4,9],1111) == [9,9,9]
+    assert solve([1,2,4,9],2533) == [2,4,9,9]
+    assert solve([1,2,4,9],4921) == [4,9,1,9]
+    assert solve([1,2,4,9],1249) == [1,2,4,4]
+    assert solve([2,4,5],24131) == [2,2,5,5,5]
+
+
+
+
+
+
+
+
+
+
+
 链表
 ===================
 
@@ -7085,7 +6963,7 @@ Since you can choose at most 2 projects, you need to finish the project indexed 
 .. image:: ../../_static/leetcode/89.png
     :align: center
     
-回溯
+回溯/递归
 =====================
 思路模仿自 https://leetcode-cn.com/problems/permutations/solution/hui-su-suan-fa-xiang-jie-by-labuladong-2/   
 
@@ -7629,6 +7507,264 @@ https://www.bilibili.com/video/BV1mY411D7f6/?vd_source=52a05014b8db18f0a2de12bb0
 可变类型——list, dict, set
 
 不可变类型——int, str, tuple
+
+
+
+
+
+
+单词拆分
+----------------------
+| leetocde 139. 
+| 给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。
+
+| 说明：
+| 拆分时可以重复使用字典中的单词。
+| 你可以假设字典中没有重复的单词。
+
+| 示例 1：
+| 输入: s = "leetcode", wordDict = ["leet", "code"]
+| 输出: true
+| 解释: 返回 true 因为 "leetcode" 可以被拆分成 "leet code"。
+
+| 示例 2：
+| 输入: s = "applepenapple", wordDict = ["apple", "pen"]
+| 输出: true
+| 解释: 返回 true 因为 "applepenapple" 可以被拆分成 "apple pen apple"。
+| 注意你可以重复使用字典中的单词。
+
+完全背包动态规划解法::
+
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False] * (len(s))
+        wordset = set(wordDict)
+        for i in range(len(s)):
+            for j in range(i + 1, len(s) + 1):
+                if i == 0 and s[i:j] in wordset:
+                    dp[j - 1] = True
+                elif dp[i - 1] and s[i:j] in wordset:
+                    dp[j - 1] = True
+        return dp[-1]
+
+dfs递归解法::
+
+    def helper(i):
+        nonlocal flag
+        if flag or i == len(s):
+            flag = True
+            return True
+        if memory_no[i] == 0:
+            return False
+        for j in range(i + 1, len(s) + 1):
+            if s[i:j] in wordset:
+                if helper(j):
+                    return True
+        memory_no[i] = 0
+        return False
+    wordset = set(wordDict)
+    flag = False
+    memory_no = [1] * len(s)
+    helper(0)
+    return flag
+
+这里本来可以很简单的递归，但是这种情况过不了。
+
+| s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab
+| wordDict = ["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"]
+
+所以需要加上记忆化模块，如果在某个index处是到不了的，则需要记下来。
+
+
+请看下一题：
+
+单词拆分 II （递归中非常重要的一点！强调
+-----------------------
+| leetcode 140. 
+| 给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，在字符串中增加空格来构建一个句子，使得句子中所有的单词都在词典中。返回所有这些可能的句子。
+
+| 说明：
+| 分隔时可以重复使用字典中的单词。
+| 你可以假设字典中没有重复的单词。
+
+| 示例 1：
+| 输入:
+| s = "catsanddog"
+| wordDict = ["cat", "cats", "and", "sand", "dog"]
+| 输出:
+| [
+|   "cats and dog",
+|   "cat sand dog"
+| ]
+
+| 示例 2：
+| 输入:
+| s = "pineapplepenapple"
+| wordDict = ["apple", "pen", "applepen", "pine", "pineapple"]
+| 输出:
+| [
+|   "pine apple pen apple",
+|   "pineapple pen apple",
+|   "pine applepen apple"
+| ]
+
+| 解释: 注意你可以重复使用字典中的单词。
+
+::
+
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+    
+        # 前几行处理特殊情况，但是除了lc上面的测试案例，一般不会这么无聊
+        # tmp = set("".join(wordDict))
+        # if any([i not in tmp for i in s]):
+        #     return []
+
+        dp = [['   ']] + [['']] * len(s)
+        store = set(wordDict)
+        for i in range(len(s)):
+            for j in wordDict:
+                if i+1-len(j) >= 0 and j == s[i+1-len(j):i+1] and dp[i+1-len(j)] !=['']:
+                    if dp[i + 1] == ['']:
+                        dp[i + 1] = [x +' '+ j for x in dp[i + 1 - len(j)]]
+                    else:
+                        dp[i + 1] += [x +' '+ j for x in dp[i + 1 - len(j)]]
+        if dp[-1]==['']:
+            return []
+        else:
+            return [x.strip() for x in dp[-1]]
+     
+这里的话，跟上一题相比需要保存当前为True的结果。由于输出格式的问题，所以dp里面每个元素用['']保存，第一个多一点空格，最后strip掉就好
+
+
+递归解法。强调递归中非常重要的一点！！！！！
+
+::
+
+    def helper(path, i):
+        # 以i为开头开始计算
+        if i >= len(s):
+            ans.append(path)
+            return True
+        if memno[i] == 0:
+            return False
+        flag = False
+        for j in range(i + 1, len(s) + 1):
+            if s[i:j] in wordset:
+                if helper(path + [s[i:j]], j):
+                    flag = True
+        if not flag:
+            memno[i] = 0
+            return False
+        return True
+    memno = [1] * len(s)
+    wordset = set(wordDict)            
+    ans = []
+    helper([], 0)
+    return [" ".join(cont) for cont in ans]
+
+
+这一题相比于上一题，在递归的时候需要把path也保留下来。一开始我没有写递归函数中最下面的15、16行（return True 和 return False）。这会造成在多重递归的时候，最尾巴的递归由于到了s的终点，能够返回
+True，
+**但是中间的递归却没有返回True或false给上一层**
+，所以上一层没有接收到信号，就变成了默认的None
+
+
+**递归的时候，如果确定是返回状态，一定要在结尾处也返回状态！！**
+
+
+
+
+为运算表达式设计优先级/ 对表达式添加括号并求值
+-----------------------------------------------------------------
+| leetcode 241. 
+| 给定一个含有数字和运算符的字符串，为表达式添加括号，改变其运算优先级以求出不同的结果。你需要给出所有可能的组合的结果。有效的运算符号包含 +, - 以及 * 。
+
+| 示例 1:
+| 输入: "2-1-1"
+| 输出: [0, 2]
+| 解释: 
+| ((2-1)-1) = 0 
+| (2-(1-1)) = 2
+
+| 示例 2:
+| 输入: "2*3-4*5"
+| 输出: [-34, -14, -10, -10, 10]
+| 解释: 
+| (2*(3-(4*5))) = -34 
+| ((2*3)-(4*5)) = -14 
+| ((2*(3-4))*5) = -10 
+| (2*((3-4)*5)) = -10 
+| (((2*3)-4)*5) = 10
+::
+
+    def diffWaysToCompute(self, input: str) -> List[int]:
+        def helper(arr):
+            if arr.isdigit():
+                return [int(arr)]
+            ans = []
+            for i in range(len(arr)):
+                if arr[i] in ["+","-","*"]:
+                    left = helper(arr[:i])
+                    right = helper(arr[i+1:])
+                    for x in left:
+                        for y in right:
+                            if arr[i] == "+":
+                                ans.append(x + y)
+                            elif arr[i] == "-":
+                                ans.append(x - y)
+                            else:
+                                ans.append(x * y)
+            return ans
+        return helper(input)
+
+
+思路：分治思想，分成两部分。遍历到一个符号的时候，可以递归得到左边的全部结果和右边的全部结果。然后看符号是什么，分别相加相减相乘。
+
+
+
+394. Decode String
+-------------------------------
+Given an encoded string, return its decoded string.
+
+The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer.
+
+You may assume that the input string is always valid; there are no extra white spaces, square brackets are well-formed, etc. Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k. For example, there will not be input like 3a or 2[4].
+
+The test cases are generated so that the length of the output will never exceed 105.
+
+| Example 1:
+| Input: s = "3[a]2[bc]"
+| Output: "aaabcbc"
+
+| Example 2:
+| Input: s = "3[a2[c]]"
+| Output: "accaccacc"
+::
+
+    def decodeString(self, s: str) -> str:
+        def bracket(i):
+            ans = ""
+            cnt = 0
+            if i > length - 1:
+                return ans, i
+            j = i
+            while j <= length - 1:
+                if s[j].isalpha():
+                    ans += s[j]
+                    j += 1
+                elif s[j].isdigit():
+                    cnt = cnt * 10 + int(s[j])
+                    j += 1
+                elif s[j] == "[":
+                    next_ans, next_j = bracket(j + 1)
+                    ans += cnt * next_ans
+                    cnt = 0
+                    j = next_j
+                elif s[j] == "]":
+                    return ans, j + 1
+            return ans, j + 1
+        length = len(s)
+        return bracket(0)[0]
+
 
 图
 ====================
