@@ -149,12 +149,19 @@ G-CG-DCG-NDCG
 **Cumulative Gain: Gain的累加**
 
 .. image:: ../../_static/recommend/cg.png
+	:scale: 70%
 
 **Discounted Cumulative Gain**: 考虑排序顺序的因素，使得排名靠前的item增益更高，对排名靠后的item进行折损。
 
 相当于乘上了一个随着index的折损系数。DCG在CG的基础上，给每个item的相关性除以log2(i+1)，i越大，log2(i+1)的值越大，相当于给每个item的相关性打个折扣，item越靠后，折扣越大。
 
 相当于乘上 1/log(i + 1)
+
+.. image:: ../../_static/recommend/dcg.png
+	:alt: DCG计算举例
+	:scale: 70%
+
+
 
 **NDCG(Normalized DCG): 归一化折损累计增益**
 
