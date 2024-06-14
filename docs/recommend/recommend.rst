@@ -140,6 +140,34 @@
 
 
 
+NDCG : Normalized Discounted Cumulative Gain(归一化折损累计增益)
+---------------------------------------------------------------------------
+https://zhuanlan.zhihu.com/p/371432647
+
+G-CG-DCG-NDCG
+
+**Cumulative Gain: Gain的累加**
+
+.. image:: ../../_static/recommend/cg.png
+
+**Discounted Cumulative Gain**: 考虑排序顺序的因素，使得排名靠前的item增益更高，对排名靠后的item进行折损。
+
+相当于乘上了一个随着index的折损系数。DCG在CG的基础上，给每个item的相关性除以log2(i+1)，i越大，log2(i+1)的值越大，相当于给每个item的相关性打个折扣，item越靠后，折扣越大。
+
+相当于乘上 1/log(i + 1)
+
+**NDCG(Normalized DCG): 归一化折损累计增益**
+
+DCG基础上做了个归一化。所除的base 就是最佳情况下的 IDCG i means ideal 
+
+解决每个result的list长度不一致导致无法比较的问题。都化成0-1范围的百分比
+
+
+.. math::
+
+  NDCG = \frac{DCG}{IDCG}
+
+
 A/B testing
 =====================
 学习资料
@@ -333,8 +361,6 @@ ABtest有什么缺点？
 应用于短期行为，不适用于需要很长时间才能完成的测试
 
 需要的用户人数较多，要有足够的样本量
-
-
 
 
 
