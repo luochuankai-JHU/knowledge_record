@@ -621,11 +621,14 @@ resnet有关
 
 Accuracy、Precision、Recall、AUC F1 等分类问题评价指标
 -----------------------------------------------------------
-| F1 score
+| AUC
 | https://www.zhihu.com/question/39840928
- 
-| TPrate就是 预测是对的也真是对的 除以 真的是对的 TP/所有原本的T
-| FPrate就是 预测是对的但是是错的 除以 真的是错的 FP/所有原本的F
+
+在ROC_AUC曲线中，横轴是False Positive Rate（FPR，假阳性率），纵轴是True Positive Rate（TPR，真阳性率）。
+
+| FPrate就是 预测是对的但是是错的 除以 真的是错的 FP/所有原本的N
+| TPrate就是 预测是对的也真是对的 除以 真的是对的 TP/所有原本的P (就是recall)
+
 
 .. image:: ../../_static/cv/TPrate.png
 	:align: center
@@ -640,10 +643,6 @@ AUC其实也分为 PR_AUC和ROC_AUC 至少这两种。一般说的多的是ROC_A
 
 当我们说“在每个可能的阈值处绘制精度和召回率”时，我们的意思是创建一个图表，其中 x 轴代表召回率，y 轴代表精度，并且图表上的每个点对应于不同的阈值。 该图称为精确率-召回率曲线。 该曲线下的面积 (PR AUC) 为我们提供了模型在所有阈值上的性能的单一衡量标准，值越高表示性能越好。
 
-
-| 
-| 
-| 
 
 默认情况下，许多分类模型使用阈值 0.5。 这意味着，如果模型估计正类的概率大于或等于 0.5，则将该实例分类为正类； 否则，将其分类为负数。
 
@@ -682,7 +681,8 @@ AUC其实也分为 PR_AUC和ROC_AUC 至少这两种。一般说的多的是ROC_A
 
 
 
-| F1 score
+**F1 score**
+
 | F1 = 2TP / (2TP + FP + FN)
 | 召回率Recall和精确率Precision的几何平均数  (就是Precision 和 recall 分子直接相加，分母直接相加)
 
