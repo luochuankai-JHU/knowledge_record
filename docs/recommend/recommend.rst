@@ -159,8 +159,9 @@ https://zhuanlan.zhihu.com/p/371432647
 
 .. figure:: ../../_static/recommend/dcg.png
 	:width: 500
-	
+
 	DCG计算举例
+	:align: center
 
 
 **NDCG(Normalized DCG): 归一化折损累计增益**
