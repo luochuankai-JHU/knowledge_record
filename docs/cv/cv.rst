@@ -631,7 +631,8 @@ Accuracy、Precision、Recall、AUC F1 等分类问题评价指标
 
 
 .. image:: ../../_static/cv/TPrate.png
-	:align: center
+
+
 
 AUC ，Area Under Curve
 
