@@ -6514,6 +6514,78 @@ big.next = None这个不要忘了，不然没有尾结点
                 cur = cur.next
         return dummy.next
 
+
+146. LRU Cache
+-----------------------------------
+Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
+
+| Implement the LRUCache class:
+| LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
+| int get(int key) Return the value of the key if the key exists, otherwise return -1.
+| void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.
+| The functions get and put must each run in O(1) average time complexity.
+
+| Example 1:
+| Input
+| ["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+| [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+| Output
+| [null, null, null, 1, null, -1, null, -1, 3, 4]
+::
+
+    class Node:
+        def __init__(self, key=0, value=0, prev=None, next=None):
+            self.key = key
+            self.value = value
+            self.prev = prev
+            self.next = next
+
+    class LRUCache:
+
+        def __init__(self, capacity: int):
+            self.capacity = capacity
+            self.key_to_node = dict()
+            self.head, self.tail = Node(), Node()
+            self.tail.prev = self.head
+            self.head.next = self.tail
+
+        def remove(self, node):
+            node.prev.next, node.next.prev = node.next, node.prev
+
+        def put_first(self, node):
+            node.prev = self.head
+            node.next = self.head.next
+            self.head.next.prev = node
+            self.head.next = node
+
+        def get(self, key: int) -> int:
+            if key not in self.key_to_node:
+                return -1
+            node = self.key_to_node[key]
+            self.remove(node)
+            self.put_first(node)
+            return node.value
+
+        def put(self, key: int, value: int) -> None:
+            if key not in self.key_to_node:
+                node = Node(key, value)
+                self.key_to_node[key] = node
+                if len(self.key_to_node) > self.capacity:
+                    node = self.tail.prev
+                    self.remove(node)
+                    del self.key_to_node[node.key]
+                node = self.key_to_node[key]
+                self.put_first(node)
+            else:
+                node = self.key_to_node[key]
+                node.value = value
+                self.remove(node)
+                self.put_first(node)
+
+参考了解析https://leetcode.cn/problems/lru-cache/solutions/12711/lru-ce-lue-xiang-jie-he-shi-xian-by-labuladong/
+
+设置一个头节点和尾节点。实现 remove、put_first操作
+
 Heap堆
 ========================
 Heap堆解题套路  https://www.youtube.com/watch?v=vIXf2M37e0k
