@@ -6556,7 +6556,7 @@ Design a data structure that follows the constraints of a Least Recently Used (L
             node.prev = self.head
             node.next = self.head.next
             self.head.next.prev = node
-            self.head.next = node
+            self.head.next = node # 这里顺序很重要！
 
         def get(self, key: int) -> int:
             if key not in self.key_to_node:

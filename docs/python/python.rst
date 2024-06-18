@@ -937,6 +937,8 @@ pandas和numpy
 
 介绍任何一个项目的时候都要说结果！！！ 不管是技术介绍还是BQ，biggest challenge，tight deadline
 
+小公司 和 fintech公司会问。为什么选择小公司，为什么选择fintech
+
 **对面试官的问题：**
 
 | what do you like most about your positon?

@@ -3,9 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-******************
+**********************
 实用工具
-******************
+**********************
 
 
 github操作
@@ -425,3 +425,22 @@ what is the end to end machine learning life cycle.
 | **13. Continuous Improvement**
 | Objective: Enhance model over time.
 | Activities: Iterate based on feedback and new data, explore new features and models.
+
+
+
+
+
+
+
+
+
+
+******************
+system Design
+******************
+
+https://www.youtube.com/watch?v=KYExYE_9nIY
+
+whimsical  
+
+sql vs nosql
