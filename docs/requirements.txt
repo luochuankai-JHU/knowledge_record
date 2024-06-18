@@ -51,7 +51,7 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
-urllib3==1.26.18
+urllib3==1.26.19
     # via requests
 recommonmark==0.7.1
 sphinx_markdown_tables==0.0.17
