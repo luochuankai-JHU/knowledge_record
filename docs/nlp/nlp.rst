@@ -232,6 +232,14 @@ Albert原文里对SOP和NSP的评价是：SOP是一个更有挑战性并且更�
 
 
 
+focal_loss 和 label_smoothing
+--------------------------------------------
+怕找不到
+
+focal_loss:  https://knowledge-record.readthedocs.io/zh-cn/latest/cv/cv.html#focal-loss  正负样本不均衡
+
+label_smoothing:   训练样本有误差（本来正负样本是1和0，现在变成0.1和0.9  差距没那么大）
+
 基础知识
 ==================
 
