@@ -311,6 +311,53 @@ c) 列表蒸馏:
 | 收入或利润指标:如每次展示收入(Revenue per Impression)等
 
 
+
+pairwise 排序
+------------------------
+
+pairwise 的样本在train和eval的时候是怎么生成的
+````````````````````````````````````````````````````````````````````````
+对于正样本A，随机选择一个负样本B，生成一个pairwise样本（A, B）。
+
+| 查询特征（Query Features）
+| 第一个候选项特征（Features1，对应X）
+| 第二个候选项特征（Features2，对应Y）
+| 标签（Label，表示X和Y的相对优劣）
+
+具体组成方式：
+
+特征拼接：
+	最常见的方法是将这些特征简单地拼接在一起，形成一个长向量。
+
+	样本 = [Query Features, Features1, Features2]
+
+特征交互：
+	有时会计算X和Y与查询的一些交互特征，以捕捉更复杂的关系。::
+
+		interaction_features1 = compute_interaction(query_features, features1)
+		interaction_features2 = compute_interaction(query_features, features2)
+		sample = query_features + features1 + features2 + interaction_features1 + interaction_features2
+
+特征差异：
+	某些模型可能关注X和Y之间的差异，所以会计算特征差::
+
+		feature_diff = [x - y for x, y in zip(features1, features2)]
+		sample = query_features + features1 + features2 + feature_diff
+
+高级方法：
+	在一些更复杂的模型中，可能会使用神经网络来自动学习特征交互。
+
+在pairwise学习模型的评估阶段，确实无法直接预测单个项目A是否匹配查询。这是pairwise方法的一个重要特征，也是它与pointwise方法的主要区别之一。
+
+因为这类模型被训练来比较两个项目相对于查询的相关性。它不直接输出单个项目的绝对相关性分数。
+
+
+评估过程：
+
+通常需要至少两个候选项来进行比较。
+模型会给出这两个项目的相对排序。
+
+
 A/B testing
 =====================
 学习资料
