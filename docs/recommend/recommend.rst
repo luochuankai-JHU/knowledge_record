@@ -193,7 +193,7 @@ DCG基础上做了个归一化。所除的base 就是最佳情况下的 IDCG i m
 
 **模型压缩:**
 
-| 量化:将模型权重从浮点数转为整数
+| 量化(Quantitation):将模型的参数从高精度（通常是32位浮点数）表示转换为低精度表示（如8位整数）
 | 剪枝(Pruning):移除不重要的神经元或连接
 | 知识蒸馏 Distillation :将大模型知识转移到小模型
 
@@ -356,6 +356,12 @@ pairwise 的样本在train和eval的时候是怎么生成的
 
 通常需要至少两个候选项来进行比较。
 模型会给出这两个项目的相对排序。
+
+评价指标
+`````````````````````````
+AUC（Area Under the ROC Curve）：常用于评估排序质量。
+
+NDCG（Normalized Discounted Cumulative Gain）：评估排序的相关性和位置。
 
 
 A/B testing
