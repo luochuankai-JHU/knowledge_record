@@ -4339,6 +4339,53 @@ Swaps of adjacent elements are able to be performed on nums.
 
 amazon面经题目
 
+1031. Maximum Sum of Two Non-Overlapping Subarrays(list前缀和)
+---------------------------------------------------------------------------------
+1031. Maximum Sum of Two Non-Overlapping Subarrays
+
+Given an integer array nums and two integers firstLen and secondLen, return the maximum sum of elements in two non-overlapping subarrays with lengths firstLen and secondLen.
+
+The array with length firstLen could occur before or after the array with length secondLen, but they have to be non-overlapping.
+
+A subarray is a contiguous part of an array.
+
+| Example 1:
+| Input: nums = [0,6,5,2,2,5,1,9,4], firstLen = 1, secondLen = 2
+| Output: 20
+| Explanation: One choice of subarrays is [9] with length 1, and [6,5] with length 2.
+| Example 2:
+| Input: nums = [3,8,1,3,2,1,8,9,0], firstLen = 3, secondLen = 2
+| Output: 29
+| Explanation: One choice of subarrays is [3,8,1] with length 3, and [8,9] with length 2.
+::
+
+    def maxSumTwoNoOverlap(self, nums: List[int], firstLen: int, secondLen: int) -> int:
+        pre_sum = []
+        temp = 0
+        for i in range(len(nums)):
+            temp += nums[i]
+            pre_sum.append(temp)
+        def help(firstLen, secondLen, symbol):
+            if symbol == "reverse":
+                firstLen, secondLen = secondLen, firstLen
+            max_ans = sum(nums[:firstLen + secondLen])
+            max_left = sum(nums[:firstLen])
+            for j in range(firstLen + secondLen, len(nums)):
+                # j=3, j - secondLen=1, j - secondLen - firstLen=0
+                max_left = max(max_left, pre_sum[j - secondLen] - pre_sum[j - secondLen - firstLen])
+                max_ans = max(max_ans, max_left + pre_sum[j] - pre_sum[j - secondLen])
+            return max_ans
+        ans1 = help(firstLen, secondLen, " ")
+        ans2 = help(firstLen, secondLen, "reverse")
+        return max(ans1, ans2)    
+
+
+这个参考了解析。用list中的前缀和
+
+如果在写代码的时候搞不清index，就像我这样# j=3, j - secondLen=1, j - secondLen - firstLen=0 写下来。然后带入数值去看 对不对
+
+
+
 区间问题
 =======================
 
