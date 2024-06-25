@@ -547,7 +547,7 @@ https://leetcode.cn/problems/sort-an-array/solution/duo-chong-pai-xu-yi-wang-da-
 
 好像有一个规律
 ------------------------
-如果是要找递增，那么就维护一个递减的栈
+如果是要找递增，那么就维护一个递减的栈。因为这样才能更新并且留下最大值
 
 如果是找递减，那么就维护一个递增的栈。
 
