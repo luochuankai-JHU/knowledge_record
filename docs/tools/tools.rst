@@ -444,3 +444,37 @@ https://www.youtube.com/watch?v=KYExYE_9nIY
 whimsical  
 
 sql vs nosql
+
+
+
+回答时候大致的流程
+--------------------------
+
+先问些问题，比如user Number，text image video? xxx这些功能是否需要
+
+打开 whimsical
+
+做一些文字记录，关键数据
+
+calculation: 然后开始计算内存
+
+都有哪些组成部分 title timestamp comments
+
+each character  int 2 bytes 
+
+需要一些 mircoservice
+
+| web server
+| app server
+| ranking service
+| feed service
+| user services (has db)
+| post service (has db) nosql server - horizontal scalability, shard by post id (consistant hash)
+| object store to store images
+| Load Balance
+
+sql vs nosql
+
+cache
+
+
