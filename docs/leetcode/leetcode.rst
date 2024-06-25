@@ -5490,6 +5490,47 @@ https://leetcode-cn.com/problems/maximal-rectangle/solution/zhong-die-fa-kuai-su
 为什么是以列来两个指针遍历？ 因为按照行的话不好求和
 
 
+
+329. Longest Increasing Path in a Matrix
+-----------------------------------------------------------------------
+Given an m x n integers matrix, return the length of the longest increasing path in matrix.
+
+From each cell, you can either move in four directions: left, right, up, or down. You may not move diagonally or move outside the boundary (i.e., wrap-around is not allowed).
+
+.. image:: ../../_static/leetcode/329.png
+
+::
+
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        path = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        m, n = len(matrix), len(matrix[0])
+        store = [[0] * n for _ in range(m)]
+        def dfs(i, j):
+            if store[i][j] != 0:
+                return store[i][j]
+            store[i][j] = 1
+            for x, y in path:
+                x += i
+                y += j
+                if 0 <= x <= m - 1 and 0 <= y <= n - 1 and matrix[i][j] > matrix[x][y]:
+                    store[i][j] = max(store[i][j], dfs(x, y) + 1)
+            return store[i][j]
+        cnt = 0
+        for i in range(m):
+            for j in range(n):
+                if store[i][j] != 0:
+                    cnt = max(cnt, store[i][j])
+                else:
+                    cnt = max(cnt, dfs(i, j))
+        return cnt  
+
+dfs + 记忆化搜索
+
+一直找，找到最小的1为止
+
+参考思路：https://leetcode.cn/problems/longest-increasing-path-in-a-matrix/solutions/347215/ji-ge-wen-da-kan-dong-shen-du-sou-suo-ji-yi-hua-sh/
+
+
 找规律&斐波拉契&数学
 =============================
 
