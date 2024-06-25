@@ -742,8 +742,8 @@ leetcode 456.
     def find132pattern(self, nums: List[int]) -> bool:
         if len(nums) < 3:
             return False
-        k = -float(inf)
-        stack = []
+        k = -float(inf)  # i,j,k
+        stack = []  # decrease
         for i in range(len(nums) - 1, -1, -1):
             if nums[i] < k:
                 return True
@@ -755,8 +755,7 @@ leetcode 456.
 
 https://leetcode.cn/problems/132-pattern/solution/xiang-xin-ke-xue-xi-lie-xiang-jie-wei-he-95gt/
 
-
-
+stack[-1] < nums[i]: 一定要是<  而不是 <=  因为下一行是要更新k的。不然倒数几位是 [1, -2, 1, 1]，1就会更新k了
 
 滑动窗口
 ================================
@@ -4429,6 +4428,7 @@ Return the length of the longest well-performing interval.
 
 这一步很重要，不然处理不了[9,9,9]的情况
 
+搓哥面试题哈哈哈
 
 区间问题
 =======================
