@@ -5518,10 +5518,7 @@ From each cell, you can either move in four directions: left, right, up, or down
         cnt = 0
         for i in range(m):
             for j in range(n):
-                if store[i][j] != 0:
-                    cnt = max(cnt, store[i][j])
-                else:
-                    cnt = max(cnt, dfs(i, j))
+                cnt = max(cnt, dfs(i, j))
         return cnt  
 
 dfs + 记忆化搜索
@@ -5530,6 +5527,54 @@ dfs + 记忆化搜索
 
 参考思路：https://leetcode.cn/problems/longest-increasing-path-in-a-matrix/solutions/347215/ji-ge-wen-da-kan-dong-shen-du-sou-suo-ji-yi-hua-sh/
 
+请看下一题
+
+
+最长波动路径
+-----------------------
+Tiktok面试题
+
+给定一个矩阵，比如[[2,1,3],[4,2,1],[3,5,5]], 一个valid sequence[a,b,c,d,e.....]需要满足a < b > c < d > e <......，假设可以从矩阵任意一个点出发，只能上下左右移动，让longest length of all valid sequences.
+
+答案from Claude 3.5 Sonnet
+::
+
+    def longestValidSequence(matrix):
+        if not matrix or not matrix[0]:
+            return 0
+        
+        m, n = len(matrix), len(matrix[0])
+        dp_up = [[1] * n for _ in range(m)]
+        dp_down = [[1] * n for _ in range(m)]
+        
+        def dfs(i, j, prev, is_up):
+            if i < 0 or i >= m or j < 0 or j >= n:
+                return 0
+            if is_up and matrix[i][j] <= prev:
+                return 0
+            if not is_up and matrix[i][j] >= prev:
+                return 0
+            
+            dp = dp_down if is_up else dp_up
+            if dp[i][j] > 1:
+                return dp[i][j]
+            
+            max_len = 1
+            for di, dj in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+                new_i, new_j = i + di, j + dj
+                max_len = max(max_len, 1 + dfs(new_i, new_j, matrix[i][j], not is_up))
+            
+            dp[i][j] = max_len
+            return max_len
+        
+        result = 0
+        for i in range(m):
+            for j in range(n):
+                result = max(result, dfs(i, j, -float('inf'), True), dfs(i, j, float('inf'), False))
+        
+        return result
+
+这里多一点：需要递增矩阵和递减矩阵。需要传上一个值。需要传递增还是递减
 
 找规律&斐波拉契&数学
 =============================
