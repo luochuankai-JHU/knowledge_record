@@ -1768,7 +1768,53 @@ Leetcode 426. Convert Binary Search Tree to Sorted Doubly Linked List (BST转换
 ----------------------------------------------------------------------------------------------------------------------------------
 tt面试题
 
-将一个二叉树的中序遍历转换成双向链表。要求原地转换
+将一个二叉树的中序遍历转换成双向链表。要求原地转换，自己写完整的代码，自己构造测试案例::
+
+    class Node():
+        def __init__(self, val=None, left=None, right=None, next=None, prev=None):
+            self.val = val
+            self.left = left
+            self.right = right
+            self.next= next
+            self.prev = prev
+
+    def tree2linkedlist(node):
+        def inorder(node):
+            nonlocal head, last
+            if not node:
+                return None
+            inorder(node.left)
+            if not head.val:
+                head = node
+                last = node
+            else:
+                node.prev = last
+                last.next = node
+                last = node
+            inorder(node.right)
+        head, last = Node(), Node()
+        inorder(node)
+        return head
+
+    node = Node(1)
+    node.left = Node(2)
+    node.right = Node(3)
+    node.left.left = Node(4)
+    node.left.right = Node(5)
+    node.right.left = Node(6)
+    node.right.right = Node(7)
+    head = tree2linkedlist(node)
+    while head:
+        print(head.val)
+        head = head.next
+
+
+我建议每次code interview之前，把常见的模板都背一遍。免得不记得中序遍历
+
+然后if not head.val 这里要注意不是 if not head
+
+不是存上一个节点是谁，而是存中序遍历的上一个节点是谁
+
 
 LeetCode 114. 
 ---------------------
