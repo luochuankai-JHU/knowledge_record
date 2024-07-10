@@ -1771,7 +1771,44 @@ tt面试题
 将BST结构转化成双链表结构，使得每一个节点连接他的前驱结点和后继节点，并且头，尾两个节点也要相连。要求不开额外空间
 ::
 
-    pass
+    """
+    将BST结构转化成双链表结构，使得每一个节点连接他的前驱结点和后继节点，并且头，尾两个节点也要相连。要求不开额外空间
+    """
+
+    class Node():
+        def __init__(self, val=None, left=None, right=None):
+            self.val = val
+            self.left = left
+            self.right = right
+
+    def tree2linkedlist(node):
+        def inorder(node):
+            nonlocal last, head
+            if not node:
+                return None
+            inorder(node.left)
+            if not last:
+                head = node
+            else:
+                last.right = node
+                node.left = last
+            last = node
+            inorder(node.right)
+        head, last = None, None
+        inorder(node)
+        return head
+
+    node = Node(1)
+    node.left = Node(2)
+    node.right = Node(3)
+    node.left.left = Node(4)
+    node.left.right = Node(5)
+    node.right.left = Node(6)
+    node.right.right = Node(7)
+    head = tree2linkedlist(node)
+    while head:
+        print(head.val)
+        head = head.right
 
     
 
