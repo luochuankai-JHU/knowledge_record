@@ -1815,9 +1815,62 @@ tt面试题
 
 不是存上一个节点是谁，而是存中序遍历的上一个节点是谁
 
+请看下一道题。有点像，但别搞混了
 
-LeetCode 114. 
+114. Flatten Binary Tree to Linked List
 ---------------------
+Given the root of a binary tree, flatten the tree into a "linked list":
+
+| The "linked list" should use the same TreeNode class where the right child pointer points to the next node in the list and the left child pointer is always null.
+| The "linked list" should be in the same order as a pre-order traversal of the binary tree.
+::
+
+    def flatten(self, root: Optional[TreeNode]) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        def preorder(node):
+            nonlocal last
+            if not node:
+                return None
+            preorder(node.right)
+            preorder(node.left)
+            if not last:
+                last = node
+            else:
+                node.right = last
+                node.left = None
+                last = node
+        last = None
+        preorder(root)
+
+这里由于是先序遍历，所以是preorder(node.right)，preorder(node.left) 最后再处理当前node。而且和上一题不一样的是，这里还是用right而不是next。
+所以直接像上一题一样会出现丢失原本的right的情况。这里可以用后续遍历，这样不影响之前的值
+
+这里要特别注意，last = None 而不是last=TreeNode(None)
+
+
+或者这样也可以，存一下::
+
+    def flatten(self, root: Optional[TreeNode]) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        def preorder(node):
+            nonlocal last
+            if not node:
+                return None
+            l, r = node.left, node.right
+            if not last:
+                last = node
+            else:
+                last.right = node
+                last.left = None
+                last = node
+            preorder(l)
+            preorder(r)
+        last = None
+        preorder(root)
 
 
 二叉搜索树 Binary Search Tree
