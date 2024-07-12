@@ -4584,6 +4584,55 @@ Return the length of the longest well-performing interval.
 
 搓哥面试题哈哈哈
 
+
+135. Candy
+---------------------
+There are n children standing in a line. Each child is assigned a rating value given in the integer array ratings.
+
+You are giving candies to these children subjected to the following requirements:
+
+| Each child must have at least one candy.
+| Children with a higher rating get more candies than their neighbors.
+| Return the minimum number of candies you need to have to distribute the candies to the children.
+
+| Example 1:
+| Input: ratings = [1,0,2]
+| Output: 5
+| Explanation: You can allocate to the first, second and third child with 2, 1, 2 candies respectively.
+::
+
+    def candy(self, ratings: List[int]) -> int:
+        def allocate(ratings):
+            ans = [1] * len(ratings)
+            for i in range(1, len(ratings)):
+                if ratings[i] > ratings[i - 1]:
+                    ans[i] = ans[i - 1] + 1
+            return ans
+        left = allocate(ratings)
+        right = allocate(ratings[::-1])[::-1]
+        for i in range(len(ratings)):
+            left[i] = max(left[i], right[i])
+        return sum(left)
+
+参考了解析： https://leetcode.cn/problems/candy/solutions/17847/candy-cong-zuo-zhi-you-cong-you-zhi-zuo-qu-zui-da-/
+
+.. image:: ../../_static/leetcode/135.png
+
+.. image:: ../../_static/leetcode/135_2.png
+
+下面评论区有个老哥写的，为什么取最大值是正确的思考：
+
+很多人说这个问题显而易见，不值得讨论，但我相信还是有人像我一样不理解，在这里说一下我的想法
+
+我疑惑的问题不是取最大值为啥是最优解，而是取最大值后为啥不影响某一规则的成立。
+
+我们取序列中的任意两点，A B
+
+| 如果 A > B ,则按照左规则处理后，B不会比A多；按照右规则处理后，A一定比B多，那么A一定会被更新（变大），但L、R规则仍然成立：B不会比A多，A一定比B多；
+| 同理可讨论 A<B;
+| 当 A == B，A、B的值无论如何更新，都不影响 L、R规则
+| 综上，取最大值后不影响某一规则的成立。
+
 区间问题
 =======================
 
