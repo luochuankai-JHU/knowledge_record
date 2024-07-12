@@ -8598,6 +8598,48 @@ Return an array answer of length n where answer[i] is the sum of the distances b
 
 ？？？???
 
+743. Network Delay Time
+-----------------------------
+You are given a network of n nodes, labeled from 1 to n. You are also given times, a list of travel times as 
+directed edges times[i] = (ui, vi, wi), where ui is the source node, vi is the target node, and wi is the time it takes for a signal to travel from source to target.
+
+We will send a signal from a given node k. Return the minimum time it takes for all the n nodes to receive the signal. If it is impossible for all the n nodes to receive the signal, return -1.
+::
+
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        store = defaultdict(list)
+        for u, v, w in times:
+            store[u].append([v, w])
+        path = [float(inf)] * n
+        path[k - 1] = 0
+        pending = [(0, k)]
+        while pending:
+            w, node = heapq.heappop(pending)
+            w *= -1
+            for new_v, new_w in store[node]:
+                if new_w + w < path[new_v - 1]:
+                    path[new_v - 1] = new_w + w
+                    heapq.heappush(pending, (-new_w - w, new_v))
+        return max(path) if float('inf') not in path else -1
+
+Dijkstra 算法: https://www.youtube.com/watch?v=uyNJxsH16nc
+
+但其实就简单的dfs或者bfs也能过::
+
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        store = defaultdict(list)
+        for u, v, w in times:
+            store[u].append([v, w])
+        path = [float(inf)] * n
+        path[k - 1] = 0
+        pending = [(0, k)]
+        for w, node in pending:
+            for new_v, new_w in store[node]:
+                if new_w + w < path[new_v - 1]:
+                    path[new_v - 1] = new_w + w
+                    pending.append((new_w + w, new_v))
+        return max(path) if float('inf') not in path else -1
+
 
 
 Trie
