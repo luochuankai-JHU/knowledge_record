@@ -8640,6 +8640,40 @@ Dijkstra 算法: https://www.youtube.com/watch?v=uyNJxsH16nc
                     pending.append((new_w + w, new_v))
         return max(path) if float('inf') not in path else -1
 
+个人浅显的理解，Dijkstra算法相对于dfs或者bfs的优点在于，能提前终止：
+
+Dijkstra 可以在找到目标节点后立即停止，而 BFS 变体需要探索所有可能的路径。因为w, node = heapq.heappop(pending) 这里的值就是固定的了，不会再修改了，贪心算法
+
+请看下一题
+
+1631. Path With Minimum Effort
+--------------------------------------
+You are a hiker preparing for an upcoming hike. You are given heights, a 2D array of size rows x columns, where heights[row][col] represents the height of cell (row, col). You are situated in the top-left cell, (0, 0), and you hope to travel to the bottom-right cell, (rows-1, columns-1) (i.e., 0-indexed). You can move up, down, left, or right, and you wish to find a route that requires the minimum effort.
+
+A route's effort is the maximum absolute difference in heights between two consecutive cells of the route.
+
+Return the minimum effort required to travel from the top-left cell to the bottom-right cell.
+::
+
+    def minimumEffortPath(self, heights: List[List[int]]) -> int:
+        m, n = len(heights), len(heights[0])
+        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        path = [[float(inf)] * n for _ in range(m)]
+        path[0][0] = 0
+        pending = [(0, 0, 0)]
+        while pending:
+            step, row, col = heapq.heappop(pending)
+            if row == m - 1 and col == n - 1:
+                return step
+            for x, y in directions:
+                if 0 <= row + x <= m - 1 and 0 <= col + y <= n - 1:
+                    new_step = max(step, abs(heights[row][col] - heights[row + x][col + y]))
+                    if new_step < path[row + x][col + y]:
+                        path[row + x][col + y] = new_step
+                        heapq.heappush(pending, (new_step, row + x, col + y))
+        return path[-1][-1]    
+
+这里用Dijkstra的好处就在于第9,10行。如果从pending里面pop出来的是最后一格就能直接return
 
 
 Trie
