@@ -9255,3 +9255,58 @@ def largestRectangleArea(self, heights: List[int]) -> int:
                     demand[s[l]] += 1
                 l += 1
         return ans if len(ans) <= lens else ""
+
+
+
+二叉树
+=================
+
+前序遍历
+-------------
+递归
+```````
+::
+
+    def preorder(node):
+        if not node:
+            return []
+        res.append(node.val)
+        preorder(node.left)
+        preorder(node.right)
+
+迭代
+```````
+
+
+
+中序遍历
+-------------
+递归
+```````
+::
+
+    def preorder(node):
+        if not node:
+            return []
+        preorder(node.left)
+        res.append(node.val)
+        preorder(node.right)
+
+迭代
+```````
+
+后序遍历
+-------------
+递归
+```````
+::
+
+    def preorder(node):
+        if not node:
+            return []
+        preorder(node.left)
+        preorder(node.right)
+        res.append(node.val)
+
+迭代
+```````
