@@ -9617,5 +9617,136 @@ https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-
 
 堆
 ==========
+| heapq.heappush(heap, item)
+| 将 item 的值加入 heap 中，保持堆的不变性。
 
-Python默认实现的是最小堆。
+| heapq.heappop(heap)
+| 弹出并返回 heap 的最小的元素，保持堆的不变性。如果堆为空，抛出 IndexError 。 使用 heap[0]可以只访问最小的元素而不弹出它
+
+| heapq.heapify(x)
+| 将list x 转换成堆，原地，线性时间内。注意，这里直接 store = [1,2,4,5,5] heapq.heapify(store) 就行，不需要找个变量来接住
+
+Python默认实现的是最小堆。如果是最大堆的话，取个负号就行。但是记得最后输出的时候也要再负回来
+
+
+
+回溯/递归
+================
+回溯模板
+------------------
+
+::
+
+    result = []
+    def backtrack(路径, 选择列表):
+        if 满足结束条件:
+            result.add(路径)
+            return
+        
+        for 选择 in 选择列表:
+            做选择
+            backtrack(路径, 选择列表)
+            撤销选择
+
+例题
+---------------------------------
+| 全排列 leetcode 46. 
+| 给定一个 没有重复 数字的序列，返回其所有可能的全排列。
+| 示例:
+| 输入: [1,2,3]
+| 输出:
+| [
+|   [1,2,3],
+|   [1,3,2],
+|   [2,1,3],
+|   [2,3,1],
+|   [3,1,2],
+|   [3,2,1]
+| ]
+::
+
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res, path = [], []
+        def all_sort(res, path):
+            if len(path)==len(nums):
+                res.append(path[:])
+                return 
+            for i in range(0,len(nums)):
+                if nums[i] not in path:
+                    path.append(nums[i])
+                    all_sort(res, path)
+                    path.pop()
+        all_sort(res, path)
+        return res
+
+或者::
+
+    def permute(nums):
+        ans = []
+        def dfs(path, store):
+            nonlocal ans
+            print(path, store)
+            if len(path) == len(nums):
+                ans.append(path[:])
+                return
+            for i in range(len(store)):
+                dfs(path + [store[i]], store[:i] + store[i + 1:])
+                # dfs(path.append(store[i]), store[:i] + store[i + 1:])
+        dfs([], nums)
+        return ans
+
+为什么这里要  dfs(path + [store[i]], store[:i] + store[i + 1:]) 而不是 dfs(path.append(store[i]), store[:i] + store[i + 1:])
+
+因为path.append() 会改变append, 那在本次for循环里，后面的path都会带上前面append的内容了。甚至这样写都不行，::
+
+    for i in range(len(store)):
+        dfs(path.append(store[i]), store[:i] + store[i + 1:])
+        path.pop()
+
+The bug in the code dfs(path.append(store[i]), store[:i] + store[i + 1:]) is because the append method returns None, and you're passing that None value as the first argument to the dfs function.
+
+In Python, the append method modifies the list in-place and returns None. So, when you call path.append(store[i]), it appends store[i] to the path list, but the expression itself evaluates to None.
+
+.. important:: 
+
+    所以，append 操作只能单独做，不能在传参时候做，不然就是None!!!
+
+
+图
+============
+
+课程表
+-----------------
+| leetcode 207. 
+| 你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。
+
+| 在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程 ai 则 必须 先学习课程  bi 。
+
+| 例如，先修课程对 [0, 1] 表示：想要学习课程 0 ，你需要先完成课程 1 。
+| 请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。
+::
+
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        graph = defaultdict(list)
+        degree = defaultdict(int)
+        for f, s in prerequisites:
+            graph[s].append(f) # second to first
+            degree[f] += 1
+        qualified = [i for i in range(numCourses) if i not in degree]
+        for course in qualified:
+            if course not in graph:
+                continue
+            for c in graph[course]:
+                degree[c] -= 1
+                if degree[c] == 0:
+                    qualified.append(c)
+        return len(qualified) == numCourses
+
+
+# 参考了解析https://leetcode.cn/problems/course-schedule/solution/bao-mu-shi-ti-jie-shou-ba-shou-da-tong-tuo-bu-pai-/
+# 使用拓扑的入度与出度
+
+
+Trie
+=========
+直接看这个就好了 https://knowledge-record.readthedocs.io/zh-cn/latest/leetcode/leetcode.html#trie
