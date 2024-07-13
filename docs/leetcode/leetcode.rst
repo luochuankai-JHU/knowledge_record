@@ -1918,6 +1918,49 @@ Given the root of a binary tree, flatten the tree into a "linked list":
         last = None
         preorder(root)
 
+1530. Number of Good Leaf Nodes Pairs
+-----------------------------------------------
+You are given the root of a binary tree and an integer distance. A pair of two different leaf nodes of a binary tree 
+is said to be good if the length of the shortest path between them is less than or equal to distance.
+
+Return the number of good leaf node pairs in the tree.
+
+.. image:: ../../_static/leetcode/1530.png
+
+::
+
+    def countPairs(self, root: TreeNode, distance: int) -> int:
+        def postorder(node):
+            nonlocal cnt
+            if not node:
+                return []
+            if not node.left and not node.right:
+                return [0]
+            left = postorder(node.left)
+            right = postorder(node.right)
+            for i in left:
+                for j in right:
+                    if i + j + 2 <= distance:
+                        cnt += 1
+            return [n + 1 for n in left] + [m + 1 for m in right]
+        if distance < 2:
+            return 0
+        cnt = 0
+        postorder(root)
+        return cnt
+
+能想到后序遍历就已经成功了一半。注意这里要::
+
+    if not node:
+        return []
+    if not node.left and not node.right:
+        return [0]
+
+
+
+
+
+
 
 二叉搜索树 Binary Search Tree
 ===================================================
