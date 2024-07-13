@@ -8710,11 +8710,10 @@ We will send a signal from a given node k. Return the minimum time it takes for 
         pending = [(0, k)]
         while pending:
             w, node = heapq.heappop(pending)
-            w *= -1
             for new_v, new_w in store[node]:
                 if new_w + w < path[new_v - 1]:
                     path[new_v - 1] = new_w + w
-                    heapq.heappush(pending, (-new_w - w, new_v))
+                    heapq.heappush(pending, (new_w + w, new_v))
         return max(path) if float('inf') not in path else -1
 
 Dijkstra 算法: https://www.youtube.com/watch?v=uyNJxsH16nc
@@ -9536,3 +9535,87 @@ Binary Search Tree的性质
         for i in range(n - 1):
             for j in range(n - i - 1):
                 matrix[i][j], matrix[n-j-1][n-i-1] = matrix[n-j-1][n-i-1], matrix[i][j]
+
+
+链表
+=============
+
+前置学习内容
+------------------
+https://www.youtube.com/watch?v=0czlvlqg5xw
+
+这个视频说的很好。链表的题目其实不复杂。基本上就是 **双指针**(快慢指针or前后指针)或者递归. 而且链表只能前进不能后退，是缺点也是优点，简化了很多思路，导致基本上都需要用双指针来解决
+
+有这样一些小技巧：
+
+dummy = ListNode(0, head) **虚拟头节点**是真的好用
+
+实在不行就 **需要保存的地方**就设置一个变量，然后充分利用python的同时交换的特性，大力出奇迹
+
+找个纸和笔 画画图
+
+例题
+------------------
+反转链表   leetcode 206./ 剑指 Offer 24.
+
+定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。
+
+示例:
+
+输入: 1->2->3->4->5->NULL
+
+输出: 5->4->3->2->1->NULL
+
+
+双指针方法一，这个需要当成模板背下来！！！
+
+::
+
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        pre = None
+        cur = head
+        while cur:
+            # 记录当前节点的下一个节点
+            tmp = cur.next
+            # 然后将当前节点指向pre
+            cur.next = pre
+            # pre和cur节点都前进一位
+            pre = cur
+            cur = tmp
+        return pre    
+
+https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/dong-hua-yan-shi-duo-chong-jie-fa-206-fan-zhuan-li/
+
+.. image:: ../../_static/leetcode/剑指24.png
+    :align: center
+    :width: 300
+
+
+
+递归recursion
+::
+
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head:
+            return
+        def helper(cur, pre):
+            if not cur:
+                return pre
+            res = helper(cur.next, cur)
+            cur.next = pre
+            return res
+        return helper(head, None)
+
+
+这个递归比较难理解。但其实我们应该从后往前看。 假设是12345。这里的res通过层层往下，最后会固定在5这里。我们本身想返回的也就是5这个头。  
+然后在每一层里面，做的事情就是把后面指向前面.第7行的这个代码其实是阻止我们先反转顺序，而是让我们先找到头。然后再一层层的反转顺序
+
+
+堆
+==========
+
+Python默认实现的是最小堆。
