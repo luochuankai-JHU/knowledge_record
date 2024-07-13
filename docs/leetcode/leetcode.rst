@@ -25,8 +25,6 @@ Leetcode
 
 二分查找
 --------------
-二分查找
-
 迭代
 ::
 
@@ -546,7 +544,7 @@ https://leetcode.cn/problems/sort-an-array/solution/duo-chong-pai-xu-yi-wang-da-
 
 
 
-需要维护一个队列/单独栈
+需要维护一个队列/单调栈
 ==================================
 
 好像有一个规律
@@ -683,7 +681,7 @@ leetcode 901.
 
 每日温度
 --------------------------
-| leetcode 739. 
+leetcode 739. 
 
 给定一个整数数组 temperatures ，表示每天的温度，返回一个数组 answer ，其中 answer[i] 是指对于第 i 天，下一个更高温度出现在几天后。如果气温在这之后都不会升高，请在该位置用 0 来代替。
 ::
@@ -9112,5 +9110,148 @@ KMP算法易懂版https://www.bilibili.com/video/BV1jb411V78H?from=search&seid=4
 lc 题型归类/模板
 ******************
 
-二分查找类
+二分查找
 ======================
+模板
+----------------
+迭代
+::
+
+    def binary_search(target, array):
+        l = 0
+        r = len(array)-1
+        while l<=r:
+            mid = (l+r)//2
+            if array[mid]==target:
+                return mid
+            elif array[mid]<target:
+                l = mid + 1
+            else:
+                r = mid – 1
+        return False
+
+
+递归
+::
+
+    def binary(stand, left, right, potions):
+        mid = (left + right) // 2
+        if left >= right:
+            return left
+        if potions[mid] >= stand:
+            return binary(stand, left, mid, potions)
+        else:
+            return binary(stand, mid + 1, right, potions)
+
+
+注意点
+----------
+1. 看见O(log n)的基本就是二分
+
+2. //2操作是向下取整。所以涉及谁+1的时候，都是不包括mid==target的情况下left = mid+1，另一边是 **包括 mid==target的情况下 right = mid,保留mid==target的可能性**
+
+例题
+--------
+
+
+
+需要维护一个队列/单调栈
+==================================
+
+好像有一个规律
+
+如果是要找递增，那么就维护一个递减的栈。因为这样才能更新并且留下最大值
+
+如果是找递减，那么就维护一个递增的栈。
+
+然后栈中被pop完后最后一个符合规则的，计算和这次的跨度
+
+可以这么想：在运算的途中，已经获得当前的数要开始pop，直到放到倒数第二个，你希望当前在栈最里面的数是大还是小
+
+注意点
+----------------
+1. 哨兵：heights = [0] + heights + [0] 相当于前后加了两个“哨兵”
+
+2. 算跨度的左边，用stack中上一个。  w = i - stack[-1] - 1 而不是刚刚pop出来的。防止[2, 1, 2]的情况发生，不知道左边界是哪里，因为1会把第一个2给pop掉
+
+例题
+-----------------
+柱状图中最大的矩形  leetcode 84.
+
+给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。求在该柱状图中，能够勾勒出来的矩形的最大面积。
+
+.. image:: ../../_static/leetcode/84.png
+    
+def largestRectangleArea(self, heights: List[int]) -> int:
+    ans = heights[0]
+    queue = []
+    heights = [0] + heights + [0] # 哨兵
+    for i in range(len(heights)):
+        while queue and heights[i] < heights[queue[-1]]:
+            h = heights[queue.pop()]
+            w = i - queue[-1] - 1 # 算跨度用stack中的最后一个
+            ans = max(ans, h * w)
+        queue.append(i)
+    return ans
+
+
+滑动窗口
+================================
+模板
+---------
+.. Note:: 
+
+   这篇解析写的很好，总结了滑动窗口的全部题目。
+   https://leetcode.cn/problems/permutation-in-string/solution/by-flix-ix7f/
+
+   窗口定长，和窗口不定长度是有两种模板的。前面基本是一样的，**把demand字典给统计好**，**有多少个字符串need统计好**
+
+   但是在遍历的时候：
+
+   1. 定长的时候如果big[r]不在demand中，不能直接continue，因为当窗口是此时这样覆盖的时候，big[l]也有可能在demand里面的，是需要对demand[big[l]] 做加减判断的
+
+      不定长的时候，可以continue，因为左边是固定的，还会保留在之前的位置，而不是依赖于右边去做计算
+
+
+   2. 定长的左边index是确定的，记得l = r - lenp    这里要特别注意这里不需要l = r - lenp + 1，因为是右边左边都要动，此时处理的是左边开始滑动时刻的情况
+
+      不定长的时候，while need <= 0: 再对左边滑出的元素做demand和need的判断
+
+
+例题
+------------------------------
+最小覆盖子串 leetcode 76.
+
+| 给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 "" 。
+| 注意：
+| 对于 t 中重复字符，我们寻找的子字符串中该字符数量必须不少于 t 中该字符数量。
+| 如果 s 中存在这样的子串，我们保证它是唯一的答案。
+::
+
+    def minWindow(self, s: str, t: str) -> str:
+        lens = len(s)
+        lent = len(t)
+        if lent > lens:
+            return ""
+        ans = s + "#"
+        l = 0
+        demand = dict()
+        for cha in t:
+            demand[cha] = demand.get(cha, 0) + 1
+        need = lent
+        for r in range(lens):
+            if s[r] not in demand:
+                continue
+            if demand[s[r]] > 0:
+                need -= 1
+            demand[s[r]] -= 1
+            
+            while need <= 0:
+                if len(ans) > r - l + 1:
+                    ans = s[l: r + 1]
+                if s[l] in demand:
+                    if demand[s[l]] >= 0:
+                        need += 1
+                    demand[s[l]] += 1
+                l += 1
+        return ans if len(ans) <= lens else ""
