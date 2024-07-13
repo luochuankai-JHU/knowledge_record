@@ -26,6 +26,8 @@ Leetcode
 二分查找
 --------------
 二分查找
+
+迭代
 ::
 
     def binary_search(target, array):
@@ -42,6 +44,7 @@ Leetcode
         return False
 
 
+递归
 ::
 
     def binary(stand, left, right, potions):
