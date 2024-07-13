@@ -9353,3 +9353,14 @@ def largestRectangleArea(self, heights: List[int]) -> int:
             res.append(temp)
             cur_level = next_level
         return res
+
+
+二叉搜索树 Binary Search Tree
+---------------------------------
+Binary Search Tree的性质
+
+1、对于 BST 的每一个节点 node，左子树节点的值都比 node 的值要小，右子树节点的值都比 node 的值大。
+
+2、对于 BST 的每一个节点 node，它的左侧子树和右侧子树都是 BST。
+
+因此二叉搜索树的中序遍历，是一个递增的序列. 这个性质能解决绝大部分的题目。而且很多题目不需要用list保存全部的值，只需要一个变量保存上一个就行
