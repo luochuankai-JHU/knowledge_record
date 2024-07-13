@@ -25,7 +25,8 @@ Leetcode
 
 二分查找
 --------------
-二分查找::
+二分查找
+::
 
     def binary_search(target, array):
         l = 0
@@ -9100,3 +9101,13 @@ KMP算法易懂版https://www.bilibili.com/video/BV1jb411V78H?from=search&seid=4
 
     # 保存模型
     torch.save(LR_model.state_dict(), 'model.ckpt')
+
+
+
+
+******************
+lc 题型归类/模板
+******************
+
+二分查找类
+======================
