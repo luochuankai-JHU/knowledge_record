@@ -9261,11 +9261,9 @@ def largestRectangleArea(self, heights: List[int]) -> int:
 二叉树
 =================
 
-前序遍历
--------------
-递归
-```````
-::
+前中后序遍历 **递归**
+------------------------
+前序遍历::
 
     def preorder(node):
         if not node:
@@ -9274,9 +9272,27 @@ def largestRectangleArea(self, heights: List[int]) -> int:
         preorder(node.left)
         preorder(node.right)
 
-迭代
-```````
-::
+中序遍历::
+
+    def inorder(node):
+        if not node:
+            return []
+        inorder(node.left)
+        res.append(node.val)
+        inorder(node.right)
+
+后序遍历::
+
+    def postorder(node):
+        if not node:
+            return []
+        postorder(node.left)
+        postorder(node.right)
+        res.append(node.val)
+
+前中后序遍历 **迭代**
+------------------------
+前序遍历::
 
     def preorder(node):
         res, stack = [], []
@@ -9289,24 +9305,7 @@ def largestRectangleArea(self, heights: List[int]) -> int:
             node = node.right
         return res
 
-
-
-中序遍历
--------------
-递归
-```````
-::
-
-    def inorder(node):
-        if not node:
-            return []
-        inorder(node.left)
-        res.append(node.val)
-        inorder(node.right)
-
-迭代
-```````
-::
+中序遍历::
 
     def inorder(node):
         res, stack = [], []
@@ -9319,23 +9318,7 @@ def largestRectangleArea(self, heights: List[int]) -> int:
             node = node.right
         return res
 
-
-后序遍历
--------------
-递归
-```````
-::
-
-    def postorder(node):
-        if not node:
-            return []
-        postorder(node.left)
-        postorder(node.right)
-        res.append(node.val)
-
-迭代
-```````
-::
+后序遍历::
 
     def postorder(node):
         res, stack = [], []
@@ -9350,7 +9333,6 @@ def largestRectangleArea(self, heights: List[int]) -> int:
     res = postorder(node)[::-1]
     # 后序遍历是 左右中，然后我们使用了stack，所以录入的时候是左右中，（先进后出），然后对结果[::-1] 取逆序就好了。 
     # [::-1]这个操作对 string和list 都适用的
-
 
 
 层次遍历
