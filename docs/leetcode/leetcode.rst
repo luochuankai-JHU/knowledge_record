@@ -9276,6 +9276,18 @@ def largestRectangleArea(self, heights: List[int]) -> int:
 
 迭代
 ```````
+::
+
+    def preorder(node):
+        res, stack = [], []
+        while stack or node:
+            while node:
+                res.append(node.val)
+                stack.append(node)
+                node = node.left
+            node = stack.pop()
+            node = node.right
+        return res
 
 
 
@@ -9285,15 +9297,28 @@ def largestRectangleArea(self, heights: List[int]) -> int:
 ```````
 ::
 
-    def preorder(node):
+    def inorder(node):
         if not node:
             return []
-        preorder(node.left)
+        inorder(node.left)
         res.append(node.val)
-        preorder(node.right)
+        inorder(node.right)
 
 迭代
 ```````
+::
+
+    def inorder(node):
+        res, stack = [], []
+        while stack or node:
+            while node:
+                stack.append(node)
+                node = node.left
+            node = stack.pop()
+            res.append(node.val)
+            node = node.right
+        return res
+
 
 后序遍历
 -------------
@@ -9301,12 +9326,48 @@ def largestRectangleArea(self, heights: List[int]) -> int:
 ```````
 ::
 
-    def preorder(node):
+    def postorder(node):
         if not node:
             return []
-        preorder(node.left)
-        preorder(node.right)
+        postorder(node.left)
+        postorder(node.right)
         res.append(node.val)
 
 迭代
 ```````
+::
+
+    def postorder(node):
+        res, stack = [], []
+        while stack or node:
+            while node:
+                res.append(node.val)
+                stack.append(node)
+                node = node.right
+            node = stack.pop()
+            node = node.left
+        return res
+    res = postorder(node)[::-1]
+    # 后序遍历是 左右中，然后我们使用了stack，所以录入的时候是左右中，（先进后出），然后对结果[::-1] 取逆序就好了。 
+    # [::-1]这个操作对 string和list 都适用的
+
+
+
+层次遍历
+-------------
+::
+
+    def levelorder(node):
+        cur_level, res = [node], []
+        while cur_level:
+            temp = []
+            next_level = []
+            for node in cur_level:
+                temp.append(node.val)
+                if node.left:
+                    next_level.append(node.left)
+                if node.right:
+                    next_level.append(node.right)
+            res.append(temp)
+            cur_level = next_level
+        return res
