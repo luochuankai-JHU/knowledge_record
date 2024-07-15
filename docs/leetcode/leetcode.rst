@@ -1043,7 +1043,6 @@ Given a string s, find the length of the longest substring without repeating cha
         length = len(s)
         store = dict()
         i, j = 0, 0
-        store[s[0]] = 0
         ans = 1
         while j <= length - 1:
             if s[j] not in store:
@@ -1051,9 +1050,6 @@ Given a string s, find the length of the longest substring without repeating cha
                 ans = max(ans, j - i + 1)
                 j += 1
             else:
-                if i == j:
-                    j += 1
-                    continue
                 index = store[s[j]]
                 while i <= index:
                     del store[s[i]]
