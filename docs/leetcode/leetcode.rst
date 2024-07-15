@@ -1959,7 +1959,58 @@ Return the number of good leaf node pairs in the tree.
         return [0]
 
 
+1028. 从先序遍历还原二叉树
+-------------------------------------
+我们从二叉树的根节点 root 开始进行深度优先搜索。
 
+在遍历中的每个节点处，我们输出 D 条短划线（其中 D 是该节点的深度），然后输出该节点的值。（如果节点的深度为 D，则其直接子节点的深度为 D + 1。根节点的深度为 0）。
+
+如果节点只有一个子节点，那么保证该子节点为左子节点。
+
+给出遍历输出 S，还原树并返回其根节点 root。
+
+.. image:: ../../_static/leetcode/1028.png 
+
+::
+
+    def recoverFromPreorder(self, traversal: str) -> Optional[TreeNode]:
+        if len(traversal) == 1:
+            return TreeNode(traversal[0])
+        traversal += "-"
+        store = []
+        cnt = 0
+        val = int(traversal[0])
+        for i in range(1, len(traversal)):
+            if traversal[i] == "-":
+                if traversal[i - 1].isdigit():
+                    store.append((val, cnt))
+                    cnt = 1
+                    val = 0
+                else:
+                    cnt += 1
+            else:
+                val = val * 10 + int(traversal[i])
+        # print(store)  [(1, 0), (2, 1), (3, 2), (4, 2), (5, 1), (6, 2), (7, 2)]
+        head = node = TreeNode(store[0][0])
+        stack = []
+        level = 0
+        for val, cnt in store[1:]:
+            if cnt == level + 1:
+                node.left = TreeNode(val)
+                stack.append((node, level))
+                node = node.left
+                level += 1
+            else:
+                while stack and level + 1 != cnt: 
+                    node, level = stack.pop()
+                node.right = TreeNode(val)
+                node = node.right
+                level += 1
+        return head    
+
+哈哈，我自己做出来的hard题。
+
+建议可以先把先序遍历的模板写上去。这样会更有思路
 
 
 
