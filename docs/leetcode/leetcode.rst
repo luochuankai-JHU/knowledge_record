@@ -1640,7 +1640,6 @@ leetcode 105.
 
 从中序与后序遍历序列构造二叉树
 --------------------------------------
-
 leetcode 106. 
 
 根据一棵树的中序遍历与后序遍历构造二叉树。
@@ -1704,6 +1703,72 @@ leetcode 106.
 .. image:: ../../_static/leetcode/236.png
     :align: center
     
+
+其实可以延伸一下，如果不止是两个节点，多个节点的也是这么写。代码以及验证如下
+::
+
+    class TreeNode:
+        def __init__(self, val=0, left=None, right=None):
+            self.val = val
+            self.left = left
+            self.right = right
+
+    def findLCA(root, nodes_set):
+        if not root or root in nodes_set:
+            return root
+        
+        left = findLCA(root.left, nodes_set)
+        right = findLCA(root.right, nodes_set)
+        print(root.val, left!=None, right!=None)
+        if left and right:
+            return root
+        return left if left else right
+
+    def findLCAMultipleNodes(root, nodes):
+        if not root or not nodes:
+            return None
+        
+        nodes_set = set(nodes)
+        print("需要找的节点的值为：", [node.val for node in nodes_set])
+        return findLCA(root, nodes_set)
+
+    root = TreeNode(1)
+
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+
+    root.left.left = TreeNode(4)
+    root.left.right = TreeNode(5)
+    root.right.left = TreeNode(6)
+    root.right.right = TreeNode(7)
+
+    root.left.left.left = TreeNode(8)
+    root.left.left.right = TreeNode(9)
+    root.left.right.left = TreeNode(10)
+    root.right.left.right = TreeNode(11)
+    root.right.right.right = TreeNode(12)
+
+    root.left.left.left.left = TreeNode(13)
+    root.left.left.left.right = TreeNode(14)
+    root.right.right.right.left = TreeNode(15)
+    root.right.right.right.right = TreeNode(16)
+
+    root.left.left.left.left.left = TreeNode(17)
+    root.right.right.right.right.right = TreeNode(18)
+    """
+                       1
+                 2          3 
+              4      5    6     7
+           8   9   10      11      12
+        13  14                    15 16
+      17                               18
+    """
+    # 测试代码
+    nodes = [root.left.left.left.left.left, root.left.left.left.right, root.left.left.right, root.left.right]
+    lca = findLCAMultipleNodes(root, nodes)
+    print("answer: ", lca.val)
+
+
 
 路径总和 III
 ------------------------
