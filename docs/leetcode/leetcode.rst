@@ -150,9 +150,8 @@ emmmm 上面这样写好蠢啊
 剑指53跟这个几乎一样
 ::
 
-    def search(self, nums: List[int], target: int) -> int:
-
-        def get_first(nums,target):
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        def get_left(nums,target):
             l, r = 0, len(nums)-1
             while l <= r:
                 mid = (l + r)//2
@@ -161,8 +160,8 @@ emmmm 上面这样写好蠢啊
                 elif nums[mid] < target:
                     l = mid + 1
             return l
-        
-        def get_last(nums,target):
+
+        def get_right(nums,target):
             l, r = 0, len(nums)-1
             while l <= r:
                 mid = (l + r)//2
@@ -170,14 +169,14 @@ emmmm 上面这样写好蠢啊
                     l = mid + 1
                 elif nums[mid] > target:
                     r = mid - 1
-            return r 
-        
-        r = get_last(nums,target)
-        l = get_first(nums,target)
+            return r
+
+        l = get_left(nums,target)
+        r = get_right(nums,target)
         if r < l:
-            return 0
+            return [-1, -1]
         else:
-            return r - l +1
+            return [l, r]
 
 
 搜索插入位置
@@ -215,17 +214,17 @@ leetcode 153.
 
 你可以假设数组中不存在重复元素。::
 
-    class Solution:
-        def findMin(self, nums: List[int]) -> int:
-            l, r = 0, len(nums) - 1
-            while l<=r:
-                mid = (l+r)//2
-                if nums[mid]>nums[r]:
-                    l = mid + 1
-                elif nums[mid]<nums[r]:
-                    r = mid
-                if l == r-1 or l==r:
-                    return min(nums[l], nums[r])
+    def findMin(self, nums: List[int]) -> int:
+        n = len(nums)
+        l, r = 0, n-1
+        while l <= r:
+            mid = (l + r) // 2
+            # 中值小于右边界
+            if nums[mid] <= nums[-1]:
+                r = mid-1  # 最小值可能移动到中值
+            else:  # 中值大于右边界
+                l = mid+1
+        return nums[l]
 
 
 搜索旋转排序数组 II
@@ -244,42 +243,29 @@ leetcode 81.
 
 编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 true，否则返回 false。::
 
-    class Solution:
-        def search(self, nums: List[int], target: int) -> bool:
-            def binary_search(nums,target):
-                l, r = 0, len(nums) - 1
-                while l <= r:
-                    mid = (l+r) // 2
-                    if nums[mid] == target:
-                        return True
-                    elif nums[mid] < target:
-                        l = mid + 1
-                    elif nums[mid] > target:
-                        r = mid -1 
-                return False
-            
-            l, r = 0, len(nums) - 1
-            while l <= r:
-                mid = (l+r) // 2
-                if target in [nums[mid],nums[r],nums[l]]:
-                    return True
-                if nums[r] == nums[l]:
-                    l = l + 1
-                    r = r - 1
-                    continue 
-                if nums[mid] <= nums[r]:
-                    # 右边有序
-                    if nums[mid] < target < nums[r]:
-                        return binary_search(nums[mid:r],target)
-                    else:
-                        r = mid -1
+    def search(self, nums: List[int], target: int) -> bool:        
+        l = 0
+        r = len(nums) - 1
+        while l<=r:
+            mid = (l+r) // 2
+            if nums[mid] == target:
+                return True
+
+            if nums[mid] == nums[l]:  # l和mid重复，l加一
+                l += 1
+            elif nums[mid] == nums[r]:  # mid和r重复，r减一
+                r -= 1
+            elif nums[mid] > nums[l]:  # l到mid是有序的，判断target是否在其中
+                if nums[l] <= target < nums[mid]:  # target在其中，选择l到mid这段
+                    r = mid - 1
+                else:  # target不在其中，扔掉l到mid这段
+                    l = mid + 1
+            elif nums[mid] < nums[r]:  # mid到r是有序的，判断target是否在其中
+                if nums[mid] < target <= nums[r]:
+                    l = mid + 1
                 else:
-                    # 左边有序
-                    if nums[l] < target < nums[mid]:
-                        return binary_search(nums[l:mid],target)
-                    else:
-                        l = mid + 1
-            return False
+                    r = mid - 1 
+        return False
 
 
 0～n-1中缺失的数字
@@ -9264,6 +9250,34 @@ lc 题型归类/模板
 
 例题
 --------
+
+变体
+---------
+数组中存在旋转： 需要用中间去和左边or右边比较，判断旋转在哪边。 如：leetcode 33.
+
+如果存在重复元素：
+
+找左边找右边::
+
+    def get_left(nums,target):
+        l, r = 0, len(nums)-1
+        while l <= r:
+            mid = (l + r)//2
+            if nums[mid]>=target:
+                r = mid -1
+            elif nums[mid] < target:
+                l = mid + 1
+        return l
+
+    def get_right(nums,target):
+        l, r = 0, len(nums)-1
+        while l <= r:
+            mid = (l + r)//2
+            if nums[mid] <= target:
+                l = mid + 1
+            elif nums[mid] > target:
+                r = mid - 1
+        return r
 
 
 
