@@ -2524,46 +2524,6 @@ leetcode 235.
 
 动态规划
 ===================
-
-
-
-字符串的排列
---------------------
-剑指 Offer 38. 
-
-输入一个字符串，打印出该字符串中字符的所有排列。
-
-你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
-
-示例:
-
-| 输入：s = "abc"
-| 输出：["abc","acb","bac","bca","cab","cba"]
-
-我的一个憨憨解法
-::
-    def permutation(self, s: str) -> List[str]:
-        def insert(res,char):
-            temp = []
-            for string in res:
-                for i in range(len(string)+1):
-                    temp.append(string[:i]+char+string[i:])
-            temp = list(set(temp))
-            return temp
-
-        if len(s)==0:
-            return []
-        res = [s[0]]
-        for i in range(1,len(s)):
-            res = insert(res,s[i])
-        return res
-
-从第一个字符开始维护一个list，里面的内容是答案。然后每次都全部插入，再去重。如果不让用set去重可以字典啊或者直接set.add
-
-想法很朴素，写起来也很朴素，但是时间和空间使用率接近双百分
-
-
-
 数组中出现次数超过一半的数字
 -------------------------------------
 剑指 Offer 39. 
@@ -9460,6 +9420,68 @@ def largestRectangleArea(self, heights: List[int]) -> int:
     # 后序遍历是 左右中，然后我们使用了stack，所以录入的时候是左右中，（先进后出），然后对结果[::-1] 取逆序就好了。 
     # [::-1]这个操作对 string和list 都适用的
 
+
+大佬方法，学习一下
+::
+
+    class TreeNode:
+        def __init__(self, val=0, left=None, right=None):
+            self.val = val
+            self.left = left
+            self.right = right
+
+    def LRN(root):
+        s = []
+        t = root
+        r = None  # 记录上次访问过的节点
+        
+        # 当t指针为空，而且堆栈也为空的时候遍历就结束了
+        while t or s:
+            # 每次当t不为空的时候就默认把t压入堆栈
+            if t:
+                s.append(t)
+                t = t.left
+            else:
+                t = s[-1]
+                if t.right and r != t.right:
+                    # 该节点的右孩子不空，而且上一个访问的不是右孩子(证明这是从左孩子回溯过来的)
+                    t = t.right
+                else:
+                    # 该节点的右孩子为空，或者右孩子已经访问过了
+                    t = s.pop()
+                    print(t.val)  # 遍历节点
+                    r = t
+                    t = None  # 防止t被压入堆栈，所以要置空
+
+    def NLR(root):
+        s = []
+        t = root
+        
+        # 当t指针为空，而且堆栈也为空的时候遍历就结束了
+        while t or s:
+            # 每次当t不为空的时候就默认把t压入堆栈
+            if t:
+                print(t.val)  # 遍历节点
+                s.append(t)
+                t = t.left
+            else:
+                t = s.pop()
+                t = t.right
+
+    def LNR(root):
+        s = []
+        t = root
+        
+        # 当t指针为空，而且堆栈也为空的时候遍历就结束了
+        while t or s:
+            # 每次当t不为空的时候就默认把t压入堆栈
+            if t:
+                s.append(t)
+                t = t.left
+            else:
+                t = s.pop()
+                print(t.val)  # 遍历节点
+                t = t.right
 
 层次遍历
 -------------
