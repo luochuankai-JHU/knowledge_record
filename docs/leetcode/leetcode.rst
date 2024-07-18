@@ -4125,47 +4125,7 @@ bfs：从begin开始，找到所有能替换一个字母就达到的单词，存
             return v1, v2
         return max(helper(root))
 
-计数质数
-----------------
-| leetcode 204. 
-| 统计所有小于非负整数 n 的质数的数量。
-| 示例:
-| 输入: 10
-| 输出: 4
-| 解释: 小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。
-::
 
-    def countPrimes(self, n: int) -> int:
-        res = [2]
-        if n<=2:
-            return 0
-        for i in range(2,n):
-            for j in range(len(res)):
-                if i%res[j]==0:
-                    break
-            else:
-                res.append(i)
-        return len(res)
-
-会有点超时
-
-这种厄拉多塞筛法可以::
-
-    def countPrimes(self, n: int) -> int:
-        # 0, 1 不是质数，第一个质数从2开始
-        prime = [0,0] + [1]*(n-2)
-        for i in range(2,len(prime)):
-            if prime[i] ==1:
-                prime[i**2::i] = [0] * len(prime[i**2::i])
-        return sum(prime)
-        # 如果是看谁是质数，就
-        # p = [i for i,v in enumerate(prime) if v == 1]
-        # return p
-
-| 解释如下：
-| i是质数，i的倍数都不是质数
-| 写成 [i * 2 :: i] 会有重复的数字 如 ： 2，4，6，8       3，6，9
-| prime[i**2::i]的意思是  从i**2 开始，每隔数量i。   
 
 01背包问题
 -------------------------
@@ -4254,8 +4214,7 @@ leetcode 494.
 这个也是模仿的01背包的解法。P = (sum(nums) + S) // 2 这个思路十分的巧妙。
 
 .. image:: ../../_static/leetcode/494.png
-    :align: center
-    :width: 400
+
 
 count0这里是会有一些0的情况，0取不取所以乘二
 
@@ -9014,6 +8973,51 @@ leetcode 149.
 
 
 https://leetcode.cn/problems/max-points-on-a-line/solution/gong-shui-san-xie-liang-chong-mei-ju-zhi-u44s/
+
+
+计数质数
+----------------
+| leetcode 204. 
+| 统计所有小于非负整数 n 的质数的数量。
+| 示例:
+| 输入: 10
+| 输出: 4
+| 解释: 小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。
+::
+
+    def countPrimes(self, n: int) -> int:
+        res = [2]
+        if n<=2:
+            return 0
+        for i in range(2,n):
+            for j in range(len(res)):
+                if i%res[j]==0:
+                    break
+            else:
+                res.append(i)
+        return len(res)
+
+会有点超时
+
+这种厄拉多塞筛法可以::
+
+    def countPrimes(self, n: int) -> int:
+        # 0, 1 不是质数，第一个质数从2开始
+        prime = [0,0] + [1]*(n-2)
+        for i in range(2,len(prime)):
+            if prime[i] ==1:
+                prime[i**2::i] = [0] * len(prime[i**2::i])
+        return sum(prime)
+        # 如果是看谁是质数，就
+        # p = [i for i,v in enumerate(prime) if v == 1]
+        # return p
+
+| 解释如下：
+| i是质数，i的倍数都不是质数
+| 写成 [i * 2 :: i] 会有重复的数字 如 ： 2，4，6，8       3，6，9
+| prime[i**2::i]的意思是  从i**2 开始，每隔数量i。   
+
+
 
 非常规题
 ======================
