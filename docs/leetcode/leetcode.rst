@@ -1174,6 +1174,44 @@ Return the starting indices of all the concatenated substrings in s. You can ret
         return ans
 
 
+和为s的连续正数序列
+-----------------------------
+剑指 Offer 57 - II. 
+
+输入一个正整数 target ，输出所有和为 target 的连续正整数序列（至少含有两个数）。
+
+序列内的数字由小到大排列，不同序列按照首个数字从小到大排列。
+
+| 示例 1：
+| 输入：target = 9
+| 输出：[[2,3,4],[4,5]]
+
+| 示例 2：
+| 输入：target = 15
+| 输出：[[1,2,3,4,5],[4,5,6],[7,8]]
+::
+
+    def findContinuousSequence(self, target: int) -> List[List[int]]:
+        if target<=2:
+            return None
+        l,r = 1,1
+        res = []
+        the_sum = 1
+        while l<=target//2:
+            if the_sum<target:
+                r+=1
+                the_sum+=r
+            elif the_sum>target:
+                the_sum-=l 
+                l+=1
+            elif the_sum==target:
+                res.append([x for x in range(l,r+1)])
+                the_sum-=l 
+                l+=1
+        return res
+
+经典双指针题目
+
 
 二叉树
 ======================
@@ -2699,46 +2737,6 @@ https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/soluti
         return ''.join(strs)
 
 里面涉及到一些数学推导与证明，评论区和下面其他大佬的解答里面有证明。
-
-
-和为s的连续正数序列
------------------------------
-剑指 Offer 57 - II. 
-
-输入一个正整数 target ，输出所有和为 target 的连续正整数序列（至少含有两个数）。
-
-序列内的数字由小到大排列，不同序列按照首个数字从小到大排列。
-
-| 示例 1：
-| 输入：target = 9
-| 输出：[[2,3,4],[4,5]]
-
-| 示例 2：
-| 输入：target = 15
-| 输出：[[1,2,3,4,5],[4,5,6],[7,8]]
-::
-
-    def findContinuousSequence(self, target: int) -> List[List[int]]:
-        if target<=2:
-            return None
-        l,r = 1,1
-        res = []
-        the_sum = 1
-        while l<=target//2:
-            if the_sum<target:
-                r+=1
-                the_sum+=r
-            elif the_sum>target:
-                the_sum-=l 
-                l+=1
-            elif the_sum==target:
-                res.append([x for x in range(l,r+1)])
-                the_sum-=l 
-                l+=1
-        return res
-
-经典双指针题目
-
 
 
 
