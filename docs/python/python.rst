@@ -984,6 +984,14 @@ BQ问题多准备一下
 
 收到面试邀请后可以网上搜搜面经  比如https://www.glassdoor.ca/Interview/Cresta-CA-Interview-Questions-E3180909.htm
 
+考代码之前，先花1h以上把所有题型都给过一遍
+
+**面试前记得看** https://github.com/luochuankai-JHU/work_summary/blob/main/interview_lesson.md#monitor_and_computers
+
+**面试前记得看** https://github.com/luochuankai-JHU/work_summary/blob/main/interview_lesson.md#monitor_and_computers
+
+**面试前记得看** https://github.com/luochuankai-JHU/work_summary/blob/main/interview_lesson.md#monitor_and_computers
+
 笔试做题和面试做题
 ----------------------------------
 1. 输入输出要搞明白，line那个变量没有定义这种事情不要再发生了（我经常搞出这种变量未定义，超边界的事情）。例题1和例题2多看看
