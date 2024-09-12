@@ -1098,11 +1098,27 @@ ML knowledge
 
 **英语**。我发现很多项目的细节我其实用英语说不清楚。这个要多加练习。以后晚上多和chat练练？
 
-model的deployment我不知道。**docker Kubernetes noSQL/sql 数据库**
+model的deployment我不知道。
+
+docker
+
+Kubernetes 
+
+noSQL/sql 
+
+数据库
+
+data warehousing
+
+PySpark
+
+ETL processes
 
 云相关的内容要学
 
-**system design**这个需要恶补   **OOD**
+CI/CD
+
+**system design** 这个需要恶补   **OOD**
 
 **leetcode**还是要继续刷，以后每天回家来一道？
 
