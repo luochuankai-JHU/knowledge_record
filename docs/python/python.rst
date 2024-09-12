@@ -1094,6 +1094,22 @@ ML knowledge
 
 欠缺需补
 ---------------------
+一点都不能松劲啊！！！
+
+**英语**。我发现很多项目的细节我其实用英语说不清楚。这个要多加练习。以后晚上多和chat练练？
+
+model的deployment我不知道。**docker Kubernetes noSQL/sql 数据库**
+
+云相关的内容要学
+
+**system design**这个需要恶补   **OOD**
+
+**leetcode**还是要继续刷，以后每天回家来一道？
+
+
+其他：
+
+
 Grokking the Machine Learning Interview！！！https://youtu.be/lh9CNRDqKBk
 
 怎么设计Youtube recommendation/doordash search box/auto suggestion
