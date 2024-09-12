@@ -992,6 +992,8 @@ BQ问题多准备一下
 
 **面试前记得看** https://github.com/luochuankai-JHU/work_summary/blob/main/interview_lesson.md#monitor_and_computers
 
+视频的时候可以穿个衬衫，显得专业/正式一点
+
 笔试做题和面试做题
 ----------------------------------
 1. 输入输出要搞明白，line那个变量没有定义这种事情不要再发生了（我经常搞出这种变量未定义，超边界的事情）。例题1和例题2多看看
