@@ -1120,7 +1120,7 @@ CI/CD
 
 **system design** 这个需要恶补   **OOD**
 
-**leetcode**还是要继续刷，以后每天回家来一道？
+**leetcode** 还是要继续刷，以后每天回家来一道？
 
 
 其他：
