@@ -1098,7 +1098,7 @@ ML knowledge
 
 **英语**。我发现很多项目的细节我其实用英语说不清楚。这个要多加练习。以后晚上多和chat练练？
 
-model的deployment我不知道。
+model的deployment我不知道。 **通用工具我不知道**
 
 docker
 
@@ -1118,7 +1118,7 @@ ETL processes
 
 CI/CD
 
-**system design** 这个需要恶补   **OOD**
+**system design** **OOD** 这个需要恶补   
 
 **leetcode** 还是要继续刷，以后每天回家来一道？
 
