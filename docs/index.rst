@@ -51,7 +51,7 @@
    :caption: LLM
    :maxdepth: 2
 
-   LLM/LLM
+   llm/llm
 
 
 .. toctree::
