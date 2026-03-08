@@ -48,8 +48,8 @@
    
 
 .. toctree::
-   :caption: LLM
-   :maxdepth: 2
+   :caption: llm
+   :maxdepth: 1
 
    llm/llm2
 
